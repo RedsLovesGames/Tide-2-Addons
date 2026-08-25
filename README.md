@@ -1,19 +1,18 @@
-# Tide Team Journal Wiki
+# Tideborne documentation
 
-This folder is a self-contained static documentation site. No build step or package install is required.
+Static GitHub Pages documentation for **Tideborne 1.3.28** on Minecraft 1.21.1.
 
-## Preview locally
+## Structure
 
-Open `index.html` directly, or serve the folder with any static web server:
+- `index.html`: lightweight documentation shell
+- `assets/content.js`: documentation, dependency data, and exact recipe data
+- `assets/app.js`: hash routing, navigation, search, TOC, recipes, theme, and mobile behavior
+- `assets/styles.css`: centralized deep-ocean design system and responsive layout
+- `assets/items/`: Tideborne item textures extracted from the audited 1.3.28 JAR
+- `assets/logo.svg`: retained existing site logo for this release
 
-```text
-npx http-server wiki
-```
+There is no framework and no build step. GitHub Pages can publish the repository root directly.
 
-## Publish with GitHub Pages
+## Source of truth
 
-Publish the `wiki/` folder as the site root. The wiki uses hash-based navigation, so every page and search result works on GitHub Pages without redirect configuration.
-
-## Content source
-
-Feature and reference documentation is based on Tide Team Journal 1.4.0 source code and its generated default configuration. The visual structure follows the official Tide wiki's Material-style documentation pattern while using an original Tide Team Journal palette and artwork.
+The redesign was written against `Tideborne-1.3.28-top-fish-3d-preview.jar`. `fabric.mod.json`, packaged recipe JSONs, current resources, and compiled 1.3.28 behavior take precedence over older standalone Tide Traits, Tide Team Journal, Tide Multiplayer Extras, or Tidebound Compatibility documentation.
