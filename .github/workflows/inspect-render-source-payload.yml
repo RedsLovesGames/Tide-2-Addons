@@ -1,0 +1,77 @@
+name: Inspect render source import payload
+
+on:
+  push:
+    branches: [fish-render-source-import]
+    paths:
+      - '.github/workflows/inspect-render-source-payload.yml'
+      - 'tools/fish-render-source/import-payload/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode and inspect payload metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import base64, gzip, io, json, pathlib, tarfile, zipfile
+          root = pathlib.Path('tools/fish-render-source/import-payload')
+          chunks = sorted(root.glob('meta-*.b64'))
+          if not chunks:
+              raise SystemExit('No payload chunks found')
+          encoded = ''.join(p.read_text().strip() for p in chunks)
+          raw = base64.b64decode(encoded)
+          print('CHUNKS', len(chunks))
+          print('BASE64_CHARS', len(encoded))
+          print('DECODED_BYTES', len(raw))
+          if raw[:2] == b'\x1f\x8b':
+              data = gzip.decompress(raw)
+              print('GZIP_BYTES', len(data))
+          else:
+              data = raw
+          print('MAGIC', repr(data[:32]))
+          try:
+              obj = json.loads(data.decode('utf-8'))
+          except Exception as exc:
+              print('JSON', type(exc).__name__, str(exc))
+          else:
+              print('JSON_TYPE', type(obj).__name__)
+              if isinstance(obj, dict):
+                  print('JSON_KEYS', sorted(obj.keys()))
+                  for key, value in obj.items():
+                      if isinstance(value, (list, dict, str, int, float, bool)) or value is None:
+                          if isinstance(value, list):
+                              print('KEY', key, 'LIST_LEN', len(value))
+                              print('SAMPLE', repr(value[:2])[:4000])
+                          elif isinstance(value, dict):
+                              print('KEY', key, 'DICT_LEN', len(value), 'SUBKEYS', list(value)[:30])
+                          else:
+                              print('KEY', key, repr(value)[:2000])
+              raise SystemExit(0)
+          bio = io.BytesIO(data)
+          try:
+              with tarfile.open(fileobj=bio, mode='r:*') as tf:
+                  names = tf.getnames()
+                  print('TAR_ENTRIES', len(names))
+                  print('\n'.join(names[:100]))
+                  raise SystemExit(0)
+          except tarfile.ReadError:
+              pass
+          bio.seek(0)
+          try:
+              with zipfile.ZipFile(bio) as zf:
+                  names = zf.namelist()
+                  print('ZIP_ENTRIES', len(names))
+                  print('\n'.join(names[:100]))
+                  raise SystemExit(0)
+          except zipfile.BadZipFile:
+              pass
+          print('TEXT_SAMPLE', data[:8000].decode('utf-8', errors='replace'))
+          PY
