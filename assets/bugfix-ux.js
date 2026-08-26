@@ -31,7 +31,7 @@ const itemMap={
   'Fish Finder':{id:'tide:fish_finder',src:tideTexture('fish_finder'),source:'Tide'},
   "Angler's Satchel":{id:'tide_traits:anglers_satchel',src:'assets/items/anglers_satchel.png',source:'Tideborne'},
   'Tentacle Line':{id:'tidebound_compatibility:tentacle_line',src:'assets/items/tentacle_line.png',source:'Tideborne + Myths'},
-  'Abaia Line':{id:'tidebound_compatibility:swift_line',src:'assets/items/swift_line.png',source:'Tideborne + Myths'},
+  'Abaia Line':{id:'tidebound_compatibility:swift_line',src:'assets/items/abaia_line.png',source:'Tideborne + Myths'},
   "Seafarer's Hook":{id:'tidebound_compatibility:seafarers_hook',src:'assets/items/seafarers_hook.png',source:'Tideborne + Myths'},
   'Leviathan Bait':{id:'tidebound_compatibility:leviathan_bait',src:'assets/items/leviathan_bait.png',source:'Tideborne + Myths'},
   'Chum Bucket':{id:'tidebound_compatibility:chum_bucket',src:'assets/items/chum_bucket.png',source:'Tideborne + Apex'},
