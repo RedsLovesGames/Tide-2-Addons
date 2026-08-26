@@ -1,21 +1,31 @@
 # Tideborne documentation
 
-Static GitHub Pages documentation for **Tideborne 1.3.28** on Minecraft 1.21.1.
+Static GitHub Pages documentation for Tideborne, with the active repository documentation/runtime overlay targeting **Tideborne 1.3.57** on Minecraft 1.21.1.
 
 ## Structure
 
 - `index.html`: lightweight documentation shell
-- `assets/content.js`: documentation, dependency data, exact Tideborne recipe data, and structured equipment reference data
-- `assets/app.js`: hash routing, navigation, search, TOC, graphical recipes, equipment tables, theme, and mobile behavior
-- `assets/styles.css`: centralized deep-ocean design system and responsive layout
-- `assets/items/`: Tideborne item textures extracted from the audited 1.3.28 JAR
-- recipe ingredient textures are embedded in the renderer from verified upstream source assets
-- `assets/logo.svg`: retained existing site logo for this release
+- `fish/index.html`: integrated Fish Wiki subsection
+- `assets/content.js`: documentation, dependency data, recipe data, and structured equipment reference data
+- `assets/latest-1357.js`: current 1.3.57 documentation/runtime corrections layered over older base content
+- `assets/app.js`: hash routing, navigation, search, TOC, recipes, equipment tables, theme, and mobile behavior
+- `assets/fish-wiki*.js/css`: Fish Wiki catalog, detail, search, and UI behavior
+- `scripts/`: FishData generation, deterministic validation, and browser QA
+- `.agent/`: persistent development status, source tracking, validation rules, and the short continuation prompt
+- `tools/TideFishRenderExporter/`: Fabric 1.21.1 authentic fish-render exporter scaffold
 
-There is no framework and no build step. GitHub Pages can publish the repository root directly.
+The site remains framework-free and deploys from the repository root through GitHub Pages.
 
-## Source of truth
+## Development
 
-Tideborne behavior and recipes are documented against `Tideborne-1.3.28-top-fish-3d-preview.jar`. `fabric.mod.json`, packaged recipe JSONs, current resources, and compiled 1.3.28 behavior take precedence over older standalone Tide Traits, Tide Team Journal, Tide Multiplayer Extras, or Tidebound Compatibility documentation.
+Future AI/Codex sessions should read `AGENTS.md` and `.agent/STATUS.md` before editing.
 
-The Tide equipment reference and Tide-owned recipe ingredient art use Tide 2.1.1 source from `Lightning-64/Tide-2`. Myths-owned recipe ingredient art uses the public Myths of the Sea source repository. Vanilla recipe ingredient icons use extracted Minecraft 1.21.1 assets. Tideborne-owned outputs use the textures packaged in the audited Tideborne JAR.
+Primary deterministic validation:
+
+```bash
+npm run validate
+```
+
+The authoritative FishData build currently pins Tide 2.1.1 commit `876b95f31328f4e698d5150f7d840ab033d1b06d` and Tide Extra Compatibility 2.2.0 Modrinth version `Uz6Vlhjs`.
+
+The repository targets Tideborne 1.3.57 behavior, but the exact authoritative Tideborne JAR and its SHA-256 are not stored in this repository. Until a SHA-backed audit is cached under `docs/generated/audits/`, do not treat older version text as stronger evidence than the supplied authoritative JAR.
