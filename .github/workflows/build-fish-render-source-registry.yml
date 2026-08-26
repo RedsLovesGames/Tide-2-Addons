@@ -1,0 +1,89 @@
+name: Build fish render source registry
+
+on:
+  push:
+    branches: [fish-render-source-import]
+    paths:
+      - '.github/workflows/build-fish-render-source-registry.yml'
+      - 'tools/fish-render-source/source-manifest.json'
+      - 'tools/fish-render-source/download_sources.py'
+      - 'tools/fish-render-source/extract_fish_render_sources.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-registry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download and verify authoritative sources
+        run: |
+          set -euo pipefail
+          rm -rf .render-source-work
+          mkdir -p .render-source-work/mods
+          python tools/fish-render-source/download_sources.py \
+            --manifest tools/fish-render-source/source-manifest.json \
+            --out .render-source-work/mods \
+            --resolved-manifest .render-source-work/resolved-source-manifest.json
+
+      - name: Extract FishData and render-source inventory
+        run: |
+          set -euo pipefail
+          python tools/fish-render-source/extract_fish_render_sources.py \
+            --mods .render-source-work/mods \
+            --out .render-source-work/fish_render_sources
+
+      - name: Validate registry contract
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, pathlib
+          generated=pathlib.Path('.render-source-work/fish_render_sources/registry/fish-render-registry.json')
+          authoritative=pathlib.Path('fish/render-data/registry/supported-fish-registry.json')
+          d=json.loads(generated.read_text())
+          existing=json.loads(authoritative.read_text())
+          fish=d.get('fish',[])
+          ids=[x.get('fish_id') for x in fish]
+          expected_ids={x.get('fish_id') for x in existing.get('fish',[])}
+          got_ids=set(ids)
+          assert fish, 'registry contains no fish'
+          assert len(ids)==len(got_ids), 'duplicate fish IDs remain after merge'
+          assert sum(1 for x in fish if x.get('source_mod')=='tide') >= 102, 'Tide 2.1.1 FishData is incomplete'
+          assert any(x.get('definition_source_mod')!='tide' for x in fish), 'compatibility FishData was not imported'
+          assert all('display_data' in x for x in fish), 'registry entry missing display_data'
+          missing=sorted(expected_ids-got_ids)
+          extra=sorted(got_ids-expected_ids)
+          if missing or extra:
+              print('REGISTRY_ID_MISMATCH missing=',missing,'extra=',extra)
+              raise SystemExit(1)
+          assert len(fish)==existing.get('fish_count')==182, (len(fish),existing.get('fish_count'))
+          print('REGISTRY_VALID fish=',len(fish),'mods=',d.get('counts_by_source_mod'),'no_display_entity=',len(d.get('no_display_entity',[])))
+          PY
+
+      - name: Package source import results
+        run: |
+          set -euo pipefail
+          mkdir -p .render-source-artifact
+          cp -a .render-source-work/fish_render_sources/registry .render-source-artifact/
+          cp .render-source-work/resolved-source-manifest.json .render-source-artifact/
+          python - <<'PY'
+          import json, pathlib
+          src=pathlib.Path('.render-source-work/fish_render_sources/registry/fish-render-registry.json')
+          d=json.loads(src.read_text())
+          pathlib.Path('.render-source-artifact/fish-render-registry.web.json').write_text(json.dumps(d,separators=(',',':'))+'\n')
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fish-render-source-registry
+          path: .render-source-artifact/
+          if-no-files-found: error
+          retention-days: 30
