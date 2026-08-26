@@ -147,7 +147,7 @@ try {
   assert.match(traitsText, /one Body Type/i);
   assert.match(traitsText, /one Condition/i);
   assert.match(traitsText, /Giant \+ Iridescent/);
-  assert.match(traitsText, /95thâ€“100th percentile/);
+  assert.match(traitsText, /95th–100th percentile/);
   assert.match(traitsText, /\+350 Condition bonus/);
   assert.equal(await desktop.locator('.trait-equation').count(), 1, 'Body Type + Condition diagram missing');
 
@@ -172,7 +172,7 @@ try {
   await desktop.goto(`${base}/#/satchel`, { waitUntil: 'networkidle' });
   await waitForDoc(desktop);
   const satchelText = (await desktop.locator('#article').textContent()) || '';
-  assert.match(satchelText, /Craft a 3Ã—3 upgrade/);
+  assert.match(satchelText, /Craft a 3×3 upgrade/);
   assert.doesNotMatch(satchelText, /Spend 100 XP points/);
 
   await desktop.goto(`${base}/#/recipes`, { waitUntil: 'networkidle' });
@@ -219,4 +219,5 @@ if (failures.length) {
 }
 
 console.log('Fish Wiki browser QA passed: temporary modpack-only fish scope, default/base visual phase, desktop/tablet/mobile layouts, filters, scoped search/autocomplete, deep links, item textures, current 1.3.57 docs, recipe deep links, and GitHub Pages-style base path.');
+
 
