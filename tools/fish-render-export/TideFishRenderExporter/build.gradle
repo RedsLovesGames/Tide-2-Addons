@@ -23,6 +23,15 @@ dependencies {
         exclude group: 'net.fabricmc.fabric-api'
     }
     modImplementation "maven.modrinth:die1AF7i:ztNu3GtG"
+    modImplementation "maven.modrinth:HH4FjUqN:F5POkJG0"
+    modImplementation "maven.modrinth:Yd4wb5wZ:ih64rzUz"
+    modImplementation "maven.modrinth:Ha28R6CL:bdhiINYC"
+    modImplementation "maven.modrinth:1eAoo2KR:UCDofDYx"
+    modImplementation "maven.modrinth:lhGA9TYQ:Wto0RchG"
+    modImplementation "maven.modrinth:8BmcQJ2H:sLlRgyS8"
+    modImplementation "maven.modrinth:XaDC71GB:7FWLrZRG"
+    modImplementation "maven.modrinth:iGEl6Crx:Tgfz9ihs"
+    modImplementation "maven.modrinth:5aaWibi9:JagCscwi"
 }
 
 loom {
@@ -43,7 +52,7 @@ loom {
             programArg "1024"
             programArg "--height"
             programArg "1024"
-            environmentVariable("TIDE_FISH_RENDER_AUTO", "tide:tuna")
+            environmentVariable("TIDE_FISH_RENDER_AUTO", "scope")
         }
     }
 }
