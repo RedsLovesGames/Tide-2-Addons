@@ -12,16 +12,22 @@ public final class TideFishRenderExporter implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(
-            literal("fishrender")
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+            var exportAll = literal("all")
+                .executes(ctx -> RenderCommands.exportAll(ctx.getSource(), "default"))
+                .then(argument("variant", StringArgumentType.word())
+                    .executes(ctx -> RenderCommands.exportAll(ctx.getSource(), StringArgumentType.getString(ctx, "variant"))));
+            var exportTide = literal("tide")
+                .executes(ctx -> RenderCommands.exportNamespace(ctx.getSource(), "tide", "default"))
+                .then(argument("variant", StringArgumentType.word())
+                    .executes(ctx -> RenderCommands.exportNamespace(ctx.getSource(), "tide", StringArgumentType.getString(ctx, "variant"))));
+            var exportFish = argument("fish", StringArgumentType.word())
+                .executes(ctx -> RenderCommands.exportFish(ctx.getSource(), StringArgumentType.getString(ctx, "fish"), "default"))
+                .then(argument("variant", StringArgumentType.word())
+                    .executes(ctx -> RenderCommands.exportFish(ctx.getSource(), StringArgumentType.getString(ctx, "fish"), StringArgumentType.getString(ctx, "variant"))));
+            dispatcher.register(literal("fishrender")
                 .then(literal("verify").executes(ctx -> RenderCommands.verify(ctx.getSource())))
-                .then(literal("export")
-                    .then(literal("all").executes(ctx -> RenderCommands.exportAll(ctx.getSource(), "default")))
-                    .then(literal("tide").executes(ctx -> RenderCommands.exportNamespace(ctx.getSource(), "tide", "default")))
-                    .then(argument("fish", StringArgumentType.word())
-                        .executes(ctx -> RenderCommands.exportFish(ctx.getSource(), StringArgumentType.getString(ctx, "fish"), "default"))
-                        .then(argument("variant", StringArgumentType.word())
-                            .executes(ctx -> RenderCommands.exportFish(ctx.getSource(), StringArgumentType.getString(ctx, "fish"), StringArgumentType.getString(ctx, "variant")))))))
-        ));
+                .then(literal("export").then(exportAll).then(exportTide).then(exportFish)));
+        });
     }
 }
