@@ -1,4 +1,4 @@
-name: Build Tide Fish Render Exporter
+name: Build and smoke Tide Fish Render Exporter
 
 on:
   push:
@@ -7,15 +7,17 @@ on:
       - '.github/workflows/build-fish-render-exporter.yml'
       - 'tools/fish-render-export/TideFishRenderExporter/**'
       - 'fish/render-data/registry/supported-fish-registry.json'
+      - 'fish/render-data/modpack-scope.json'
+      - 'assets/fish-search-index.json'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  build-exporter:
+  build-and-render:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 25
     defaults:
       run:
         working-directory: tools/fish-render-export/TideFishRenderExporter
@@ -45,21 +47,112 @@ jobs:
           jar tf "$JAR" | grep -F 'fishrender/fish-render-registry.json'
           echo "EXPORTER_JAR=$JAR"
 
-      - name: Package source project
+      - name: Generate disposable 1.21.1 world
+        run: |
+          set -euo pipefail
+          rm -rf run/server run/client
+          mkdir -p run/server
+          printf 'eula=true\n' > run/server/eula.txt
+          cat > run/server/server.properties <<'EOF'
+          online-mode=false
+          level-name=world
+          spawn-protection=0
+          view-distance=2
+          simulation-distance=2
+          max-tick-time=-1
+          EOF
+          set +e
+          timeout --signal=INT --kill-after=15s 60s gradle --no-daemon runServer
+          server_status=$?
+          set -e
+          if [ "$server_status" -ne 0 ] && [ "$server_status" -ne 124 ] && [ "$server_status" -ne 130 ]; then
+            echo "Dedicated server exited unexpectedly with $server_status"
+            exit "$server_status"
+          fi
+          test -f run/server/world/level.dat
+          mkdir -p run/client/saves
+          cp -a run/server/world run/client/saves/RenderWorld
+          test -f run/client/saves/RenderWorld/level.dat
+
+      - name: Run source-authentic Tide renderer under Xvfb
+        run: |
+          set -euo pipefail
+          if ! command -v xvfb-run >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y xvfb
+          fi
+          set +e
+          timeout --signal=INT --kill-after=20s 10m xvfb-run -a gradle --no-daemon runRenderClient
+          client_status=$?
+          set -e
+          if [ -f run/client/logs/latest.log ]; then
+            echo '--- fish render lifecycle markers ---'
+            grep -E 'FISHRENDER_(AUTO_|ENTITY)' run/client/logs/latest.log || true
+            echo '--- last 120 Minecraft client log lines ---'
+            tail -n 120 run/client/logs/latest.log || true
+          fi
+          if [ "$client_status" -ne 0 ] && [ "$client_status" -ne 124 ] && [ "$client_status" -ne 130 ]; then
+            echo "Render client exited unexpectedly with $client_status"
+            exit "$client_status"
+          fi
+
+      - name: Validate Tide runtime render contract
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check pillow
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+
+          root = Path('run/client/fishrender-output')
+          status_path = root / 'generated/auto-export-status.json'
+          report_path = root / 'generated/render-report.json'
+          assert status_path.exists(), f'missing {status_path}'
+          assert report_path.exists(), f'missing {report_path}'
+          status = json.loads(status_path.read_text())
+          report = json.loads(report_path.read_text())
+          pngs = sorted((root / 'fish/assets/renders').glob('*.png'))
+          assert status['status'] == 'success', status
+          assert status['mode'] == 'tide:tuna', status
+          assert status['total_fish'] == 1, status
+          assert status['successful'] == 1, status
+          assert status['failed'] == 0, status
+          assert report['failed'] == 0, report.get('exceptions')
+          assert report['mode'] == 'export:tide:tuna:default', report
+          assert [png.name for png in pngs] == ['tide__tuna.png'], pngs
+          with Image.open(pngs[0]) as image:
+              assert image.mode == 'RGBA', image.mode
+              alpha = image.getchannel('A')
+              bounds = alpha.getbbox()
+              assert bounds is not None, 'render has no non-transparent pixels'
+              assert alpha.getextrema()[1] > 0, alpha.getextrema()
+              left, top, right, bottom = bounds
+              assert left > 0 and top > 0 and right < image.width and bottom < image.height, (image.size, bounds)
+              width, height = right - left, bottom - top
+              assert width > height, f'tuna is not framed in side profile: {width}x{height}'
+              visible = [rgba[:3] for rgba in image.getdata() if rgba[3] > 0]
+              assert any(rgb != (0, 0, 0) for rgb in visible), 'render contains only black pixels'
+          print(f'RUNTIME_RENDER_VALID fish=tide:tuna png={pngs[0]} alpha_bounds={bounds}')
+          PY
+
+      - name: Package exporter source and runtime evidence
+        if: always()
         run: |
           set -euo pipefail
           rm -rf ../../../render-exporter-artifact
           mkdir -p ../../../render-exporter-artifact
-          cp build/libs/tide-fish-render-exporter-*.jar ../../../render-exporter-artifact/
+          cp build/libs/tide-fish-render-exporter-*.jar ../../../render-exporter-artifact/ 2>/dev/null || true
+          cp -a run/client/fishrender-output ../../../render-exporter-artifact/ 2>/dev/null || true
+          cp -a run/client/logs ../../../render-exporter-artifact/client-logs 2>/dev/null || true
           cd ..
           zip -qr ../../render-exporter-artifact/TideFishRenderExporter-source.zip TideFishRenderExporter \
-            -x 'TideFishRenderExporter/.gradle/*' 'TideFishRenderExporter/build/*'
-          cp ../../fish/render-data/registry/supported-fish-registry.json ../../render-exporter-artifact/fish-render-registry.json
-          find ../../render-exporter-artifact -maxdepth 1 -type f -print
+            -x 'TideFishRenderExporter/.gradle/*' 'TideFishRenderExporter/build/*' 'TideFishRenderExporter/run/*' || true
 
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: tide-fish-render-exporter
           path: render-exporter-artifact/
-          if-no-files-found: error
-          retention-days: 30
+          if-no-files-found: warn
+          retention-days: 14
