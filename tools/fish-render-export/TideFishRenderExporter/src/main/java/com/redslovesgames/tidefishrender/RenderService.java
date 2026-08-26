@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.SimpleFramebuffer;
+import net.minecraft.entity.Entity;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -190,6 +191,11 @@ final class RenderService {
         try {
             FishDisplayRenderer renderer = new FishDisplayRenderer(client.getEntityRenderDispatcher());
             renderer.render(display, 0f, matrices, consumers, LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV);
+            Entity renderedEntity = display.getRenderedEntity();
+            if (renderedEntity == null) throw new IllegalStateException("Tide Fish Display did not create a rendered entity");
+            System.out.println("FISHRENDER_ENTITY fish=" + display.getDisplayStack().getItem()
+                    + " entity=" + renderedEntity.getType()
+                    + " renderer=" + client.getEntityRenderDispatcher().getRenderer(renderedEntity).getClass().getName());
             consumers.draw();
             NativeImage image = new NativeImage(framebuffer.textureWidth, framebuffer.textureHeight, false);
             framebuffer.beginRead();
