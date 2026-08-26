@@ -97,8 +97,9 @@ function mount(){
   const idx=ordered.findIndex(r=>r.id===current);
   if(idx<0)return;
 
-  if(article.querySelector('.specimen-nav.modpack-scope-nav'))return;
-  article.querySelectorAll('.specimen-nav').forEach(n=>n.remove());
+  const scopedNav=article.querySelector('.specimen-nav.modpack-scope-nav');
+  article.querySelectorAll('.specimen-nav:not(.modpack-scope-nav)').forEach(n=>n.remove());
+  if(scopedNav)return;
 
   const prev=ordered[(idx-1+ordered.length)%ordered.length];
   const next=ordered[(idx+1)%ordered.length];
@@ -119,3 +120,4 @@ for(const id of ['filter-group','filter-mod','filter-rarity','filter-stars','fil
 window.addEventListener('hashchange',()=>setTimeout(()=>{applyScope();mount()},0));
 setTimeout(()=>{applyScope();mount()},250);
 })();
+
