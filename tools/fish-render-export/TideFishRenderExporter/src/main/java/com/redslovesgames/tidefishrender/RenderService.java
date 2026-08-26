@@ -15,7 +15,6 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.util.BufferAllocator;
-import net.minecraft.client.util.ScreenshotRecorder;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -170,7 +169,15 @@ final class RenderService {
             FishDisplayRenderer renderer = new FishDisplayRenderer(client.getEntityRenderDispatcher());
             renderer.render(display, 0f, matrices, consumers, LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV);
             consumers.draw();
-            return ScreenshotRecorder.takeScreenshot(framebuffer);
+            NativeImage image = new NativeImage(framebuffer.textureWidth, framebuffer.textureHeight, false);
+            framebuffer.beginRead();
+            try {
+                image.loadFromTextureImage(0, false);
+            } finally {
+                framebuffer.endRead();
+            }
+            image.mirrorVertically();
+            return image;
         } finally {
             framebuffer.endWrite();
             framebuffer.delete();
@@ -211,3 +218,4 @@ final class RenderService {
     private record Job(RegistryLoader.Entry entry, String variant) {}
     private record RenderResult(Path png, ImageOps.Bounds bounds, double lengthCm) {}
 }
+

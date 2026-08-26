@@ -91,9 +91,11 @@ jobs:
       - name: Validate Tide runtime render contract
         run: |
           set -euo pipefail
+          python -m pip install --disable-pip-version-check pillow
           python - <<'PY'
           import json
           from pathlib import Path
+          from PIL import Image
 
           root = Path('run/client/fishrender-output')
           status_path = root / 'generated/auto-export-status.json'
@@ -119,7 +121,19 @@ jobs:
           data = pngs[0].read_bytes()
           assert len(data) > 256, (pngs[0], len(data))
           assert data.startswith(b'\x89PNG\r\n\x1a\n'), pngs[0]
-          print(f'RUNTIME_RENDER_VALID fish=tide:tuna png={pngs[0]} report={report_path}')
+          with Image.open(pngs[0]) as image:
+              assert image.mode == 'RGBA', image.mode
+              alpha = image.getchannel('A')
+              assert alpha.getextrema() == (0, 255), alpha.getextrema()
+              bounds = alpha.getbbox()
+              assert bounds is not None, 'render has no non-transparent pixels'
+              left, top, right, bottom = bounds
+              assert left > 0 and top > 0 and right < image.width and bottom < image.height, (image.size, bounds)
+              width, height = right - left, bottom - top
+              assert width > height, f'tuna is not framed in side profile: {width}x{height}'
+              opaque_colors = [rgba[:3] for rgba in image.getdata() if rgba[3] > 0]
+              assert any(rgb != (0, 0, 0) for rgb in opaque_colors), 'render contains only black pixels'
+          print(f'RUNTIME_RENDER_VALID fish=tide:tuna png={pngs[0]} alpha_bounds={bounds} report={report_path}')
           PY
 
       - name: Upload runtime evidence
