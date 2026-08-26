@@ -18,15 +18,31 @@ final class ImageOps {
 
     static Bounds alphaBounds(NativeImage image) {
         int minX = image.getWidth(), minY = image.getHeight(), maxX = -1, maxY = -1;
+        int rgbMinX = image.getWidth(), rgbMinY = image.getHeight(), rgbMaxX = -1, rgbMaxY = -1;
+        long alphaPixels = 0, rgbPixels = 0;
         for (int y = 0; y < image.getHeight(); y++) for (int x = 0; x < image.getWidth(); x++) {
             int abgr = image.getColor(x, y);
+            if ((abgr & 0x00FFFFFF) != 0) {
+                rgbPixels++;
+                if (x < rgbMinX) rgbMinX = x;
+                if (y < rgbMinY) rgbMinY = y;
+                if (x > rgbMaxX) rgbMaxX = x;
+                if (y > rgbMaxY) rgbMaxY = y;
+            }
             if (((abgr >>> 24) & 255) == 0) continue;
+            alphaPixels++;
             if (x < minX) minX = x;
             if (y < minY) minY = y;
             if (x > maxX) maxX = x;
             if (y > maxY) maxY = y;
         }
-        return maxX < 0 ? null : new Bounds(minX, minY, maxX, maxY);
+        if (maxX < 0) {
+            String rgbBounds = rgbMaxX < 0 ? "none" : rgbMinX + "," + rgbMinY + "-" + rgbMaxX + "," + rgbMaxY;
+            System.out.println("FISHRENDER_FRAME_STATS width=" + image.getWidth() + " height=" + image.getHeight()
+                    + " alpha_pixels=" + alphaPixels + " rgb_pixels=" + rgbPixels + " rgb_bounds=" + rgbBounds);
+            return null;
+        }
+        return new Bounds(minX, minY, maxX, maxY);
     }
 
     static NativeImage cropWithPadding(NativeImage source, Bounds bounds, int padding) {
