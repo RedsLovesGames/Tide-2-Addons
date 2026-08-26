@@ -73,6 +73,15 @@ def namespace(resource_id: str | None) -> str | None:
     return resource_id.split(":", 1)[0] if resource_id and ":" in resource_id else None
 
 
+def archive_resource_namespaces(names: set[str]) -> list[str]:
+    found = set()
+    for name in names:
+        parts = PurePosixPath(name).parts
+        if len(parts) >= 3 and parts[0] in {"assets", "data"}:
+            found.add(parts[1].lower())
+    return sorted(found)
+
+
 def texture_paths(names: set[str], entity_id: str | None) -> list[str]:
     if not entity_id or ":" not in entity_id:
         return []
@@ -147,6 +156,9 @@ def scan_archive(path: Path, out_dir: Path) -> tuple[dict, list[dict], set[str]]
             entity_id = display.get("entity")
             journal = obj.get("journal_profile") or {}
             owner = namespace(entity_id) or namespace(fish_id) or meta["id"]
+            associated_mods = obj.get("associated_mods") or []
+            if isinstance(associated_mods, str):
+                associated_mods = [associated_mods]
             fish_defs.append({
                 "key": fish_id,
                 "source_archive": path.name,
@@ -159,6 +171,7 @@ def scan_archive(path: Path, out_dir: Path) -> tuple[dict, list[dict], set[str]]
                 "bucket_id": obj.get("bucket"),
                 "entity_id": entity_id,
                 "entity_mod": namespace(entity_id),
+                "associated_mods": associated_mods,
                 "display_data": display,
                 "journal_profile": journal,
                 "size": obj.get("size") or {},
@@ -179,6 +192,7 @@ def scan_archive(path: Path, out_dir: Path) -> tuple[dict, list[dict], set[str]]
             "sha256": sha256(path),
             "bytes": path.stat().st_size,
             "mod": meta,
+            "resource_namespaces": archive_resource_namespaces(names),
             "fish_definition_count": len(fish_defs),
             "extracted_file_count": extracted,
             "render_class_count": sum(1 for n in names if n.endswith(".class") and any(h in n.lower() for h in RENDER_CLASS_HINTS)),
@@ -216,6 +230,15 @@ def main() -> int:
         except zipfile.BadZipFile:
             print(f"SCAN_SKIP invalid_archive={archive.name}")
 
+    available_namespaces = {"minecraft"}
+    for inv in inventories:
+        if inv["mod"].get("loader") == "datapack":
+            continue
+        mod_id = str(inv["mod"].get("id") or "").lower()
+        if mod_id:
+            available_namespaces.add(mod_id)
+        available_namespaces.update(inv.get("resource_namespaces") or [])
+
     merged: dict[str, dict] = {}
     duplicates: dict[str, list[dict]] = {}
     for entry in fish_defs:
@@ -226,6 +249,22 @@ def main() -> int:
                 merged[key] = entry
         else:
             merged[key] = entry
+
+    unsupported: dict[str, dict] = {}
+    for key, entry in list(merged.items()):
+        owner = str(entry.get("entity_mod") or entry.get("source_mod") or "").lower()
+        required = {str(x).lower() for x in (entry.get("associated_mods") or []) if x}
+        missing_requirements = sorted(required - available_namespaces)
+        if owner not in available_namespaces or missing_requirements:
+            unsupported[key] = {
+                "fish_id": entry.get("fish_id"),
+                "entity_id": entry.get("entity_id"),
+                "owner_namespace": owner,
+                "associated_mods": sorted(required),
+                "missing_requirements": missing_requirements,
+                "reason": "owning_mod_not_supplied" if owner not in available_namespaces else "associated_mod_not_supplied"
+            }
+            del merged[key]
 
     for entry in merged.values():
         tex = []
@@ -271,6 +310,9 @@ def main() -> int:
         "fish_count": len(fish),
         "counts_by_source_mod": dict(sorted(by_mod.items())),
         "counts_by_group": dict(sorted(by_group.items())),
+        "available_resource_namespaces": sorted(available_namespaces),
+        "unsupported_count": len(unsupported),
+        "unsupported": dict(sorted(unsupported.items())),
         "no_display_entity": no_entity,
         "mods": [i["mod"] for i in inventories],
         "fish": fish,
@@ -278,7 +320,7 @@ def main() -> int:
     }
     (registry_dir / "fish-render-registry.json").write_text(json.dumps(registry, indent=2) + "\n", encoding="utf-8")
     (registry_dir / "archive-render-inventory.json").write_text(json.dumps(inventories, indent=2) + "\n", encoding="utf-8")
-    summary = {"archives_scanned": len(inventories), "fish_entries": len(fish), "duplicates": len(duplicates), "no_display_entity": len(no_entity), "counts_by_source_mod": registry["counts_by_source_mod"], "counts_by_group": registry["counts_by_group"]}
+    summary = {"archives_scanned": len(inventories), "fish_entries": len(fish), "unsupported": len(unsupported), "duplicates": len(duplicates), "no_display_entity": len(no_entity), "counts_by_source_mod": registry["counts_by_source_mod"], "counts_by_group": registry["counts_by_group"]}
     (registry_dir / "source-import-report.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print("IMPORT_SUMMARY " + json.dumps(summary, sort_keys=True))
     return 0
