@@ -1,0 +1,14 @@
+{
+  "name": "tideborne-docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-site.mjs",
+    "validate:static": "node scripts/validate-static-site.mjs",
+    "validate:provenance": "node scripts/validate-provenance.mjs",
+    "validate:state": "node scripts/validate-source-state.mjs",
+    "validate:fish": "python scripts/validate-fish-wiki.py",
+    "validate:renders": "python scripts/validate-fish-render-manifest.py",
+    "qa:browser": "node scripts/qa-fish-wiki.mjs"
+  }
+}

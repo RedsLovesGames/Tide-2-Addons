@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-26",
+  "workingBranch": "fish-wiki-production",
+  "production": {
+    "branch": "main",
+    "shaAtSnapshot": "610c5538be10c45822c0444faaa5697687e9d561"
+  },
+  "authoritativeInputs": {
+    "tideborne": {
+      "version": "1.3.57",
+      "filename": null,
+      "sha256": null,
+      "auditStatus": "missing_authoritative_jar",
+      "note": "Repository runtime/docs target is 1.3.57, but the exact authoritative JAR and SHA-256 are not present."
+    },
+    "tideFishData": {
+      "version": "2.1.1",
+      "commit": "876b95f31328f4e698d5150f7d840ab033d1b06d"
+    },
+    "tideExtraCompatibility": {
+      "version": "2.2.0",
+      "modrinthVersion": "Uz6Vlhjs"
+    }
+  },
+  "trackedArtifacts": {
+    "fishDataShard0": {"path": "assets/fish-wiki-data-0.json.gz", "gitBlobSha": "faa931a02d059d8a8a524296a140ece946f05eff"},
+    "fishDataShard1": {"path": "assets/fish-wiki-data-1.json.gz", "gitBlobSha": "f438a35c5b748721a3a047499c2eaf7df78bf5dc"},
+    "fishSearchIndex": {"path": "assets/fish-search-index.json", "gitBlobSha": "6cfabb759ff1d8e5c9318f0ba4cefda968c5a046"},
+    "fishBuildScript": {"path": "scripts/build-fish-wiki.py", "gitBlobSha": "36f0becc01dfa80fff4ec1b7d2b2a30d7aae9a30"},
+    "fishSourceInventory": {"path": "scripts/fish-source-inventory.txt", "gitBlobSha": "7dcc82b6a8706898a1e684a72cac326e985d6223"},
+    "renderManifest": {"path": "assets/fish-render-manifest.json", "gitBlobSha": "8e84ace0254a9b87db95ef687ad412f41730083b"}
+  },
+  "cacheRules": {
+    "fishData": ["tideFishData", "tideExtraCompatibility", "fishBuildScript"],
+    "tideborneAudit": ["tideborne.sha256"],
+    "renders": ["model", "texture", "displayData", "renderer", "compatibilityMods", "renderPipeline"],
+    "atlas": ["constituentRenders", "packingLogic", "metadataSchema"],
+    "searchIndex": ["fishMetadata", "indexedPages", "indexingLogic"]
+  }
+}
