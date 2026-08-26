@@ -38,6 +38,7 @@ public final class TideFishRenderExporter implements ClientModInitializer {
         ));
 
         if (AUTO_EXPORT != null && !AUTO_EXPORT.isBlank()) {
+            System.out.println("FISHRENDER_AUTO_ARMED mode=" + AUTO_EXPORT);
             ClientTickEvents.END_CLIENT_TICK.register(TideFishRenderExporter::tickAutoExport);
         }
     }
@@ -46,6 +47,7 @@ public final class TideFishRenderExporter implements ClientModInitializer {
         if (autoStarted || client.world == null || client.player == null) return;
         if (++readyTicks < 100) return;
         autoStarted = true;
+        System.out.println("FISHRENDER_AUTO_START mode=" + AUTO_EXPORT + " world=" + client.world.getRegistryKey().getValue());
         try {
             RenderService service = RenderService.create();
             RenderReport report = switch (AUTO_EXPORT.toLowerCase()) {
@@ -56,14 +58,20 @@ public final class TideFishRenderExporter implements ClientModInitializer {
                         ? service.exportNamespace(AUTO_EXPORT.substring("namespace:".length()), "default")
                         : service.exportFish(AUTO_EXPORT, "default");
             };
+            System.out.println("FISHRENDER_AUTO_DONE mode=" + AUTO_EXPORT + " total=" + report.totalFish()
+                    + " successful=" + report.successful() + " failed=" + report.failed()
+                    + " report=" + report.reportPath());
             writeAutoStatus(client, "success", report.reportPath().toString(), report.totalFish(), report.successful(), report.failed(), null);
         } catch (Throwable t) {
+            System.err.println("FISHRENDER_AUTO_EXCEPTION mode=" + AUTO_EXPORT + " type=" + t.getClass().getName()
+                    + " message=" + String.valueOf(t.getMessage()));
             t.printStackTrace();
             try {
                 writeAutoStatus(client, "exception", null, 0, 0, 1, t.getClass().getName() + ": " + String.valueOf(t.getMessage()));
             } catch (Exception ignored) {
             }
         } finally {
+            System.out.println("FISHRENDER_AUTO_STOP_REQUESTED mode=" + AUTO_EXPORT);
             client.scheduleStop();
         }
     }

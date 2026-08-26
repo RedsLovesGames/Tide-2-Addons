@@ -52,7 +52,7 @@ jobs:
           max-tick-time=-1
           EOF
           set +e
-          timeout --signal=INT --kill-after=15s 90s gradle --no-daemon runServer
+          timeout --signal=INT --kill-after=15s 60s gradle --no-daemon runServer
           server_status=$?
           set -e
           if [ "$server_status" -ne 0 ] && [ "$server_status" -ne 124 ] && [ "$server_status" -ne 130 ]; then
@@ -74,6 +74,12 @@ jobs:
           timeout --signal=INT --kill-after=20s 10m xvfb-run -a gradle --no-daemon runRenderClient
           client_status=$?
           set -e
+          if [ -f run/client/logs/latest.log ]; then
+            echo '--- fish render lifecycle markers ---'
+            grep -E 'FISHRENDER_AUTO_(ARMED|START|DONE|EXCEPTION|STOP_REQUESTED)' run/client/logs/latest.log || true
+            echo '--- last 120 Minecraft client log lines ---'
+            tail -n 120 run/client/logs/latest.log || true
+          fi
           if [ "$client_status" -ne 0 ] && [ "$client_status" -ne 124 ] && [ "$client_status" -ne 130 ]; then
             echo "Render client exited unexpectedly with $client_status"
             exit "$client_status"
@@ -112,6 +118,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tide-fish-runtime-renders
-          path: tools/fish-render-export/TideFishRenderExporter/run/client/fishrender-output/
+          path: |
+            tools/fish-render-export/TideFishRenderExporter/run/client/fishrender-output/
+            tools/fish-render-export/TideFishRenderExporter/run/client/logs/
           if-no-files-found: warn
           retention-days: 14
