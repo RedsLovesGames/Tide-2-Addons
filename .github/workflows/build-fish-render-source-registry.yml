@@ -71,19 +71,21 @@ jobs:
       - name: Package source import results
         run: |
           set -euo pipefail
-          mkdir -p .render-source-artifact
-          cp -a .render-source-work/fish_render_sources/registry .render-source-artifact/
-          cp .render-source-work/resolved-source-manifest.json .render-source-artifact/
+          rm -rf render-source-artifact
+          mkdir -p render-source-artifact
+          cp -a .render-source-work/fish_render_sources/registry render-source-artifact/
+          cp .render-source-work/resolved-source-manifest.json render-source-artifact/
           python - <<'PY'
           import json, pathlib
           src=pathlib.Path('.render-source-work/fish_render_sources/registry/fish-render-registry.json')
           d=json.loads(src.read_text())
-          pathlib.Path('.render-source-artifact/fish-render-registry.web.json').write_text(json.dumps(d,separators=(',',':'))+'\n')
+          pathlib.Path('render-source-artifact/fish-render-registry.web.json').write_text(json.dumps(d,separators=(',',':'))+'\n')
           PY
+          find render-source-artifact -maxdepth 3 -type f -print
 
       - uses: actions/upload-artifact@v4
         with:
           name: fish-render-source-registry
-          path: .render-source-artifact/
+          path: render-source-artifact/
           if-no-files-found: error
           retention-days: 30
