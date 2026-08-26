@@ -21,7 +21,7 @@ const workflow = fs.readFileSync('.github/workflows/build-fish-wiki-data.yml', '
 
 for (const [label, value, sources] of [
   ['Tide commit', tide?.commit, [['scripts/build-fish-wiki.py', builder], ['scripts/fish-source-inventory.txt', inventory], ['.github/workflows/build-fish-wiki-data.yml', workflow]]],
-  ['Tide Extra version', extra?.version, [['scripts/build-fish-wiki.py', builder], ['scripts/fish-source-inventory.txt', inventory], ['.github/workflows/build-fish-wiki-data.yml', workflow]]],
+  ['Tide Extra version', extra?.version, [['scripts/build-fish-wiki.py', builder], ['scripts/fish-source-inventory.txt', inventory]]],
   ['Tide Extra Modrinth version', extra?.modrinthVersion, [['scripts/fish-source-inventory.txt', inventory], ['.github/workflows/build-fish-wiki-data.yml', workflow]]],
 ]) {
   if (!(typeof value === 'string' && value.trim())) {
