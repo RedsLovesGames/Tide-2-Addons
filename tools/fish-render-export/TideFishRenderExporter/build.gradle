@@ -12,6 +12,7 @@ repositories {
     maven { url = 'https://maven.fabricmc.net/' }
     maven { url = 'https://maven.shedaniel.me/' }
     maven { url = 'https://maven.ladysnake.org/releases' }
+    maven { url = 'https://maven.isxander.dev/releases' }
     maven { url = 'https://api.modrinth.com/maven' }
 }
 
@@ -26,8 +27,8 @@ dependencies {
     modImplementation "maven.modrinth:die1AF7i:ztNu3GtG"
     modImplementation "maven.modrinth:HH4FjUqN:F5POkJG0"
     modImplementation "maven.modrinth:Yd4wb5wZ:ih64rzUz"
-    modImplementation "maven.modrinth:Ha28R6CL:bdhiINYC"
-    modImplementation "maven.modrinth:1eAoo2KR:UCDofDYx"
+    modImplementation "net.fabricmc:fabric-language-kotlin:1.13.13+kotlin.2.4.10"
+    modImplementation "dev.isxander:yet-another-config-lib:3.8.1+1.21.1-fabric"
     modImplementation "maven.modrinth:lhGA9TYQ:Wto0RchG"
     modImplementation "maven.modrinth:8BmcQJ2H:sLlRgyS8"
     modImplementation "maven.modrinth:XaDC71GB:7FWLrZRG"
