@@ -1,0 +1,58 @@
+name: Audit Fish Wiki Sources
+
+on:
+  push:
+    branches: [fish-wiki-production]
+    paths:
+      - .github/workflows/audit-fish-sources.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fish-wiki-production
+      - name: Download authoritative sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .fish-source-audit/tide-extra .fish-source-audit/tide
+          curl --fail --location --retry 3 \
+            'https://cdn.modrinth.com/data/goMfyYSL/versions/Uz6Vlhjs/Tide%20Extra%20Compatibility%202.2.zip' \
+            -o /tmp/tide-extra.zip
+          unzip -q /tmp/tide-extra.zip -d .fish-source-audit/tide-extra
+          curl --fail --location --retry 3 \
+            'https://github.com/Lightning-64/Tide-2/archive/876b95f31328f4e698d5150f7d840ab033d1b06d.zip' \
+            -o /tmp/tide.zip
+          unzip -q /tmp/tide.zip -d .fish-source-audit/tide
+      - name: Record source inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo '# Authoritative Fish Source Inventory'
+            echo
+            echo 'Generated from Tide 2 pinned commit 876b95f31328f4e698d5150f7d840ab033d1b06d and Tide Extra Compatibility 2.2.0 Modrinth version Uz6Vlhjs.'
+            echo
+            echo '## Tide Extra Compatibility files'
+            find .fish-source-audit/tide-extra -type f -printf '%P\n' | sort
+            echo
+            echo '## Tide fish/profile candidate files'
+            find .fish-source-audit/tide -type f \( -path '*/fishing/fish/*' -o -path '*/fishing/profile/*' -o -path '*/fish_data/*' \) -printf '%P\n' | sort
+          } > scripts/fish-source-inventory.txt
+          rm -rf .fish-source-audit
+      - name: Commit inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/fish-source-inventory.txt
+          git diff --cached --quiet && exit 0
+          git commit -m 'Audit authoritative Fish Wiki source layout'
+          git push origin HEAD:fish-wiki-production
