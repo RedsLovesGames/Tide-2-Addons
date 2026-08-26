@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import com.li64.tide.client.FishDisplayRenderer;
 import com.li64.tide.data.item.TideItemData;
 import com.li64.tide.registries.blocks.entities.FishDisplayBlockEntity;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.systems.VertexSorter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -21,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
@@ -155,11 +158,22 @@ final class RenderService {
     }
 
     private NativeImage renderFramebuffer(FishDisplayBlockEntity display, float scale) {
+        Matrix4f previousProjection = new Matrix4f(RenderSystem.getProjectionMatrix());
+        VertexSorter previousVertexSorting = RenderSystem.getVertexSorting();
+        int previousWidth = client.getFramebuffer().textureWidth;
+        int previousHeight = client.getFramebuffer().textureHeight;
         SimpleFramebuffer framebuffer = new SimpleFramebuffer(SOURCE_SIZE, SOURCE_SIZE, true, true);
         framebuffer.setClearColor(0f, 0f, 0f, 0f);
         framebuffer.setTexFilter(GL11.GL_NEAREST);
         framebuffer.beginWrite(true);
         framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+        RenderSystem.viewport(0, 0, SOURCE_SIZE, SOURCE_SIZE);
+        RenderSystem.setProjectionMatrix(
+                new Matrix4f().setPerspective((float) Math.toRadians(30.0), 1.0f, 0.05f, 100.0f),
+                VertexSorter.BY_DISTANCE
+        );
+        RenderSystem.enableDepthTest();
+        RenderSystem.depthMask(true);
         MatrixStack matrices = new MatrixStack();
         matrices.translate(0.0, -0.15, -3.2);
         matrices.scale(scale, scale, scale);
@@ -182,6 +196,8 @@ final class RenderService {
             framebuffer.endWrite();
             framebuffer.delete();
             allocator.close();
+            RenderSystem.setProjectionMatrix(previousProjection, previousVertexSorting);
+            RenderSystem.viewport(0, 0, previousWidth, previousHeight);
             client.getFramebuffer().beginWrite(true);
         }
     }
