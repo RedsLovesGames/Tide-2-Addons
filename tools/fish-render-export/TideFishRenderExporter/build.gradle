@@ -32,6 +32,7 @@ dependencies {
     modImplementation "maven.modrinth:XaDC71GB:7FWLrZRG"
     modImplementation "maven.modrinth:iGEl6Crx:Tgfz9ihs"
     modImplementation "maven.modrinth:5aaWibi9:JagCscwi"
+    modImplementation "maven.modrinth:K01OU20C:nLsCe2VD"
 }
 
 loom {
