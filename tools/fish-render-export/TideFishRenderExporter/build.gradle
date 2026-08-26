@@ -23,6 +23,15 @@ dependencies {
         exclude group: 'net.fabricmc.fabric-api'
     }
     modImplementation "maven.modrinth:die1AF7i:ztNu3GtG"
+    modImplementation "maven.modrinth:HH4FjUqN:F5POkJG0"
+    modImplementation "maven.modrinth:XaDC71GB:vPyJwd70"
+    modImplementation "maven.modrinth:iGEl6Crx:aBinwigO"
+    modImplementation "maven.modrinth:Ha28R6CL:bdhiINYC"
+    modImplementation "maven.modrinth:5aaWibi9:JagCscwi"
+    modImplementation "maven.modrinth:8BmcQJ2H:dnJdtm0u"
+    modImplementation "maven.modrinth:Yd4wb5wZ:ih64rzUz"
+    modImplementation "maven.modrinth:lhGA9TYQ:Pzc2FP5K"
+    modImplementation "maven.modrinth:1eAoo2KR:o3cDn8Vp"
 }
 
 loom {
