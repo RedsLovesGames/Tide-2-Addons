@@ -80,12 +80,13 @@ try {
   assert.equal(desktop.url(), `${base}/fish/#tide__tuna`);
   assert.equal(await desktop.locator('.specimen-nav').count(), 1, 'previous/next specimen navigation missing');
   assert.equal(await desktop.locator('.condition-viewer').count(), 1, 'Tuna condition viewer missing');
-  assert.equal(await desktop.locator('.condition-tabs button:not([disabled])').count(), 5, 'expected five validated Tuna condition renders');
+  assert.equal(await desktop.locator('.condition-tabs button:not([disabled])').count(), 4, 'expected four currently validated Tuna condition renders');
+  assert.equal(await desktop.locator('.condition-tabs button[data-condition="albino"]').isDisabled(), true, 'malformed Albino PNG must remain unavailable until re-exported');
   assert.equal(await desktop.locator('.condition-tabs button[data-condition="perfect_specimen"]').isDisabled(), true, 'Perfect Specimen must remain unavailable until validated');
-  await desktop.click('.condition-tabs button[data-condition="albino"]');
-  await desktop.waitForSelector('.condition-render[src*="tuna-albino.png"]');
-  assert.match((await desktop.locator('.entry-render small').textContent()) || '', /Albino.*source-backed/i);
-  await desktop.screenshot({ path: `${out}/tuna-albino-detail.png`, fullPage: true });
+  await desktop.click('.condition-tabs button[data-condition="iridescent"]');
+  await desktop.waitForSelector('.condition-render[src*="tuna-iridescent.png"]');
+  assert.match((await desktop.locator('.entry-render small').textContent()) || '', /Iridescent.*source-backed/i);
+  await desktop.screenshot({ path: `${out}/tuna-iridescent-detail.png`, fullPage: true });
 
   await desktop.click('#back-catalog');
   await desktop.waitForSelector('#catalog-view:not([hidden])');
@@ -112,9 +113,11 @@ try {
   await desktop.goto(`${base}/#/equipment`, { waitUntil: 'networkidle' });
   await waitForDoc(desktop);
   await desktop.waitForFunction(() => document.querySelectorAll('#article .doc-item-icon').length >= 20);
+  await desktop.waitForFunction(() => [...document.querySelectorAll('#article .doc-item-icon')].every(img => img.complete));
   const iconState = await desktop.locator('#article .doc-item-icon').evaluateAll(imgs => imgs.map(img => ({ complete: img.complete, width: img.naturalWidth, src: img.getAttribute('src') })));
   assert.ok(iconState.length >= 20, `expected at least 20 item textures, got ${iconState.length}`);
-  assert.ok(iconState.every(x => x.complete && x.width > 0), 'one or more item textures failed to load');
+  const brokenIcons = iconState.filter(x => !x.complete || x.width <= 0);
+  assert.deepEqual(brokenIcons, [], `item textures failed to load: ${JSON.stringify(brokenIcons)}`);
   const equipmentText = (await desktop.locator('#article').textContent()) || '';
   assert.match(equipmentText, /current Tide world time as HH:MM/);
   assert.match(equipmentText, /current moon phase/);
@@ -171,4 +174,4 @@ if (failures.length) {
   throw new Error(`Browser QA found ${failures.length} runtime/network errors:\n${failures.join('\n')}`);
 }
 
-console.log('Fish Wiki browser QA passed: authoritative catalog, desktop/tablet/mobile layouts, filters, search autocomplete, deep links, Tuna Condition renders, item textures, current 1.3.57 docs, recipe deep links, and GitHub Pages-style base path.');
+console.log('Fish Wiki browser QA passed: authoritative catalog, desktop/tablet/mobile layouts, filters, search autocomplete, deep links, validated Tuna Condition renders, item textures, current 1.3.57 docs, recipe deep links, and GitHub Pages-style base path.');
