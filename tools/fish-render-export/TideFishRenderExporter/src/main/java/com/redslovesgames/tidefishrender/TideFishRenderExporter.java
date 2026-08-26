@@ -69,11 +69,13 @@ public final class TideFishRenderExporter implements ClientModInitializer {
         autoStarted = true;
         System.out.println("FISHRENDER_AUTO_START mode=" + AUTO_EXPORT + " world=" + client.world.getRegistryKey().getValue());
         try {
-            RenderService service = RenderService.create();
+            boolean modpackScope = "scope".equalsIgnoreCase(AUTO_EXPORT);
+            RenderService service = RenderService.create(modpackScope);
             RenderReport report = switch (AUTO_EXPORT.toLowerCase()) {
                 case "verify" -> service.verifyAll();
                 case "all" -> service.exportAll("default");
                 case "tide" -> service.exportNamespace("tide", "default");
+                case "scope" -> service.exportModpackScope();
                 default -> AUTO_EXPORT.startsWith("namespace:")
                         ? service.exportNamespace(AUTO_EXPORT.substring("namespace:".length()), "default")
                         : service.exportFish(AUTO_EXPORT, "default");

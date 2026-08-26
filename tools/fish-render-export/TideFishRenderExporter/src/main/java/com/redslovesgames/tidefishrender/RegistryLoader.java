@@ -13,8 +13,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 final class RegistryLoader {
@@ -53,6 +56,33 @@ final class RegistryLoader {
         throw new IOException("Fish render registry not found. Put fish-render-registry.json in config/tide-fish-render-exporter/ or build the exporter from the Tide-2-Addons repository so the validated registry is bundled.");
     }
 
+    static List<Entry> loadModpackScope() throws IOException {
+        Map<String, Entry> known = new LinkedHashMap<>();
+        for (Entry entry : load()) known.put(entry.fishId(), entry);
+        JsonObject scope = readBundledObject("/fishrender/modpack-scope.json");
+        JsonArray modIds = scope.getAsJsonArray("mod_ids");
+        if (modIds == null) throw new IOException("Bundled modpack scope has no mod_ids[]");
+        Set<String> allowedNamespaces = new HashSet<>();
+        for (JsonElement element : modIds) if (element.isJsonPrimitive()) allowedNamespaces.add(element.getAsString());
+
+        JsonArray catalog = readBundledArray("/fishrender/fish-search-index.json");
+        Map<String, Entry> scoped = new LinkedHashMap<>();
+        for (JsonElement element : catalog) {
+            if (!element.isJsonObject()) continue;
+            JsonObject item = element.getAsJsonObject();
+            String fishId = str(item, "id", null);
+            if (fishId == null || !allowedNamespaces.contains(namespace(fishId))) continue;
+            Entry entry = known.get(fishId);
+            if (entry == null) {
+                String group = str(item, "group", "misc");
+                entry = new Entry(fishId, fishId, fishId, namespace(fishId), group, 20.0, 40.0, 60.0, item.deepCopy());
+            }
+            scoped.putIfAbsent(fishId, entry);
+        }
+        if (scoped.isEmpty()) throw new IOException("Modpack scope produced no fish render targets");
+        return scoped.values().stream().sorted(Comparator.comparing(Entry::fishId)).toList();
+    }
+
     private static List<Entry> parse(Reader reader, String source) throws IOException {
         JsonObject root = JsonParser.parseReader(reader).getAsJsonObject();
         JsonArray fish = root.getAsJsonArray("fish");
@@ -74,6 +104,22 @@ final class RegistryLoader {
         }
         if (out.isEmpty()) throw new IOException("Registry contained no usable fish entries: " + source);
         return List.copyOf(out);
+    }
+
+    private static JsonObject readBundledObject(String resourcePath) throws IOException {
+        var resource = RegistryLoader.class.getResourceAsStream(resourcePath);
+        if (resource == null) throw new IOException("Missing bundled resource: " + resourcePath);
+        try (Reader reader = new InputStreamReader(resource, StandardCharsets.UTF_8)) {
+            return JsonParser.parseReader(reader).getAsJsonObject();
+        }
+    }
+
+    private static JsonArray readBundledArray(String resourcePath) throws IOException {
+        var resource = RegistryLoader.class.getResourceAsStream(resourcePath);
+        if (resource == null) throw new IOException("Missing bundled resource: " + resourcePath);
+        try (Reader reader = new InputStreamReader(resource, StandardCharsets.UTF_8)) {
+            return JsonParser.parseReader(reader).getAsJsonArray();
+        }
     }
 
     private static JsonObject object(JsonObject o, String key) {
@@ -98,3 +144,4 @@ final class RegistryLoader {
         return i < 0 ? "minecraft" : id.substring(0, i);
     }
 }
+

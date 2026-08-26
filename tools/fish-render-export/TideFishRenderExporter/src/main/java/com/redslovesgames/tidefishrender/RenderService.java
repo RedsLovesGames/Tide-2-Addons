@@ -55,14 +55,17 @@ final class RenderService {
         this.generated = root.resolve("generated");
     }
 
-    static RenderService create() throws IOException {
+    static RenderService create() throws IOException { return create(false); }
+
+    static RenderService create(boolean modpackScope) throws IOException {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.world == null) throw new IOException("Open a single-player world or connected world first. Tide's Fish Display renderer needs a live ClientWorld.");
-        return new RenderService(client, RegistryLoader.load());
+        return new RenderService(client, modpackScope ? RegistryLoader.loadModpackScope() : RegistryLoader.load());
     }
 
     RenderReport verifyAll() throws IOException { return process(entries.stream().map(e -> new Job(e, "default")).toList(), "verify", false); }
     RenderReport exportAll(String variant) throws IOException { return process(expand(entries, variant), "export:" + variant, true); }
+    RenderReport exportModpackScope() throws IOException { return process(entries.stream().map(e -> new Job(e, "default")).toList(), "export:scope:default", true); }
     RenderReport exportNamespace(String namespace, String variant) throws IOException { return process(expand(entries.stream().filter(e -> namespace(e.fishId()).equals(namespace)).toList(), variant), "export:" + namespace + ":" + variant, true); }
     RenderReport exportFish(String id, String variant) throws IOException {
         String canonical = id.contains(":") ? id : id.replaceFirst("__", ":");

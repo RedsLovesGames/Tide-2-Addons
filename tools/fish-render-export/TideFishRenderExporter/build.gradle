@@ -58,6 +58,12 @@ processResources {
             rename { 'fish-render-registry.json' }
         }
     }
+    from("${projectDir}/../../../fish/render-data/modpack-scope.json") {
+        into 'fishrender'
+    }
+    from("${projectDir}/../../../assets/fish-search-index.json") {
+        into 'fishrender'
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
