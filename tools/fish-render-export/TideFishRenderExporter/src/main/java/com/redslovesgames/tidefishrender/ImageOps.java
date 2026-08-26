@@ -19,7 +19,7 @@ final class ImageOps {
     static Bounds alphaBounds(NativeImage image) {
         int minX = image.getWidth(), minY = image.getHeight(), maxX = -1, maxY = -1;
         for (int y = 0; y < image.getHeight(); y++) for (int x = 0; x < image.getWidth(); x++) {
-            int abgr = image.getColorAbgr(x, y);
+            int abgr = image.getColor(x, y);
             if (((abgr >>> 24) & 255) == 0) continue;
             if (x < minX) minX = x;
             if (y < minY) minY = y;
@@ -32,7 +32,7 @@ final class ImageOps {
     static NativeImage cropWithPadding(NativeImage source, Bounds bounds, int padding) {
         NativeImage out = new NativeImage(NativeImage.Format.RGBA, bounds.width() + padding * 2, bounds.height() + padding * 2, true);
         for (int y = 0; y < bounds.height(); y++) for (int x = 0; x < bounds.width(); x++)
-            out.setColorAbgr(x + padding, y + padding, source.getColorAbgr(bounds.minX() + x, bounds.minY() + y));
+            out.setColor(x + padding, y + padding, source.getColor(bounds.minX() + x, bounds.minY() + y));
         return out;
     }
 
