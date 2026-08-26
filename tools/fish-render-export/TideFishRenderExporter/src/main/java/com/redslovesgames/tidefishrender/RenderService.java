@@ -17,7 +17,6 @@ import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.util.BufferAllocator;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -185,8 +184,7 @@ final class RenderService {
         MatrixStack matrices = new MatrixStack();
         matrices.translate(0.0, -0.15, -3.2);
         matrices.scale(scale, scale, scale);
-        BufferAllocator allocator = new BufferAllocator(2_097_152);
-        VertexConsumerProvider.Immediate consumers = VertexConsumerProvider.immediate(allocator);
+        VertexConsumerProvider.Immediate consumers = client.getBufferBuilders().getEntityVertexConsumers();
         try {
             FishDisplayRenderer renderer = new FishDisplayRenderer(client.getEntityRenderDispatcher());
             renderer.render(display, 0f, matrices, consumers, LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV);
@@ -207,7 +205,6 @@ final class RenderService {
             return image;
         } finally {
             framebuffer.endWrite();
-            allocator.close();
             modelView.popMatrix();
             RenderSystem.applyModelViewMatrix();
             RenderSystem.setProjectionMatrix(previousProjection, previousVertexSorting);
