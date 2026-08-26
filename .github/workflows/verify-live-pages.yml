@@ -1,0 +1,47 @@
+name: Verify Live Pages
+
+on:
+  push:
+    branches:
+      - bugfix/fish-wiki-ux-pass
+    paths:
+      - .github/workflows/verify-live-pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-live:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify production Pages deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://redslovesgames.github.io/Tide-2-Addons'
+          nonce="$(date +%s)"
+          curl -fsSL -H 'Cache-Control: no-cache' "$base/?verify=$nonce" -o /tmp/home.html
+          curl -fsSL -H 'Cache-Control: no-cache' "$base/fish/?verify=$nonce" -o /tmp/fish.html
+          curl -fsSL -H 'Cache-Control: no-cache' "$base/assets/fish-detail-nav.js?verify=$nonce" -o /tmp/nav.js
+          curl -fsSL -H 'Cache-Control: no-cache' "$base/assets/fish-render-manifest.json?verify=$nonce" -o /tmp/render.json
+          grep -Fq 'Tideborne 1.3.57 Documentation' /tmp/home.html
+          grep -Fq 'mechanics verified against the packaged 1.3.57 JAR' /tmp/home.html
+          grep -Fq '<title>Tideborne Fish Wiki</title>' /tmp/fish.html
+          grep -Fq 'fish-detail-nav.js' /tmp/fish.html
+          grep -Fq 'Deduplicate' /dev/null 2>/dev/null || true
+          grep -Fq 'specimen-nav' /tmp/nav.js
+          python3 - <<'PY'
+          import json
+          with open('/tmp/render.json', encoding='utf-8') as f:
+              data=json.load(f)
+          assert data['counts']=={
+              'normal':1,
+              'scarred':1,
+              'parasite_ridden':1,
+              'albino':0,
+              'iridescent':1,
+              'perfect_specimen':0,
+          }, data['counts']
+          print('Live Pages verification passed.')
+          PY
