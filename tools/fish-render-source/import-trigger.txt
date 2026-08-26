@@ -1,1 +1,1 @@
-verify-all-render-source-jars-v5
+verify-luminous-modrinth-v6
