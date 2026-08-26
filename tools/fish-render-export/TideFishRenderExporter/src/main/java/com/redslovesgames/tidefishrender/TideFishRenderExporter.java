@@ -4,6 +4,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
 
 import java.nio.charset.StandardCharsets;
@@ -20,6 +21,7 @@ public final class TideFishRenderExporter implements ClientModInitializer {
     private static int clientTicks;
     private static int readyTicks;
     private static boolean autoStarted;
+    private static boolean autoReady;
     private static boolean worldOpenRequested;
 
     @Override
@@ -43,11 +45,12 @@ public final class TideFishRenderExporter implements ClientModInitializer {
         if (AUTO_EXPORT != null && !AUTO_EXPORT.isBlank()) {
             System.out.println("FISHRENDER_AUTO_ARMED mode=" + AUTO_EXPORT);
             ClientTickEvents.END_CLIENT_TICK.register(TideFishRenderExporter::tickAutoExport);
+            WorldRenderEvents.LAST.register(context -> runAutoExport(MinecraftClient.getInstance()));
         }
     }
 
     private static void tickAutoExport(MinecraftClient client) {
-        if (autoStarted) return;
+        if (autoStarted || autoReady) return;
         clientTicks++;
         if (clientTicks == 1 || clientTicks == 20 || clientTicks % 200 == 0) logClientState(client);
 
@@ -57,6 +60,12 @@ public final class TideFishRenderExporter implements ClientModInitializer {
             return;
         }
         if (++readyTicks < 100) return;
+        autoReady = true;
+        System.out.println("FISHRENDER_AUTO_RENDER_FRAME_READY mode=" + AUTO_EXPORT);
+    }
+
+    private static void runAutoExport(MinecraftClient client) {
+        if (!autoReady || autoStarted || client.world == null || client.player == null) return;
         autoStarted = true;
         System.out.println("FISHRENDER_AUTO_START mode=" + AUTO_EXPORT + " world=" + client.world.getRegistryKey().getValue());
         try {
