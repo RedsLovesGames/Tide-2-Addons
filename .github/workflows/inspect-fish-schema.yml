@@ -1,0 +1,75 @@
+name: Inspect Fish Data Schema
+
+on:
+  push:
+    branches: [fish-wiki-production]
+    paths:
+      - .github/workflows/inspect-fish-schema.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fish-wiki-production
+      - name: Download sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/fishsrc/extra /tmp/fishsrc/tide
+          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/goMfyYSL/versions/Uz6Vlhjs/Tide%20Extra%20Compatibility%202.2.zip' -o /tmp/extra.zip
+          unzip -q /tmp/extra.zip -d /tmp/fishsrc/extra
+          curl --fail --location --retry 3 'https://github.com/Lightning-64/Tide-2/archive/876b95f31328f4e698d5150f7d840ab033d1b06d.zip' -o /tmp/tide.zip
+          unzip -q /tmp/tide.zip -d /tmp/fishsrc/tide
+      - name: Inspect schemas
+        shell: python
+        run: |
+          import json, pathlib, collections
+          out=[]
+          roots=[('extra',pathlib.Path('/tmp/fishsrc/extra')),('tide',pathlib.Path('/tmp/fishsrc/tide'))]
+          for label,root in roots:
+              files=[]
+              for p in root.rglob('*.json'):
+                  s=p.as_posix()
+                  if '/fishing/fish/' in s and (label=='extra' or '/src/generated-1.21.1/resources/' in s): files.append(p)
+              out += [f'## {label}: {len(files)} fish files']
+              schemas=collections.Counter()
+              for p in files:
+                  try: data=json.loads(p.read_text())
+                  except Exception: continue
+                  schemas[tuple(sorted(data))]+=1
+              for keys,n in schemas.most_common(): out.append(f'{n} x keys={list(keys)}')
+              out.append('')
+              for p in sorted(files)[:3]:
+                  out += [f'### {p.relative_to(root)}', json.dumps(json.loads(p.read_text()),indent=2,sort_keys=True), '']
+          # exact useful samples
+          for target in [
+              '/tmp/fishsrc/tide/Tide-2-876b95f31328f4e698d5150f7d840ab033d1b06d/src/generated-1.21.1/resources/data/tide/fishing/fish/saltwater/tuna.json',
+              '/tmp/fishsrc/extra/data/aquaculture/fishing/fish/saltwater/tuna.json',
+              '/tmp/fishsrc/extra/data/nether_additions/fishing/fish/lava/lavacanth.json',
+              '/tmp/fishsrc/extra/data/luminousworld/fishing/fish/freshwater/trout.json',
+          ]:
+              p=pathlib.Path(target)
+              if p.exists(): out += [f'### SAMPLE {p}',json.dumps(json.loads(p.read_text()),indent=2,sort_keys=True),'']
+          # profile-like candidates from Tide 1.21.1
+          troot=pathlib.Path('/tmp/fishsrc/tide/Tide-2-876b95f31328f4e698d5150f7d840ab033d1b06d/src/generated-1.21.1/resources')
+          candidates=[p for p in troot.rglob('*.json') if '/fishing/' in p.as_posix() and ('profile' in p.as_posix() or 'profiles' in p.as_posix())]
+          out += [f'## Profile candidates: {len(candidates)}']
+          for p in sorted(candidates)[:30]:
+              out += [str(p.relative_to(troot)), json.dumps(json.loads(p.read_text()),indent=2,sort_keys=True)]
+          pathlib.Path('scripts/fish-schema-report.txt').write_text('\n'.join(out))
+      - name: Commit schema report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/fish-schema-report.txt
+          git diff --cached --quiet && exit 0
+          git commit -m 'Inspect authoritative FishData schemas'
+          git push origin HEAD:fish-wiki-production
