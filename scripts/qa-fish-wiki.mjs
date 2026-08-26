@@ -44,8 +44,13 @@ try {
   await waitForScopedFish(desktop);
   const scopedTotal = Number((await desktop.locator('#stat-records').textContent())?.trim() || 0);
   const scopedMods = Number((await desktop.locator('#stat-mods').textContent())?.trim() || 0);
-  assert.ok(scopedTotal > 0 && scopedTotal < 342, `unexpected scoped fish total ${scopedTotal}`);
-  assert.ok(scopedMods > 0 && scopedMods < 37, `unexpected scoped namespace total ${scopedMods}`);
+  const expectedScope = await desktop.evaluate(() => ({
+    total: window.TideFishModpackScope.allowedIds.size,
+    mods: new Set(window.TideFishModpackScope.records.map(record => record.id.split(':', 1)[0])).size,
+  }));
+  assert.ok(scopedTotal > 0, `unexpected scoped fish total ${scopedTotal}`);
+  assert.equal(scopedTotal, expectedScope.total, 'visible fish total did not match the dynamically computed modpack scope');
+  assert.equal(scopedMods, expectedScope.mods, 'visible namespace total did not match the dynamically computed modpack scope');
   assert.equal((await desktop.locator('#result-count').textContent())?.trim(), `${scopedTotal} fish`);
   assert.equal(await desktop.locator('.fish-card:not([hidden])').count(), scopedTotal);
   const leaked = await desktop.evaluate(() => [...document.querySelectorAll('.fish-card:not([hidden]),.fish-row:not([hidden])')]
@@ -88,12 +93,29 @@ try {
 
   const habitatOptions = await desktop.locator('#filter-habitat option').count();
   assert.ok(habitatOptions > 1, 'habitat filter was not populated');
-  const firstHabitat = await desktop.locator('#filter-habitat option').nth(1).getAttribute('value');
-  assert.ok(firstHabitat);
-  await desktop.selectOption('#filter-habitat', firstHabitat);
+  const scopedHabitat = await desktop.evaluate(() => {
+    const counts = new Map();
+    for (const record of window.TideFishModpackScope.records) {
+      const label = String(record.location || '').trim();
+      if (label) counts.set(label, (counts.get(label) || 0) + 1);
+    }
+    const options = [...document.querySelectorAll('#filter-habitat option')];
+    return [...counts]
+      .filter(([, count]) => count > 0 && count < window.TideFishModpackScope.allowedIds.size)
+      .map(([label, count]) => ({
+        label,
+        count,
+        value: options.find(option => option.textContent.trim() === label)?.value || '',
+      }))
+      .filter(candidate => candidate.value)
+      .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))[0] || null;
+  });
+  assert.ok(scopedHabitat, 'no populated proper-subset habitat exists in the current modpack scope');
+  await desktop.selectOption('#filter-habitat', scopedHabitat.value);
   await desktop.waitForTimeout(120);
   const habitatCount = Number(((await desktop.locator('#result-count').textContent()) || '0').split(' ')[0]);
-  assert.ok(habitatCount > 0 && habitatCount < scopedTotal, `habitat filter returned ${habitatCount}`);
+  assert.equal(habitatCount, scopedHabitat.count, `${scopedHabitat.label} habitat filter returned ${habitatCount}`);
+  assert.ok(habitatCount > 0 && habitatCount < scopedTotal, `${scopedHabitat.label} habitat filter was not a proper scoped subset`);
 
   await desktop.goto(`${base}/fish/#tide__tuna`, { waitUntil: 'networkidle' });
   await waitForScopedFish(desktop);
@@ -125,7 +147,7 @@ try {
   assert.match(traitsText, /one Body Type/i);
   assert.match(traitsText, /one Condition/i);
   assert.match(traitsText, /Giant \+ Iridescent/);
-  assert.match(traitsText, /95th–100th percentile/);
+  assert.match(traitsText, /95thâ€“100th percentile/);
   assert.match(traitsText, /\+350 Condition bonus/);
   assert.equal(await desktop.locator('.trait-equation').count(), 1, 'Body Type + Condition diagram missing');
 
@@ -150,7 +172,7 @@ try {
   await desktop.goto(`${base}/#/satchel`, { waitUntil: 'networkidle' });
   await waitForDoc(desktop);
   const satchelText = (await desktop.locator('#article').textContent()) || '';
-  assert.match(satchelText, /Craft a 3×3 upgrade/);
+  assert.match(satchelText, /Craft a 3Ã—3 upgrade/);
   assert.doesNotMatch(satchelText, /Spend 100 XP points/);
 
   await desktop.goto(`${base}/#/recipes`, { waitUntil: 'networkidle' });
@@ -197,3 +219,4 @@ if (failures.length) {
 }
 
 console.log('Fish Wiki browser QA passed: temporary modpack-only fish scope, default/base visual phase, desktop/tablet/mobile layouts, filters, scoped search/autocomplete, deep links, item textures, current 1.3.57 docs, recipe deep links, and GitHub Pages-style base path.');
+
