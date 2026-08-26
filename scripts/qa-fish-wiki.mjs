@@ -113,8 +113,10 @@ try {
   await desktop.goto(`${base}/#/equipment`, { waitUntil: 'networkidle' });
   await waitForDoc(desktop);
   await desktop.waitForFunction(() => document.querySelectorAll('#article .doc-item-icon').length >= 20);
-  await desktop.waitForTimeout(500);
-  const iconState = await desktop.locator('#article .doc-item-icon').evaluateAll(imgs => imgs.map(img => ({ complete: img.complete, width: img.naturalWidth, src: img.getAttribute('src') })));
+  const icons = desktop.locator('#article .doc-item-icon');
+  for (let i = 0, n = await icons.count(); i < n; i++) await icons.nth(i).scrollIntoViewIfNeeded();
+  await desktop.waitForTimeout(350);
+  const iconState = await icons.evaluateAll(imgs => imgs.map(img => ({ complete: img.complete, width: img.naturalWidth, src: img.getAttribute('src') })));
   assert.ok(iconState.length >= 20, `expected at least 20 item textures, got ${iconState.length}`);
   const brokenIcons = iconState.filter(x => !x.complete || x.width <= 0);
   assert.deepEqual(brokenIcons, [], `item textures failed to load: ${JSON.stringify(brokenIcons)}`);
