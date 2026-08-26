@@ -11,7 +11,7 @@ import com.mojang.blaze3d.systems.VertexSorter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.SimpleFramebuffer;
+import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
@@ -26,7 +26,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
-import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -166,16 +165,16 @@ final class RenderService {
         Matrix4f previousProjection = new Matrix4f(RenderSystem.getProjectionMatrix());
         VertexSorter previousVertexSorting = RenderSystem.getVertexSorting();
         Matrix4fStack modelView = RenderSystem.getModelViewStack();
-        int previousWidth = client.getFramebuffer().textureWidth;
-        int previousHeight = client.getFramebuffer().textureHeight;
-        SimpleFramebuffer framebuffer = new SimpleFramebuffer(SOURCE_SIZE, SOURCE_SIZE, true, true);
+        Framebuffer framebuffer = client.getFramebuffer();
+        int width = framebuffer.textureWidth;
+        int height = framebuffer.textureHeight;
+
         framebuffer.setClearColor(0f, 0f, 0f, 0f);
-        framebuffer.setTexFilter(GL11.GL_NEAREST);
         framebuffer.beginWrite(true);
         framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
-        RenderSystem.viewport(0, 0, SOURCE_SIZE, SOURCE_SIZE);
+        RenderSystem.viewport(0, 0, width, height);
         RenderSystem.setProjectionMatrix(
-                new Matrix4f().setPerspective((float) Math.toRadians(30.0), 1.0f, 0.05f, 100.0f),
+                new Matrix4f().setPerspective((float) Math.toRadians(30.0), width / (float) height, 0.05f, 100.0f),
                 VertexSorter.BY_DISTANCE
         );
         modelView.pushMatrix();
@@ -197,7 +196,7 @@ final class RenderService {
                     + " entity=" + renderedEntity.getType()
                     + " renderer=" + client.getEntityRenderDispatcher().getRenderer(renderedEntity).getClass().getName());
             consumers.draw();
-            NativeImage image = new NativeImage(framebuffer.textureWidth, framebuffer.textureHeight, false);
+            NativeImage image = new NativeImage(width, height, false);
             framebuffer.beginRead();
             try {
                 image.loadFromTextureImage(0, false);
@@ -208,13 +207,12 @@ final class RenderService {
             return image;
         } finally {
             framebuffer.endWrite();
-            framebuffer.delete();
             allocator.close();
             modelView.popMatrix();
             RenderSystem.applyModelViewMatrix();
             RenderSystem.setProjectionMatrix(previousProjection, previousVertexSorting);
-            RenderSystem.viewport(0, 0, previousWidth, previousHeight);
-            client.getFramebuffer().beginWrite(true);
+            RenderSystem.viewport(0, 0, width, height);
+            framebuffer.beginWrite(true);
         }
     }
 
@@ -250,4 +248,3 @@ final class RenderService {
     private record Job(RegistryLoader.Entry entry, String variant) {}
     private record RenderResult(Path png, ImageOps.Bounds bounds, double lengthCm) {}
 }
-
