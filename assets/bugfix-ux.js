@@ -1,9 +1,6 @@
 (()=>{
 'use strict';
-const TIDE_COMMIT='876b95f31328f4e698d5150f7d840ab033d1b06d';
-const tideTexture=id=>id==='angling_table'
-  ?`https://raw.githubusercontent.com/Lightning-64/Tide-2/${TIDE_COMMIT}/src/main/resources/assets/tide/textures/block/angling_table_top.png`
-  :`https://raw.githubusercontent.com/Lightning-64/Tide-2/${TIDE_COMMIT}/src/main/resources/assets/tide/textures/item/${id}.png`;
+const tideTexture=id=>window.TIDEBORNE_TIDE_TEXTURES?.[id]||'';
 const itemMap={
   'Stone Fishing Rod':{id:'tide:stone_fishing_rod',src:tideTexture('stone_fishing_rod'),source:'Tide'},
   'Iron Fishing Rod':{id:'tide:iron_fishing_rod',src:tideTexture('iron_fishing_rod'),source:'Tide'},
