@@ -1,0 +1,29 @@
+name: Build fish render exporter
+
+on:
+  push:
+    branches: [fish-wiki-production]
+    paths:
+      - 'tools/TideFishRenderExporter/**'
+      - '.github/workflows/build-fish-render-exporter.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.8'
+      - name: Build exporter
+        working-directory: tools/TideFishRenderExporter
+        run: gradle build --stacktrace
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TideFishRenderExporter
+          path: tools/TideFishRenderExporter/build/libs/*.jar
