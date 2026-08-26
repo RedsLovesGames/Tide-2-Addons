@@ -1,0 +1,505 @@
+## extra: 157 fish files
+118 x keys=['associated_mods', 'bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'size', 'speed', 'strength']
+20 x keys=['associated_mods', 'bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'modifiers', 'selection_weight', 'size', 'speed', 'strength']
+9 x keys=['associated_mods', 'bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'size', 'strength']
+5 x keys=['associated_mods', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'size', 'speed', 'strength']
+4 x keys=['associated_mods', 'conditions', 'fish', 'journal_profile', 'selection_weight', 'size', 'speed', 'strength']
+1 x keys=['fish', 'show_in_journal']
+
+### data/alexscaves/fishing/fish/saltwater/lanternfish.json
+{
+  "associated_mods": [
+    "alexscaves"
+  ],
+  "bucket": "alexscaves:lanternfish_bucket",
+  "conditions": [
+    {
+      "type": "tide:saltwater"
+    },
+    {
+      "dimensions": [
+        "minecraft:overworld"
+      ],
+      "type": "tide:dimension"
+    },
+    {
+      "fluid": "water",
+      "type": "tide:fluid"
+    },
+    {
+      "biomes": [
+        "alexscaves:abyssal_chasm"
+      ],
+      "type": "tide:found_in"
+    }
+  ],
+  "display_data": {
+    "entity": "alexscaves:lanternfish",
+    "roll": -90.0,
+    "y": -0.2,
+    "z": 0.12
+  },
+  "fish": "alexscaves:lanternfish",
+  "journal_profile": {
+    "description": "journal.description.alexscaves.lanternfish",
+    "group": "saltwater",
+    "location": "biome.alexscaves.abyssal_chasm",
+    "rarity": "rare"
+  },
+  "selection_weight": 15.0,
+  "size": {
+    "record_high_cm": 80.0,
+    "typical_high_cm": 50.0,
+    "typical_low_cm": 5.0
+  },
+  "strength": 0.3
+}
+
+### data/alexscaves/fishing/fish/saltwater/sea_pig.json
+{
+  "associated_mods": [
+    "alexscaves"
+  ],
+  "bucket": "alexscaves:sea_pig_bucket",
+  "conditions": [
+    {
+      "type": "tide:saltwater"
+    },
+    {
+      "dimensions": [
+        "minecraft:overworld"
+      ],
+      "type": "tide:dimension"
+    },
+    {
+      "fluid": "water",
+      "type": "tide:fluid"
+    },
+    {
+      "biomes": [
+        "alexscaves:abyssal_chasm"
+      ],
+      "type": "tide:found_in"
+    }
+  ],
+  "display_data": {
+    "entity": "alexscaves:sea_pig"
+  },
+  "fish": "alexscaves:sea_pig",
+  "journal_profile": {
+    "description": "journal.description.alexscaves.sea_pig",
+    "group": "saltwater",
+    "location": "biome.alexscaves.abyssal_chasm",
+    "rarity": "rare"
+  },
+  "selection_weight": 15.0,
+  "size": {
+    "record_high_cm": 100.0,
+    "typical_high_cm": 65.0,
+    "typical_low_cm": 12.0
+  },
+  "strength": 0.4
+}
+
+### data/alexscaves/fishing/fish/saltwater/tripodfish.json
+{
+  "associated_mods": [
+    "alexscaves"
+  ],
+  "bucket": "alexscaves:tripodfish_bucket",
+  "conditions": [
+    {
+      "type": "tide:saltwater"
+    },
+    {
+      "dimensions": [
+        "minecraft:overworld"
+      ],
+      "type": "tide:dimension"
+    },
+    {
+      "fluid": "water",
+      "type": "tide:fluid"
+    },
+    {
+      "biomes": [
+        "alexscaves:abyssal_chasm"
+      ],
+      "type": "tide:found_in"
+    }
+  ],
+  "display_data": {
+    "entity": "alexscaves:tripodfish",
+    "roll": -90.0,
+    "shape": "2x1",
+    "x": 0.25,
+    "y": -0.15,
+    "z": 0.15
+  },
+  "fish": "alexscaves:tripodfish",
+  "journal_profile": {
+    "description": "journal.description.alexscaves.tripodfish",
+    "group": "saltwater",
+    "location": "biome.alexscaves.abyssal_chasm",
+    "rarity": "rare"
+  },
+  "selection_weight": 15.0,
+  "size": {
+    "record_high_cm": 200.0,
+    "typical_high_cm": 170.0,
+    "typical_low_cm": 90.0
+  },
+  "speed": 0.7,
+  "strength": 1.0
+}
+
+## tide: 186 fish files
+26 x keys=['behavior', 'bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'size', 'speed', 'strength']
+21 x keys=['conditions', 'display_data', 'fish', 'journal_profile', 'modifiers', 'selection_weight', 'size', 'speed', 'strength']
+18 x keys=['bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'modifiers', 'selection_weight', 'size', 'speed', 'strength']
+17 x keys=['bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'size', 'speed', 'strength']
+16 x keys=['conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'size', 'speed', 'strength']
+12 x keys=['bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_quality', 'selection_weight', 'size', 'speed', 'strength']
+11 x keys=['behavior', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'size', 'speed', 'strength']
+10 x keys=['conditions', 'fish', 'journal_profile', 'selection_quality', 'selection_weight', 'size']
+7 x keys=['conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'size', 'strength']
+6 x keys=['conditions', 'display_data', 'fish', 'journal_profile', 'modifiers', 'selection_weight', 'size', 'strength']
+6 x keys=['display_data', 'fish', 'journal_profile', 'parent']
+6 x keys=['behavior', 'bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'modifiers', 'selection_weight', 'size', 'speed', 'strength']
+5 x keys=['behavior', 'bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_quality', 'selection_weight', 'size', 'speed', 'strength']
+4 x keys=['bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'shiny_data', 'size', 'speed', 'strength']
+4 x keys=['behavior', 'bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'modifiers', 'selection_quality', 'selection_weight', 'size', 'speed', 'strength']
+3 x keys=['bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'modifiers', 'selection_weight', 'size', 'strength']
+3 x keys=['behavior', 'bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'shiny_data', 'size', 'speed', 'strength']
+2 x keys=['behavior', 'bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'shiny_data', 'size', 'strength']
+1 x keys=['conditions', 'display_data', 'fish', 'journal_profile', 'modifiers', 'selection_quality', 'selection_weight', 'size', 'speed', 'strength']
+1 x keys=['behavior', 'conditions', 'display_data', 'fish', 'journal_profile', 'modifiers', 'selection_weight', 'size', 'speed']
+1 x keys=['conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'size', 'speed']
+1 x keys=['bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'size', 'strength']
+1 x keys=['bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_quality', 'selection_weight', 'shiny_data', 'size', 'speed', 'strength']
+1 x keys=['behavior', 'bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'modifiers', 'selection_weight', 'size', 'speed']
+1 x keys=['behavior', 'bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'modifiers', 'selection_weight', 'size', 'strength']
+1 x keys=['bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'modifiers', 'selection_weight', 'size', 'speed']
+1 x keys=['behavior', 'bucket', 'conditions', 'display_data', 'fish', 'journal_profile', 'selection_weight', 'size', 'strength']
+
+### Tide-2-876b95f31328f4e698d5150f7d840ab033d1b06d/src/generated-1.21.1/resources/data/fishofthieves/fishing/fish/freshwater/pondie.json
+{
+  "conditions": [
+    {
+      "dimensions": [
+        "minecraft:overworld"
+      ],
+      "type": "tide:dimension"
+    },
+    {
+      "fluid": "water",
+      "type": "tide:fluid"
+    },
+    {
+      "type": "tide:above",
+      "y": 40
+    },
+    {
+      "type": "tide:freshwater"
+    }
+  ],
+  "display_data": {
+    "entity": "fishofthieves:pondie",
+    "x": 0.04
+  },
+  "fish": "fishofthieves:pondie",
+  "journal_profile": {
+    "description": "journal.description.fishofthieves.pondie",
+    "group": "freshwater",
+    "location": "journal.info.location.freshwater"
+  },
+  "modifiers": [
+    {
+      "preferred_temperature": 0.0,
+      "temperature_tolerance": 0.6,
+      "type": "tide:temperature"
+    }
+  ],
+  "selection_weight": 32.0,
+  "size": {
+    "record_high_cm": 85.0,
+    "typical_high_cm": 45.0,
+    "typical_low_cm": 30.0
+  },
+  "strength": 0.4
+}
+
+### Tide-2-876b95f31328f4e698d5150f7d840ab033d1b06d/src/generated-1.21.1/resources/data/fishofthieves/fishing/fish/freshwater/stormfish.json
+{
+  "behavior": "jitter",
+  "conditions": [
+    {
+      "type": "tide:weather",
+      "types": [
+        "storm"
+      ]
+    }
+  ],
+  "display_data": {
+    "entity": "fishofthieves:stormfish",
+    "x": 0.02,
+    "y": 0.04
+  },
+  "fish": "fishofthieves:stormfish",
+  "journal_profile": {
+    "description": "journal.description.fishofthieves.stormfish",
+    "group": "freshwater",
+    "location": "journal.info.location.thunderstorms",
+    "rarity": "rare"
+  },
+  "selection_weight": 20.0,
+  "size": {
+    "record_high_cm": 115.0,
+    "typical_high_cm": 60.0,
+    "typical_low_cm": 45.0
+  },
+  "speed": 1.25,
+  "strength": 0.75
+}
+
+### Tide-2-876b95f31328f4e698d5150f7d840ab033d1b06d/src/generated-1.21.1/resources/data/fishofthieves/fishing/fish/freshwater/wildsplash.json
+{
+  "conditions": [
+    {
+      "dimensions": [
+        "minecraft:overworld"
+      ],
+      "type": "tide:dimension"
+    },
+    {
+      "fluid": "water",
+      "type": "tide:fluid"
+    },
+    {
+      "type": "tide:above",
+      "y": 40
+    },
+    {
+      "type": "tide:freshwater"
+    },
+    {
+      "biomes": [
+        "#tide:has_jungle_fish"
+      ],
+      "type": "tide:found_in"
+    }
+  ],
+  "display_data": {
+    "entity": "fishofthieves:wildsplash",
+    "x": 0.07
+  },
+  "fish": "fishofthieves:wildsplash",
+  "journal_profile": {
+    "description": "journal.description.fishofthieves.wildsplash",
+    "group": "freshwater",
+    "location": "journal.info.location.jungle"
+  },
+  "selection_weight": 28.0,
+  "size": {
+    "record_high_cm": 85.0,
+    "typical_high_cm": 45.0,
+    "typical_low_cm": 30.0
+  },
+  "strength": 0.4
+}
+
+### SAMPLE /tmp/fishsrc/tide/Tide-2-876b95f31328f4e698d5150f7d840ab033d1b06d/src/generated-1.21.1/resources/data/tide/fishing/fish/saltwater/tuna.json
+{
+  "bucket": "tide:tuna_bucket",
+  "conditions": [
+    {
+      "type": "tide:saltwater"
+    },
+    {
+      "dimensions": [
+        "minecraft:overworld"
+      ],
+      "type": "tide:dimension"
+    },
+    {
+      "fluid": "water",
+      "type": "tide:fluid"
+    },
+    {
+      "type": "tide:above",
+      "y": 40
+    }
+  ],
+  "display_data": {
+    "entity": "tide:tuna",
+    "shape": "2x1",
+    "x": -0.05,
+    "y": -0.15
+  },
+  "fish": "tide:tuna",
+  "journal_profile": {
+    "description": "journal.description.tide.tuna",
+    "group": "saltwater",
+    "location": "journal.info.location.saltwater"
+  },
+  "modifiers": [
+    {
+      "preferred_temperature": -0.1,
+      "temperature_tolerance": 0.7,
+      "type": "tide:temperature"
+    }
+  ],
+  "selection_weight": 50.0,
+  "size": {
+    "record_high_cm": 300.0,
+    "typical_high_cm": 150.0,
+    "typical_low_cm": 90.0
+  },
+  "speed": 1.2,
+  "strength": 0.55
+}
+
+### SAMPLE /tmp/fishsrc/extra/data/aquaculture/fishing/fish/saltwater/tuna.json
+{
+  "associated_mods": [
+    "aquaculture"
+  ],
+  "bucket": "aquaculture:tuna_bucket",
+  "conditions": [
+    {
+      "type": "tide:saltwater"
+    },
+    {
+      "dimensions": [
+        "minecraft:overworld"
+      ],
+      "type": "tide:dimension"
+    },
+    {
+      "fluid": "water",
+      "type": "tide:fluid"
+    },
+    {
+      "type": "tide:above",
+      "y": 40
+    },
+    {
+      "biomes": [
+        "#minecraft:is_ocean",
+        "#minecraft:is_beach"
+      ],
+      "type": "tide:found_in"
+    }
+  ],
+  "display_data": {
+    "entity": "aquaculture:tuna",
+    "x": 0.1
+  },
+  "fish": "aquaculture:tuna",
+  "journal_profile": {
+    "description": "journal.description.aquaculture.tuna",
+    "group": "saltwater",
+    "location": "journal.info.location.saltwater",
+    "rarity": "common"
+  },
+  "selection_weight": 40.0,
+  "size": {
+    "record_high_cm": 150.0,
+    "typical_high_cm": 110.0,
+    "typical_low_cm": 90.0
+  },
+  "speed": 0.5,
+  "strength": 0.8
+}
+
+### SAMPLE /tmp/fishsrc/extra/data/nether_additions/fishing/fish/lava/lavacanth.json
+{
+  "associated_mods": [
+    "nether_additions"
+  ],
+  "conditions": [
+    {
+      "dimensions": [
+        "minecraft:the_nether"
+      ],
+      "type": "tide:dimension"
+    },
+    {
+      "fluid": "lava",
+      "type": "tide:fluid"
+    }
+  ],
+  "fish": "nether_additions:lavacanth",
+  "journal_profile": {
+    "description": "journal.description.nether_additions.lavacanth",
+    "group": "lava",
+    "location": "journal.info.location.lava",
+    "rarity": "uncommon"
+  },
+  "selection_weight": 23.0,
+  "size": {
+    "record_high_cm": 210.0,
+    "typical_high_cm": 120.0,
+    "typical_low_cm": 80.0
+  },
+  "speed": 0.4,
+  "strength": 1.2
+}
+
+### SAMPLE /tmp/fishsrc/extra/data/luminousworld/fishing/fish/freshwater/trout.json
+{
+  "associated_mods": [
+    "luminousworld"
+  ],
+  "bucket": "luminousworld:bucket_of_trout",
+  "conditions": [
+    {
+      "type": "tide:freshwater"
+    },
+    {
+      "dimensions": [
+        "minecraft:overworld"
+      ],
+      "type": "tide:dimension"
+    },
+    {
+      "fluid": "water",
+      "type": "tide:fluid"
+    },
+    {
+      "type": "tide:above",
+      "y": 40
+    },
+    {
+      "biomes": [
+        "minecraft:river"
+      ],
+      "type": "tide:found_in"
+    }
+  ],
+  "display_data": {
+    "entity": "luminousworld:trout_fish",
+    "roll": -90,
+    "shape": "2x1",
+    "x": 0.2,
+    "y": -0.3,
+    "z": 0.15
+  },
+  "fish": "luminousworld:trout",
+  "journal_profile": {
+    "description": "journal.description.luminousworld.trout",
+    "group": "freshwater",
+    "location": "journal.info.location.river",
+    "rarity": "common"
+  },
+  "selection_weight": 30.0,
+  "size": {
+    "record_high_cm": 165.0,
+    "typical_high_cm": 125.0,
+    "typical_low_cm": 90.0
+  },
+  "speed": 0.4,
+  "strength": 0.35
+}
+
+## Profile candidates: 0
