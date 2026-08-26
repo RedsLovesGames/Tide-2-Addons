@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - fish-wiki-production
+      - bugfix/fish-wiki-ux-pass
   pull_request:
     branches:
       - main
@@ -33,7 +34,12 @@ jobs:
           node --check assets/specimens.js
           node --check assets/fish-site-search.js
           node --check assets/fish-wiki.js
+          node --check assets/fish-wiki-v2.js
           node --check assets/latest-1357.js
+          node --check assets/bugfix-ux.js
 
       - name: Validate Fish Wiki payload
         run: python scripts/validate-fish-wiki.py
+
+      - name: Validate source-backed render manifest
+        run: python scripts/validate-fish-render-manifest.py
