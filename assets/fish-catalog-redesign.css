@@ -1,0 +1,68 @@
+/* Fish catalog v3: compact product-card style, inspired by minimal catalog UI patterns. */
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-main{max-width:1460px;padding-top:18px}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-hero{padding:1.35rem 1.5rem 1rem;grid-template-columns:minmax(0,1fr) auto;gap:.4rem 1.5rem;border-radius:10px}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-hero h1{font-size:clamp(2.6rem,5vw,4rem);line-height:.95;margin:.15rem 0 .35rem}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-hero .lead{font-size:.9rem;max-width:720px}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-stats{margin:0;padding:0;border:0;gap:.4rem}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-provenance{margin-top:.65rem;border-radius:9px}
+
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-shell{grid-template-columns:228px minmax(0,1fr);gap:18px;border:0;background:transparent;align-items:start}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-filters{position:sticky;top:76px;padding:16px;border:1px solid var(--fish-card-line);border-radius:12px;background:var(--surface);box-shadow:0 12px 36px rgba(0,0,0,.10)}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-filters .filter-title{margin-bottom:14px}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-filters label,.fish-page[data-fish-catalog-design="catalog-v3"] .fish-filters .sort-wrap{margin:0 0 12px;gap:5px}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-filters select{min-height:38px;border-radius:8px;background:var(--bg);border-color:var(--fish-card-line)}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-filters .sort-wrap{display:grid;grid-template-columns:1fr;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding-bottom:12px;border-bottom:1px solid var(--fish-card-line)}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-filters .sort-wrap select{width:100%;padding:9px 10px;color:var(--text);border:1px solid var(--fish-card-line);background:var(--bg);border-radius:8px}
+.fish-page[data-fish-catalog-design="catalog-v3"] .wiki-links{margin-top:14px;padding-top:14px}
+
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-catalog{padding:0}
+.fish-page[data-fish-catalog-design="catalog-v3"] .category-nav{padding:.25rem 0 .55rem}
+.fish-page[data-fish-catalog-design="catalog-v3"] .catalog-toolbar{position:sticky;top:64px;grid-template-columns:minmax(260px,1fr) auto;padding:.45rem;border-radius:10px}
+.fish-page[data-fish-catalog-design="catalog-v3"] .catalog-toolbar .fish-search{grid-column:1}
+.fish-page[data-fish-catalog-design="catalog-v3"] .catalog-toolbar .view-toggle{grid-column:2}
+.fish-page[data-fish-catalog-design="catalog-v3"] .catalog-toolbar>.sort-wrap{display:none}
+.fish-page[data-fish-catalog-design="catalog-v3"] .result-line{height:42px}
+
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;background:transparent;border:0}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-card{overflow:hidden;border:1px solid var(--fish-card-line);border-radius:14px;background:var(--fish-card-bg);box-shadow:0 10px 28px rgba(0,0,0,.09);transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-card:before{display:none}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-card:hover{transform:translateY(-2px);border-color:rgba(71,199,191,.65);box-shadow:0 16px 38px rgba(0,0,0,.16)}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-card-visual{position:relative;padding:10px 10px 0}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-card-visual .specimen-window{height:190px;min-height:190px;border:0;border-radius:10px;background:linear-gradient(180deg,rgba(26,55,72,.5),rgba(8,21,33,.84));overflow:hidden}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-card-visual .runtime-fish-render{padding:16px 20px;image-rendering:pixelated;filter:drop-shadow(0 14px 10px rgba(0,0,0,.28))}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-card-visual .preview-missing,.fish-page[data-fish-catalog-design="catalog-v3"] .fish-card-visual .preview-quiet{min-height:190px;margin:0;border:0;background:transparent}
+.fish-page[data-fish-catalog-design="catalog-v3"] .catalog-stars{position:absolute;right:18px;top:16px;z-index:3;padding:5px 7px;border:1px solid rgba(255,214,107,.28);border-radius:999px;background:rgba(5,15,24,.78);backdrop-filter:blur(7px);color:#ffd66b;font:700 11px/1 ui-monospace,monospace;letter-spacing:.08em;box-shadow:0 4px 12px rgba(0,0,0,.16)}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-card-content{padding:14px 15px 15px}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-card-heading{min-width:0;margin-bottom:12px}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-card-mod{display:block;margin-bottom:3px;color:var(--fish-accent);font:700 9px/1.2 ui-monospace,monospace;text-transform:uppercase;letter-spacing:.09em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-card-heading h2{margin:0;font-family:inherit;font-size:1.15rem;line-height:1.2;font-weight:750;letter-spacing:-.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-quick-stats{overflow:hidden;border:1px solid var(--fish-card-line);border-radius:10px;background:rgba(4,15,24,.22)}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-quick-row{display:grid;grid-template-columns:minmax(88px,.85fr) minmax(0,1.35fr);gap:10px;align-items:center;padding:9px 10px;border-bottom:1px solid var(--fish-card-line)}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-quick-row:last-child{border-bottom:0}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-quick-row>span{display:flex;flex-direction:column;gap:2px;color:var(--muted);font:700 9px/1.15 ui-monospace,monospace;text-transform:uppercase;letter-spacing:.055em}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-quick-row>span small{font:500 8px/1 ui-monospace,monospace;text-transform:none;letter-spacing:0;opacity:.78}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-quick-row strong{display:flex;align-items:baseline;justify-content:flex-end;gap:7px;color:var(--text);font:700 12px/1.2 ui-monospace,monospace;white-space:nowrap}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-quick-row strong b{font:inherit}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-quick-row strong i{color:var(--fish-accent);font-style:normal;font-weight:500;opacity:.75}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-score-row{background:rgba(71,199,191,.055)}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-score-row strong{font-size:13px}
+.fish-page[data-fish-catalog-design="catalog-v3"] .fish-trait-row>span small{color:var(--fish-accent);opacity:1}
+
+@media(max-width:1180px){
+  .fish-page[data-fish-catalog-design="catalog-v3"] .fish-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:1050px){
+  .fish-page[data-fish-catalog-design="catalog-v3"] .fish-shell{grid-template-columns:1fr}
+  .fish-page[data-fish-catalog-design="catalog-v3"] .fish-filters{position:static;grid-template-columns:repeat(3,1fr)}
+  .fish-page[data-fish-catalog-design="catalog-v3"] .fish-filters .sort-wrap{border-bottom:0;padding-bottom:0}
+}
+@media(max-width:720px){
+  .fish-page[data-fish-catalog-design="catalog-v3"] .fish-hero{grid-template-columns:1fr;padding:1.1rem}
+  .fish-page[data-fish-catalog-design="catalog-v3"] .fish-stats{justify-content:flex-start}
+  .fish-page[data-fish-catalog-design="catalog-v3"] .fish-grid{grid-template-columns:1fr}
+  .fish-page[data-fish-catalog-design="catalog-v3"] .fish-card-visual .specimen-window{height:175px;min-height:175px}
+}
+@media(prefers-reduced-motion:reduce){
+  .fish-page[data-fish-catalog-design="catalog-v3"] .fish-card{transition:none}
+  .fish-page[data-fish-catalog-design="catalog-v3"] .fish-card:hover{transform:none}
+}
