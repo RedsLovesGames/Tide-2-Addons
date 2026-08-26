@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.li64.tide.client.FishDisplayRenderer;
+import com.li64.tide.data.fishing.FishData;
 import com.li64.tide.data.item.TideItemData;
 import com.li64.tide.registries.blocks.entities.FishDisplayBlockEntity;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -11,12 +12,13 @@ import com.mojang.blaze3d.systems.VertexSorter;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.Framebuffer;
+import net.minecraft.client.gl.SimpleFramebuffer;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.texture.NativeImage;
+import net.minecraft.client.util.BufferAllocator;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,6 +27,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
+import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -90,6 +93,7 @@ final class RenderService {
                 RenderResult result = renderOne(job, writePng);
                 if (result.png() != null) row.addProperty("png", root.relativize(result.png()).toString().replace('\\', '/'));
                 row.addProperty("length_cm", result.lengthCm());
+                row.addProperty("resolved_entity_id", result.entityId().toString());
                 row.addProperty("silhouette_width", result.bounds().width());
                 row.addProperty("silhouette_height", result.bounds().height());
                 row.addProperty("source_resolution", SOURCE_SIZE);
@@ -130,6 +134,9 @@ final class RenderService {
         ItemStack stack = new ItemStack(item);
         TideborneVariantSupport.VariantSpec spec = TideborneVariantSupport.apply(stack, job.variant(), job.entry());
         TideItemData.FISH_LENGTH.set(stack, spec.lengthCm());
+        FishData data = FishData.getExact(stack).orElseThrow(() ->
+                new IllegalStateException("Tide FishData is not registered for " + itemId));
+        if (data.display().isEmpty()) throw new IllegalStateException("Tide FishData has no DisplayData for " + itemId);
 
         Identifier displayBlockId = Identifier.of("tide:fish_display");
         if (!Registries.BLOCK.containsId(displayBlockId)) throw new IllegalStateException("Tide fish display block is not registered");
@@ -142,10 +149,13 @@ final class RenderService {
 
         NativeImage image = null;
         ImageOps.Bounds bounds = null;
+        Identifier resolvedEntityId = null;
         float scale = 1.25f;
         for (int pass = 0; pass < 7; pass++) {
             if (image != null) image.close();
-            image = renderFramebuffer(display, scale);
+            FrameResult frame = renderFramebuffer(display, scale);
+            image = frame.image();
+            resolvedEntityId = frame.entityId();
             bounds = ImageOps.alphaBounds(image);
             if (bounds == null) throw new IllegalStateException("Framebuffer produced zero alpha pixels");
             if (bounds.touches(image.getWidth(), image.getHeight(), EDGE_MARGIN)) { scale *= 0.72f; continue; }
@@ -157,23 +167,23 @@ final class RenderService {
         Path output = renderPath(job);
         if (writePng) try (NativeImage cropped = ImageOps.cropWithPadding(image, bounds, PADDING)) { ImageOps.write(cropped, output); }
         image.close();
-        return new RenderResult(writePng ? output : null, bounds, spec.lengthCm());
+        return new RenderResult(writePng ? output : null, bounds, spec.lengthCm(), resolvedEntityId);
     }
 
-    private NativeImage renderFramebuffer(FishDisplayBlockEntity display, float scale) {
+    private FrameResult renderFramebuffer(FishDisplayBlockEntity display, float scale) throws IOException {
         Matrix4f previousProjection = new Matrix4f(RenderSystem.getProjectionMatrix());
         VertexSorter previousVertexSorting = RenderSystem.getVertexSorting();
         Matrix4fStack modelView = RenderSystem.getModelViewStack();
-        Framebuffer framebuffer = client.getFramebuffer();
-        int width = framebuffer.textureWidth;
-        int height = framebuffer.textureHeight;
-
+        int previousWidth = client.getFramebuffer().textureWidth;
+        int previousHeight = client.getFramebuffer().textureHeight;
+        SimpleFramebuffer framebuffer = new SimpleFramebuffer(SOURCE_SIZE, SOURCE_SIZE, true, true);
         framebuffer.setClearColor(0f, 0f, 0f, 0f);
+        framebuffer.setTexFilter(GL11.GL_NEAREST);
         framebuffer.beginWrite(true);
         framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
-        RenderSystem.viewport(0, 0, width, height);
+        RenderSystem.viewport(0, 0, SOURCE_SIZE, SOURCE_SIZE);
         RenderSystem.setProjectionMatrix(
-                new Matrix4f().setPerspective((float) Math.toRadians(30.0), width / (float) height, 0.05f, 100.0f),
+                new Matrix4f().setPerspective((float) Math.toRadians(30.0), 1.0f, 0.05f, 100.0f),
                 VertexSorter.BY_DISTANCE
         );
         modelView.pushMatrix();
@@ -190,11 +200,15 @@ final class RenderService {
             renderer.render(display, 0f, matrices, consumers, LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV);
             Entity renderedEntity = display.getRenderedEntity();
             if (renderedEntity == null) throw new IllegalStateException("Tide Fish Display did not create a rendered entity");
+            Identifier entityId = Registries.ENTITY_TYPE.getId(renderedEntity.getType());
+            if (entityId == null || !RegistryLoader.isScopedNamespace(entityId.getNamespace())) {
+                throw new IllegalStateException("Tide FishData resolved an out-of-scope entity: " + entityId);
+            }
             System.out.println("FISHRENDER_ENTITY fish=" + display.getDisplayStack().getItem()
                     + " entity=" + renderedEntity.getType()
                     + " renderer=" + client.getEntityRenderDispatcher().getRenderer(renderedEntity).getClass().getName());
             consumers.draw();
-            NativeImage image = new NativeImage(width, height, false);
+            NativeImage image = new NativeImage(framebuffer.textureWidth, framebuffer.textureHeight, false);
             framebuffer.beginRead();
             try {
                 image.loadFromTextureImage(0, false);
@@ -202,14 +216,15 @@ final class RenderService {
                 framebuffer.endRead();
             }
             image.mirrorVertically();
-            return image;
+            return new FrameResult(image, entityId);
         } finally {
             framebuffer.endWrite();
+            framebuffer.delete();
             modelView.popMatrix();
             RenderSystem.applyModelViewMatrix();
             RenderSystem.setProjectionMatrix(previousProjection, previousVertexSorting);
-            RenderSystem.viewport(0, 0, width, height);
-            framebuffer.beginWrite(true);
+            RenderSystem.viewport(0, 0, previousWidth, previousHeight);
+            client.getFramebuffer().beginWrite(true);
         }
     }
 
@@ -243,5 +258,6 @@ final class RenderService {
 
     private static String namespace(String id) { int i = id.indexOf(':'); return i < 0 ? "minecraft" : id.substring(0, i); }
     private record Job(RegistryLoader.Entry entry, String variant) {}
-    private record RenderResult(Path png, ImageOps.Bounds bounds, double lengthCm) {}
+    private record RenderResult(Path png, ImageOps.Bounds bounds, double lengthCm, Identifier entityId) {}
+    private record FrameResult(NativeImage image, Identifier entityId) {}
 }

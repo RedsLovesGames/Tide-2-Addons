@@ -83,6 +83,15 @@ final class RegistryLoader {
         return scoped.values().stream().sorted(Comparator.comparing(Entry::fishId)).toList();
     }
 
+    static boolean isScopedNamespace(String namespace) throws IOException {
+        JsonArray modIds = readBundledObject("/fishrender/modpack-scope.json").getAsJsonArray("mod_ids");
+        if (modIds == null) return false;
+        for (JsonElement element : modIds) {
+            if (element.isJsonPrimitive() && namespace.equals(element.getAsString())) return true;
+        }
+        return false;
+    }
+
     private static List<Entry> parse(Reader reader, String source) throws IOException {
         JsonObject root = JsonParser.parseReader(reader).getAsJsonObject();
         JsonArray fish = root.getAsJsonArray("fish");
@@ -144,4 +153,3 @@ final class RegistryLoader {
         return i < 0 ? "minecraft" : id.substring(0, i);
     }
 }
-
