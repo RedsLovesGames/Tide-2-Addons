@@ -43,7 +43,7 @@ loom {
             programArg "1280"
             programArg "--height"
             programArg "720"
-            environmentVariable("TIDE_FISH_RENDER_AUTO", "tide")
+            environmentVariable("TIDE_FISH_RENDER_AUTO", "tide:tuna")
         }
     }
 }
@@ -70,3 +70,4 @@ java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
 }
+

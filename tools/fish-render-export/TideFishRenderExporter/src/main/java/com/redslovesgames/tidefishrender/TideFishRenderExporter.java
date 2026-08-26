@@ -16,8 +16,11 @@ import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.lit
 public final class TideFishRenderExporter implements ClientModInitializer {
     public static final String MOD_ID = "tide_fish_render_exporter";
     private static final String AUTO_EXPORT = System.getenv("TIDE_FISH_RENDER_AUTO");
+    private static final String AUTO_WORLD = "RenderWorld";
+    private static int clientTicks;
     private static int readyTicks;
     private static boolean autoStarted;
+    private static boolean worldOpenRequested;
 
     @Override
     public void onInitializeClient() {
@@ -44,7 +47,15 @@ public final class TideFishRenderExporter implements ClientModInitializer {
     }
 
     private static void tickAutoExport(MinecraftClient client) {
-        if (autoStarted || client.world == null || client.player == null) return;
+        if (autoStarted) return;
+        clientTicks++;
+        if (clientTicks == 1 || clientTicks == 20 || clientTicks % 200 == 0) logClientState(client);
+
+        if (client.world == null || client.player == null) {
+            readyTicks = 0;
+            if (!worldOpenRequested && clientTicks >= 200 && client.getServer() == null) openRenderWorld(client);
+            return;
+        }
         if (++readyTicks < 100) return;
         autoStarted = true;
         System.out.println("FISHRENDER_AUTO_START mode=" + AUTO_EXPORT + " world=" + client.world.getRegistryKey().getValue());
@@ -76,6 +87,45 @@ public final class TideFishRenderExporter implements ClientModInitializer {
         }
     }
 
+    private static void openRenderWorld(MinecraftClient client) {
+        worldOpenRequested = true;
+        Path levelDat = client.runDirectory.toPath().resolve("saves").resolve(AUTO_WORLD).resolve("level.dat");
+        System.out.println("FISHRENDER_AUTO_WORLD_OPEN_REQUEST world=" + AUTO_WORLD + " level_dat=" + levelDat
+                + " exists=" + Files.isRegularFile(levelDat));
+        if (!Files.isRegularFile(levelDat)) {
+            failWorldOpen(client, "missing world save: " + levelDat);
+            return;
+        }
+        try {
+            client.createIntegratedServerLoader().start(AUTO_WORLD, () -> failWorldOpen(client, "world load cancelled"));
+        } catch (Throwable t) {
+            failWorldOpen(client, t.getClass().getName() + ": " + String.valueOf(t.getMessage()));
+        }
+    }
+
+    private static void failWorldOpen(MinecraftClient client, String error) {
+        autoStarted = true;
+        System.err.println("FISHRENDER_AUTO_WORLD_OPEN_FAILED world=" + AUTO_WORLD + " error=" + error);
+        try {
+            writeAutoStatus(client, "world_open_failed", null, 0, 0, 1, error);
+        } catch (Exception writeError) {
+            writeError.printStackTrace();
+        }
+        client.scheduleStop();
+    }
+
+    private static void logClientState(MinecraftClient client) {
+        String screen = client.currentScreen == null ? "none" : client.currentScreen.getClass().getName();
+        String server = client.getServer() == null ? "none"
+                : client.getServer().getClass().getName() + ":running=" + client.getServer().isRunning()
+                + ":loading=" + client.getServer().isLoading();
+        Path levelDat = client.runDirectory.toPath().resolve("saves").resolve(AUTO_WORLD).resolve("level.dat");
+        System.out.println("FISHRENDER_AUTO_STATE ticks=" + clientTicks + " screen=" + screen
+                + " world=" + (client.world == null ? "none" : client.world.getRegistryKey().getValue())
+                + " player=" + (client.player == null ? "none" : client.player.getUuidAsString())
+                + " integrated_server=" + server + " save_available=" + Files.isRegularFile(levelDat));
+    }
+
     private static void writeAutoStatus(MinecraftClient client, String status, String reportPath,
                                         int totalFish, int successful, int failed, String error) throws Exception {
         Path generated = client.runDirectory.toPath().resolve("fishrender-output/generated");
@@ -97,3 +147,4 @@ public final class TideFishRenderExporter implements ClientModInitializer {
         return value.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r");
     }
 }
+

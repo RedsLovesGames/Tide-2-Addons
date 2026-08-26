@@ -62,6 +62,9 @@ jobs:
           test -f run/server/world/level.dat
           mkdir -p run/client/saves
           cp -a run/server/world run/client/saves/RenderWorld
+          test -f run/client/saves/RenderWorld/level.dat
+          echo '--- RenderWorld save layout ---'
+          find run/client/saves/RenderWorld -maxdepth 2 -type f -printf '%P\n' | sort | head -80
 
       - name: Run source-authentic Tide renderer under Xvfb
         run: |
@@ -76,7 +79,7 @@ jobs:
           set -e
           if [ -f run/client/logs/latest.log ]; then
             echo '--- fish render lifecycle markers ---'
-            grep -E 'FISHRENDER_AUTO_(ARMED|START|DONE|EXCEPTION|STOP_REQUESTED)' run/client/logs/latest.log || true
+            grep -E 'FISHRENDER_AUTO_(ARMED|STATE|WORLD_OPEN|START|DONE|EXCEPTION|STOP_REQUESTED)' run/client/logs/latest.log || true
             echo '--- last 120 Minecraft client log lines ---'
             tail -n 120 run/client/logs/latest.log || true
           fi
@@ -99,18 +102,24 @@ jobs:
           assert report_path.exists(), f'missing {report_path}'
           status = json.loads(status_path.read_text())
           report = json.loads(report_path.read_text())
-          pngs = sorted((root / 'fish/assets/renders').glob('tide__*.png'))
+          pngs = sorted((root / 'fish/assets/renders').glob('*.png'))
           assert status['status'] == 'success', status
-          assert status['total_fish'] == 102, status
-          assert status['successful'] == 102, status
+          assert status['mode'] == 'tide:tuna', status
+          assert status['total_fish'] == 1, status
+          assert status['successful'] == 1, status
           assert status['failed'] == 0, status
           assert report['failed'] == 0, report.get('exceptions')
-          assert len(pngs) == 102, len(pngs)
-          for png in pngs:
-              data = png.read_bytes()
-              assert len(data) > 256, (png, len(data))
-              assert data.startswith(b'\x89PNG\r\n\x1a\n'), png
-          print(f'RUNTIME_RENDER_VALID fish={len(pngs)} report={report_path}')
+          assert report['mode'] == 'export:tide:tuna:default', report
+          assert len(report['successes']) == 1, report['successes']
+          success = report['successes'][0]
+          assert success['fish_id'] == 'tide:tuna', success
+          assert success['entity_id'].startswith('tide:'), success
+          assert success['source_mod'], success
+          assert [png.name for png in pngs] == ['tide__tuna.png'], pngs
+          data = pngs[0].read_bytes()
+          assert len(data) > 256, (pngs[0], len(data))
+          assert data.startswith(b'\x89PNG\r\n\x1a\n'), pngs[0]
+          print(f'RUNTIME_RENDER_VALID fish=tide:tuna png={pngs[0]} report={report_path}')
           PY
 
       - name: Upload runtime evidence
@@ -123,3 +132,4 @@ jobs:
             tools/fish-render-export/TideFishRenderExporter/run/client/logs/
           if-no-files-found: warn
           retention-days: 14
+
