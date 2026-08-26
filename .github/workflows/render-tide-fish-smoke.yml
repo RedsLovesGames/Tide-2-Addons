@@ -17,7 +17,7 @@ permissions:
 jobs:
   render-tide:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     defaults:
       run:
         working-directory: tools/fish-render-export/TideFishRenderExporter
@@ -79,7 +79,7 @@ jobs:
           set -e
           if [ -f run/client/logs/latest.log ]; then
             echo '--- fish render lifecycle markers ---'
-            grep -E 'FISHRENDER_AUTO_(ARMED|STATE|WORLD_OPEN|START|DONE|EXCEPTION|STOP_REQUESTED)' run/client/logs/latest.log || true
+            grep -E 'FISHRENDER_(AUTO_|ENTITY)' run/client/logs/latest.log || true
             echo '--- last 120 Minecraft client log lines ---'
             tail -n 120 run/client/logs/latest.log || true
           fi
