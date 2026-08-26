@@ -29,15 +29,29 @@ async function waitForDoc(page) {
   await page.waitForTimeout(80);
 }
 
+async function waitForScopedFish(page) {
+  await page.waitForFunction(() => {
+    const n = Number(document.querySelector('#stat-records')?.textContent || 0);
+    return document.body.dataset.fishScope === 'modpack' && n > 0 && window.TideFishModpackScope?.allowedIds?.size > 0;
+  });
+}
+
 try {
   const desktop = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   await inspectPage(desktop, 'desktop');
 
   await desktop.goto(`${base}/fish/`, { waitUntil: 'networkidle' });
-  await desktop.waitForFunction(() => document.querySelector('#stat-records')?.textContent === '342');
-  assert.equal((await desktop.locator('#result-count').textContent())?.trim(), '342 fish');
-  assert.equal((await desktop.locator('#stat-mods').textContent())?.trim(), '37');
-  assert.equal(await desktop.locator('.fish-card').count(), 342);
+  await waitForScopedFish(desktop);
+  const scopedTotal = Number((await desktop.locator('#stat-records').textContent())?.trim() || 0);
+  const scopedMods = Number((await desktop.locator('#stat-mods').textContent())?.trim() || 0);
+  assert.ok(scopedTotal > 0 && scopedTotal < 342, `unexpected scoped fish total ${scopedTotal}`);
+  assert.ok(scopedMods > 0 && scopedMods < 37, `unexpected scoped namespace total ${scopedMods}`);
+  assert.equal((await desktop.locator('#result-count').textContent())?.trim(), `${scopedTotal} fish`);
+  assert.equal(await desktop.locator('.fish-card:not([hidden])').count(), scopedTotal);
+  const leaked = await desktop.evaluate(() => [...document.querySelectorAll('.fish-card:not([hidden]),.fish-row:not([hidden])')]
+    .filter(n => !window.TideFishModpackScope.allowedIds.has(n.dataset.id))
+    .map(n => n.dataset.id));
+  assert.deepEqual(leaked, [], `out-of-modpack fish leaked into the catalog: ${JSON.stringify(leaked)}`);
   assert.ok(await desktop.locator('#category-nav button').count() >= 6, 'journal category navigation was not populated');
   assert.equal(await desktop.locator('.fish-provenance').getAttribute('open'), null, 'provenance should be collapsed by default');
   assert.ok(await desktop.locator('.preview-quiet').count() > 0, 'quiet missing-render states were not applied');
@@ -45,22 +59,29 @@ try {
   await desktop.screenshot({ path: `${out}/fish-desktop.png`, fullPage: true });
 
   await desktop.selectOption('#filter-group', 'saltwater');
-  await desktop.waitForTimeout(80);
+  await desktop.waitForTimeout(120);
   const saltCount = Number(((await desktop.locator('#result-count').textContent()) || '0').split(' ')[0]);
-  assert.ok(saltCount > 0 && saltCount < 342, `saltwater filter returned ${saltCount}`);
+  assert.ok(saltCount > 0 && saltCount < scopedTotal, `saltwater filter returned ${saltCount}`);
   assert.equal(await desktop.locator('#category-nav button[data-group="saltwater"]').getAttribute('aria-pressed'), 'true');
   assert.ok(await desktop.locator('#active-filters button[data-clear="filter-group"]').count() === 1, 'active category chip missing');
 
   await desktop.click('#clear-filters');
   await desktop.fill('#fish-search', 'hybrid aquatic');
-  await desktop.waitForTimeout(80);
+  await desktop.waitForTimeout(120);
   const hybridCount = Number(((await desktop.locator('#result-count').textContent()) || '0').split(' ')[0]);
-  assert.ok(hybridCount > 0 && hybridCount < 342, `Hybrid Aquatic search returned ${hybridCount}`);
+  assert.ok(hybridCount > 0 && hybridCount < scopedTotal, `Hybrid Aquatic search returned ${hybridCount}`);
   assert.ok(await desktop.locator('#active-filters button[data-clear="fish-search"]').count() === 1, 'active search chip missing');
+
+  await desktop.click('#clear-filters');
+  await desktop.fill('#fish-search', 'aquaculture');
+  await desktop.waitForTimeout(120);
+  assert.equal((await desktop.locator('#result-count').textContent())?.trim(), '0 fish', 'out-of-modpack Aquaculture fish should be hidden');
+  assert.equal(await desktop.locator('.fish-card:not([hidden])').count(), 0, 'out-of-modpack Aquaculture cards remained visible');
+
   await desktop.click('#clear-filters');
   await desktop.fill('#fish-search', 'tuna');
   await desktop.waitForSelector('#fish-suggestions:not([hidden]) a[href="#tide__tuna"]');
-  assert.ok(await desktop.locator('#fish-suggestions a').count() > 0, 'autocomplete did not return results');
+  assert.ok(await desktop.locator('#fish-suggestions a:not([hidden])').count() > 0, 'autocomplete did not return scoped results');
   await desktop.press('#fish-search', 'Escape');
   assert.equal(await desktop.locator('#fish-search').getAttribute('aria-expanded'), 'false');
   await desktop.click('#clear-filters');
@@ -70,23 +91,21 @@ try {
   const firstHabitat = await desktop.locator('#filter-habitat option').nth(1).getAttribute('value');
   assert.ok(firstHabitat);
   await desktop.selectOption('#filter-habitat', firstHabitat);
+  await desktop.waitForTimeout(120);
   const habitatCount = Number(((await desktop.locator('#result-count').textContent()) || '0').split(' ')[0]);
-  assert.ok(habitatCount > 0 && habitatCount < 342, `habitat filter returned ${habitatCount}`);
+  assert.ok(habitatCount > 0 && habitatCount < scopedTotal, `habitat filter returned ${habitatCount}`);
 
   await desktop.goto(`${base}/fish/#tide__tuna`, { waitUntil: 'networkidle' });
+  await waitForScopedFish(desktop);
   await desktop.waitForSelector('#fish-article:not([hidden]) h1');
   assert.equal((await desktop.locator('#fish-article h1').textContent())?.trim(), 'Tuna');
   assert.match((await desktop.locator('#fish-article').textContent()) || '', /Tide 2\.1\.1/);
   assert.equal(desktop.url(), `${base}/fish/#tide__tuna`);
   assert.equal(await desktop.locator('.specimen-nav').count(), 1, 'previous/next specimen navigation missing');
-  assert.equal(await desktop.locator('.condition-viewer').count(), 1, 'Tuna condition viewer missing');
-  assert.equal(await desktop.locator('.condition-tabs button:not([disabled])').count(), 4, 'expected four currently validated Tuna condition renders');
-  assert.equal(await desktop.locator('.condition-tabs button[data-condition="albino"]').isDisabled(), true, 'malformed Albino PNG must remain unavailable until re-exported');
-  assert.equal(await desktop.locator('.condition-tabs button[data-condition="perfect_specimen"]').isDisabled(), true, 'Perfect Specimen must remain unavailable until validated');
-  await desktop.click('.condition-tabs button[data-condition="iridescent"]');
-  await desktop.waitForSelector('.condition-render[src*="tuna-iridescent.png"]');
-  assert.match((await desktop.locator('.entry-render small').textContent()) || '', /Iridescent.*source-backed/i);
-  await desktop.screenshot({ path: `${out}/tuna-iridescent-detail.png`, fullPage: true });
+  assert.equal(await desktop.locator('.specimen-nav.modpack-scope-nav').count(), 1, 'specimen navigation was not restricted to modpack fish');
+  assert.equal(await desktop.locator('.condition-viewer').count(), 0, 'visual condition variants should be disabled in the current render phase');
+  assert.equal(await desktop.locator('.condition-tabs').count(), 0, 'visual variant tabs should be disabled in the current render phase');
+  await desktop.screenshot({ path: `${out}/tuna-default-detail.png`, fullPage: true });
 
   await desktop.click('#back-catalog');
   await desktop.waitForSelector('#catalog-view:not([hidden])');
@@ -146,7 +165,7 @@ try {
     const page = await browser.newPage({ viewport: { width, height } });
     await inspectPage(page, label);
     await page.goto(`${base}/fish/`, { waitUntil: 'networkidle' });
-    await page.waitForFunction(() => document.querySelector('#stat-records')?.textContent === '342');
+    await waitForScopedFish(page);
     await assertNoHorizontalOverflow(page, label);
     await page.click('#filter-toggle');
     assert.equal(await page.locator('#filter-toggle').getAttribute('aria-expanded'), 'true');
@@ -160,10 +179,11 @@ try {
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
   await inspectPage(mobile, 'mobile-theme');
   await mobile.goto(`${base}/fish/`, { waitUntil: 'networkidle' });
-  await mobile.waitForFunction(() => document.querySelector('#stat-records')?.textContent === '342');
+  await waitForScopedFish(mobile);
   await mobile.click('#theme-button');
   assert.equal(await mobile.locator('html').getAttribute('data-theme'), 'light');
   await mobile.reload({ waitUntil: 'networkidle' });
+  await waitForScopedFish(mobile);
   assert.equal(await mobile.locator('html').getAttribute('data-theme'), 'light');
   await mobile.close();
 
@@ -176,4 +196,4 @@ if (failures.length) {
   throw new Error(`Browser QA found ${failures.length} runtime/network errors:\n${failures.join('\n')}`);
 }
 
-console.log('Fish Wiki browser QA passed: authoritative catalog, desktop/tablet/mobile layouts, filters, search autocomplete, deep links, validated Tuna Condition renders, item textures, current 1.3.57 docs, recipe deep links, and GitHub Pages-style base path.');
+console.log('Fish Wiki browser QA passed: temporary modpack-only fish scope, default/base visual phase, desktop/tablet/mobile layouts, filters, scoped search/autocomplete, deep links, item textures, current 1.3.57 docs, recipe deep links, and GitHub Pages-style base path.');
