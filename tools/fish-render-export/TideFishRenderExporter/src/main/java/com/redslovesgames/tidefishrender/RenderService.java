@@ -196,7 +196,6 @@ final class RenderService {
         matrices.translate(0.0, -0.15, -3.2);
         matrices.scale(scale, scale, scale);
         VertexConsumerProvider.Immediate consumers = client.getBufferBuilders().getEntityVertexConsumers();
-        boolean previousShadows = client.getEntityRenderDispatcher().shouldRenderShadows();
         client.getEntityRenderDispatcher().setRenderShadows(false);
         try {
             FishDisplayRenderer renderer = new FishDisplayRenderer(client.getEntityRenderDispatcher());
@@ -222,7 +221,7 @@ final class RenderService {
             image.mirrorVertically();
             return new FrameResult(image, entityId);
         } finally {
-            client.getEntityRenderDispatcher().setRenderShadows(previousShadows);
+            client.getEntityRenderDispatcher().setRenderShadows(true);
             RenderTargetOverride.clear();
             framebuffer.endWrite();
             framebuffer.delete();
