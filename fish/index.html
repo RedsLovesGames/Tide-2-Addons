@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1423">
+  <meta name="description" content="Tideborne Fish Wiki for Tide 2.1.1 and Tide Extra Compatibility 2.2.0.">
+  <title>Tideborne Fish Wiki</title>
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <link rel="stylesheet" href="../assets/fish-wiki.css">
+  <link rel="stylesheet" href="../assets/fish-wiki-release.css">
+</head>
+<body class="fish-page">
+<a class="skip-link" href="#fish-results">Skip to fish</a>
+<header class="topbar">
+  <button id="fish-menu-button" class="icon-btn menu-btn" aria-label="Open navigation" aria-expanded="false">☰</button>
+  <a class="brand" href="../#/" aria-label="Tideborne documentation home"><img src="../assets/logo.svg" alt=""><span><strong>Tideborne</strong><small>1.3.57 docs</small></span></a>
+  <nav class="topnav" aria-label="Primary"><a href="../#/installation">Install & dependencies</a><a href="../#/satchel">Satchel</a><a href="../#/recipes">Recipes</a><a class="active" href="./" aria-current="page">Fish Wiki</a><a href="../#/reference/config">Reference</a></nav>
+  <div class="top-actions"><a class="search-btn" href="../#/" aria-label="Return to documentation"><span>Documentation</span></a><button id="theme-button" class="icon-btn" aria-label="Use light theme">◐</button></div>
+</header>
+<nav id="fish-mobile-nav" class="fish-mobile-nav" aria-label="Mobile primary" hidden><a href="../#/installation">Install & dependencies</a><a href="../#/satchel">Satchel</a><a href="../#/recipes">Recipes</a><a class="active" href="./" aria-current="page">Fish Wiki</a><a href="../#/reference/config">Reference</a></nav>
+<div class="progress" id="progress"></div>
+<main class="fish-main">
+  <section class="fish-hero" aria-labelledby="page-title">
+    <p class="eyebrow">Tideborne field guide · Minecraft 1.21.1</p>
+    <h1 id="page-title">Fish Wiki</h1>
+    <p class="lead">Source-backed FishData from Tide 2.1.1 and Tide Extra Compatibility 2.2.0, with Tideborne specimen and FishScore context. Catalog totals populate from the validated data bundle at runtime.</p>
+    <div class="fish-stats" aria-label="Catalog summary"><span><b id="stat-records">Loading</b> fish</span><span><b id="stat-mods">Loading</b> namespaces</span><span><b id="stat-previews">Loading</b> source-backed previews</span></div>
+  </section>
+
+  <section class="fish-provenance"><strong>Render policy</strong><span>Only packaged/source-backed entity renders are shown. Variable-skin entities are labeled representative variants. Missing render source remains unavailable rather than being replaced with invented artwork.</span></section>
+
+  <section id="catalog-view" class="fish-shell">
+    <aside id="fish-filters" class="fish-filters" aria-label="Fish filters">
+      <div class="filter-title"><strong>Browse</strong><div class="filter-actions"><button id="clear-filters" type="button">Reset</button><button id="filter-close" class="filter-close" type="button" aria-label="Close filters">Close</button></div></div>
+      <label>Journal category<select id="filter-group"><option value="">All categories</option></select></label>
+      <label>Source mod<select id="filter-mod"><option value="">All source mods</option></select></label>
+      <label>Rarity<select id="filter-rarity"><option value="">All rarities</option></select></label>
+      <label>Stars<select id="filter-stars"><option value="">All star counts</option><option value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option value="4">4 stars</option><option value="5">5 stars</option></select></label>
+      <label>Habitat<select id="filter-habitat"><option value="">All habitats</option></select></label>
+      <label>Preview<select id="filter-preview"><option value="">All preview states</option></select></label>
+      <div class="wiki-links"><strong>Related docs</strong><a href="../#/traits">Body Type & Condition</a><a href="../#/records">FishScore & records</a><a href="../#/satchel">Angler's Satchel</a><a href="../#/tide">Tide integration</a></div>
+    </aside>
+    <button id="filter-scrim" class="filter-scrim" type="button" aria-label="Close filters" hidden></button>
+
+    <div class="fish-catalog">
+      <nav id="category-nav" class="category-nav" aria-label="Journal categories"></nav>
+      <div class="catalog-toolbar">
+        <button id="filter-toggle" class="filter-toggle" type="button" aria-controls="fish-filters" aria-expanded="false">Filters</button>
+        <label class="fish-search"><span class="sr-only">Search fish</span><input id="fish-search" type="search" placeholder="Search species, namespace, mod, habitat, conditions..." autocomplete="off"><kbd>/</kbd></label>
+        <label class="sort-wrap"><span>Sort</span><select id="sort-fish"><option value="name">Name A–Z</option><option value="rarity">Rarity</option><option value="record">Record size</option><option value="score">Normal max FishScore</option><option value="mod">Source mod</option></select></label>
+        <div class="view-toggle" role="group" aria-label="Catalog view"><button id="view-grid" class="active" type="button" aria-pressed="true">Grid</button><button id="view-list" type="button" aria-pressed="false">List</button></div>
+      </div>
+      <div class="result-line"><strong id="result-count">Loading fish...</strong><span id="active-summary">Loading FishData...</span></div>
+      <div id="fish-results" class="fish-grid" aria-live="polite"></div>
+      <div id="empty-state" class="empty-state" hidden><strong>No fish match these filters.</strong><span>Broaden the search or reset the filters.</span></div>
+    </div>
+  </section>
+
+  <article id="fish-article" class="fish-article" hidden tabindex="-1" aria-live="polite"></article>
+</main>
+<footer class="fish-footer"><a href="../#/">Tideborne documentation</a><span>FishData: Tide 2.1.1 · Tide Extra Compatibility 2.2.0</span><span>Tideborne 1.3.57</span></footer>
+<script src="../assets/fish-wiki.js"></script>
+<script>
+(()=>{
+  const b=document.getElementById('theme-button'),m=document.getElementById('fish-menu-button'),n=document.getElementById('fish-mobile-nav');
+  if(m&&n){m.addEventListener('click',()=>{const open=n.hasAttribute('hidden');n.toggleAttribute('hidden',!open);m.setAttribute('aria-expanded',String(open))});n.addEventListener('click',()=>{n.setAttribute('hidden','');m.setAttribute('aria-expanded','false')})}
+  const set=t=>{document.documentElement.dataset.theme=t;localStorage.setItem('tideborne-theme',t);b.setAttribute('aria-label',t==='dark'?'Use light theme':'Use dark theme')};set(localStorage.getItem('tideborne-theme')||'dark');b.addEventListener('click',()=>set(document.documentElement.dataset.theme==='dark'?'light':'dark'));
+  const filters=document.getElementById('fish-filters'),toggle=document.getElementById('filter-toggle'),close=document.getElementById('filter-close'),scrim=document.getElementById('filter-scrim');
+  const setFilters=open=>{filters.classList.toggle('filters-open',open);toggle.setAttribute('aria-expanded',String(open));scrim.toggleAttribute('hidden',!open);document.body.classList.toggle('filter-drawer-open',open);if(open)close.focus({preventScroll:true});else if(document.activeElement===close)toggle.focus({preventScroll:true})};
+  toggle.addEventListener('click',()=>setFilters(!filters.classList.contains('filters-open')));close.addEventListener('click',()=>setFilters(false));scrim.addEventListener('click',()=>setFilters(false));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&filters.classList.contains('filters-open')){e.stopPropagation();setFilters(false)}});
+})();
+</script>
+</body>
+</html>

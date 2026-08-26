@@ -1,0 +1,110 @@
+(async()=>{
+'use strict';
+const BASE='../assets/';
+const rarityOrder={common:1,uncommon:2,rare:3,very_rare:4,legendary:5};
+const groupLabels={saltwater:'Ocean / Saltwater',freshwater:'Freshwater / River',underground:'Underground / Cave',lava:'Nether / Lava',void:'End / Void',misc:'Other'};
+const previewLabels={exact:'Exact source render',representative:'Representative packaged variant',no_entity:'No Fish Display entity',source_missing:'Source mod not supplied',vanilla_model:'Vanilla model source unavailable',unreconstructed:'Renderer unsupported'};
+const conditionBonus={parasite:15,parasite_ridden:15,scarred:25,albino:175,iridescent:325,perfect_specimen:350};
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));
+const title=s=>String(s||'').replaceAll('_',' ').replace(/\b\w/g,m=>m.toUpperCase());
+const fmt=n=>(n===null||n===undefined||n===''||!Number.isFinite(Number(n)))?'n/a':Number(n).toLocaleString(undefined,{maximumFractionDigits:2});
+const stars=n=>'★'.repeat(Number(n)||1);
+const slug=id=>String(id).replace(':','__');
+const unslug=s=>String(s).replace('__',':');
+const habitatKey=r=>String(r.locationKey||r.location||'').trim();
+const habitatLabel=r=>String(r.location||r.locationKey||'Unknown habitat').trim();
+function score(r,percentile=100,condition='normal',body='normal',length=Number(r.recordHigh)||0){
+  const record=Number(r.recordHigh)||0,p=Math.max(0,Math.min(100,Number(percentile)||0)),st=Math.max(1,Number(r.stars)||1);
+  const rarity=(st-1)*62.5;
+  const recordBonus=record>0?Math.min(300,75*Math.sqrt(record/100)):0;
+  const physical=length>0?Math.min(150,15*(length/100)):0;
+  let bodyBonus=0;
+  if(body==='giant'){
+    const ratio=record>0?length/record:1;
+    const sizeProgress=Math.max(0,Math.min(1,(ratio-1)/0.3));
+    const percentileProgress=Math.max(0,Math.min(1,(p-97)/3));
+    bodyBonus=80+140*sizeProgress+80*percentileProgress;
+  }else if(body==='dwarf'){
+    const lowProgress=Math.max(0,Math.min(1,(3-p)/3));
+    bodyBonus=80+220*lowProgress;
+  }
+  let total=p*5+rarity+(conditionBonus[condition]||0)+recordBonus+physical+bodyBonus;
+  if(condition==='perfect_specimen')total*=1.2;
+  return total;
+}
+function sizeEnvelope(r){
+  const lo=Number(r.typicalLow),hi=Number(r.recordHigh);
+  return {floor:Number.isFinite(lo)?lo*0.55*0.90:null,normalMax:Number.isFinite(hi)?hi:null,giantMax:Number.isFinite(hi)?hi*1.30:null};
+}
+let db;
+try{
+  if(!('DecompressionStream' in window))throw new Error('gzip decompression unsupported');
+  const load=async f=>{const res=await fetch(BASE+f);if(!res.ok)throw new Error(`${f}: HTTP ${res.status}`);return JSON.parse(await new Response(res.body.pipeThrough(new DecompressionStream('gzip'))).text())};
+  const [a,b]=await Promise.all([load('fish-wiki-data-0.json.gz'),load('fish-wiki-data-1.json.gz')]);
+  db={meta:a.meta,records:[...a.records,...b.records]};
+}catch(err){
+  console.error(err);
+  const results=$('#fish-results');if(results)results.innerHTML='<div class="empty-state"><strong>FishData is unavailable in this build.</strong><span>The catalog bundle is missing, failed to download, or could not be decoded. No substitute data is being shown.</span></div>';
+  const count=$('#result-count');if(count)count.textContent='FishData unavailable';
+  const summary=$('#active-summary');if(summary)summary.textContent='Catalog validation required';
+  for(const id of ['#stat-records','#stat-mods','#stat-previews']){const el=$(id);if(el)el.textContent='Unavailable'}
+  return;
+}
+const records=db.records,meta=db.meta;
+const els={grid:$('#fish-results'),empty:$('#empty-state'),count:$('#result-count'),summary:$('#active-summary'),search:$('#fish-search'),group:$('#filter-group'),rarity:$('#filter-rarity'),stars:$('#filter-stars'),mod:$('#filter-mod'),habitat:$('#filter-habitat'),preview:$('#filter-preview'),sort:$('#sort-fish'),reset:$('#clear-filters'),catalog:$('#catalog-view'),article:$('#fish-article'),gridBtn:$('#view-grid'),listBtn:$('#view-list'),categoryNav:$('#category-nav')};
+function addOptions(el,vals,label=v=>v){if(!el)return;for(const v of vals){const o=document.createElement('option');o.value=v;o.textContent=label(v);el.append(o)}}
+const groups=[...new Set(records.map(r=>r.group).filter(Boolean))].sort();
+addOptions(els.group,groups,v=>groupLabels[v]||title(v));
+addOptions(els.rarity,Object.keys(rarityOrder),title);
+addOptions(els.mod,[...new Set(records.map(r=>r.modKey).filter(Boolean))].sort((a,b)=>(records.find(r=>r.modKey===a)?.mod||a).localeCompare(records.find(r=>r.modKey===b)?.mod||b)),v=>records.find(r=>r.modKey===v)?.mod||v);
+const habitats=new Map();for(const r of records){const k=habitatKey(r);if(k&&!habitats.has(k))habitats.set(k,habitatLabel(r))}
+addOptions(els.habitat,[...habitats.keys()].sort((a,b)=>habitats.get(a).localeCompare(habitats.get(b))),v=>habitats.get(v));
+addOptions(els.preview,Object.keys(previewLabels),v=>previewLabels[v]);
+if(els.categoryNav){
+  const mk=(value,label)=>{const b=document.createElement('button');b.type='button';b.dataset.group=value;b.textContent=label;b.setAttribute('aria-pressed','false');return b};
+  els.categoryNav.append(mk('','All fish'));
+  for(const g of groups)els.categoryNav.append(mk(g,groupLabels[g]||title(g)));
+  els.categoryNav.addEventListener('click',e=>{const b=e.target.closest('button[data-group]');if(!b)return;els.group.value=b.dataset.group;render();});
+}
+$('#stat-records').textContent=meta.records;$('#stat-mods').textContent=meta.namespaces;$('#stat-previews').textContent=(meta.previewCounts.exact||0)+(meta.previewCounts.representative||0);
+function spriteStyle(p){const rowsPerSheet=Math.max(1,Number(meta.atlas?.rowsPerSheet)||4),sheet=Math.floor(p.row/rowsPerSheet),local=p.row%rowsPerSheet,x=meta.atlas.cols===1?0:p.col/(meta.atlas.cols-1)*100,y=rowsPerSheet===1?0:local/(rowsPerSheet-1)*100;return `background-image:url('${BASE}fish-wiki-atlas-${sheet}.webp');background-size:${meta.atlas.cols*100}% ${rowsPerSheet*100}%;background-position:${x}% ${y}%`}
+function preview(r){const p=r.preview||{};if(p.status==='exact'||p.status==='representative')return `<div class="fish-sprite" role="img" aria-label="${esc(r.name)} source-backed entity render" style="${spriteStyle(p)}"></div>`;return `<div class="preview-missing"><strong>${esc(previewLabels[p.status]||'Preview unavailable')}</strong><span>${esc(p.note||'')}</span></div>`}
+function card(r){const p=r.preview||{},mx=score(r,100,'normal','normal',Number(r.recordHigh)||0);return `<button class="fish-card" type="button" data-id="${esc(r.id)}"><div class="specimen-window">${p.status==='representative'?'<span class="status-stamp">representative</span>':''}${preview(r)}</div><div class="card-body"><div class="card-kicker"><span>${esc(r.mod)}</span><span class="rarity-stars">${stars(r.stars)}</span></div><h2>${esc(r.name)}</h2><span class="fish-id">${esc(slug(r.id))}</span><div class="card-measures"><span>Typical<strong>${fmt(r.typicalLow)}–${fmt(r.typicalHigh)} cm</strong></span><span>Normal max score<strong>${fmt(mx)}</strong></span></div></div></button>`}
+function row(r){return `<button class="fish-row" type="button" data-id="${esc(r.id)}"><span class="row-preview">${preview(r)}</span><span><strong>${esc(r.name)}</strong><small>${esc(r.mod)} · ${esc(slug(r.id))}</small></span><span>${stars(r.stars)} ${title(r.rarity)}</span><span>${fmt(r.typicalLow)}–${fmt(r.typicalHigh)} cm</span><span>${fmt(r.recordHigh)} cm</span><span>${fmt(score(r,100,'normal','normal',Number(r.recordHigh)||0))}</span></button>`}
+let view='grid';
+function filtered(){
+  const q=els.search.value.trim().toLowerCase(),g=els.group.value,ra=els.rarity.value,st=els.stars.value,m=els.mod.value,h=els.habitat?.value||'',p=els.preview.value;
+  let a=records.filter(r=>{
+    if(g&&r.group!==g||ra&&r.rarity!==ra||st&&String(r.stars)!==st||m&&r.modKey!==m||h&&habitatKey(r)!==h||p&&(r.preview||{}).status!==p)return false;
+    if(!q)return true;
+    const blob=[r.name,r.id,slug(r.id),r.entity,r.mod,r.namespace,r.location,r.locationKey,...(r.associatedMods||[]),...(r.conditions||[]).flatMap(c=>[c.type,JSON.stringify(c)])].join(' ').toLowerCase();
+    return blob.includes(q);
+  });
+  const s=els.sort.value;
+  a.sort((a,b)=>s==='rarity'?((rarityOrder[b.rarity]||0)-(rarityOrder[a.rarity]||0)||a.name.localeCompare(b.name)):s==='record'?((Number(b.recordHigh)||-1)-(Number(a.recordHigh)||-1)||a.name.localeCompare(b.name)):s==='score'?(score(b)-score(a)||a.name.localeCompare(b.name)):s==='mod'?(a.mod.localeCompare(b.mod)||a.name.localeCompare(b.name)):a.name.localeCompare(b.name));
+  return a;
+}
+function syncCategoryNav(){if(!els.categoryNav)return;for(const b of els.categoryNav.querySelectorAll('button[data-group]')){const on=b.dataset.group===els.group.value;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));if(on)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current')}}
+function render(){
+  const a=filtered();els.grid.className=view==='grid'?'fish-grid':'fish-list';els.grid.innerHTML=(view==='grid'?a.map(card):a.map(row)).join('');els.count.textContent=`${a.length} fish`;
+  const tags=[];for(const el of [els.group,els.rarity,els.stars,els.mod,els.habitat,els.preview])if(el?.value)tags.push(el.options[el.selectedIndex].text);if(els.search.value.trim())tags.push(`“${els.search.value.trim()}”`);els.summary.textContent=tags.length?tags.join(' · '):'All registered FishData';els.empty.hidden=a.length>0;syncCategoryNav();
+}
+function condText(c){const entries=Object.entries(c).filter(([k])=>k!=='type');return entries.length?entries.map(([k,v])=>`${title(k)}: ${Array.isArray(v)?v.join(', '):typeof v==='object'?JSON.stringify(v):v}`).join(' · '):'Enabled'}
+function bar(label,value,max){const w=Math.max(2,Math.min(100,max?value/max*100:0));return `<div class="statbar"><span>${esc(label)}</span><div><i style="width:${w}%"></i></div><b>${fmt(value)}</b></div>`}
+function articleHTML(r){
+  const p=r.preview||{},env=sizeEnvelope(r),normal=score(r,100,'normal','normal',Number(r.recordHigh)||0),giant=score(r,100,'normal','giant',(Number(r.recordHigh)||0)*1.3),iri=score(r,100,'iridescent','normal',Number(r.recordHigh)||0),perfect=score(r,100,'perfect_specimen','normal',Number(r.recordHigh)||0),absolute=score(r,100,'perfect_specimen','giant',(Number(r.recordHigh)||0)*1.3);const same=records.filter(x=>x.id!==r.id&&(x.group===r.group||x.modKey===r.modKey)).slice(0,6);
+  return `<div class="article-actions"><button id="back-catalog" type="button">← Fish Wiki index</button><span>${esc(r.mod)} · ${esc(title(r.group))}</span></div><header class="fish-entry-head"><div><p class="eyebrow">${esc(r.mod)} · ${esc(title(r.rarity))}</p><h1>${esc(r.name)}</h1><p><code>${esc(slug(r.id))}</code> · entity <code>${esc(r.entity||'n/a')}</code></p><div class="entry-badges"><span>${stars(r.stars)} ${esc(title(r.rarity))}</span><span>${esc(title(r.group))}</span><span>${esc(r.location||'Unknown location')}</span></div></div><div class="entry-render"><div class="specimen-window">${preview(r)}</div><small>${esc(previewLabels[p.status]||p.status||'Preview unavailable')}</small></div></header><section class="entry-grid"><div><h2>Size envelope</h2><div class="fact-grid"><div><span>Typical low</span><b>${fmt(r.typicalLow)} cm</b></div><div><span>Typical high</span><b>${fmt(r.typicalHigh)} cm</b></div><div><span>FishData record high</span><b>${fmt(r.recordHigh)} cm</b></div><div><span>Default lower envelope</span><b>${fmt(env.floor)} cm</b></div><div><span>Default Giant ceiling</span><b>${fmt(env.giantMax)} cm</b></div></div><p class="method-note">Lower envelope is derived from FishData typical-low × the 1.3.57 minimum Dwarf multiplier (0.55) × minimum Parasite-Ridden multiplier (0.90). Giant ceiling uses FishData record-high × the 1.3.57 maximum Giant multiplier (1.30). These are default-config derived envelopes, not FishData fields.</p></div><div><h2>FishScore ceiling</h2>${bar('Normal',normal,absolute)}${bar('Giant',giant,absolute)}${bar('Iridescent',iri,absolute)}${bar('Perfect Specimen',perfect,absolute)}${bar('Giant + Perfect',absolute,absolute)}<p class="method-note">1.3.57 score: percentile × 5 + rarity bonus + species record-high bonus + physical-length bonus + Condition bonus + Body Type bonus. Perfect Specimen multiplies the final total by 1.2.</p></div></section><section class="entry-grid"><div><h2>Fishing characteristics</h2><div class="fact-grid"><div><span>Strength</span><b>${fmt(r.strength)}</b></div><div><span>Speed</span><b>${fmt(r.speed)}</b></div><div><span>Selection weight</span><b>${fmt(r.weight)}</b></div><div><span>Bucket item</span><b>${esc(r.bucket||'n/a')}</b></div></div></div><div><h2>Tideborne context</h2><p>Body Type and Condition are independent axes in Tideborne 1.3.57. A fish can combine Giant or Dwarf with a compatible Condition such as Iridescent, Albino, Scarred, Parasite-Ridden, or Perfect Specimen.</p><p><a href="../#/traits">Body Type & Condition</a> · <a href="../#/records">FishScore & records</a> · <a href="../#/satchel">Angler's Satchel</a></p></div></section><section><h2>Catch conditions</h2><div class="condition-list">${(r.conditions||[]).length?r.conditions.map(c=>`<div><strong>${esc(c.type||'condition')}</strong><span>${esc(condText(c))}</span></div>`).join(''):'<p>No explicit conditions in this FishData record.</p>'}</div></section><section class="entry-grid"><div><h2>Provenance</h2><dl class="provenance-list"><dt>FishData</dt><dd>${esc(r.sourceJar||'unknown')} · ${esc(r.sourcePath||'unknown')}</dd><dt>DisplayData</dt><dd><code>${esc(JSON.stringify(r.displayData||{}))}</code></dd><dt>Preview</dt><dd>${esc(previewLabels[p.status]||p.status||'Preview unavailable')}. ${esc(p.note||'')}</dd><dt>Associated mods</dt><dd>${esc((r.associatedMods||[]).join(', ')||'none')}</dd></dl></div><div><h2>Related fish</h2><div class="related-list">${same.map(x=>`<button type="button" data-related="${esc(x.id)}"><strong>${esc(x.name)}</strong><span>${esc(x.mod)} · ${esc(title(x.group))}</span></button>`).join('')}</div></div></section>`;
+}
+function openId(id,push=true){const r=records.find(x=>x.id===id);if(!r)return false;els.catalog.hidden=true;els.article.hidden=false;els.article.innerHTML=articleHTML(r);document.title=`${r.name} · Tideborne Fish Wiki`;if(push)history.pushState({fish:id},'',`#${slug(id)}`);els.article.focus({preventScroll:true});window.scrollTo({top:0,behavior:'auto'});return true}
+function showCatalog(push=false){els.article.hidden=true;els.catalog.hidden=false;els.article.innerHTML='';document.title='Tideborne Fish Wiki';if(push)history.pushState({},'',location.pathname+location.search)}
+els.grid.addEventListener('click',e=>{const b=e.target.closest('[data-id]');if(b)openId(b.dataset.id,true)});
+els.article.addEventListener('click',e=>{if(e.target.closest('#back-catalog')){history.pushState({},'',location.pathname+location.search);showCatalog(false)}const r=e.target.closest('[data-related]');if(r)openId(r.dataset.related,true)});
+for(const el of [els.search,els.group,els.rarity,els.stars,els.mod,els.habitat,els.preview,els.sort].filter(Boolean))el.addEventListener(el===els.search?'input':'change',render);
+els.reset.addEventListener('click',()=>{els.search.value='';els.group.value='';els.rarity.value='';els.stars.value='';els.mod.value='';if(els.habitat)els.habitat.value='';els.preview.value='';els.sort.value='name';render()});
+els.gridBtn.addEventListener('click',()=>{view='grid';els.gridBtn.classList.add('active');els.listBtn.classList.remove('active');els.gridBtn.setAttribute('aria-pressed','true');els.listBtn.setAttribute('aria-pressed','false');render()});
+els.listBtn.addEventListener('click',()=>{view='list';els.listBtn.classList.add('active');els.gridBtn.classList.remove('active');els.listBtn.setAttribute('aria-pressed','true');els.gridBtn.setAttribute('aria-pressed','false');render()});
+document.addEventListener('keydown',e=>{if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){e.preventDefault();if(!els.catalog.hidden)els.search.focus()}if(e.key==='Escape'&&!els.article.hidden){history.back()}});
+const routeFromLocation=()=>{const h=location.hash.slice(1);if(h&&openId(unslug(decodeURIComponent(h)),false))return;showCatalog(false)};
+window.addEventListener('popstate',routeFromLocation);window.addEventListener('hashchange',routeFromLocation);
+render();const initial=location.hash.slice(1);if(initial){const id=unslug(decodeURIComponent(initial));if(openId(id,false)&&initial!==slug(id))history.replaceState({fish:id},'',`#${slug(id)}`)}
+})();

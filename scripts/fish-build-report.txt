@@ -1,0 +1,111 @@
+Authoritative Fish Wiki Build Report
+===================================
+Tide FishData source files: 186
+Tide Extra FishData source files: 157
+Raw source files total: 343
+Overlapping canonical fish IDs merged: 0
+Hidden show_in_journal=false rows: 1
+Final visible fish records: 342
+Final namespaces: 37
+Unresolved parent references: 0
+
+Preview status counts:
+  no_entity: 14
+  source_missing: 218
+  unreconstructed: 102
+  vanilla_model: 8
+
+Journal category counts:
+  freshwater: 96
+  lava: 27
+  saltwater: 141
+  underground: 50
+  void: 28
+
+Rarity counts:
+  common: 163
+  legendary: 18
+  rare: 52
+  uncommon: 82
+  very_rare: 27
+
+Source mod counts:
+  Tide: 102
+  Hybrid Aquatic: 49
+  Aquaculture 2: 32
+  Unusualfishmod: 19
+  Fins and Tails: 17
+  Rainbowreef: 17
+  More Jellyfish: 12
+  Netherdepthsupgrade: 11
+  Fish of Thieves: 10
+  Stardew Fishing: 10
+  Alex's Caves: 9
+  Jellyfishing: 6
+  Blue Skies: 4
+  Collectorsreap: 4
+  Minecraft: 4
+  Nether Additions: 4
+  Alex's Mobs: 3
+  Luminous World: 3
+  Spawn: 3
+  Upgrade Aquatic: 3
+  Culturaldelights: 2
+  Miners Delight: 2
+  Sullysmod: 2
+  Aquamirae: 1
+  Betterend: 1
+  Cataclysm: 1
+  Clutterbestiary: 1
+  Crabbersdelight: 1
+  Crittersandcompanions: 1
+  Deep Aether: 1
+  Environmental: 1
+  Mofus Better End: 1
+  More Critters: 1
+  Seafarer: 1
+  The Undergarden: 1
+  Wan Ancient Beasts: 1
+  Youkai's Homecoming: 1
+
+Namespace counts:
+  alexscaves: 9
+  alexsmobs: 3
+  aquaculture: 32
+  aquamirae: 1
+  betterend: 1
+  blue_skies: 4
+  cataclysm: 1
+  clutterbestiary: 1
+  collectorsreap: 4
+  crabbersdelight: 1
+  crittersandcompanions: 1
+  culturaldelights: 2
+  deep_aether: 1
+  environmental: 1
+  finsandtails: 17
+  fishofthieves: 10
+  hybrid_aquatic: 49
+  jellyfishing: 6
+  luminousworld: 3
+  minecraft: 4
+  miners_delight: 2
+  mofus_better_end_: 1
+  more_critters: 1
+  more_jellyfish: 12
+  nether_additions: 4
+  netherdepthsupgrade: 11
+  rainbowreef: 17
+  seafarer: 1
+  spawn: 3
+  stardew_fishing: 10
+  sullysmod: 2
+  tide: 102
+  undergarden: 1
+  unusualfishmod: 19
+  upgrade_aquatic: 3
+  wan_ancient_beasts: 1
+  youkaishomecoming: 1
+
+Hidden fish IDs:
+  crittersandcompanions:clam
