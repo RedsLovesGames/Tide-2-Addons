@@ -79,7 +79,7 @@ try {
 
   await desktop.goto(`${base}/#/recipes`, { waitUntil: 'networkidle' });
   const recipeText = (await desktop.locator('#article').textContent()) || '';
-  assert.match(recipeText, /nine Tideborne 1\.3\.57 crafting recipes/i);
+  assert.match(recipeText, /nine crafting recipes packaged by Tideborne 1\.3\.57/i);
   assert.match(recipeText, /Angler's Satchel/);
 
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
