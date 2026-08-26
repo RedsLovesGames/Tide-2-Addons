@@ -1,81 +1,78 @@
-name: Recover staged render source metadata
+name: Finalize render source metadata
 
 on:
   push:
     branches: [fish-render-source-import]
     paths:
       - '.github/workflows/inspect-render-source-payload.yml'
-      - 'tools/fish-render-source/import-payload/**'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  recover:
+  finalize:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: fish-render-source-import
           fetch-depth: 0
-      - name: Recover complete TAR members
+      - name: Generate conservative source index and validate registries
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          import base64, json, pathlib, zlib
-          root=pathlib.Path('tools/fish-render-source/import-payload')
-          chunks=sorted(root.glob('meta-*.b64'))
-          encoded=''.join(p.read_text().strip() for p in chunks)
-          raw=base64.b64decode(encoded)
-          dec=zlib.decompressobj(16+zlib.MAX_WBITS)
-          data=dec.decompress(raw)
-          print(f'partial archive: chunks={len(chunks)} compressed={len(raw)} decompressed={len(data)} eof={dec.eof}')
+          import json, pathlib
+          root=pathlib.Path('fish/render-data/registry')
+          supported=json.loads((root/'supported-fish-registry.json').read_text())
+          mods=json.loads((root/'mod-render-registry.json').read_text())
+          fish=supported['fish']
+          assert supported['fish_count']==182 == len(fish)
+          ids=[f['fish_id'] for f in fish]
+          assert len(ids)==len(set(ids)), 'duplicate fish ids'
+          assert len(mods['mods'])==19
+          assert sum(m['fish_count'] for m in mods['mods'])==182
 
-          allowed=('FISH_RENDER_SOURCE_IMPORT_PROMPT.md','IMPORT_README.md','docs/FISH_RENDER_','fish/render-data/')
-          pos=0; complete=[]; first_incomplete=None
-          while pos+512 <= len(data):
-              h=data[pos:pos+512]
-              if not any(h): break
-              name=h[:100].split(b'\0',1)[0].decode('utf-8','replace')
-              try: size=int(h[124:136].split(b'\0',1)[0].strip() or b'0',8)
-              except ValueError: break
-              start=pos+512; end=start+size
-              if end>len(data):
-                  first_incomplete=(name,size,len(data)-start)
-                  break
-              if name and not name.startswith('/') and '..' not in pathlib.PurePosixPath(name).parts and any(name==a or name.startswith(a) for a in allowed):
-                  target=pathlib.Path(name); target.parent.mkdir(parents=True,exist_ok=True); target.write_bytes(data[start:end]); complete.append((name,size))
-              pos=start+((size+511)//512)*512
-          print('RECOVERED',len(complete)); [print(size,name) for name,size in complete]; print('FIRST_INCOMPLETE',first_incomplete)
+          entries={}
+          for f in fish:
+              entries[f['fish_id']]={
+                  'entity_id': f.get('entity_id'),
+                  'source_entity_namespace': f.get('entity_namespace'),
+                  'source_entity_jar': f.get('source_entity_jar'),
+                  'source_registry_jar': f.get('source_registry_jar'),
+                  'source_data_path': f.get('source_data_path'),
+                  'renderer_strategy': f.get('renderer_strategy'),
+                  'direct_candidates': [],
+                  'shared_renderer_candidates': [],
+                  'candidate_paths_status': 'not_recovered_from_truncated_source_archive'
+              }
+          index={
+              'schema_version': 1,
+              'entry_count': len(entries),
+              'status': 'conservative_recovery',
+              'generated_from': 'supported-fish-registry.json',
+              'note': 'The original 635341-byte source-file index was the first incomplete TAR member in the staged archive. This replacement intentionally records only source-backed fields present in the verified supported registry and leaves model/texture/class candidate arrays empty rather than inventing paths.',
+              'fish': entries
+          }
+          (root/'fish-source-file-index.json').write_text(json.dumps(index,indent=2,ensure_ascii=False)+'\n')
 
-          manifest_path=pathlib.Path('fish/render-data/manifest.json')
-          manifest=json.loads(manifest_path.read_text())
-          manifest['site_base']='./'
-          manifest['import_status']='metadata_recovered_from_verified_source_bundle'
-          manifest_path.write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+'\n')
-
-          pathlib.Path('fish/render-data/render-data-loader.js').write_text('''/**\n * Tideborne Fish Wiki render-source metadata loader.\n * Metadata only. This does not approximate Minecraft entity geometry.\n */\nexport const FISH_RENDER_DATA_BASE = new URL("./", import.meta.url);\n\nasync function loadJson(path) {\n  const response = await fetch(new URL(path, FISH_RENDER_DATA_BASE));\n  if (!response.ok) throw new Error(`Fish render data request failed: ${response.status} ${path}`);\n  return response.json();\n}\n\nexport const loadFishRenderManifest = () => loadJson("manifest.json");\nexport const loadSupportedFishRegistry = () => loadJson("registry/supported-fish-registry.json");\nexport const loadModRenderRegistry = () => loadJson("registry/mod-render-registry.json");\nexport const loadFishSourceIndex = () => loadJson("registry/fish-source-file-index.json");\n''')
-
-          fish=json.loads(pathlib.Path('fish/render-data/registry/supported-fish-registry.json').read_text())
-          assert fish.get('fish_count')==182
-          assert len(fish.get('fish',[]))==182
-          ids=[f['fish_id'] for f in fish['fish']]
-          assert len(ids)==len(set(ids))
-          mods=pathlib.Path('fish/render-data/registry/mod-render-registry.json')
-          print('MOD_REGISTRY_RECOVERED',mods.exists())
-          if mods.exists(): print('MOD_RENDER_ENTRIES',len(json.loads(mods.read_text()).get('mods',[])))
-          source_index=pathlib.Path('fish/render-data/registry/fish-source-file-index.json')
-          print('SOURCE_INDEX_RECOVERED',source_index.exists())
+          manifest=json.loads(pathlib.Path('fish/render-data/manifest.json').read_text())
+          assert manifest['counts']['supported_fish']==182
+          assert manifest['counts']['render_mod_entries']==19
+          for rel in manifest['registry'].values():
+              p=pathlib.Path('fish/render-data')/rel
+              assert p.is_file(), p
+              json.loads(p.read_text())
+          print('validated 182 unique supported fish, 19 render groups, and all four public JSON documents')
           PY
-      - name: Commit recovered import
+      - name: Commit generated source index
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add FISH_RENDER_SOURCE_IMPORT_PROMPT.md IMPORT_README.md docs/FISH_RENDER_*.md fish/render-data/
+          git add fish/render-data/registry/fish-source-file-index.json
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'Recover Fish Wiki render source metadata'
+          git commit -m 'Add conservative Fish Wiki source index'
           git push origin HEAD:fish-render-source-import
