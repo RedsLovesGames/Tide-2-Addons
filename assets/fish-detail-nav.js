@@ -12,6 +12,8 @@ fetch('../assets/fish-search-index.json')
   .catch(err=>console.error('Fish detail navigation data load failed',err));
 
 function mount(){
+  const existing=[...article.querySelectorAll('.specimen-nav')];
+  if(existing.length>1)existing.slice(1).forEach(n=>n.remove());
   if(!ordered.length||article.hidden||!article.querySelector('.article-actions')||article.querySelector('.specimen-nav'))return;
   const current=unslug(decodeURIComponent(location.hash.slice(1)));
   const idx=ordered.findIndex(r=>r.id===current);
