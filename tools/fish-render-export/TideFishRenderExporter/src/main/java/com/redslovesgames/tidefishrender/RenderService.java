@@ -149,7 +149,7 @@ final class RenderService {
         NativeImage image = null;
         ImageOps.Bounds bounds = null;
         Identifier resolvedEntityId = null;
-        float scale = 1.25f;
+        float scale = 0.75f;
         for (int pass = 0; pass < 7; pass++) {
             if (image != null) image.close();
             FrameResult frame = renderFramebuffer(display, scale);
@@ -179,22 +179,21 @@ final class RenderService {
         framebuffer.setClearColor(0f, 0f, 0f, 0f);
         framebuffer.setTexFilter(GL11.GL_NEAREST);
         RenderSystem.enableBlend();
-        framebuffer.beginWrite(true);
         framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
-        RenderTargetOverride.set(framebuffer);
+        framebuffer.beginWrite(true);
         RenderSystem.viewport(0, 0, SOURCE_SIZE, SOURCE_SIZE);
         RenderSystem.setProjectionMatrix(
-                new Matrix4f().setPerspective((float) Math.toRadians(30.0), 1.0f, 0.05f, 100.0f),
+                new Matrix4f().setOrtho(-1.0f, 1.0f, -1.0f, 1.0f, -1000.0f, 3000.0f),
                 VertexSorter.BY_DISTANCE
         );
         modelView.pushMatrix();
         modelView.identity();
+        modelView.scale(scale, scale, scale);
         RenderSystem.applyModelViewMatrix();
         RenderSystem.enableDepthTest();
         RenderSystem.depthMask(true);
         MatrixStack matrices = new MatrixStack();
-        matrices.translate(0.0, -0.15, -3.2);
-        matrices.scale(scale, scale, scale);
+        matrices.translate(-0.5, -0.5, -0.5);
         VertexConsumerProvider.Immediate consumers = client.getBufferBuilders().getEntityVertexConsumers();
         client.getEntityRenderDispatcher().setRenderShadows(false);
         try {
@@ -209,7 +208,7 @@ final class RenderService {
             System.out.println("FISHRENDER_ENTITY fish=" + display.getDisplayStack().getItem()
                     + " entity=" + renderedEntity.getType()
                     + " renderer=" + client.getEntityRenderDispatcher().getRenderer(renderedEntity).getClass().getName()
-                    + " target_override=" + framebuffer.textureWidth + "x" + framebuffer.textureHeight);
+                    + " projection=ortho");
             consumers.draw();
             NativeImage image = new NativeImage(framebuffer.textureWidth, framebuffer.textureHeight, false);
             framebuffer.beginRead();
@@ -222,7 +221,6 @@ final class RenderService {
             return new FrameResult(image, entityId);
         } finally {
             client.getEntityRenderDispatcher().setRenderShadows(true);
-            RenderTargetOverride.clear();
             framebuffer.endWrite();
             framebuffer.delete();
             modelView.popMatrix();
