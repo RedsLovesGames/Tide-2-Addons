@@ -25,6 +25,8 @@ dependencies {
     modImplementation "maven.modrinth:die1AF7i:ztNu3GtG"
     modImplementation "maven.modrinth:HH4FjUqN:F5POkJG0"
     modImplementation "maven.modrinth:Yd4wb5wZ:ih64rzUz"
+    modImplementation "maven.modrinth:Ha28R6CL:bdhiINYC"
+    modImplementation "maven.modrinth:1eAoo2KR:o3cDn8Vp"
 }
 
 loom {
