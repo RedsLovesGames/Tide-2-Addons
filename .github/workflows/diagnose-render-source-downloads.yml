@@ -16,28 +16,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Query exact Modrinth files
+      - name: Query exact Modrinth versions
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           import json, urllib.request
           headers={'User-Agent':'TideborneFishWikiSourceImporter/1.0'}
-          targets=[
-            ('die1AF7i','tide-fabric-1.21.1-2.1.1.jar'),
-            ('bR1TZjVo','fish_of_thieves-mc1.21.1-v21.1.2.1-fabric.jar'),
-            ('7kTZH13B','youkaishomecoming-3.0.8.jar'),
-          ]
-          for project, filename in targets:
-              req=urllib.request.Request(f'https://api.modrinth.com/v2/project/{project}/version',headers=headers)
+          for version_id in ['l3UnUslY','jivgObmp','ztNu3GtG']:
+              req=urllib.request.Request(f'https://api.modrinth.com/v2/version/{version_id}',headers=headers)
               try:
-                  versions=json.load(urllib.request.urlopen(req,timeout=30))
+                  v=json.load(urllib.request.urlopen(req,timeout=30))
+                  print('VERSION',version_id,'=>',json.dumps({'project_id':v.get('project_id'),'version_number':v.get('version_number'),'game_versions':v.get('game_versions'),'loaders':v.get('loaders'),'files':v.get('files',[])}))
               except Exception as e:
-                  print('PROJECT_ERROR',project,type(e).__name__,str(e)); continue
-              found=[]
-              for v in versions:
-                  for f in v.get('files',[]):
-                      if f.get('filename')==filename:
-                          found.append((v.get('id'),v.get('version_number'),v.get('game_versions'),v.get('loaders'),f.get('url'),f.get('hashes',{}).get('sha256')))
-              print('TARGET',filename,'=>',json.dumps(found))
+                  print('VERSION_ERROR',version_id,type(e).__name__,str(e))
           PY
