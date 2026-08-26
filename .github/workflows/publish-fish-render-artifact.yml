@@ -1,0 +1,123 @@
+name: Publish successful Fish Wiki renders
+
+on:
+  push:
+    branches: [fish-render-source-import]
+    paths:
+      - '.github/workflows/publish-fish-render-artifact.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download completed runtime render artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/fish-render-artifact
+          mkdir -p /tmp/fish-render-artifact
+          gh run download 33019588338 \
+            --repo "$GITHUB_REPOSITORY" \
+            --name scoped-fish-runtime-renders \
+            --dir /tmp/fish-render-artifact
+          test -f /tmp/fish-render-artifact/fishrender-output/generated/render-report.json
+
+      - name: Publish successful source-authentic renders
+        run: |
+          set -euo pipefail
+          out='/tmp/fish-render-artifact/fishrender-output'
+          report="$out/generated/render-report.json"
+          test -f "$report"
+
+          successful="$(python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('/tmp/fish-render-artifact/fishrender-output/generated/render-report.json').read_text())
+          print(report['successful'])
+          PY
+          )"
+          failed="$(python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('/tmp/fish-render-artifact/fishrender-output/generated/render-report.json').read_text())
+          print(report['failed'])
+          PY
+          )"
+          test "$successful" -gt 0
+
+          rm -rf fish/assets/renders
+          mkdir -p fish/assets/renders
+          cp "$out"/fish/assets/renders/*.png fish/assets/renders/
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path('.')
+          report_path = Path('/tmp/fish-render-artifact/fishrender-output/generated/render-report.json')
+          report = json.loads(report_path.read_text())
+          fish = {}
+          for row in sorted(report['successes'], key=lambda r: r['fish_id']):
+              fish_id = row['fish_id']
+              ns, path = fish_id.split(':', 1) if ':' in fish_id else ('minecraft', fish_id)
+              filename = ns + '__' + path.replace('/', '_').replace(':', '_') + '.png'
+              fish[fish_id] = {
+                  'source': f"Runtime FishData from {row.get('source_mod') or ns}",
+                  'entity': row.get('resolved_entity_id') or row.get('entity_id'),
+                  'variants': {
+                      'normal': {
+                          'file': f'fish/assets/renders/{filename}',
+                          'status': 'source_backed_runtime'
+                      }
+                  }
+              }
+
+          failures = []
+          for row in report.get('exceptions', []):
+              failures.append({
+                  'fish_id': row.get('fish_id'),
+                  'failure_class': row.get('failure_class'),
+                  'error': row.get('error')
+              })
+
+          manifest = {
+              'schemaVersion': 2,
+              'generatedBy': 'Tide Fish Render Exporter',
+              'pipelineStatus': 'source_authentic_partial',
+              'policy': 'Only successful source-authentic runtime renders are published. Missing compatibility entries remain unavailable rather than using invented artwork.',
+              'counts': {
+                  'requested_fish': report['total_fish'],
+                  'supported_fish': len(fish),
+                  'normal': len(fish),
+                  'failed': report['failed'],
+                  'variant_renders': report['variant_renders']
+              },
+              'fish': fish,
+              'unavailable': failures
+          }
+          (root / 'assets/fish-render-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+          PY
+
+          png_count="$(find fish/assets/renders -maxdepth 1 -type f -name '*.png' | wc -l)"
+          test "$png_count" -eq "$successful"
+          echo "Publishing $successful successful renders; $failed entries remain unavailable."
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add fish/assets/renders assets/fish-render-manifest.json
+          if git diff --cached --quiet; then
+            echo 'No generated render changes to publish.'
+          else
+            git commit -m "Publish ${successful} source-authentic fish renders"
+            git push origin HEAD:fish-render-source-import
+          fi
