@@ -16,20 +16,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify Luminous 1.5.52 NeoForge source
+      - name: Verify Youkai 3.0.8 source
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          import hashlib, urllib.parse, urllib.request
-          expected='05f6244a25081abe5071394f2ff5d67d0053c2a7904931b191f81ba865905a6b'
-          filename='Luminous Overworld V1.5.52 -NeoForge 1.21.1.jar'
-          url='https://cdn.modrinth.com/data/HT2F6lNL/versions/7gCLLt7C/'+urllib.parse.quote(filename)
+          import hashlib, urllib.request
+          expected='1364a94d5ff4cce18284c8a824626623a629b62056eb557aaf89779f6f4da752'
+          url='https://cdn.modrinth.com/data/uJT3ahxz/versions/vu5Xy9Dk/youkaishomecoming-3.0.8.jar'
           req=urllib.request.Request(url,headers={'User-Agent':'TideborneFishWikiSourceImporter/1.0'})
           data=urllib.request.urlopen(req,timeout=60).read()
           got=hashlib.sha256(data).hexdigest()
-          print('LUMINOUS',len(data),url,got)
+          print('YOUKAI',len(data),url,got)
           if got != expected:
-              raise SystemExit(f'Luminous source hash mismatch: {got}')
-          print('Exact Luminous source verified.')
+              raise SystemExit(f'Youkai source hash mismatch: {got}')
+          print('Exact Youkai source verified.')
           PY
