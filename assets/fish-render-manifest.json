@@ -1,28 +1,1327 @@
 {
-  "schemaVersion": 1,
-  "generatedBy": "manual provenance inventory",
-  "pipelineStatus": "prototype_scaffold",
-  "policy": "Only renders derived from the real Minecraft entity model/texture or the in-game Tideborne specimen renderer may be listed as source-backed.",
+  "schemaVersion": 2,
+  "generatedBy": "Tide Fish Render Exporter",
+  "pipelineStatus": "source_authentic_partial",
+  "policy": "Only successful source-authentic runtime renders are published. Missing compatibility entries remain unavailable rather than using invented artwork.",
   "counts": {
-    "normal": 1,
-    "scarred": 1,
-    "parasite_ridden": 1,
-    "albino": 0,
-    "iridescent": 1,
-    "perfect_specimen": 0
+    "requested_fish": 156,
+    "supported_fish": 106,
+    "normal": 106,
+    "failed": 50,
+    "variant_renders": 0
   },
   "fish": {
+    "minecraft:cod": {
+      "source": "Runtime FishData from minecraft",
+      "entity": "minecraft:cod",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/minecraft__cod.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "minecraft:pufferfish": {
+      "source": "Runtime FishData from minecraft",
+      "entity": "minecraft:pufferfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/minecraft__pufferfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "minecraft:salmon": {
+      "source": "Runtime FishData from minecraft",
+      "entity": "minecraft:salmon",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/minecraft__salmon.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "minecraft:tropical_fish": {
+      "source": "Runtime FishData from minecraft",
+      "entity": "minecraft:tropical_fish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/minecraft__tropical_fish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:abyss_angler": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:abyss_angler",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__abyss_angler.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:alpha_fish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:alpha_fish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__alpha_fish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:amber_rockfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:amber_rockfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__amber_rockfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:anchovy": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:anchovy",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__anchovy.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:angelfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:angelfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__angelfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:anglerfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:anglerfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__anglerfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:aquathorn": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:aquathorn",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__aquathorn.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:arapaima": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:arapaima",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__arapaima.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:ash_perch": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:ash_perch",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__ash_perch.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:bedrock_bug": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:bedrock_bug",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__bedrock_bug.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:bedrock_tetra": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:bedrock_tetra",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__bedrock_tetra.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:black_crappie": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:black_crappie",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__black_crappie.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:blazing_swordfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:blazing_swordfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__blazing_swordfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:blossom_bass": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:blossom_bass",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__blossom_bass.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:blue_neonfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:blue_neonfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__blue_neonfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:bluegill": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:bluegill",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__bluegill.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:brook_trout": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:brook_trout",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__brook_trout.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:bull_shark": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:bull_shark",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__bull_shark.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:carp": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:carp",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__carp.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:catfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:catfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__catfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:cave_crawler": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:cave_crawler",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__cave_crawler.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:cave_eel": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:cave_eel",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__cave_eel.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:chasm_eel": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:chasm_eel",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__chasm_eel.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:chorus_cod": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:chorus_cod",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__chorus_cod.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:coelacanth": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:coelacanth",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__coelacanth.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:crimson_fangjaw": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:crimson_fangjaw",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__crimson_fangjaw.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:crystal_shrimp": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:crystal_shrimp",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__crystal_shrimp.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:crystalline_carp": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:crystalline_carp",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__crystalline_carp.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:darkness_eater": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:darkness_eater",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__darkness_eater.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:deep_blue": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:deep_blue",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__deep_blue.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:deep_grouper": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:deep_grouper",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__deep_grouper.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:devils_hole_pupfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:devils_hole_pupfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__devils_hole_pupfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:dragon_fish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:dragon_fish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__dragon_fish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:dripstone_darter": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:dripstone_darter",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__dripstone_darter.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:dutchman_sock": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:dutchman_sock",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__dutchman_sock.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:echo_snapper": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:echo_snapper",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__echo_snapper.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:elytrout": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:elytrout",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__elytrout.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:ember_koi": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:ember_koi",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__ember_koi.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:ender_glider": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:ender_glider",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__ender_glider.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:enderfin": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:enderfin",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__enderfin.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:endergazer": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:endergazer",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__endergazer.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:flounder": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:flounder",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__flounder.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:frostbite_flounder": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:frostbite_flounder",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__frostbite_flounder.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:gilded_minnow": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:gilded_minnow",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__gilded_minnow.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:glowfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:glowfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__glowfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:great_white_shark": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:great_white_shark",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__great_white_shark.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:guppy": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:guppy",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__guppy.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:incandescent_larva": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:incandescent_larva",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__incandescent_larva.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:inferno_guppy": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:inferno_guppy",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__inferno_guppy.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:iron_tetra": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:iron_tetra",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__iron_tetra.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:judgment_fish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:judgment_fish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__judgment_fish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:lapis_lanternfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:lapis_lanternfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__lapis_lanternfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:largemouth_bass": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:largemouth_bass",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__largemouth_bass.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:luminescent_jellyfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:luminescent_jellyfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__luminescent_jellyfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:mackerel": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:mackerel",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__mackerel.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:magma_mackerel": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:magma_mackerel",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__magma_mackerel.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:mahi_mahi": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:mahi_mahi",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__mahi_mahi.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:manta_ray": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:manta_ray",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__manta_ray.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:mantyvern": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:mantyvern",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__mantyvern.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:marstilus": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:marstilus",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__marstilus.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:midas_fish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:midas_fish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__midas_fish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:mirage_catfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:mirage_catfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__mirage_catfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:mooneye": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:mooneye",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__mooneye.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:nephrosilu": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:nephrosilu",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__nephrosilu.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:neptune_koi": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:neptune_koi",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__neptune_koi.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:obsidian_pike": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:obsidian_pike",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__obsidian_pike.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:ocean_perch": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:ocean_perch",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__ocean_perch.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:pale_clubfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:pale_clubfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__pale_clubfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:pentapus": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:pentapus",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__pentapus.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:pike": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:pike",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__pike.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:pluto_snail": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:pluto_snail",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__pluto_snail.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:rainbow_trout": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:rainbow_trout",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__rainbow_trout.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:red_40": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:red_40",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__red_40.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:red_snapper": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:red_snapper",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__red_snapper.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:sailfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:sailfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__sailfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:sand_tiger_shark": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:sand_tiger_shark",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__sand_tiger_shark.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:saturn_cuttlefish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:saturn_cuttlefish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__saturn_cuttlefish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:shadow_shark": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:shadow_shark",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__shadow_shark.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:shadow_snapper": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:shadow_snapper",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__shadow_snapper.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:shooting_starfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:shooting_starfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__shooting_starfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:sleepy_carp": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:sleepy_carp",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__sleepy_carp.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:slimy_salmon": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:slimy_salmon",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__slimy_salmon.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:smallmouth_bass": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:smallmouth_bass",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__smallmouth_bass.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:snatcher_squid": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:snatcher_squid",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__snatcher_squid.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:snook": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:snook",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__snook.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:soulscale": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:soulscale",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__soulscale.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:spore_stalker": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:spore_stalker",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__spore_stalker.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:sturgeon": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:sturgeon",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__sturgeon.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:sun_emblem": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:sun_emblem",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__sun_emblem.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:swordfish": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:swordfish",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__swordfish.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
     "tide:tuna": {
-      "source": "Tide 2.1.1 model/texture with existing Tideborne documentation specimen renders",
+      "source": "Runtime FishData from tide",
       "entity": "tide:tuna",
       "variants": {
-        "normal": {"file": "fish-previews/tuna-base.png", "status": "source_backed_documentation"},
-        "scarred": {"file": "fish-previews/tuna-scarred.png", "status": "source_backed_documentation"},
-        "parasite_ridden": {"file": "fish-previews/tuna-parasite-ridden.png", "status": "source_backed_documentation"},
-        "albino": {"file": null, "status": "unavailable", "reason": "The previously packaged Tuna Albino PNG has a malformed PNG data stream and is not certified for the Fish Wiki. Re-export it through the in-game renderer pipeline before enabling this variant."},
-        "iridescent": {"file": "fish-previews/tuna-iridescent.png", "status": "source_backed_documentation"},
-        "perfect_specimen": {"file": null, "status": "unavailable", "reason": "No validated source-backed Perfect Specimen render is packaged yet."}
+        "normal": {
+          "file": "fish/assets/renders/tide__tuna.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:uranias_pisces": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:uranias_pisces",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__uranias_pisces.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:vengeance": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:vengeance",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__vengeance.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:violet_carp": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:violet_carp",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__violet_carp.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:voidseeker": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:voidseeker",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__voidseeker.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:volcano_tuna": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:volcano_tuna",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__volcano_tuna.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:walleye": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:walleye",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__walleye.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:warped_guppy": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:warped_guppy",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__warped_guppy.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:white_crappie": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:white_crappie",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__white_crappie.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:windbass": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:windbass",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__windbass.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:witherfin": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:witherfin",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__witherfin.png",
+          "status": "source_backed_runtime"
+        }
+      }
+    },
+    "tide:yellow_perch": {
+      "source": "Runtime FishData from tide",
+      "entity": "tide:yellow_perch",
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/tide__yellow_perch.png",
+          "status": "source_backed_runtime"
+        }
       }
     }
-  }
+  },
+  "unavailable": [
+    {
+      "fish_id": "crittersandcompanions:koi_fish",
+      "failure_class": "exception",
+      "error": "java.lang.IllegalStateException: Tide FishData has no DisplayData for crittersandcompanions:koi_fish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:anglerfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:anglerfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:barreleye",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:barreleye"
+    },
+    {
+      "fish_id": "hybrid_aquatic:betta",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:betta"
+    },
+    {
+      "fish_id": "hybrid_aquatic:blobfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:blobfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:blowfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:blowfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:boxfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:boxfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:carp",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:carp"
+    },
+    {
+      "fish_id": "hybrid_aquatic:cichlid",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:cichlid"
+    },
+    {
+      "fish_id": "hybrid_aquatic:clownfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:clownfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:coelacanth",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:coelacanth"
+    },
+    {
+      "fish_id": "hybrid_aquatic:damselfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:damselfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:danio",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:danio"
+    },
+    {
+      "fish_id": "hybrid_aquatic:discus",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:discus"
+    },
+    {
+      "fish_id": "hybrid_aquatic:dragonfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:dragonfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:flashlight_fish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:flashlight_fish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:flying_fish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:flying_fish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:golden_dorado",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:golden_dorado"
+    },
+    {
+      "fish_id": "hybrid_aquatic:goldfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:goldfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:gourami",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:gourami"
+    },
+    {
+      "fish_id": "hybrid_aquatic:herring",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:herring"
+    },
+    {
+      "fish_id": "hybrid_aquatic:john_dory",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:john_dory"
+    },
+    {
+      "fish_id": "hybrid_aquatic:lionfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:lionfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:mackerel",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:mackerel"
+    },
+    {
+      "fish_id": "hybrid_aquatic:mahi",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:mahi"
+    },
+    {
+      "fish_id": "hybrid_aquatic:moray_eel",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:moray_eel"
+    },
+    {
+      "fish_id": "hybrid_aquatic:needlefish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:needlefish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:oarfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:oarfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:ocean_sunfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:ocean_sunfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:opah",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:opah"
+    },
+    {
+      "fish_id": "hybrid_aquatic:parrotfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:parrotfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:pearlfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:pearlfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:piranha",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:piranha"
+    },
+    {
+      "fish_id": "hybrid_aquatic:pleco",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:pleco"
+    },
+    {
+      "fish_id": "hybrid_aquatic:ratfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:ratfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:rockfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:rockfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:sea_bass",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:sea_bass"
+    },
+    {
+      "fish_id": "hybrid_aquatic:seahorse",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:seahorse"
+    },
+    {
+      "fish_id": "hybrid_aquatic:sheepshead_wrasse",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:sheepshead_wrasse"
+    },
+    {
+      "fish_id": "hybrid_aquatic:snailfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:snailfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:squirrelfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:squirrelfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:stingray",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:stingray"
+    },
+    {
+      "fish_id": "hybrid_aquatic:stonefish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:stonefish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:sunfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:sunfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:surgeonfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:surgeonfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:tetra",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:tetra"
+    },
+    {
+      "fish_id": "hybrid_aquatic:tiger_barb",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:tiger_barb"
+    },
+    {
+      "fish_id": "hybrid_aquatic:trevally",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:trevally"
+    },
+    {
+      "fish_id": "hybrid_aquatic:triggerfish",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:triggerfish"
+    },
+    {
+      "fish_id": "hybrid_aquatic:tuna",
+      "failure_class": "missing_item",
+      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:tuna"
+    }
+  ]
 }
