@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "purpose": "Raw authoritative render sources for the Tideborne Fish Wiki browser renderer",
+  "site_base": "./",
+  "registry": {
+    "fish": "registry/supported-fish-registry.json",
+    "mods": "registry/mod-render-registry.json",
+    "source_index": "registry/fish-source-file-index.json"
+  },
+  "directories": {
+    "definitions": "definitions/",
+    "render_sources": "render_sources/",
+    "reports": "reports/"
+  },
+  "counts": {
+    "supported_fish": 182,
+    "render_mod_entries": 19
+  },
+  "important_note": "These are the raw model/texture/variant/render sources. Java .class model geometry is intentionally retained for conversion tooling, but browsers cannot execute Minecraft Java renderers directly. Do not fake missing geometry. The next renderer phase must normalize Java models or reproduce their geometry from the retained bytecode/source information.",
+  "import_status": "metadata_recovered_from_verified_source_bundle"
+}
