@@ -13,13 +13,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.SimpleFramebuffer;
-import net.minecraft.entity.Entity;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.util.BufferAllocator;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -163,7 +162,7 @@ final class RenderService {
             if (occupancy < 0.46 && pass < 5) { scale *= (float) Math.min(1.85, TARGET_OCCUPANCY / Math.max(occupancy, 0.05)); continue; }
             break;
         }
-        if (bounds == null || image == null) throw new IllegalStateException("No rendered silhouette");
+        if (bounds == null || image == null || resolvedEntityId == null) throw new IllegalStateException("No rendered silhouette");
         Path output = renderPath(job);
         if (writePng) try (NativeImage cropped = ImageOps.cropWithPadding(image, bounds, PADDING)) { ImageOps.write(cropped, output); }
         image.close();
@@ -179,8 +178,10 @@ final class RenderService {
         SimpleFramebuffer framebuffer = new SimpleFramebuffer(SOURCE_SIZE, SOURCE_SIZE, true, true);
         framebuffer.setClearColor(0f, 0f, 0f, 0f);
         framebuffer.setTexFilter(GL11.GL_NEAREST);
+        RenderSystem.enableBlend();
         framebuffer.beginWrite(true);
         framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
+        RenderTargetOverride.set(framebuffer);
         RenderSystem.viewport(0, 0, SOURCE_SIZE, SOURCE_SIZE);
         RenderSystem.setProjectionMatrix(
                 new Matrix4f().setPerspective((float) Math.toRadians(30.0), 1.0f, 0.05f, 100.0f),
@@ -195,6 +196,8 @@ final class RenderService {
         matrices.translate(0.0, -0.15, -3.2);
         matrices.scale(scale, scale, scale);
         VertexConsumerProvider.Immediate consumers = client.getBufferBuilders().getEntityVertexConsumers();
+        boolean previousShadows = client.getEntityRenderDispatcher().shouldRenderShadows();
+        client.getEntityRenderDispatcher().setRenderShadows(false);
         try {
             FishDisplayRenderer renderer = new FishDisplayRenderer(client.getEntityRenderDispatcher());
             renderer.render(display, 0f, matrices, consumers, LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV);
@@ -206,7 +209,8 @@ final class RenderService {
             }
             System.out.println("FISHRENDER_ENTITY fish=" + display.getDisplayStack().getItem()
                     + " entity=" + renderedEntity.getType()
-                    + " renderer=" + client.getEntityRenderDispatcher().getRenderer(renderedEntity).getClass().getName());
+                    + " renderer=" + client.getEntityRenderDispatcher().getRenderer(renderedEntity).getClass().getName()
+                    + " target_override=" + framebuffer.textureWidth + "x" + framebuffer.textureHeight);
             consumers.draw();
             NativeImage image = new NativeImage(framebuffer.textureWidth, framebuffer.textureHeight, false);
             framebuffer.beginRead();
@@ -218,6 +222,8 @@ final class RenderService {
             image.mirrorVertically();
             return new FrameResult(image, entityId);
         } finally {
+            client.getEntityRenderDispatcher().setRenderShadows(previousShadows);
+            RenderTargetOverride.clear();
             framebuffer.endWrite();
             framebuffer.delete();
             modelView.popMatrix();

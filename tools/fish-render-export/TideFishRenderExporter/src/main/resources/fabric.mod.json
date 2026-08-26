@@ -9,6 +9,9 @@
   "entrypoints": {
     "client": ["com.redslovesgames.tidefishrender.TideFishRenderExporter"]
   },
+  "mixins": [
+    "tide-fish-render-exporter.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.18.4",
     "fabric-api": ">=0.116.15+1.21.1",
