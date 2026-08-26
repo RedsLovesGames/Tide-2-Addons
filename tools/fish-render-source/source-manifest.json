@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "minecraft_version": "1.21.1",
+  "notes": [
+    "Renderer/source JAR coordinates were recovered from successful fish-render-source-import GitHub Actions verification runs.",
+    "Tide Extra Compatibility 2.2.0 is included as the authoritative compatibility FishData definition source.",
+    "Raw third-party archives are downloaded during CI and are not committed to the repository."
+  ],
+  "sources": [
+    {"id":"tide","version":"2.1.1","filename":"tide-fabric-1.21.1-2.1.1.jar","url":"https://cdn.modrinth.com/data/die1AF7i/versions/ztNu3GtG/tide-fabric-1.21.1-2.1.1.jar","sha256":"498a5e8dda940866c9b0decadf7960724ef489fb49215b30f70c18d12f07b1c8","roles":["fish_data","renderer_source","runtime_dependency"]},
+    {"id":"tide_extra_compatibility","version":"2.2.0","filename":"Tide Extra Compatibility 2.2.zip","url":"https://cdn.modrinth.com/data/goMfyYSL/versions/Uz6Vlhjs/Tide%20Extra%20Compatibility%202.2.zip","sha256":null,"roles":["fish_data","compatibility_data"]},
+    {"id":"aquaculture","version":"2.7.21","filename":"Aquaculture-1.21.1-2.7.21.jar","url":"https://mediafilez.forgecdn.net/files/7901/588/Aquaculture-1.21.1-2.7.21.jar","sha256":"45f00f9059838b2fecc988861111d8b3d4613a5f1b3688a8dbfa8655751b85bb","roles":["renderer_source"]},
+    {"id":"betterend","version":"21.0.19","filename":"BetterEnd-21.0.19-fabric.jar","url":"https://mediafilez.forgecdn.net/files/8610/408/BetterEnd-21.0.19-fabric.jar","sha256":"f34c2af63532ccc26a617c382002f24d3322dfd0d652f078437bbfea4c222101","roles":["renderer_source"]},
+    {"id":"cataclysm","version":"3.33","filename":"L_Ender's Cataclysm 1.21.1-3.33.jar","url":"https://mediafilez.forgecdn.net/files/8706/841/L_Ender%27s%20Cataclysm%201.21.1-3.33.jar","sha256":"23921a268acc8b695291f12e89c5e4c261ee5f59a3b6d763793461efb3e7e1d6","roles":["renderer_source"]},
+    {"id":"luminousworld","version":"1.5.52","filename":"Luminous Overworld V1.5.52 -NeoForge 1.21.1.jar","url":"https://cdn.modrinth.com/data/HT2F6lNL/versions/7gCLLt7C/Luminous%20Overworld%20V1.5.52%20-NeoForge%201.21.1.jar","sha256":"05f6244a25081abe5071394f2ff5d67d0053c2a7904931b191f81ba865905a6b","roles":["renderer_source"]},
+    {"id":"undergarden","version":"0.9.6","filename":"The_Undergarden-1.21.1-0.9.6.jar","url":"https://mediafilez.forgecdn.net/files/7862/546/The_Undergarden-1.21.1-0.9.6.jar","sha256":"49e3db6ce2cf6864e9d45f0633de95bc3ef72cbd5ebffee493fca7198d30ccb0","roles":["renderer_source"]},
+    {"id":"aquamirae","version":"7.2.3","filename":"aquamirae-fabric-1.21.1-7.2.3.jar","url":"https://mediafilez.forgecdn.net/files/8728/349/aquamirae-fabric-1.21.1-7.2.3.jar","sha256":"a6c0463b4d16c0dc12417bb9393c86cc83fb787e419a7eb7da2216d5e36a28fa","roles":["renderer_source"]},
+    {"id":"clutterbestiary","version":"1.1.2","filename":"clutterbestiary-1.1.2-fabric-1.21.1.jar","url":"https://mediafilez.forgecdn.net/files/7444/146/clutterbestiary-1.1.2-fabric-1.21.1.jar","sha256":"8c841fec3130b822a9b3026398939ff90f7bc35b09d52e9ef8439d6b8c2f0f33","roles":["renderer_source"]},
+    {"id":"crabbersdelight","version":"1.2.6","filename":"crabbersdelight-1.21.1-1.2.6.jar","url":"https://mediafilez.forgecdn.net/files/8006/190/crabbersdelight-1.21.1-1.2.6.jar","sha256":"dde14329fa2ee127a76c27af4dad2608c3405d3639260478f765b5d819f69dc4","roles":["renderer_source"]},
+    {"id":"crittersandcompanions","version":"2.7.0","filename":"crittersandcompanions-fabric-1.21.1-2.7.0.jar","url":"https://mediafilez.forgecdn.net/files/8646/975/crittersandcompanions-fabric-1.21.1-2.7.0.jar","sha256":"02f91e85b53cff8da257d74f3924f42f9ca44238d8a4c04d226470581c476341","roles":["renderer_source"]},
+    {"id":"deep_aether","version":"1.1.5.1","filename":"deep_aether-1.21.1-1.1.5.1.jar","url":"https://mediafilez.forgecdn.net/files/7843/283/deep_aether-1.21.1-1.1.5.1.jar","sha256":"0f55ad970715bb933344e785b2c35a7354dfba25ffd426c0b68921d08bbe0ce5","roles":["renderer_source"]},
+    {"id":"environmental","version":"5.0.1","filename":"environmental-1.21.1-5.0.1.jar","url":"https://mediafilez.forgecdn.net/files/7122/147/environmental-1.21.1-5.0.1.jar","sha256":"d0578ab961461bc25ee59d86c44f3b90565e4782cab431dfd897f50080d5988b","roles":["renderer_source"]},
+    {"id":"fishofthieves","version":"21.1.2.1-fabric","filename":"fish_of_thieves-mc1.21.1-v21.1.2.1-fabric.jar","url":"https://cdn.modrinth.com/data/BzOTnuqM/versions/l3UnUslY/fish_of_thieves-mc1.21.1-v21.1.2.1-fabric.jar","sha256":"4a2dab09f3b943e51d8ff523c989d1c4bed998c8ca86142b1f6a715680c088d1","roles":["renderer_source"]},
+    {"id":"netherdepthsupgrade","version":"3.2+1.21.1","filename":"netherdepthsupgrade-fabric-3.2+1.21.1.jar","url":"https://mediafilez.forgecdn.net/files/8702/112/netherdepthsupgrade-fabric-3.2%2B1.21.1.jar","sha256":"313dd47d47a85980f33e8fc95e3fea0f3a86f087b602718e5c1a62fceee91b90","roles":["renderer_source"]},
+    {"id":"spawn","version":"4.0.7","filename":"spawn-4.0.7-1.21.1.jar","url":"https://mediafilez.forgecdn.net/files/8507/225/spawn-4.0.7-1.21.1.jar","sha256":"290f52ca4bb89740f9f76d5640e4fa130293c414739066d6652c2cf25b62cf82","roles":["renderer_source"]},
+    {"id":"upgrade_aquatic","version":"7.0.1","filename":"upgrade_aquatic-1.21.1-7.0.1.jar","url":"https://mediafilez.forgecdn.net/files/7115/763/upgrade_aquatic-1.21.1-7.0.1.jar","sha256":"ac4edecc341435c38893d85964074a2e09e322e3fb32be93d08f2a3165c0ebe7","roles":["renderer_source"]},
+    {"id":"wan_ancient_beasts","version":"1.3.2","filename":"wab-1.21.1-1.3.2.jar","url":"https://mediafilez.forgecdn.net/files/7023/610/wab-1.21.1-1.3.2.jar","sha256":"7dfa7e2ca7ed87890c99395cffbc75b6343c62f15196aa0eea2d0d1e16608e6c","roles":["renderer_source"]},
+    {"id":"youkaishomecoming","version":"3.0.8","filename":"youkaishomecoming-3.0.8.jar","url":"https://cdn.modrinth.com/data/uJT3ahxz/versions/vu5Xy9Dk/youkaishomecoming-3.0.8.jar","sha256":"1364a94d5ff4cce18284c8a824626623a629b62056eb557aaf89779f6f4da752","roles":["renderer_source"]}
+  ]
+}
