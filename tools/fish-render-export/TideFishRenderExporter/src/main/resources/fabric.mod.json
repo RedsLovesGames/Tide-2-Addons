@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "tide_fish_render_exporter",
+  "version": "${version}",
+  "name": "Tide Fish Render Exporter",
+  "description": "Exports source-authentic Tide Fish Display entity renders to transparent PNG files.",
+  "authors": ["RedsLovesGames"],
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.redslovesgames.tidefishrender.TideFishRenderExporter"]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "fabric-api": ">=0.116.15+1.21.1",
+    "minecraft": "=1.21.1",
+    "java": ">=21",
+    "tide": "=2.1.1"
+  },
+  "suggests": {
+    "tideborne": ">=1.3.57"
+  }
+}
