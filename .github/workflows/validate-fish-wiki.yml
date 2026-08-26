@@ -35,6 +35,7 @@ jobs:
           node --check assets/fish-site-search.js
           node --check assets/fish-wiki.js
           node --check assets/fish-wiki-v2.js
+          node --check assets/fish-detail-nav.js
           node --check assets/latest-1357.js
           node --check assets/tide-item-textures.js
           node --check assets/bugfix-ux.js
