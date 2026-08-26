@@ -2,12 +2,17 @@ name: QA Fish Wiki Browser
 
 on:
   push:
-    branches: [fish-wiki-production]
+    branches:
+      - fish-wiki-production
+      - bugfix/fish-wiki-ux-pass
     paths:
       - fish/**
       - assets/**
       - scripts/qa-fish-wiki.mjs
       - .github/workflows/qa-fish-wiki-browser.yml
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
