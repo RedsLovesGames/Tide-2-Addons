@@ -40,9 +40,9 @@ loom {
             programArg "--quickPlaySingleplayer"
             programArg "RenderWorld"
             programArg "--width"
-            programArg "1280"
+            programArg "1024"
             programArg "--height"
-            programArg "720"
+            programArg "1024"
             environmentVariable("TIDE_FISH_RENDER_AUTO", "tide:tuna")
         }
     }
@@ -76,4 +76,3 @@ java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
 }
-
