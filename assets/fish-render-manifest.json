@@ -7,7 +7,7 @@
     "normal": 1,
     "scarred": 1,
     "parasite_ridden": 1,
-    "albino": 1,
+    "albino": 0,
     "iridescent": 1,
     "perfect_specimen": 0
   },
@@ -19,7 +19,7 @@
         "normal": {"file": "fish-previews/tuna-base.png", "status": "source_backed_documentation"},
         "scarred": {"file": "fish-previews/tuna-scarred.png", "status": "source_backed_documentation"},
         "parasite_ridden": {"file": "fish-previews/tuna-parasite-ridden.png", "status": "source_backed_documentation"},
-        "albino": {"file": "fish-previews/tuna-albino.png", "status": "source_backed_documentation"},
+        "albino": {"file": null, "status": "unavailable", "reason": "The previously packaged Tuna Albino PNG has a malformed PNG data stream and is not certified for the Fish Wiki. Re-export it through the in-game renderer pipeline before enabling this variant."},
         "iridescent": {"file": "fish-previews/tuna-iridescent.png", "status": "source_backed_documentation"},
         "perfect_specimen": {"file": null, "status": "unavailable", "reason": "No validated source-backed Perfect Specimen render is packaged yet."}
       }
