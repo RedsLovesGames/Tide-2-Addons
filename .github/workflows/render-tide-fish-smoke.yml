@@ -1,4 +1,4 @@
-name: Render Tide fish runtime smoke
+name: Render scoped Fish Wiki catalog
 
 on:
   push:
@@ -9,15 +9,17 @@ on:
       - 'tools/fish-render-export/TideFishRenderExporter/src/main/java/**'
       - 'tools/fish-render-export/TideFishRenderExporter/src/main/resources/**'
       - 'fish/render-data/registry/supported-fish-registry.json'
+      - 'fish/render-data/modpack-scope.json'
+      - 'assets/fish-search-index.json'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  render-tide:
+  render-scope:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 40
     defaults:
       run:
         working-directory: tools/fish-render-export/TideFishRenderExporter
@@ -34,7 +36,7 @@ jobs:
           gradle-version: '9.5.0'
           cache-read-only: false
 
-      - name: Build exporter
+      - name: Build exporter and compatibility stack
         run: gradle --no-daemon build
 
       - name: Generate disposable 1.21.1 world
@@ -52,7 +54,7 @@ jobs:
           max-tick-time=-1
           EOF
           set +e
-          timeout --signal=INT --kill-after=15s 60s gradle --no-daemon runServer
+          timeout --signal=INT --kill-after=15s 75s gradle --no-daemon runServer
           server_status=$?
           set -e
           if [ "$server_status" -ne 0 ] && [ "$server_status" -ne 124 ] && [ "$server_status" -ne 130 ]; then
@@ -63,10 +65,8 @@ jobs:
           mkdir -p run/client/saves
           cp -a run/server/world run/client/saves/RenderWorld
           test -f run/client/saves/RenderWorld/level.dat
-          echo '--- RenderWorld save layout ---'
-          find run/client/saves/RenderWorld -maxdepth 2 -type f -printf '%P\n' | sort | head -80
 
-      - name: Run source-authentic Tide renderer under Xvfb
+      - name: Render 156 source-authentic fish under Xvfb
         run: |
           set -euo pipefail
           if ! command -v xvfb-run >/dev/null 2>&1; then
@@ -74,21 +74,21 @@ jobs:
             sudo apt-get install -y xvfb
           fi
           set +e
-          timeout --signal=INT --kill-after=20s 10m xvfb-run -a gradle --no-daemon runRenderClient
+          timeout --signal=INT --kill-after=20s 20m xvfb-run -a gradle --no-daemon runRenderClient
           client_status=$?
           set -e
           if [ -f run/client/logs/latest.log ]; then
             echo '--- fish render lifecycle markers ---'
             grep -E 'FISHRENDER_(AUTO_|ENTITY)' run/client/logs/latest.log || true
-            echo '--- last 120 Minecraft client log lines ---'
-            tail -n 120 run/client/logs/latest.log || true
+            echo '--- last 160 Minecraft client log lines ---'
+            tail -n 160 run/client/logs/latest.log || true
           fi
           if [ "$client_status" -ne 0 ] && [ "$client_status" -ne 124 ] && [ "$client_status" -ne 130 ]; then
             echo "Render client exited unexpectedly with $client_status"
             exit "$client_status"
           fi
 
-      - name: Validate Tide runtime render contract
+      - name: Validate complete scoped render contract
         run: |
           set -euo pipefail
           python -m pip install --disable-pip-version-check pillow
@@ -104,46 +104,114 @@ jobs:
           assert report_path.exists(), f'missing {report_path}'
           status = json.loads(status_path.read_text())
           report = json.loads(report_path.read_text())
-          pngs = sorted((root / 'fish/assets/renders').glob('*.png'))
+          renders = root / 'fish/assets/renders'
+          pngs = sorted(renders.glob('*.png'))
+
           assert status['status'] == 'success', status
-          assert status['mode'] == 'tide:tuna', status
-          assert status['total_fish'] == 1, status
-          assert status['successful'] == 1, status
+          assert status['mode'] == 'scope', status
+          assert status['total_fish'] == 156, status
+          assert status['successful'] == 156, status
           assert status['failed'] == 0, status
+          assert report['mode'] == 'export:scope:default', report
+          assert report['total_fish'] == 156, report
+          assert report['jobs'] == 156, report
+          assert report['successful'] == 156, report
           assert report['failed'] == 0, report.get('exceptions')
-          assert report['mode'] == 'export:tide:tuna:default', report
-          assert len(report['successes']) == 1, report['successes']
-          success = report['successes'][0]
-          assert success['fish_id'] == 'tide:tuna', success
-          assert success['entity_id'].startswith('tide:'), success
-          assert success['source_mod'], success
-          assert [png.name for png in pngs] == ['tide__tuna.png'], pngs
-          data = pngs[0].read_bytes()
-          assert len(data) > 256, (pngs[0], len(data))
-          assert data.startswith(b'\x89PNG\r\n\x1a\n'), pngs[0]
-          with Image.open(pngs[0]) as image:
-              assert image.mode == 'RGBA', image.mode
-              alpha = image.getchannel('A')
-              assert alpha.getextrema() == (0, 255), alpha.getextrema()
-              bounds = alpha.getbbox()
-              assert bounds is not None, 'render has no non-transparent pixels'
-              left, top, right, bottom = bounds
-              assert left > 0 and top > 0 and right < image.width and bottom < image.height, (image.size, bounds)
-              width, height = right - left, bottom - top
-              assert width > height, f'tuna is not framed in side profile: {width}x{height}'
-              opaque_colors = [rgba[:3] for rgba in image.getdata() if rgba[3] > 0]
-              assert any(rgb != (0, 0, 0) for rgb in opaque_colors), 'render contains only black pixels'
-          print(f'RUNTIME_RENDER_VALID fish=tide:tuna png={pngs[0]} alpha_bounds={bounds} report={report_path}')
+          assert report['variant_renders'] == 0, report
+          successes = report['successes']
+          assert len(successes) == 156, len(successes)
+          ids = [row['fish_id'] for row in successes]
+          assert len(set(ids)) == 156, 'duplicate fish ids in report'
+
+          expected = {}
+          for row in successes:
+              fish_id = row['fish_id']
+              ns, path = fish_id.split(':', 1) if ':' in fish_id else ('minecraft', fish_id)
+              name = ns + '__' + path.replace('/', '_').replace(':', '_') + '.png'
+              expected[name] = fish_id
+          actual = {p.name for p in pngs}
+          assert actual == set(expected), f'PNG set mismatch missing={sorted(set(expected)-actual)[:20]} extra={sorted(actual-set(expected))[:20]}'
+
+          for i, png in enumerate(pngs, 1):
+              data = png.read_bytes()
+              assert len(data) > 256, (png, len(data))
+              assert data.startswith(b'\x89PNG\r\n\x1a\n'), png
+              with Image.open(png) as image:
+                  assert image.mode == 'RGBA', (png, image.mode)
+                  alpha = image.getchannel('A')
+                  lo, hi = alpha.getextrema()
+                  assert hi > 0, f'{png.name}: no visible alpha'
+                  bounds = alpha.getbbox()
+                  assert bounds is not None, f'{png.name}: empty alpha bounds'
+                  left, top, right, bottom = bounds
+                  assert left > 0 and top > 0 and right < image.width and bottom < image.height, (png.name, image.size, bounds)
+                  visible = [rgba[:3] for rgba in image.getdata() if rgba[3] > 0]
+                  assert any(rgb != (0, 0, 0) for rgb in visible), f'{png.name}: visible pixels are all black'
+              if i % 25 == 0:
+                  print(f'validated {i}/156 PNGs')
+          print('SCOPED_RENDER_VALID total=156 failed=0')
           PY
+
+      - name: Publish renders and manifest to branch
+        run: |
+          set -euo pipefail
+          cd ../../..
+          out='tools/fish-render-export/TideFishRenderExporter/run/client/fishrender-output'
+          rm -rf fish/assets/renders
+          mkdir -p fish/assets/renders
+          cp "$out"/fish/assets/renders/*.png fish/assets/renders/
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path('.')
+          report = json.loads((root / 'tools/fish-render-export/TideFishRenderExporter/run/client/fishrender-output/generated/render-report.json').read_text())
+          fish = {}
+          for row in sorted(report['successes'], key=lambda r: r['fish_id']):
+              fish_id = row['fish_id']
+              ns, path = fish_id.split(':', 1) if ':' in fish_id else ('minecraft', fish_id)
+              filename = ns + '__' + path.replace('/', '_').replace(':', '_') + '.png'
+              fish[fish_id] = {
+                  'source': f"Runtime FishData from {row.get('source_mod') or ns}",
+                  'entity': row.get('resolved_entity_id') or row.get('entity_id'),
+                  'variants': {
+                      'normal': {
+                          'file': f'fish/assets/renders/{filename}',
+                          'status': 'source_backed_runtime'
+                      }
+                  }
+              }
+          manifest = {
+              'schemaVersion': 2,
+              'generatedBy': 'Tide Fish Render Exporter',
+              'pipelineStatus': 'source_authentic_scope_complete',
+              'policy': 'Only renders produced from live Tide FishData through the real Tide Fish Display entity renderer are listed.',
+              'counts': {
+                  'supported_fish': len(fish),
+                  'normal': len(fish),
+                  'variant_renders': 0
+              },
+              'fish': fish
+          }
+          (root / 'assets/fish-render-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add fish/assets/renders assets/fish-render-manifest.json
+          if git diff --cached --quiet; then
+            echo 'No generated render changes to publish.'
+          else
+            git commit -m 'Publish 156 source-authentic fish renders'
+            git push origin HEAD:fish-render-source-import
+          fi
 
       - name: Upload runtime evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tide-fish-runtime-renders
+          name: scoped-fish-runtime-renders
           path: |
             tools/fish-render-export/TideFishRenderExporter/run/client/fishrender-output/
             tools/fish-render-export/TideFishRenderExporter/run/client/logs/
           if-no-files-found: warn
           retention-days: 14
-
