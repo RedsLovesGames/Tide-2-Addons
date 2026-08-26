@@ -1,1 +1,1 @@
-resolve-render-sources-v4
+verify-all-render-source-jars-v5
