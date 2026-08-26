@@ -82,6 +82,26 @@ def archive_resource_namespaces(names: set[str]) -> list[str]:
     return sorted(found)
 
 
+def archive_owner_aliases(inventory: dict) -> set[str]:
+    """Return conservative owning-mod IDs for one supplied archive.
+
+    Resource namespaces are not ownership proof because mods may bundle compatibility assets
+    for other mods. Metadata mod IDs are authoritative. BetterEnd's supplied archive does not
+    expose loader metadata that this lightweight scanner recognizes, so its filename is used as
+    the one known fallback alias.
+    """
+    if inventory["mod"].get("loader") == "datapack":
+        return set()
+    aliases = set()
+    mod_id = str(inventory["mod"].get("id") or "").lower()
+    if mod_id:
+        aliases.add(mod_id)
+    archive_low = str(inventory.get("archive") or "").lower()
+    if archive_low.startswith("betterend-"):
+        aliases.add("betterend")
+    return aliases
+
+
 def texture_paths(names: set[str], entity_id: str | None) -> list[str]:
     if not entity_id or ":" not in entity_id:
         return []
@@ -232,12 +252,7 @@ def main() -> int:
 
     available_namespaces = {"minecraft"}
     for inv in inventories:
-        if inv["mod"].get("loader") == "datapack":
-            continue
-        mod_id = str(inv["mod"].get("id") or "").lower()
-        if mod_id:
-            available_namespaces.add(mod_id)
-        available_namespaces.update(inv.get("resource_namespaces") or [])
+        available_namespaces.update(archive_owner_aliases(inv))
 
     merged: dict[str, dict] = {}
     duplicates: dict[str, list[dict]] = {}
@@ -254,7 +269,11 @@ def main() -> int:
     for key, entry in list(merged.items()):
         owner = str(entry.get("entity_mod") or entry.get("source_mod") or "").lower()
         required = {str(x).lower() for x in (entry.get("associated_mods") or []) if x}
-        missing_requirements = sorted(required - available_namespaces)
+        # Vanilla entity renderers are self-contained even when the caught item belongs to an
+        # optional integration mod. For non-vanilla entities, associated_mods can carry a real
+        # cross-mod render dependency, such as Aquaculture's starshell turtle requiring Twilight Forest.
+        enforced_requirements = set() if owner == "minecraft" else required
+        missing_requirements = sorted(enforced_requirements - available_namespaces)
         if owner not in available_namespaces or missing_requirements:
             unsupported[key] = {
                 "fish_id": entry.get("fish_id"),
@@ -310,7 +329,7 @@ def main() -> int:
         "fish_count": len(fish),
         "counts_by_source_mod": dict(sorted(by_mod.items())),
         "counts_by_group": dict(sorted(by_group.items())),
-        "available_resource_namespaces": sorted(available_namespaces),
+        "available_owner_namespaces": sorted(available_namespaces),
         "unsupported_count": len(unsupported),
         "unsupported": dict(sorted(unsupported.items())),
         "no_display_entity": no_entity,
