@@ -5,6 +5,7 @@ on:
     branches:
       - fish-wiki-production
       - bugfix/fish-wiki-ux-pass
+      - fish-render-source-import
     paths:
       - fish/**
       - assets/**
