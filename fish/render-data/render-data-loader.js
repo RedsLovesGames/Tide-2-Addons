@@ -1,7 +1,6 @@
 /**
  * Tideborne Fish Wiki render-source metadata loader.
- *
- * Metadata only. This does not approximate or fake Minecraft entity geometry.
+ * Metadata only. This does not approximate Minecraft entity geometry.
  */
 export const FISH_RENDER_DATA_BASE = new URL("./", import.meta.url);
 
