@@ -29,7 +29,7 @@
     <div class="fish-stats" aria-label="Catalog summary"><span><b id="stat-records">Loading</b> species</span><span><b id="stat-mods">Loading</b> namespaces</span><span><b id="stat-previews">Loading</b> catalog renders</span></div>
   </section>
 
-  <details class="fish-provenance"><summary><strong>Data source &amp; render policy</strong><span>verified FishData, source-backed renders only</span></summary><p>Catalog data comes from Tide 2.1.1 and Tide Extra Compatibility 2.2.0. Only packaged or otherwise validated source-backed entity renders are shown. Missing source remains unavailable rather than being replaced with invented artwork.</p></details>
+  <details class="fish-provenance"><summary><strong>Data source &amp; render policy</strong><span>verified FishData, source-backed renders only</span></summary><p>Catalog data comes from Tide 2.1.1 and Tide Extra Compatibility 2.2.0. Only packaged or otherwise validated source-backed entity renders are shown. Missing source remains unavailable rather than being replaced with invented artwork.</p><p id="render-source-status" role="status">Render source metadata: checking…</p></details>
 
   <section id="catalog-view" class="fish-shell">
     <aside id="fish-filters" class="fish-filters" aria-label="Fish filters">
@@ -72,6 +72,21 @@
   const setFilters=open=>{filters.classList.toggle('filters-open',open);toggle.setAttribute('aria-expanded',String(open));scrim.toggleAttribute('hidden',!open);document.body.classList.toggle('filter-drawer-open',open);if(open)close.focus({preventScroll:true});else if(document.activeElement===close)toggle.focus({preventScroll:true})};
   toggle.addEventListener('click',()=>setFilters(!filters.classList.contains('filters-open')));close.addEventListener('click',()=>setFilters(false));scrim.addEventListener('click',()=>setFilters(false));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&filters.classList.contains('filters-open')){e.stopPropagation();setFilters(false)}});
 })();
+</script>
+<script type="module">
+import { loadFishRenderManifest } from './render-data/render-data-loader.js';
+const status = document.getElementById('render-source-status');
+try {
+  const manifest = await loadFishRenderManifest();
+  const fish = manifest?.counts?.supported_fish ?? 'unknown';
+  const groups = manifest?.counts?.render_mod_entries ?? 'unknown';
+  const rawPending = String(manifest?.import_status || '').includes('raw_source_archive_incomplete');
+  status.textContent = rawPending
+    ? `Render source metadata: ${fish} supported fish across ${groups} render groups verified. Raw source archive import is incomplete; no geometry is being guessed.`
+    : `Render source bundle: ${fish} supported fish across ${groups} render groups available.`;
+} catch (error) {
+  status.textContent = 'Render source metadata: unavailable. The Fish Wiki catalog remains usable without it.';
+}
 </script>
 <script src="../assets/fish-wiki-v2.js"></script>
 <script src="../assets/fish-detail-nav.js"></script>
