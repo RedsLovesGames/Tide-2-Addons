@@ -1,0 +1,107 @@
+name: Recover render source import
+
+on:
+  push:
+    branches: [fish-render-source-import]
+    paths:
+      - '.github/workflows/recover-render-source-import.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fish-render-source-import
+          fetch-depth: 0
+      - name: Recover complete TAR members and fix relative loader base
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import base64, json, pathlib, zlib
+
+          root=pathlib.Path('tools/fish-render-source/import-payload')
+          chunks=sorted(root.glob('meta-*.b64'))
+          encoded=''.join(p.read_text().strip() for p in chunks)
+          raw=base64.b64decode(encoded)
+          dec=zlib.decompressobj(16+zlib.MAX_WBITS)
+          data=dec.decompress(raw)
+          print(f'partial archive: chunks={len(chunks)} compressed={len(raw)} decompressed={len(data)} eof={dec.eof}')
+
+          allowed_roots=(
+              'FISH_RENDER_SOURCE_IMPORT_PROMPT.md',
+              'IMPORT_README.md',
+              'docs/FISH_RENDER_',
+              'fish/render-data/',
+          )
+          pos=0
+          complete=[]
+          incomplete=None
+          while pos+512 <= len(data):
+              h=data[pos:pos+512]
+              if not any(h):
+                  break
+              name=h[:100].split(b'\0',1)[0].decode('utf-8','replace')
+              try:
+                  size=int(h[124:136].split(b'\0',1)[0].strip() or b'0',8)
+              except ValueError:
+                  print('invalid tar size at',pos,name)
+                  break
+              start=pos+512
+              end=start+size
+              if end > len(data):
+                  incomplete=(name,size,len(data)-start)
+                  break
+              payload=data[start:end]
+              if name and not name.startswith('/') and '..' not in pathlib.PurePosixPath(name).parts and any(name==r or name.startswith(r) for r in allowed_roots):
+                  target=pathlib.Path(name)
+                  target.parent.mkdir(parents=True,exist_ok=True)
+                  target.write_bytes(payload)
+                  complete.append((name,size))
+              pos=start+((size+511)//512)*512
+
+          print('RECOVERED',len(complete))
+          for name,size in complete:
+              print(size,name)
+          print('FIRST_INCOMPLETE',incomplete)
+
+          manifest_path=pathlib.Path('fish/render-data/manifest.json')
+          manifest=json.loads(manifest_path.read_text())
+          manifest['site_base']='./'
+          manifest['import_status']='metadata_recovered_from_verified_source_bundle'
+          manifest_path.write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+'\n')
+
+          loader=pathlib.Path('fish/render-data/render-data-loader.js')
+          loader.write_text('''/**\n * Tideborne Fish Wiki render-source metadata loader.\n *\n * Metadata only. This does not approximate or fake Minecraft entity geometry.\n */\nexport const FISH_RENDER_DATA_BASE = new URL("./", import.meta.url);\n\nasync function loadJson(path) {\n  const response = await fetch(new URL(path, FISH_RENDER_DATA_BASE));\n  if (!response.ok) throw new Error(`Fish render data request failed: ${response.status} ${path}`);\n  return response.json();\n}\n\nexport const loadFishRenderManifest = () => loadJson("manifest.json");\nexport const loadSupportedFishRegistry = () => loadJson("registry/supported-fish-registry.json");\nexport const loadModRenderRegistry = () => loadJson("registry/mod-render-registry.json");\nexport const loadFishSourceIndex = () => loadJson("registry/fish-source-file-index.json");\n''')
+
+          fish=json.loads(pathlib.Path('fish/render-data/registry/supported-fish-registry.json').read_text())
+          assert fish.get('fish_count')==182, fish.get('fish_count')
+          assert len(fish.get('fish',[]))==182, len(fish.get('fish',[]))
+          ids=[f['fish_id'] for f in fish['fish']]
+          assert len(ids)==len(set(ids)), 'duplicate supported fish ids'
+
+          mods_path=pathlib.Path('fish/render-data/registry/mod-render-registry.json')
+          if mods_path.exists():
+              mods=json.loads(mods_path.read_text())
+              print('MOD_RENDER_ENTRIES',len(mods.get('mods',[])))
+          else:
+              print('mod-render-registry was not complete in staged payload')
+          PY
+      - name: Commit recovered import files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add FISH_RENDER_SOURCE_IMPORT_PROMPT.md IMPORT_README.md docs/FISH_RENDER_*.md fish/render-data/
+          if git diff --cached --quiet; then
+            echo 'No recovered files changed.'
+            exit 0
+          fi
+          git commit -m 'Recover Fish Wiki render source metadata'
+          git push origin HEAD:fish-render-source-import
