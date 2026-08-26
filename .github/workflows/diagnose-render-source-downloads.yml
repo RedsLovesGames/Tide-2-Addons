@@ -16,49 +16,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify exact source JAR downloads
+      - name: Verify Luminous 1.5.52 NeoForge source
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           import hashlib, urllib.parse, urllib.request
-          sources=[
-            ('aquaculture','Aquaculture-1.21.1-2.7.21.jar','45f00f9059838b2fecc988861111d8b3d4613a5f1b3688a8dbfa8655751b85bb','cf',7901588),
-            ('betterend','BetterEnd-21.0.19-fabric.jar','f34c2af63532ccc26a617c382002f24d3322dfd0d652f078437bbfea4c222101','cf',8610408),
-            ('cataclysm',"L_Ender's Cataclysm 1.21.1-3.33.jar",'23921a268acc8b695291f12e89c5e4c261ee5f59a3b6d763793461efb3e7e1d6','cf',8706841),
-            ('luminousworld','Luminous Overworld V1.5.52 -NeoForge 1.21.1.jar','05f6244a25081abe5071394f2ff5d67d0053c2a7904931b191f81ba865905a6b','cf',8163087),
-            ('undergarden','The_Undergarden-1.21.1-0.9.6.jar','49e3db6ce2cf6864e9d45f0633de95bc3ef72cbd5ebffee493fca7198d30ccb0','cf',7862546),
-            ('aquamirae','aquamirae-fabric-1.21.1-7.2.3.jar','a6c0463b4d16c0dc12417bb9393c86cc83fb787e419a7eb7da2216d5e36a28fa','cf',8728349),
-            ('clutterbestiary','clutterbestiary-1.1.2-fabric-1.21.1.jar','8c841fec3130b822a9b3026398939ff90f7bc35b09d52e9ef8439d6b8c2f0f33','cf',7444146),
-            ('crabbersdelight','crabbersdelight-1.21.1-1.2.6.jar','dde14329fa2ee127a76c27af4dad2608c3405d3639260478f765b5d819f69dc4','cf',8006190),
-            ('crittersandcompanions','crittersandcompanions-fabric-1.21.1-2.7.0.jar','02f91e85b53cff8da257d74f3924f42f9ca44238d8a4c04d226470581c476341','cf',8646975),
-            ('deep_aether','deep_aether-1.21.1-1.1.5.1.jar','0f55ad970715bb933344e785b2c35a7354dfba25ffd426c0b68921d08bbe0ce5','cf',7843283),
-            ('environmental','environmental-1.21.1-5.0.1.jar','d0578ab961461bc25ee59d86c44f3b90565e4782cab431dfd897f50080d5988b','cf',7122147),
-            ('fishofthieves','fish_of_thieves-mc1.21.1-v21.1.2.1-fabric.jar','4a2dab09f3b943e51d8ff523c989d1c4bed998c8ca86142b1f6a715680c088d1','url','https://cdn.modrinth.com/data/BzOTnuqM/versions/l3UnUslY/fish_of_thieves-mc1.21.1-v21.1.2.1-fabric.jar'),
-            ('netherdepthsupgrade','netherdepthsupgrade-fabric-3.2+1.21.1.jar','313dd47d47a85980f33e8fc95e3fea0f3a86f087b602718e5c1a62fceee91b90','cf',8702112),
-            ('spawn','spawn-4.0.7-1.21.1.jar','290f52ca4bb89740f9f76d5640e4fa130293c414739066d6652c2cf25b62cf82','cf',8507225),
-            ('tide','tide-fabric-1.21.1-2.1.1.jar','498a5e8dda940866c9b0decadf7960724ef489fb49215b30f70c18d12f07b1c8','url','https://cdn.modrinth.com/data/die1AF7i/versions/ztNu3GtG/tide-fabric-1.21.1-2.1.1.jar'),
-            ('upgrade_aquatic','upgrade_aquatic-1.21.1-7.0.1.jar','ac4edecc341435c38893d85964074a2e09e322e3fb32be93d08f2a3165c0ebe7','cf',7115763),
-            ('wan_ancient_beasts','wab-1.21.1-1.3.2.jar','7dfa7e2ca7ed87890c99395cffbc75b6343c62f15196aa0eea2d0d1e16608e6c','cf',7023610),
-            ('youkaishomecoming','youkaishomecoming-3.0.8.jar','1364a94d5ff4cce18284c8a824626623a629b62056eb557aaf89779f6f4da752','cf',6491908),
-          ]
-          headers={'User-Agent':'Mozilla/5.0 TideborneFishWikiSourceImporter/1.0'}
-          failures=[]
-          for root,filename,expected,kind,locator in sources:
-              if kind=='cf':
-                  s=str(locator); url=f'https://mediafilez.forgecdn.net/files/{s[:-3]}/{s[-3:]}/{urllib.parse.quote(filename)}'
-              else: url=locator
-              try:
-                  req=urllib.request.Request(url,headers=headers)
-                  data=urllib.request.urlopen(req,timeout=60).read()
-                  got=hashlib.sha256(data).hexdigest()
-                  ok=got==expected
-                  print(('OK' if ok else 'HASH_MISMATCH'),root,len(data),url,got)
-                  if not ok: failures.append((root,'hash',got,url))
-              except Exception as e:
-                  print('DOWNLOAD_ERROR',root,type(e).__name__,str(e),url)
-                  failures.append((root,'download',str(e),url))
-          if failures:
-              raise SystemExit('Source verification failures: '+repr(failures))
-          print('All 18 authoritative source JARs verified.')
+          expected='05f6244a25081abe5071394f2ff5d67d0053c2a7904931b191f81ba865905a6b'
+          filename='Luminous Overworld V1.5.52 -NeoForge 1.21.1.jar'
+          url='https://cdn.modrinth.com/data/HT2F6lNL/versions/7gCLLt7C/'+urllib.parse.quote(filename)
+          req=urllib.request.Request(url,headers={'User-Agent':'TideborneFishWikiSourceImporter/1.0'})
+          data=urllib.request.urlopen(req,timeout=60).read()
+          got=hashlib.sha256(data).hexdigest()
+          print('LUMINOUS',len(data),url,got)
+          if got != expected:
+              raise SystemExit(f'Luminous source hash mismatch: {got}')
+          print('Exact Luminous source verified.')
           PY
