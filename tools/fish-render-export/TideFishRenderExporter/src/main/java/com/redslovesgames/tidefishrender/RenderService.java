@@ -24,6 +24,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.joml.Matrix4f;
+import org.joml.Matrix4fStack;
 import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
@@ -160,6 +161,7 @@ final class RenderService {
     private NativeImage renderFramebuffer(FishDisplayBlockEntity display, float scale) {
         Matrix4f previousProjection = new Matrix4f(RenderSystem.getProjectionMatrix());
         VertexSorter previousVertexSorting = RenderSystem.getVertexSorting();
+        Matrix4fStack modelView = RenderSystem.getModelViewStack();
         int previousWidth = client.getFramebuffer().textureWidth;
         int previousHeight = client.getFramebuffer().textureHeight;
         SimpleFramebuffer framebuffer = new SimpleFramebuffer(SOURCE_SIZE, SOURCE_SIZE, true, true);
@@ -172,6 +174,9 @@ final class RenderService {
                 new Matrix4f().setPerspective((float) Math.toRadians(30.0), 1.0f, 0.05f, 100.0f),
                 VertexSorter.BY_DISTANCE
         );
+        modelView.pushMatrix();
+        modelView.identity();
+        RenderSystem.applyModelViewMatrix();
         RenderSystem.enableDepthTest();
         RenderSystem.depthMask(true);
         MatrixStack matrices = new MatrixStack();
@@ -196,6 +201,8 @@ final class RenderService {
             framebuffer.endWrite();
             framebuffer.delete();
             allocator.close();
+            modelView.popMatrix();
+            RenderSystem.applyModelViewMatrix();
             RenderSystem.setProjectionMatrix(previousProjection, previousVertexSorting);
             RenderSystem.viewport(0, 0, previousWidth, previousHeight);
             client.getFramebuffer().beginWrite(true);
