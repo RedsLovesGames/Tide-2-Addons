@@ -30,6 +30,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.12'
+          cache-read-only: false
 
       - name: Compile and remap exporter
         run: gradle --no-daemon clean build
@@ -51,9 +52,10 @@ jobs:
           mkdir -p ../../../render-exporter-artifact
           cp build/libs/tide-fish-render-exporter-*.jar ../../../render-exporter-artifact/
           cd ..
-          zip -qr ../../../render-exporter-artifact/TideFishRenderExporter-source.zip TideFishRenderExporter \
+          zip -qr ../../render-exporter-artifact/TideFishRenderExporter-source.zip TideFishRenderExporter \
             -x 'TideFishRenderExporter/.gradle/*' 'TideFishRenderExporter/build/*'
-          cp ../../../fish/render-data/registry/supported-fish-registry.json ../../../render-exporter-artifact/fish-render-registry.json
+          cp ../../fish/render-data/registry/supported-fish-registry.json ../../render-exporter-artifact/fish-render-registry.json
+          find ../../render-exporter-artifact -maxdepth 1 -type f -print
 
       - uses: actions/upload-artifact@v4
         with:
