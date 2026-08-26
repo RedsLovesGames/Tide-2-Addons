@@ -1,0 +1,43 @@
+name: Package Codex Fish Wiki Handoff
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - fish-render-source-import
+    paths:
+      - .github/workflows/package-codex-handoff.yml
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build complete branch snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/codex-handoff
+          mkdir -p /tmp/codex-handoff/Tide-2-Addons
+          rsync -a \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='**/.gradle' \
+            --exclude='**/build' \
+            --exclude='**/run' \
+            ./ /tmp/codex-handoff/Tide-2-Addons/
+          printf '%s\n' "branch=fish-render-source-import" "head_sha=${GITHUB_SHA}" > /tmp/codex-handoff/Tide-2-Addons/CODEX_BRANCH_SNAPSHOT.txt
+          cd /tmp/codex-handoff
+          zip -qr "$GITHUB_WORKSPACE/Tide-2-Addons-fish-render-source-import.zip" Tide-2-Addons
+
+      - name: Upload Codex handoff snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: codex-fish-wiki-handoff
+          path: Tide-2-Addons-fish-render-source-import.zip
+          if-no-files-found: error
+          retention-days: 14
