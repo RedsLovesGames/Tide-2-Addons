@@ -1,15 +1,16 @@
 @import url("./fish-specimen-lab-stable-base.css");
 
-/* Physical prismarine floor. Horizontal block size and count exactly match the species viewport camera. The floor remains a shallow clipped reference strip vertically, but the underlying Minecraft block texture is always square and never stretched. */
+/* Physical prismarine floor. Every visible floor block is a true square at the same pixel size as one ruler block. The viewport width is exactly scaleBlocks * blockWidthPx, so a one-block species renders one square block, a four-block species renders four square blocks, and so on. */
 #fish-highlight-layer .fish-lab-render-stage::after{
   left:50%!important;
   right:auto!important;
   width:var(--viewport-width-px,72px)!important;
+  height:var(--block-width-px,72px)!important;
   transform:translateX(-50%)!important;
   box-sizing:border-box!important;
   border-left:1px solid rgba(2,14,19,.68)!important;
   border-right:1px solid rgba(2,14,19,.68)!important;
-  background-size:var(--block-width-px,72px) 100%,var(--block-width-px,72px) calc(var(--block-width-px,72px) * 4)!important;
+  background-size:var(--block-width-px,72px) var(--block-width-px,72px),var(--block-width-px,72px) calc(var(--block-width-px,72px) * 4)!important;
   background-position:0 0,0 0!important;
   background-repeat:repeat-x,repeat-x!important;
 }
