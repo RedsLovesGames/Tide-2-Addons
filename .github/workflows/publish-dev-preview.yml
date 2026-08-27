@@ -1,71 +1,57 @@
-name: Publish dev preview
+name: Package dev preview
 
 on:
   push:
     branches:
       - dev
+    paths:
+      - index.html
+      - assets/**
+      - docs/**
+      - fish/**
+      - .github/workflows/publish-dev-preview.yml
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: publish-dev-preview
+  group: package-dev-preview
   cancel-in-progress: true
 
 jobs:
-  publish:
+  package:
     runs-on: ubuntu-latest
     steps:
       - name: Check out dev source
         uses: actions/checkout@v4
         with:
           ref: dev
-          path: source
           fetch-depth: 1
 
-      - name: Check out production main
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          path: production
-          fetch-depth: 1
-
-      - name: Build isolated dev preview subtree
+      - name: Build isolated GitHub Pages-style preview artifact
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf production/dev
-          mkdir -p production/dev
-
-          # Copy only the static site surface. Development tooling, workflows,
-          # repository docs, and source-build utilities do not belong in Pages.
-          cp source/index.html production/dev/index.html
-          cp -a source/assets production/dev/assets
-          cp -a source/docs production/dev/docs
-          cp -a source/fish production/dev/fish
-
-          cat > production/dev/dev-preview.json <<EOF
+          rm -rf preview
+          mkdir -p preview/Tide-2-Addons
+          cp index.html preview/Tide-2-Addons/index.html
+          cp -a assets preview/Tide-2-Addons/assets
+          cp -a docs preview/Tide-2-Addons/docs
+          cp -a fish preview/Tide-2-Addons/fish
+          cat > preview/Tide-2-Addons/dev-preview.json <<EOF
           {
             "branch": "dev",
             "source_sha": "${GITHUB_SHA}",
-            "published_by": "publish-dev-preview.yml"
+            "packaged_by": "publish-dev-preview.yml",
+            "production_branch_modified": false
           }
           EOF
 
-      - name: Publish preview snapshot to main /dev
-        shell: bash
-        run: |
-          set -euo pipefail
-          cd production
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A dev
-
-          if git diff --cached --quiet; then
-            echo "Dev preview is already current."
-            exit 0
-          fi
-
-          git commit -m "Publish dev Pages preview ${GITHUB_SHA::7}"
-          git push origin HEAD:main
+      - name: Upload dev preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: tideborne-dev-preview-${{ github.sha }}
+          path: preview/
+          if-no-files-found: error
+          retention-days: 14
