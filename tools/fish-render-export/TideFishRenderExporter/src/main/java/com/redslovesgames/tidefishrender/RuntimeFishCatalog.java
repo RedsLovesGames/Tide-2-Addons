@@ -38,20 +38,6 @@ final class RuntimeFishCatalog {
             if (recordHighCm > 0) return recordHighCm * 0.65;
             return 1.0;
         }
-
-        RegistryLoader.Entry asRegistryEntry() {
-            return new RegistryLoader.Entry(
-                    fishId,
-                    itemId,
-                    entityId,
-                    sourceMod,
-                    "runtime",
-                    typicalLowCm,
-                    typicalHighCm,
-                    recordHighCm,
-                    raw
-            );
-        }
     }
 
     private RuntimeFishCatalog() {}
