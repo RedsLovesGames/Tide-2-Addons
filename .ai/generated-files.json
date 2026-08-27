@@ -16,17 +16,7 @@
     "scripts/fish-build-report.txt": {
       "generatedBy": "scripts/build-fish-wiki.py",
       "editDirectly": false,
-      "note": "Legacy report location retained until generated reports are migrated out of scripts/."
-    },
-    "scripts/fish-source-inventory.txt": {
-      "generatedBy": ".github/workflows/audit-fish-sources.yml",
-      "editDirectly": false,
-      "note": "Legacy committed report. New workflow runs should publish this as an artifact instead of committing it."
-    },
-    "scripts/fish-schema-report.txt": {
-      "generatedBy": ".github/workflows/inspect-fish-schema.yml",
-      "editDirectly": false,
-      "note": "Legacy committed report. New workflow runs should publish this as an artifact instead of committing it."
+      "note": "Legacy report location retained until the builder default is migrated. CI writes its report to temporary artifact storage."
     },
     "fish/render-data/registry/supported-fish-registry.json": {
       "generatedBy": "tools/fish-render-source/extract_fish_render_sources.py",
@@ -48,5 +38,10 @@
       "generatedBy": "Minecraft runtime render workflows / TideFishRenderExporter",
       "editDirectly": false
     }
+  },
+  "artifactOnlyReports": {
+    "fish-source-inventory": ".github/workflows/audit-fish-sources.yml",
+    "fish-schema-report": ".github/workflows/inspect-fish-schema.yml",
+    "fish-wiki-data-rebuild": ".github/workflows/build-fish-wiki-data.yml"
   }
 }
