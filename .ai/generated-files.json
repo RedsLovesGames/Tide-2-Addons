@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 1,
   "canonicalInputs": {
     "fish/render-bundles/current-runtime-export.zip": {
       "kind": "binary runtime input",
