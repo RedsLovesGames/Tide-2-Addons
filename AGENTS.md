@@ -11,25 +11,42 @@ Read this file before changing the repository. Then read `.ai/state.json`, `.ai/
 
 ## Source-of-truth hierarchy
 
-1. Packaged Tideborne behavior and resources for the documented release.
+1. Packaged Tideborne behavior/resources for the documented release.
 2. Pinned upstream source/archive metadata in `tools/fish-render-source/source-manifest.json`.
-3. Tide 2 FishData and Tide Extra Compatibility FishData recovered from those pinned sources.
-4. Generated registries and Fish Wiki payloads derived from those sources.
-5. Published runtime renders only when backed by actual Minecraft/Tide entity rendering evidence.
+3. Tide 2 / compatibility FishData recovered from those pinned sources for documentation and provenance.
+4. A complete running-modpack runtime export from the Tide Fish Runtime Exporter for published fish renders.
+5. Generated Fish Wiki registries, payloads, render manifest, and PNGs derived from those canonical inputs.
 
-Never invent fish, entity IDs, model geometry, textures, variants, provenance, or compatibility support. Missing information stays missing and should be reported explicitly.
+Never invent fish, entity IDs, model geometry, textures, variants, provenance, or compatibility support. Missing information stays missing and must be reported explicitly.
 
 ## Generated-file rule
 
-Check `.ai/generated-files.json` before editing large JSON, gzip, report, registry, or render files. If a file is generated, change its producer or canonical input and regenerate it rather than hand-editing the output, except for an emergency repair that is documented and immediately followed by producer alignment.
+Check `.ai/generated-files.json` before editing large JSON, gzip, report, registry, or render files. If a file is generated, change its producer or canonical input and regenerate it rather than hand-editing the output.
 
 ## Fish render contract
 
-- Prefer Tide `FishDisplayRenderer` / `FishDisplayBlockEntity` when the FishData display path is valid.
-- Use the real Minecraft `EntityRenderDispatcher` for direct source-authentic entity renders when required.
-- Preserve actual source-mod renderer behavior, variants, transparency, emissive layers, NBT/components, and Tide `DisplayData` where applicable.
-- Failed renders are failures. Never substitute item sprites, fabricated geometry, AI art, or guessed models.
-- Renderer workflow configuration must be explicit. CI should not silently rewrite checked-in Java or Gradle source before compiling.
+Published Fish Wiki images have one canonical path:
+
+`running modpack -> TideData.FISH -> real ItemStack state -> FishDisplayBlockEntity -> FishDisplayRenderer -> runtime export ZIP -> scripts/import-fish-runtime-bundle.py -> site manifest/PNGs`
+
+- The canonical bundle path is `fish/render-bundles/current-runtime-export.zip`.
+- The importer must reject bundles that enable direct entity fallback or do not identify `com.li64.tide.client.FishDisplayRenderer` as the renderer.
+- Direct `EntityRenderDispatcher` rendering is not a publication fallback. Runtime Fish Display failures remain unavailable until the canonical path is fixed.
+- Never substitute item sprites, reconstructed geometry, AI art, guessed models, or stale renders for failures.
+- Runtime provenance and failure reports live under `fish/render-data/runtime-bundle/` after import.
+- The drop-in exporter discovers fish from the actual running `TideData.FISH`; it must not depend on the Wiki registry to decide what exists.
+
+## Specimen scale contract
+
+The Specimen Lab viewport is species-relative while preserving physical block scale:
+
+- `maxSpecimenCm = envelope(record).giantHigh`
+- `viewportBlocks = max(1, ceil(maxSpecimenCm / 100))`
+- one Minecraft block is 100 cm
+- current specimen width is calculated from its current length using that species viewport
+- viewport block count never changes when percentile/body/condition controls change for the same species
+
+This prevents tiny fish from becoming invisible while keeping giant species physically proportional inside their own whole-block viewport.
 
 ## Validation contract
 
@@ -39,21 +56,23 @@ Fast validation should work from the repository root:
 python3 scripts/validate-fish-wiki.py
 python3 scripts/validate-fish-render-manifest.py
 node --check assets/app.js
+node --check assets/fish-runtime.js
 node --check assets/fish-wiki.js
-node --check assets/fish-detail-nav.js
-node --check assets/fish-catalog-redesign.js
-node --check assets/fish-specimen-lab-stable.js
+node --check assets/fish-specimen-lab.js
+node --check scripts/qa-fish-wiki.mjs
+node --check scripts/qa-fish-runtime-architecture.mjs
 ```
 
-Browser QA is implemented by `scripts/qa-fish-wiki.mjs`. Minecraft renderer validation lives under `tools/fish-render-export/TideFishRenderExporter/` and GitHub Actions.
+Browser QA is implemented by `scripts/qa-fish-wiki.mjs` and `scripts/qa-fish-runtime-architecture.mjs`. Runtime exporter validation lives under `tools/fish-render-export/TideFishRenderExporter/` and GitHub Actions.
 
 ## Change discipline
 
 - Make the smallest coherent change that fixes the underlying contract.
-- Keep authoritative input, generator, validator, runtime consumer, and docs aligned in the same change when their schema changes.
-- Do not add another `-v2`, `-v3`, `-stable`, `-fix`, or patch-layer file when existing production behavior can be consolidated into its canonical owner.
-- Do not claim a workflow, render, or build succeeded without current evidence.
+- Keep authoritative input, generator/importer, validator, runtime consumer, and docs aligned when their schema changes.
+- Do not add another `-v2`, `-v3`, `-stable`, `-fix`, or patch-layer production file when an existing canonical owner can be changed.
+- Do not claim a workflow, render, build, or import succeeded without current evidence.
 - Prefer machine-readable JSON state and reports over large prose continuation prompts.
+- Do not restore the removed legacy registry/direct-render publication engine or per-mod Hybrid Aquatic render workflows without current regression evidence that cannot be fixed in the canonical runtime Fish Display path.
 
 ## AI continuation
 
