@@ -1,10 +1,9 @@
-name: Validate Fish Wiki
+name: Validate repository and Fish Wiki
 
 on:
   push:
     branches:
-      - fish-wiki-production
-      - bugfix/fish-wiki-ux-pass
+      - dev
   pull_request:
     branches:
       - main
@@ -12,6 +11,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
@@ -25,20 +28,32 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       - name: Install image decoder
         run: python -m pip install --disable-pip-version-check Pillow
 
-      - name: Check JavaScript syntax
+      - name: Check repository whitespace
+        run: git diff --check HEAD^
+
+      - name: Check Python syntax
         run: |
-          node --check assets/app.js
-          node --check assets/specimens.js
-          node --check assets/fish-site-search.js
-          node --check assets/fish-wiki.js
-          node --check assets/fish-wiki-v2.js
-          node --check assets/fish-detail-nav.js
-          node --check assets/latest-1357.js
-          node --check assets/tide-item-textures.js
-          node --check assets/bugfix-ux.js
+          python -m py_compile \
+            scripts/build-fish-wiki.py \
+            scripts/validate-fish-wiki.py \
+            scripts/validate-fish-render-manifest.py \
+            scripts/validate-repo-structure.py \
+            tools/fish-render-source/download_sources.py \
+            tools/fish-render-source/extract_fish_render_sources.py
+
+      - name: Check JavaScript syntax
+        run: npm run check:js
+
+      - name: Validate repository architecture
+        run: python scripts/validate-repo-structure.py
 
       - name: Validate Fish Wiki payload
         run: python scripts/validate-fish-wiki.py
