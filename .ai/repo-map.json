@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "site": {
     "documentationEntry": "index.html",
     "fishWikiEntry": "fish/index.html",
@@ -9,6 +9,9 @@
   "fishData": {
     "builder": "scripts/build-fish-wiki.py",
     "validator": "scripts/validate-fish-wiki.py",
+    "sharedRuntime": "assets/fish-runtime.js",
+    "catalogAndDetail": "assets/fish-wiki.js",
+    "specimenLab": "assets/fish-specimen-lab.js",
     "searchIndex": "assets/fish-search-index.json",
     "payloadShards": [
       "assets/fish-wiki-data-0.json.gz",
@@ -19,32 +22,53 @@
     "sourceLock": "tools/fish-render-source/source-manifest.json",
     "sourceDownloader": "tools/fish-render-source/download_sources.py",
     "sourceExtractor": "tools/fish-render-source/extract_fish_render_sources.py",
-    "supportedRegistry": "fish/render-data/registry/supported-fish-registry.json",
+    "sourceAuditRegistry": "fish/render-data/registry/supported-fish-registry.json",
     "sourceFileIndex": "fish/render-data/registry/fish-source-file-index.json",
-    "modRegistry": "fish/render-data/registry/mod-render-registry.json",
+    "sourceModRegistry": "fish/render-data/registry/mod-render-registry.json",
     "scope": "fish/render-data/modpack-scope.json",
+    "canonicalRuntimeBundle": "fish/render-bundles/current-runtime-export.zip",
+    "bundleImporter": "scripts/import-fish-runtime-bundle.py",
+    "runtimeProvenance": "fish/render-data/runtime-bundle/",
     "publishedManifest": "assets/fish-render-manifest.json",
     "manifestValidator": "scripts/validate-fish-render-manifest.py"
   },
   "minecraftRenderer": {
     "root": "tools/fish-render-export/TideFishRenderExporter/",
-    "main": "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/TideFishRenderExporter.java",
-    "service": "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RenderService.java",
-    "registryLoader": "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RegistryLoader.java",
-    "build": "tools/fish-render-export/TideFishRenderExporter/build.gradle"
+    "entrypoint": "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RuntimeBundleAutoInitializer.java",
+    "bundleExporter": "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RuntimeBundleExporter.java",
+    "runtimeCatalog": "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RuntimeFishCatalog.java",
+    "displayRenderer": "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RuntimeFishDisplayExport.java",
+    "environmentProvenance": "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RuntimeEnvironment.java",
+    "variantSupport": "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/TideborneVariantSupport.java",
+    "build": "tools/fish-render-export/TideFishRenderExporter/build.gradle",
+    "publicationContract": "TideData.FISH -> FishDisplayBlockEntity -> FishDisplayRenderer -> runtime ZIP; direct entity publication fallback is prohibited"
   },
   "browserQa": {
-    "script": "scripts/qa-fish-wiki.mjs",
+    "scripts": [
+      "scripts/qa-fish-wiki.mjs",
+      "scripts/qa-fish-runtime-architecture.mjs"
+    ],
     "workflow": ".github/workflows/qa-fish-wiki-browser.yml"
   },
   "workflows": {
     "fastValidation": ".github/workflows/validate-fish-wiki.yml",
     "sourceRegistry": ".github/workflows/build-fish-render-source-registry.yml",
-    "exporterBuild": ".github/workflows/build-fish-render-exporter.yml",
-    "hybridBaselineRender": ".github/workflows/render-hybrid-aquatic-runtime-dev.yml",
-    "hybridLateRender": ".github/workflows/render-hybrid-aquatic-late-runtime-dev.yml",
+    "runtimeExporterJar": ".github/workflows/build-fish-render-exporter-jar.yml",
+    "runtimeExporterSmoke": ".github/workflows/build-fish-render-exporter.yml",
+    "runtimeBundleImport": ".github/workflows/import-fish-runtime-bundle.yml",
     "devPreview": ".github/workflows/publish-dev-preview.yml"
   },
+  "removedLegacyRenderOwners": [
+    "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/TideFishRenderExporter.java",
+    "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RenderCommands.java",
+    "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RenderService.java",
+    "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RegistryLoader.java",
+    "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RenderReport.java",
+    "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RenderTargetOverride.java",
+    ".github/workflows/render-hybrid-aquatic-runtime-dev.yml",
+    ".github/workflows/render-hybrid-aquatic-late-runtime-dev.yml",
+    ".github/workflows/render-tide-fish-smoke.yml"
+  ],
   "aiHandoff": {
     "operatingContract": "AGENTS.md",
     "state": ".ai/state.json",
