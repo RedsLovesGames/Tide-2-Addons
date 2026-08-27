@@ -28,15 +28,30 @@
     "generatedOutputPublishing": "validated artifact or dev commit only; never dev-triggered commit to main",
     "ciSourceMutation": "prohibited for checked-in Java/Gradle source"
   },
+  "validationEvidence": {
+    "fastValidationRunId": 33057485099,
+    "conclusion": "success",
+    "commit": "cde7a393162a3e851d8f7b42d5bfb9d987cb658b"
+  },
+  "nextDevelopment": {
+    "status": "ready_to_execute",
+    "prompt": ".ai/NEXT_DEVELOPMENT_PROMPT.md",
+    "taskState": ".ai/next-task.json",
+    "priority": "Consolidate Fish Wiki runtime/data ownership and browser QA, then harden renderer failure/provenance/resource architecture only after frontend behavior is green.",
+    "doNotRepeat": "Do not redo the completed repository/workflow control-plane cleanup without current regression evidence."
+  },
   "knownArchitectureDebt": [
-    "Fish Wiki frontend still contains layered legacy/redesign scripts and CSS that should be consolidated carefully after backend contracts are stable.",
-    "Some generated registries and reports are large and should eventually move behind clearer canonical-input/generated-output boundaries.",
-    "Renderer internals can still be split into focused strategies and reusable framebuffer/reporting components after workflow stabilization."
+    "Fish Wiki production scripts still duplicate FishData/render-manifest loads and FishScore/size rules; current redesign/scope layers patch the DOM after base rendering and should be consolidated into canonical ownership.",
+    "Fish Wiki CSS still contains layered release/v2/redesign/readability/render-fit/stable overrides that should be consolidated only with screenshot-backed browser QA.",
+    "Renderer failure classification still depends on exception-message substrings and RenderService owns framebuffer lifecycle, render strategies, and report writing in one class.",
+    "Some generated registries and reports are large and should eventually move behind clearer canonical-input/generated-output boundaries."
   ],
   "firstFilesForNewSession": [
     "AGENTS.md",
     ".ai/state.json",
     ".ai/repo-map.json",
-    ".ai/generated-files.json"
+    ".ai/generated-files.json",
+    ".ai/next-task.json",
+    ".ai/NEXT_DEVELOPMENT_PROMPT.md"
   ]
 }
