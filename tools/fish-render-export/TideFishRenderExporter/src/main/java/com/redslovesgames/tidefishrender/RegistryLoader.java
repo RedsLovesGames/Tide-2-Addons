@@ -75,7 +75,13 @@ final class RegistryLoader {
             Entry entry = known.get(fishId);
             if (entry == null) {
                 String group = str(item, "group", "misc");
-                entry = new Entry(fishId, fishId, fishId, namespace(fishId), group, 20.0, 40.0, 60.0, item.deepCopy());
+                String runtimeEntityId = runtimeEntityId(fishId);
+                JsonObject synthesized = item.deepCopy();
+                synthesized.addProperty("fish_id", fishId);
+                synthesized.addProperty("entity_id", runtimeEntityId);
+                synthesized.addProperty("source_mod", str(item, "mod", namespace(fishId)));
+                entry = new Entry(fishId, fishId, runtimeEntityId, namespace(fishId), group,
+                        20.0, 40.0, 60.0, synthesized);
             }
             scoped.putIfAbsent(fishId, entry);
         }
@@ -113,6 +119,16 @@ final class RegistryLoader {
         }
         if (out.isEmpty()) throw new IOException("Registry contained no usable fish entries: " + source);
         return List.copyOf(out);
+    }
+
+    private static String runtimeEntityId(String fishId) {
+        // The wiki/Tide compatibility data uses the canonical underscore namespace.
+        // Hybrid Aquatic 1.5.5 itself registers the runtime mod and entity namespace
+        // with a hyphen. Keep fishId stable and translate only the entity lookup ID.
+        if (fishId != null && fishId.startsWith("hybrid_aquatic:")) {
+            return "hybrid-aquatic:" + fishId.substring("hybrid_aquatic:".length());
+        }
+        return fishId;
     }
 
     private static JsonObject readBundledObject(String resourcePath) throws IOException {
