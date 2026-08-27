@@ -58,6 +58,18 @@ loom {
             programArg "1024"
             environmentVariable("TIDE_FISH_RENDER_AUTO", "scope")
         }
+        renderHybrid {
+            client()
+            configName = "Hybrid Aquatic Render Client"
+            runDir = "run/client"
+            programArg "--quickPlaySingleplayer"
+            programArg "RenderWorld"
+            programArg "--width"
+            programArg "1024"
+            programArg "--height"
+            programArg "1024"
+            environmentVariable("TIDE_FISH_RENDER_AUTO", "namespace:hybrid_aquatic")
+        }
     }
 }
 
