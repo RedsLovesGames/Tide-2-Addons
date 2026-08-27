@@ -195,7 +195,7 @@ final class RenderService {
         System.out.println("FISHRENDER_ENTITY_DIRECT fish=" + job.entry().fishId()
                 + " entity=" + resolved
                 + " renderer=" + rendererClass
-                + " projection=ortho yaw=90");
+                + " projection=ortho yaw=90 matrix_y=90");
 
         NativeImage image = null;
         ImageOps.Bounds bounds = null;
@@ -248,6 +248,11 @@ final class RenderService {
         client.getEntityRenderDispatcher().setRenderShadows(false);
         try {
             MatrixStack matrices = new MatrixStack();
+            // GeckoLib fish renderers use the entity/model transform rather than the
+            // EntityRenderDispatcher yaw argument for their meaningful facing. Rotate
+            // the complete pose 90 degrees around Y so Minecraft's default front view
+            // becomes the side profile used by Tide fish displays and the wiki.
+            matrices.multiply(net.minecraft.util.math.RotationAxis.POSITIVE_Y.rotationDegrees(90.0f));
             double y = -Math.max(0.05, entity.getHeight()) * 0.5;
             client.getEntityRenderDispatcher().render(
                     entity,
