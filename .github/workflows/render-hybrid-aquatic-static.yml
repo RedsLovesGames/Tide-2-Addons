@@ -1,0 +1,63 @@
+name: Render Hybrid Aquatic source geometry
+
+on:
+  push:
+    branches: [dev]
+    paths:
+      - scripts/render-hybrid-aquatic.py
+      - .github/workflows/render-hybrid-aquatic-static.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install renderer dependencies
+        run: python -m pip install --disable-pip-version-check pillow numpy
+
+      - name: Download exact Hybrid Aquatic 1.6.9 Fabric JAR
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="$(curl -fsSL https://api.modrinth.com/v2/version/F5POkJG0 | jq -r '.files[] | select(.primary == true) | .url' | head -n1)"
+          test -n "$url"
+          curl -fL "$url" -o /tmp/hybrid-aquatic-1.6.9.jar
+          echo '5dc6a76776f71ccd19a2913fb56ae128350285fe7e6b140472f6194ef3ef4f020f04f60e233f76309912a1e33fd14d046e4cb629569f8f9507b342a7fc1d7d63  /tmp/hybrid-aquatic-1.6.9.jar' | sha512sum -c -
+
+      - name: Render all Tide-compatible Hybrid Aquatic fish
+        run: |
+          python scripts/render-hybrid-aquatic.py \
+            --jar /tmp/hybrid-aquatic-1.6.9.jar \
+            --output fish/assets/renders \
+            --manifest assets/fish-render-manifest.json
+          test "$(find fish/assets/renders -maxdepth 1 -name 'hybrid_aquatic__*.png' | wc -l)" -eq 49
+
+      - name: Commit source-authentic Hybrid Aquatic renders
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add fish/assets/renders/hybrid_aquatic__*.png \
+                  fish/render-data/hybrid-aquatic-render-provenance.json \
+                  assets/fish-render-manifest.json
+          if git diff --cached --quiet; then
+            echo 'Hybrid Aquatic renders already current.'
+            exit 0
+          fi
+          git commit -m 'Publish 49 Hybrid Aquatic source-authentic renders'
+          git push origin HEAD:dev
