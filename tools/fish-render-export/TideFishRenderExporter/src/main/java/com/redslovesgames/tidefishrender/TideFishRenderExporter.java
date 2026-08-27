@@ -72,7 +72,8 @@ public final class TideFishRenderExporter implements ClientModInitializer {
             boolean namespaceCompat = mode.startsWith("namespace:")
                     && !mode.equals("namespace:tide")
                     && !mode.equals("namespace:minecraft");
-            boolean scopedRegistry = "scope".equals(mode) || namespaceCompat;
+            boolean hybridAquaticFish = mode.startsWith("hybrid_aquatic:");
+            boolean scopedRegistry = "scope".equals(mode) || namespaceCompat || hybridAquaticFish;
             RenderService service = RenderService.create(scopedRegistry);
             RenderReport report = switch (mode) {
                 case "verify" -> service.verifyAll();
