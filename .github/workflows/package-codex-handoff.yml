@@ -1,11 +1,13 @@
-name: Package Codex Fish Wiki Handoff
+name: Package AI development handoff
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - fish-render-source-import
+      - dev
     paths:
+      - AGENTS.md
+      - .ai/**
       - .github/workflows/package-codex-handoff.yml
 
 permissions:
@@ -16,28 +18,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 1
 
-      - name: Build complete branch snapshot
+      - name: Build compact architecture handoff
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf /tmp/codex-handoff
-          mkdir -p /tmp/codex-handoff/Tide-2-Addons
-          rsync -a \
-            --exclude='.git' \
-            --exclude='node_modules' \
-            --exclude='**/.gradle' \
-            --exclude='**/build' \
-            --exclude='**/run' \
-            ./ /tmp/codex-handoff/Tide-2-Addons/
-          printf '%s\n' "branch=fish-render-source-import" "head_sha=${GITHUB_SHA}" > /tmp/codex-handoff/Tide-2-Addons/CODEX_BRANCH_SNAPSHOT.txt
-          cd /tmp/codex-handoff
-          zip -qr "$GITHUB_WORKSPACE/Tide-2-Addons-fish-render-source-import.zip" Tide-2-Addons
+          rm -rf /tmp/ai-handoff
+          mkdir -p /tmp/ai-handoff/Tide-2-Addons
+          dest=/tmp/ai-handoff/Tide-2-Addons
 
-      - name: Upload Codex handoff snapshot
+          cp AGENTS.md README.md justfile package.json "$dest/"
+          cp -a .ai "$dest/.ai"
+          mkdir -p "$dest/.github"
+          cp -a .github/workflows "$dest/.github/workflows"
+          cp -a docs "$dest/docs"
+          cp -a scripts "$dest/scripts"
+          cp -a tools "$dest/tools"
+          mkdir -p "$dest/fish"
+          cp fish/index.html "$dest/fish/index.html"
+          cp -a fish/render-data "$dest/fish/render-data"
+
+          cat > "$dest/AI_HANDOFF_STATE.txt" <<EOF
+          branch=dev
+          head_sha=${GITHUB_SHA}
+          generated_at=${GITHUB_RUN_ID}
+          start_with=AGENTS.md,.ai/state.json,.ai/repo-map.json
+          EOF
+
+          find "$dest" -type d \( -name .gradle -o -name build -o -name run -o -name node_modules \) -prune -exec rm -rf {} + || true
+          cd /tmp/ai-handoff
+          zip -qr "$GITHUB_WORKSPACE/Tide-2-Addons-ai-handoff.zip" Tide-2-Addons
+
+      - name: Upload AI handoff
         uses: actions/upload-artifact@v4
         with:
-          name: codex-fish-wiki-handoff
-          path: Tide-2-Addons-fish-render-source-import.zip
+          name: tideborne-ai-handoff
+          path: Tide-2-Addons-ai-handoff.zip
           if-no-files-found: error
           retention-days: 14
