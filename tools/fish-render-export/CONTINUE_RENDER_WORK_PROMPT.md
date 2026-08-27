@@ -1,32 +1,44 @@
-# Tide Fish Render Work: continuation execution prompt
+# Tide Fish Render Work: continuation prompt
 
-Work directly on `RedsLovesGames/Tide-2-Addons`, branch `fish-render-source-import`. Do not modify `main` until the render pipeline and visual QA are complete.
+Work directly on `RedsLovesGames/Tide-2-Addons`, branch `dev`.
+
+Before changing anything, read:
+
+1. `AGENTS.md`
+2. `.ai/state.json`
+3. `.ai/repo-map.json`
+4. `.ai/generated-files.json`
+5. the current failed/recent GitHub Actions runs for `dev`
+
+Do not re-audit unrelated parts of the repository unless current evidence requires it.
 
 ## Goal
-Finish a deterministic pipeline that produces transparent PNG renders using the actual Minecraft entity renderer, actual entity models/textures, Tide 2.1.1 Fish Display behavior, and Tide Extra Compatibility data. Never invent fish, approximate geometry, substitute item sprites, or generate fake fish art.
 
-For the current phase, use `fish/render-data/modpack-scope.json` as the temporary active scope. Only spend render and Fish Wiki work on FishData whose fish namespace belongs to that uploaded modpack scope, plus vanilla Minecraft fish. Keep the full authoritative registry intact for later. Ignore Tideborne visual mutation/condition variants for now and render only the normal/default fish appearance.
+Maintain a deterministic pipeline that produces transparent PNG renders using the actual Minecraft entity renderer, actual entity models/textures, Tide 2.1.1 Fish Display behavior, Tide Extra Compatibility data, and explicit source-mod runtime profiles. Never invent fish, approximate geometry, substitute item sprites, or generate fake fish art.
 
-## Efficient tool order
-1. Use the connected GitHub integration first for branch state, files, upstream Tide source, Actions runs/logs, commits, and artifacts.
-2. Treat GitHub Actions as the compiler/test loop. Read the exact failure, make the smallest source/toolchain fix, commit to `fish-render-source-import`, then inspect the next run.
-3. Inspect `Lightning-64/Tide-2` source at the version matching Tide 2.1.1 whenever a Tide API signature is uncertain. Prefer public Tide APIs over reflection.
-4. Use web or Exa research only when the relevant API/dependency cannot be resolved from the checked-in code, compiler output, or upstream repositories.
-5. Use browser/UI verification after exported PNGs are integrated into the Fish Wiki or when validating the temporary modpack scope.
+## Branch and workflow contract
+
+- `dev` is the integration branch. `main` is production.
+- A `dev` workflow must never push preview snapshots to `main`.
+- Active workflows must not reference deleted historical branches.
+- CI must compile checked-in Java/Gradle source. Do not use `sed` or temporary source rewrites to change renderer code before compilation.
+- Hybrid Aquatic runtime differences are selected through explicit Gradle properties/profile inputs.
 
 ## Rendering contract
-- The authoritative supported registry remains the complete generated set, currently 182 IDs. Do not delete out-of-scope entries merely because the temporary modpack filter hides them.
+
+- The authoritative supported registry remains the complete generated set, currently 182 IDs.
 - The active render and Fish Wiki scope is `fish/render-data/modpack-scope.json`.
-- Render only the default/normal appearance for now. Do not spend time exporting Albino, Iridescent, Scarred, Parasite-Ridden, Perfect Specimen, Dwarf, Giant, or other visual combinations in this phase.
+- Render default/normal appearances unless the task explicitly concerns validated Tideborne Condition variants.
 - Set fish length through Tide's real `TideItemData.FISH_LENGTH` API.
-- Feed the actual fish `ItemStack` to `FishDisplayBlockEntity#setDisplayStack`.
-- Use Tide's `DisplayData` and delegate to the registered Minecraft entity renderer through `FishDisplayRenderer` / `EntityRenderDispatcher`.
-- Preserve source-mod renderer behavior needed for the normal fish appearance, including Hybrid Aquatic's normal model/texture selection when that mod is installed.
-- Render to transparent offscreen framebuffers at high resolution, crop from alpha bounds with padding, preserve pixel edges, and use deterministic filenames.
+- Feed the actual fish `ItemStack` to `FishDisplayBlockEntity#setDisplayStack` when using Tide Fish Display rendering.
+- Preserve Tide `DisplayData` and source-mod renderer behavior.
+- Direct entity rendering uses the committed side-profile contract in `RenderService`: matrix Y rotation 90 degrees and dispatcher yaw 0 degrees.
+- Hybrid Aquatic 1.5.5 is the baseline renderer runtime. Later fish may use the explicit 1.6.9 Gradle profile plus the narrowly documented Argonaut-only dev-remap compatibility patch.
 - Failed entity/model/texture renders must be recorded as failures. Never fall back to fabricated or approximate art.
 - Keep source/archive hashes pinned where practical and keep registry ID contract validation in CI.
 
 ## Execution loop
-Continue from the latest branch commit. Do not spend time on fish-source mods that are outside the temporary modpack scope. Prioritize installed FishData namespaces from the uploaded modlist, especially Tide and Hybrid Aquatic, plus any other installed supported fish namespaces discovered in the current catalog. Keep the exporter build green, run the default/base render path, collect real PNGs, and integrate those outputs under the Fish Wiki asset path. QA framing, orientation, transparency, scoped catalog visibility, search/navigation behavior, and missing-render reports before any merge to `main`.
 
-Make progress without asking for confirmation on routine fixes. Do not claim a render or build succeeded unless the corresponding CI/runtime evidence is green.
+Inspect the current Actions failure first, make the smallest source/configuration fix, and let the relevant workflow provide evidence. Keep `scripts/validate-fish-render-manifest.py`, the manifest producer, and the Fish Wiki consumer aligned whenever render status/path semantics change.
+
+Do not claim a render or build succeeded unless the corresponding current CI/runtime evidence is green.
