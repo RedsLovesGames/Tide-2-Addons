@@ -6,6 +6,7 @@ on:
     paths:
       - .github/workflows/audit-fish-sources.yml
       - tools/fish-render-source/source-manifest.json
+      - tools/fish-render-source/download_sources.py
   workflow_dispatch:
 
 permissions:
@@ -17,19 +18,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download authoritative sources
-        shell: bash
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download and extract pinned FishData sources
         run: |
           set -euo pipefail
-          mkdir -p .fish-source-audit/tide-extra .fish-source-audit/tide
-          curl --fail --location --retry 3 \
-            'https://cdn.modrinth.com/data/goMfyYSL/versions/Uz6Vlhjs/Tide%20Extra%20Compatibility%202.2.zip' \
-            -o /tmp/tide-extra.zip
-          unzip -q /tmp/tide-extra.zip -d .fish-source-audit/tide-extra
-          curl --fail --location --retry 3 \
-            'https://github.com/Lightning-64/Tide-2/archive/876b95f31328f4e698d5150f7d840ab033d1b06d.zip' \
-            -o /tmp/tide.zip
-          unzip -q /tmp/tide.zip -d .fish-source-audit/tide
+          rm -rf .fish-source-audit
+          mkdir -p .fish-source-audit/mods .fish-source-audit/tide .fish-source-audit/tide-extra
+          python tools/fish-render-source/download_sources.py \
+            --id tide \
+            --id tide_extra_compatibility \
+            --out .fish-source-audit/mods \
+            --resolved-manifest .fish-source-audit/resolved.json
+          python - <<'PY'
+          import json, pathlib, zipfile
+          root = pathlib.Path('.fish-source-audit')
+          resolved = json.loads((root / 'resolved.json').read_text())
+          by_id = {row['id']: row for row in resolved['sources']}
+          for source_id, dest in [('tide', 'tide'), ('tide_extra_compatibility', 'tide-extra')]:
+              with zipfile.ZipFile(root / 'mods' / by_id[source_id]['filename']) as z:
+                  z.extractall(root / dest)
+          PY
 
       - name: Record source inventory
         shell: bash
@@ -39,7 +50,10 @@ jobs:
           {
             echo '# Authoritative Fish Source Inventory'
             echo
-            echo 'Generated from Tide 2 pinned commit 876b95f31328f4e698d5150f7d840ab033d1b06d and Tide Extra Compatibility 2.2.0 Modrinth version Uz6Vlhjs.'
+            echo 'Generated from tools/fish-render-source/source-manifest.json with SHA-256 verification.'
+            echo
+            echo '## Resolved manifest'
+            cat .fish-source-audit/resolved.json
             echo
             echo '## Tide Extra Compatibility files'
             find .fish-source-audit/tide-extra -type f -printf '%P\n' | sort
@@ -47,12 +61,13 @@ jobs:
             echo '## Tide fish/profile candidate files'
             find .fish-source-audit/tide -type f \( -path '*/fishing/fish/*' -o -path '*/fishing/profile/*' -o -path '*/fish_data/*' \) -printf '%P\n' | sort
           } > audit-artifacts/fish-source-inventory.txt
+          cp .fish-source-audit/resolved.json audit-artifacts/resolved-source-manifest.json
           rm -rf .fish-source-audit
 
       - name: Upload source inventory
         uses: actions/upload-artifact@v4
         with:
           name: fish-source-inventory
-          path: audit-artifacts/fish-source-inventory.txt
+          path: audit-artifacts/
           if-no-files-found: error
           retention-days: 30
