@@ -35,21 +35,42 @@ async function readScaleState() {
     const image = document.querySelector('[data-live-render-img]');
     const ruler = document.querySelector('.fish-lab-ruler');
     const length = Number(document.querySelector('[data-live-length-input]')?.value || 0);
-    const blockPx = Number(stage?.dataset.blockPx || 0);
-    const blocks = Math.max(.01, length / 100);
+    const scaleBlocks = Number(stage?.dataset.scaleBlocks || 0);
+    const scaleMaxCm = Number(stage?.dataset.scaleMaxCm || 0);
+    const blockWidthPx = Number(stage?.dataset.blockWidthPx || 0);
+    const viewportWidthPx = Number(stage?.dataset.viewportWidthPx || 0);
+    const groundHeightPx = Number(stage?.dataset.groundHeightPx || 0);
+    const specimenBlocks = Math.max(.001, length / 100);
+    const pseudoHeight = stage ? Number.parseFloat(getComputedStyle(stage, '::after').height) || 0 : 0;
     return {
       scaleMode: stage?.dataset.scaleMode || '',
-      blockPx,
-      blocks,
-      expectedFishWidth: blocks * blockPx,
+      scaleBlocks,
+      scaleMaxCm,
+      blockWidthPx,
+      viewportWidthPx,
+      groundHeightPx,
+      specimenBlocks,
+      expectedFishWidth: specimenBlocks * blockWidthPx,
       fishWidth: image?.getBoundingClientRect().width || 0,
       fishHeight: image?.getBoundingClientRect().height || 0,
       stageWidth: stage?.getBoundingClientRect().width || 0,
       shellWidth: shell?.getBoundingClientRect().width || 0,
       shellHeight: shell?.getBoundingClientRect().height || 0,
       rulerWidth: ruler?.getBoundingClientRect().width || 0,
+      floorHeight: pseudoHeight,
+      viewLabel: document.querySelector('[data-live-view-scale]')?.textContent || '',
+      maxLabel: document.querySelector('[data-live-max-specimen]')?.textContent || '',
+      imageSrc: image?.getAttribute('src') || '',
     };
   });
+}
+
+async function setRange(selector, value) {
+  await page.locator(selector).evaluate((element, next) => {
+    element.value = String(next);
+    element.dispatchEvent(new Event('input', { bubbles: true }));
+  }, value);
+  await page.waitForTimeout(80);
 }
 
 try {
@@ -88,7 +109,7 @@ try {
   assert.equal(runtimeState.bodyScope, 'modpack');
   assert.equal(runtimeState.appDesign, 'catalog-v4');
   assert.equal(runtimeState.labOwner, 'canonical');
-  assert.equal(runtimeState.scaleMode, 'physical-auto-fit');
+  assert.equal(runtimeState.scaleMode, 'species-ceiling-responsive');
 
   const cardCount = await page.locator('.fish-card').count();
   assert.equal(cardCount, runtimeState.records, 'catalog should render the scoped record collection directly without post-render hiding');
@@ -127,17 +148,38 @@ try {
   await page.keyboard.press('Escape');
   await page.waitForFunction(() => document.getElementById('fish-highlight-layer')?.hidden === true);
 
-  const larva = page.locator('.fish-card[data-id="tide:incandescent_larva"]');
-  assert.equal(await larva.count(), 1, 'Incandescent Larva card missing from canonical scoped catalog');
-  await larva.click();
+  const pupfish = page.locator('.fish-card[data-id="tide:devils_hole_pupfish"]');
+  assert.equal(await pupfish.count(), 1, 'Devils Hole Pupfish regression fixture missing from canonical scoped catalog');
+  await pupfish.click();
   await page.waitForSelector('#fish-highlight-layer:not([hidden]) [data-live-render-stage]');
-  await page.waitForFunction(() => Number(document.querySelector('[data-live-render-stage]')?.dataset.blockPx || 0) > 0);
-  const larvaScale = await readScaleState();
-  assert.ok(['physical', 'fit'].includes(larvaScale.scaleMode), `unexpected auto scale mode ${larvaScale.scaleMode}`);
-  assert.ok(larvaScale.blockPx >= 8 && larvaScale.blockPx <= 240.5, `block scale escaped auto-fit bounds: ${larvaScale.blockPx}px`);
-  assert.ok(Math.abs(larvaScale.fishWidth - larvaScale.expectedFishWidth) <= 2.5, `render width is no longer tied to physical fish length: expected ${larvaScale.expectedFishWidth}px, got ${larvaScale.fishWidth}px`);
-  assert.ok(Math.abs(larvaScale.rulerWidth - larvaScale.blockPx) <= 2.5, `1-block ruler width ${larvaScale.rulerWidth}px drifted from block scale ${larvaScale.blockPx}px`);
-  assert.ok(larvaScale.fishWidth >= 12, `tiny-fish visibility regressed: Incandescent Larva width=${larvaScale.fishWidth}px stage=${larvaScale.stageWidth}px`);
+  await page.waitForFunction(() => Number(document.querySelector('[data-live-render-stage]')?.dataset.blockWidthPx || 0) > 0);
+
+  const pupfishExpected = await page.evaluate(async () => {
+    const runtime = await window.TideFishRuntime.ready;
+    const record = runtime.recordMap.get('tide:devils_hole_pupfish');
+    return { blocks: runtime.speciesScaleBlocks(record), maxCm: runtime.speciesScaleMaxCm(record) };
+  });
+  const pupfishInitial = await readScaleState();
+  assert.equal(pupfishInitial.scaleBlocks, pupfishExpected.blocks, 'Pupfish did not use canonical speciesScaleBlocks');
+  assert.equal(pupfishInitial.scaleBlocks, Math.max(1, Math.ceil(pupfishExpected.maxCm / 100)), 'species viewport must round the maximum specimen ceiling upward to whole blocks');
+  assert.equal(pupfishInitial.scaleBlocks, 1, 'Devils Hole Pupfish should use a one-block viewport');
+  assert.ok(['species', 'species-fit-height'].includes(pupfishInitial.scaleMode), `unexpected species camera mode ${pupfishInitial.scaleMode}`);
+  assert.ok(pupfishInitial.blockWidthPx > 400, `one-block tiny-fish camera is still globally capped: ${pupfishInitial.blockWidthPx}px`);
+  assert.ok(Math.abs(pupfishInitial.fishWidth - pupfishInitial.expectedFishWidth) <= 2.5, `Pupfish width lost physical coupling: expected ${pupfishInitial.expectedFishWidth}px, got ${pupfishInitial.fishWidth}px`);
+  assert.ok(pupfishInitial.fishWidth >= 24, `Pupfish remains visually microscopic: width=${pupfishInitial.fishWidth}px stage=${pupfishInitial.stageWidth}px`);
+  assert.ok(Math.abs(pupfishInitial.rulerWidth - pupfishInitial.blockWidthPx) <= 2.5, 'one-block ruler width drifted from physical block width');
+  assert.ok(pupfishInitial.viewportWidthPx <= pupfishInitial.shellWidth + 2.5, 'species viewport exceeds render shell width');
+  assert.ok(pupfishInitial.floorHeight <= 80, `decorative floor height incorrectly scales with physical block width: ${pupfishInitial.floorHeight}px`);
+  assert.ok(pupfishInitial.floorHeight < pupfishInitial.blockWidthPx * 0.25, 'decorative floor is still coupled to horizontal physical scale');
+  assert.match(pupfishInitial.viewLabel, /^1 BLOCK VIEW$/, 'tiny-fish viewport label should expose one-block species camera');
+  assert.match(pupfishInitial.maxLabel, /^max /, 'species maximum label missing');
+
+  await setRange('[data-live-percentile-input]', 100);
+  const pupfishMaxNormal = await readScaleState();
+  assert.equal(pupfishMaxNormal.scaleBlocks, pupfishInitial.scaleBlocks, 'camera block count changed when percentile changed');
+  assert.ok(Math.abs(pupfishMaxNormal.blockWidthPx - pupfishInitial.blockWidthPx) <= 1, 'camera zoom changed when percentile changed');
+  assert.ok(pupfishMaxNormal.fishWidth > pupfishInitial.fishWidth, 'fish did not visibly grow when percentile increased');
+  assert.ok(Math.abs(pupfishMaxNormal.fishWidth - pupfishMaxNormal.expectedFishWidth) <= 2.5, 'max-normal Pupfish lost physical scale coupling');
 
   const canonicalBundle = await page.evaluate(async () => {
     const runtime = await window.TideFishRuntime.ready;
@@ -145,32 +187,52 @@ try {
   });
   if (canonicalBundle) {
     await page.locator('[data-body="giant"]').click();
-    await page.waitForTimeout(60);
-    const src = await page.locator('[data-live-render-img]').getAttribute('src');
-    assert.ok(src?.includes('__giant.png'), `canonical runtime bundle should expose giant body render, got ${src}`);
+    await page.waitForTimeout(100);
+    const pupfishGiant = await readScaleState();
+    assert.equal(pupfishGiant.scaleBlocks, pupfishInitial.scaleBlocks, 'camera block count changed for Giant body type');
+    assert.ok(Math.abs(pupfishGiant.blockWidthPx - pupfishInitial.blockWidthPx) <= 1, 'camera zoom changed when switching to Giant');
+    assert.ok(pupfishGiant.imageSrc.includes('__giant.png'), `canonical runtime bundle should expose giant body render, got ${pupfishGiant.imageSrc}`);
+    assert.ok(Math.abs(pupfishGiant.fishWidth - pupfishGiant.expectedFishWidth) <= 2.5, 'Giant Pupfish lost physical scale coupling');
   }
+
+  const beforeResize = await readScaleState();
+  await page.setViewportSize({ width: 1000, height: 760 });
+  await page.waitForTimeout(140);
+  const afterResize = await readScaleState();
+  assert.equal(afterResize.scaleBlocks, beforeResize.scaleBlocks, 'responsive resize changed the species viewport block count');
+  assert.ok(afterResize.blockWidthPx < beforeResize.blockWidthPx, 'responsive resize did not reduce the physical camera scale');
+  assert.ok(Math.abs(afterResize.fishWidth - afterResize.expectedFishWidth) <= 2.5, 'Pupfish lost physical scale coupling after viewport resize');
+  assert.ok(afterResize.viewportWidthPx <= afterResize.shellWidth + 2.5, 'resized tiny-fish viewport exceeds render shell');
+  assert.ok(afterResize.floorHeight <= 80, 'resized decorative floor became coupled to block width');
 
   await page.keyboard.press('Escape');
   await page.waitForFunction(() => document.getElementById('fish-highlight-layer')?.hidden === true);
+  await page.setViewportSize({ width: 1440, height: 1000 });
 
   const dragon = page.locator('.fish-card[data-id="tide:dragon_fish"]');
   if (await dragon.count()) {
     await dragon.click();
     await page.waitForSelector('#fish-highlight-layer:not([hidden]) [data-live-render-stage]');
-    await page.waitForFunction(() => Number(document.querySelector('[data-live-render-stage]')?.dataset.blockPx || 0) > 0);
-
-    const beforeResize = await readScaleState();
-    assert.ok(beforeResize.fishWidth <= beforeResize.shellWidth + 2, `large fish overflowed render shell width before resize: ${beforeResize.fishWidth} > ${beforeResize.shellWidth}`);
-    assert.ok(beforeResize.fishHeight <= beforeResize.shellHeight + 2, `large fish overflowed render shell height before resize: ${beforeResize.fishHeight} > ${beforeResize.shellHeight}`);
+    await page.waitForFunction(() => Number(document.querySelector('[data-live-render-stage]')?.dataset.blockWidthPx || 0) > 0);
+    const dragonExpected = await page.evaluate(async () => {
+      const runtime = await window.TideFishRuntime.ready;
+      const record = runtime.recordMap.get('tide:dragon_fish');
+      return { blocks: runtime.speciesScaleBlocks(record), maxCm: runtime.speciesScaleMaxCm(record) };
+    });
+    const dragonInitial = await readScaleState();
+    assert.ok(dragonExpected.blocks > 1, 'large-fish fixture should require a multi-block viewport');
+    assert.equal(dragonInitial.scaleBlocks, dragonExpected.blocks, 'large fish did not use canonical whole-block species viewport');
+    assert.ok((dragonExpected.maxCm / 100) * dragonInitial.blockWidthPx <= dragonInitial.shellWidth + 3, 'largest legitimate Dragon Fish would overflow the horizontal species camera');
+    assert.ok(dragonInitial.fishWidth <= dragonInitial.shellWidth + 2, 'Dragon Fish overflowed render shell width');
+    assert.ok(dragonInitial.fishHeight <= dragonInitial.shellHeight + 2, 'Dragon Fish overflowed render shell height');
 
     await page.setViewportSize({ width: 1000, height: 760 });
-    await page.waitForTimeout(120);
-    const afterResize = await readScaleState();
-    assert.ok(afterResize.blockPx >= 8 && afterResize.blockPx <= 240.5, `responsive block scale escaped bounds after resize: ${afterResize.blockPx}px`);
-    assert.ok(Math.abs(afterResize.fishWidth - afterResize.expectedFishWidth) <= 2.5, 'render width lost physical-scale coupling after viewport resize');
-    assert.ok(afterResize.fishWidth <= afterResize.shellWidth + 2, `large fish overflowed render shell width after resize: ${afterResize.fishWidth} > ${afterResize.shellWidth}`);
-    assert.ok(afterResize.fishHeight <= afterResize.shellHeight + 2, `large fish overflowed render shell height after resize: ${afterResize.fishHeight} > ${afterResize.shellHeight}`);
-    assert.ok(Math.abs(afterResize.rulerWidth - afterResize.blockPx) <= 2.5, '1-block ruler did not resize with the render');
+    await page.waitForTimeout(140);
+    const dragonResized = await readScaleState();
+    assert.equal(dragonResized.scaleBlocks, dragonInitial.scaleBlocks, 'large-fish viewport block count changed after resize');
+    assert.ok(Math.abs(dragonResized.fishWidth - dragonResized.expectedFishWidth) <= 2.5, 'large render width lost physical coupling after resize');
+    assert.ok(dragonResized.fishWidth <= dragonResized.shellWidth + 2, 'large fish overflowed render shell width after resize');
+    assert.ok(dragonResized.fishHeight <= dragonResized.shellHeight + 2, 'large fish overflowed render shell height after resize');
 
     await page.keyboard.press('Escape');
     await page.waitForFunction(() => document.getElementById('fish-highlight-layer')?.hidden === true);
@@ -180,4 +242,4 @@ try {
 }
 
 if (failures.length) throw new Error(`Runtime architecture QA found ${failures.length} runtime/network errors:\n${failures.join('\n')}`);
-console.log('Fish Wiki runtime architecture QA passed: one shared data load, canonical owners, source-authentic runtime variants, and responsive physical auto-fit scaling.');
+console.log('Fish Wiki runtime architecture QA passed: canonical owners, source-authentic variants, and responsive species-ceiling physical scaling for tiny and large fish.');
