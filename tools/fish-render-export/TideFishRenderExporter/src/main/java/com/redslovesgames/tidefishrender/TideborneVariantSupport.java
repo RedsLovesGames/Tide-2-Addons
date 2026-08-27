@@ -26,8 +26,18 @@ final class TideborneVariantSupport {
             default -> baseLength;
         };
         if (variant.equals("default")) return new VariantSpec(variant, length, false);
-        if (!isLoaded()) throw new IllegalStateException("Variant '" + variant + "' requires Tideborne to be loaded");
-        if (!REQUESTABLE_VARIANTS.contains(variant)) throw new IllegalArgumentException("Unknown Tideborne variant: " + variant);
+        if (!isLoaded()) {
+            throw new RenderFailureException(
+                    RenderFailureCode.VARIANT_SETUP,
+                    "Variant '" + variant + "' requires Tideborne to be loaded"
+            );
+        }
+        if (!REQUESTABLE_VARIANTS.contains(variant)) {
+            throw new RenderFailureException(
+                    RenderFailureCode.UNSUPPORTED_VARIANT,
+                    "Unknown Tideborne variant: " + variant
+            );
+        }
         try {
             Class<?> components = Class.forName("com.redslovesgames.tidetraits.component.TideTraitsComponents");
             set(stack, components.getField("MUTATION"), isBodyType(variant) ? "normal" : variant);
@@ -35,8 +45,12 @@ final class TideborneVariantSupport {
             set(stack, components.getField("MUTATION_SEED"), DETERMINISTIC_SEED);
             set(stack, components.getField("SIZE_PERCENTILE"), variant.equals("giant") ? 100.0 : variant.equals("dwarf") ? 0.0 : 50.0);
             return new VariantSpec(variant, length, true);
-        } catch (ReflectiveOperationException e) {
-            throw new IllegalStateException("Tideborne specimen components could not be applied", e);
+        } catch (ReflectiveOperationException | IllegalStateException e) {
+            throw new RenderFailureException(
+                    RenderFailureCode.VARIANT_SETUP,
+                    "Tideborne specimen components could not be applied",
+                    e
+            );
         }
     }
 
