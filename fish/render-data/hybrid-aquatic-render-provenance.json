@@ -1,0 +1,350 @@
+{
+  "mod": "Hybrid Aquatic",
+  "version": "1.6.9",
+  "modrinth_version_id": "F5POkJG0",
+  "fish": {
+    "hybrid_aquatic:anglerfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/anglerfish/anglerfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/anglerfish/anglerfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__anglerfish.png",
+      "width": 584,
+      "height": 300
+    },
+    "hybrid_aquatic:barreleye": {
+      "model": "assets/hybrid_aquatic/geo/fish/barreleye/barreleye.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/barreleye/barreleye.png",
+      "render": "fish/assets/renders/hybrid_aquatic__barreleye.png",
+      "width": 682,
+      "height": 300
+    },
+    "hybrid_aquatic:betta": {
+      "model": "assets/hybrid_aquatic/geo/fish/betta/betta.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/betta/betta.png",
+      "render": "fish/assets/renders/hybrid_aquatic__betta.png",
+      "width": 409,
+      "height": 300
+    },
+    "hybrid_aquatic:blobfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/blobfish/blobfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/blobfish/blobfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__blobfish.png",
+      "width": 683,
+      "height": 300
+    },
+    "hybrid_aquatic:blowfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/blowfish/blowfish_small.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/blowfish/blowfish_small.png",
+      "render": "fish/assets/renders/hybrid_aquatic__blowfish.png",
+      "width": 409,
+      "height": 300
+    },
+    "hybrid_aquatic:boxfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/boxfish/boxfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/boxfish/whitespotted_boxfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__boxfish.png",
+      "width": 370,
+      "height": 300
+    },
+    "hybrid_aquatic:carp": {
+      "model": "assets/hybrid_aquatic/geo/fish/carp/carp.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/carp/carp.png",
+      "render": "fish/assets/renders/hybrid_aquatic__carp.png",
+      "width": 566,
+      "height": 300
+    },
+    "hybrid_aquatic:cichlid": {
+      "model": "assets/hybrid_aquatic/geo/fish/cichlid/cichlid.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/cichlid/cichlid.png",
+      "render": "fish/assets/renders/hybrid_aquatic__cichlid.png",
+      "width": 402,
+      "height": 300
+    },
+    "hybrid_aquatic:clownfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/clownfish/clownfish_big.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/clownfish/clownfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__clownfish.png",
+      "width": 288,
+      "height": 300
+    },
+    "hybrid_aquatic:coelacanth": {
+      "model": "assets/hybrid_aquatic/geo/fish/coelacanth/coelacanth.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/coelacanth/coelacanth.png",
+      "render": "fish/assets/renders/hybrid_aquatic__coelacanth.png",
+      "width": 670,
+      "height": 300
+    },
+    "hybrid_aquatic:damselfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/damselfish/damselfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/damselfish/damselfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__damselfish.png",
+      "width": 309,
+      "height": 300
+    },
+    "hybrid_aquatic:danio": {
+      "model": "assets/hybrid_aquatic/geo/fish/danio/danio.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/danio/danio.png",
+      "render": "fish/assets/renders/hybrid_aquatic__danio.png",
+      "width": 589,
+      "height": 300
+    },
+    "hybrid_aquatic:discus": {
+      "model": "assets/hybrid_aquatic/geo/fish/discus/discus.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/discus/discus.png",
+      "render": "fish/assets/renders/hybrid_aquatic__discus.png",
+      "width": 266,
+      "height": 300
+    },
+    "hybrid_aquatic:dragonfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/dragonfish/dragonfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/dragonfish/dragonfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__dragonfish.png",
+      "width": 717,
+      "height": 220
+    },
+    "hybrid_aquatic:flashlight_fish": {
+      "model": "assets/hybrid_aquatic/geo/fish/flashlight_fish/flashlight_fish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/flashlight_fish/flashlight_fish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__flashlight_fish.png",
+      "width": 392,
+      "height": 300
+    },
+    "hybrid_aquatic:flying_fish": {
+      "model": "assets/hybrid_aquatic/geo/fish/flying_fish/flying_fish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/flying_fish/flying_fish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__flying_fish.png",
+      "width": 525,
+      "height": 300
+    },
+    "hybrid_aquatic:golden_dorado": {
+      "model": "assets/hybrid_aquatic/geo/fish/golden_dorado/golden_dorado.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/golden_dorado/golden_dorado.png",
+      "render": "fish/assets/renders/hybrid_aquatic__golden_dorado.png",
+      "width": 720,
+      "height": 296
+    },
+    "hybrid_aquatic:goldfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/goldfish/common_goldfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/goldfish/common_goldfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__goldfish.png",
+      "width": 427,
+      "height": 300
+    },
+    "hybrid_aquatic:gourami": {
+      "model": "assets/hybrid_aquatic/geo/fish/gourami/gourami.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/gourami/gourami.png",
+      "render": "fish/assets/renders/hybrid_aquatic__gourami.png",
+      "width": 322,
+      "height": 300
+    },
+    "hybrid_aquatic:herring": {
+      "model": "assets/hybrid_aquatic/geo/fish/herring/herring.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/herring/herring.png",
+      "render": "fish/assets/renders/hybrid_aquatic__herring.png",
+      "width": 588,
+      "height": 300
+    },
+    "hybrid_aquatic:john_dory": {
+      "model": "assets/hybrid_aquatic/geo/fish/john_dory/john_dory.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/john_dory/john_dory.png",
+      "render": "fish/assets/renders/hybrid_aquatic__john_dory.png",
+      "width": 236,
+      "height": 300
+    },
+    "hybrid_aquatic:lionfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/lionfish/lionfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/lionfish/lionfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__lionfish.png",
+      "width": 341,
+      "height": 300
+    },
+    "hybrid_aquatic:mackerel": {
+      "model": "assets/hybrid_aquatic/geo/fish/mackerel/mackerel.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/mackerel/mackerel.png",
+      "render": "fish/assets/renders/hybrid_aquatic__mackerel.png",
+      "width": 568,
+      "height": 300
+    },
+    "hybrid_aquatic:mahi": {
+      "model": "assets/hybrid_aquatic/geo/fish/mahi/mahi_mahi.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/mahi/mahi_mahi.png",
+      "render": "fish/assets/renders/hybrid_aquatic__mahi.png",
+      "width": 594,
+      "height": 300
+    },
+    "hybrid_aquatic:moray_eel": {
+      "model": "assets/hybrid_aquatic/geo/fish/moray_eel/moray_eel.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/moray_eel/moray_eel.png",
+      "render": "fish/assets/renders/hybrid_aquatic__moray_eel.png",
+      "width": 720,
+      "height": 221
+    },
+    "hybrid_aquatic:needlefish": {
+      "model": "assets/hybrid_aquatic/geo/fish/needlefish/needlefish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/needlefish/needlefish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__needlefish.png",
+      "width": 720,
+      "height": 186
+    },
+    "hybrid_aquatic:oarfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/oarfish/oarfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/oarfish/oarfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__oarfish.png",
+      "width": 720,
+      "height": 266
+    },
+    "hybrid_aquatic:ocean_sunfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/ocean_sunfish/ocean_sunfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/ocean_sunfish/ocean_sunfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__ocean_sunfish.png",
+      "width": 213,
+      "height": 300
+    },
+    "hybrid_aquatic:opah": {
+      "model": "assets/hybrid_aquatic/geo/fish/opah/opah.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/opah/opah.png",
+      "render": "fish/assets/renders/hybrid_aquatic__opah.png",
+      "width": 231,
+      "height": 300
+    },
+    "hybrid_aquatic:parrotfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/parrotfish/parrotfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/parrotfish/parrotfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__parrotfish.png",
+      "width": 457,
+      "height": 300
+    },
+    "hybrid_aquatic:pearlfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/pearlfish/pearlfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/pearlfish/pearlfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__pearlfish.png",
+      "width": 720,
+      "height": 208
+    },
+    "hybrid_aquatic:piranha": {
+      "model": "assets/hybrid_aquatic/geo/fish/piranha/piranha.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/piranha/piranha.png",
+      "render": "fish/assets/renders/hybrid_aquatic__piranha.png",
+      "width": 383,
+      "height": 280
+    },
+    "hybrid_aquatic:pleco": {
+      "model": "assets/hybrid_aquatic/geo/fish/pleco/pleco.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/pleco/pleco.png",
+      "render": "fish/assets/renders/hybrid_aquatic__pleco.png",
+      "width": 486,
+      "height": 127
+    },
+    "hybrid_aquatic:ratfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/ratfish/ratfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/ratfish/ratfish_silver.png",
+      "render": "fish/assets/renders/hybrid_aquatic__ratfish.png",
+      "width": 694,
+      "height": 300
+    },
+    "hybrid_aquatic:rockfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/rockfish/rockfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/rockfish/copper_rockfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__rockfish.png",
+      "width": 391,
+      "height": 300
+    },
+    "hybrid_aquatic:sea_bass": {
+      "model": "assets/hybrid_aquatic/geo/fish/sea_bass/sea_bass.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/sea_bass/sea_bass.png",
+      "render": "fish/assets/renders/hybrid_aquatic__sea_bass.png",
+      "width": 412,
+      "height": 300
+    },
+    "hybrid_aquatic:seahorse": {
+      "model": "assets/hybrid_aquatic/geo/fish/seahorse/seahorse.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/seahorse/seahorse_common.png",
+      "render": "fish/assets/renders/hybrid_aquatic__seahorse.png",
+      "width": 203,
+      "height": 291
+    },
+    "hybrid_aquatic:sheepshead_wrasse": {
+      "model": "assets/hybrid_aquatic/geo/fish/wrasse/california_sheepshead.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/wrasse/california_sheepshead.png",
+      "render": "fish/assets/renders/hybrid_aquatic__sheepshead_wrasse.png",
+      "width": 512,
+      "height": 300
+    },
+    "hybrid_aquatic:snailfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/snailfish/snailfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/snailfish/snailfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__snailfish.png",
+      "width": 517,
+      "height": 300
+    },
+    "hybrid_aquatic:squirrelfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/squirrelfish/squirrelfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/squirrelfish/squirrelfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__squirrelfish.png",
+      "width": 348,
+      "height": 300
+    },
+    "hybrid_aquatic:stingray": {
+      "model": "assets/hybrid_aquatic/geo/fish/stingray/stingray_blue_spotted.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/stingray/stingray_blue_spotted.png",
+      "render": "fish/assets/renders/hybrid_aquatic__stingray.png",
+      "width": 671,
+      "height": 91
+    },
+    "hybrid_aquatic:stonefish": {
+      "model": "assets/hybrid_aquatic/geo/fish/stonefish/stonefish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/stonefish/stonefish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__stonefish.png",
+      "width": 442,
+      "height": 300
+    },
+    "hybrid_aquatic:sunfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/sunfish/sunfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/sunfish/sunfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__sunfish.png",
+      "width": 468,
+      "height": 300
+    },
+    "hybrid_aquatic:surgeonfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/surgeonfish/surgeonfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/surgeonfish/surgeonfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__surgeonfish.png",
+      "width": 428,
+      "height": 300
+    },
+    "hybrid_aquatic:tetra": {
+      "model": "assets/hybrid_aquatic/geo/fish/tetra/tetra.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/tetra/neon_tetra.png",
+      "render": "fish/assets/renders/hybrid_aquatic__tetra.png",
+      "width": 478,
+      "height": 300
+    },
+    "hybrid_aquatic:tiger_barb": {
+      "model": "assets/hybrid_aquatic/geo/fish/tiger_barb/tiger_barb.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/tiger_barb/tiger_barb.png",
+      "render": "fish/assets/renders/hybrid_aquatic__tiger_barb.png",
+      "width": 320,
+      "height": 300
+    },
+    "hybrid_aquatic:trevally": {
+      "model": "assets/hybrid_aquatic/geo/fish/trevally/trevally.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/trevally/pilotfish_white.png",
+      "render": "fish/assets/renders/hybrid_aquatic__trevally.png",
+      "width": 482,
+      "height": 300
+    },
+    "hybrid_aquatic:triggerfish": {
+      "model": "assets/hybrid_aquatic/geo/fish/triggerfish/triggerfish.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/triggerfish/triggerfish.png",
+      "render": "fish/assets/renders/hybrid_aquatic__triggerfish.png",
+      "width": 482,
+      "height": 300
+    },
+    "hybrid_aquatic:tuna": {
+      "model": "assets/hybrid_aquatic/geo/fish/tuna/tuna.geo.json",
+      "texture": "assets/hybrid_aquatic/textures/entity/fish/tuna/tuna.png",
+      "render": "fish/assets/renders/hybrid_aquatic__tuna.png",
+      "width": 511,
+      "height": 300
+    }
+  }
+}
