@@ -25,20 +25,145 @@
   justify-content:center;
 }
 
-/* A selected fish is a dedicated detail view, not content appended below the catalog. */
-.fish-page:has(.fish-article:not([hidden])) .fish-hero,
-.fish-page:has(.fish-article:not([hidden])) .fish-provenance,
-.fish-page:has(.fish-article:not([hidden])) #catalog-view {
+/* Fish details open as a large modal over the catalog instead of replacing the page. */
+html {
+  scrollbar-gutter:stable;
+}
+
+body.fish-modal-open {
+  overflow:hidden;
+}
+
+body.fish-modal-open #catalog-view[hidden] {
+  display:grid !important;
+}
+
+#fish-modal-backdrop {
+  position:fixed;
+  inset:0;
+  z-index:900;
+  display:block;
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  border:0;
+  background:rgba(2,9,16,.68);
+  -webkit-backdrop-filter:blur(3px);
+  backdrop-filter:blur(3px);
+  opacity:0;
+  transition:opacity 180ms ease;
+  cursor:default;
+}
+
+#fish-modal-backdrop[hidden] {
   display:none !important;
 }
 
-.fish-page:has(.fish-article:not([hidden])) .fish-main {
-  padding-top:12px;
+#fish-modal-backdrop.is-open {
+  opacity:1;
 }
 
-.fish-page .fish-article:not([hidden]) {
+.fish-page #fish-article.fish-modal-card:not([hidden]) {
   display:block !important;
-  width:100%;
-  margin:0;
-  scroll-margin-top:72px;
+  position:fixed !important;
+  z-index:910;
+  top:clamp(38px,5vh,64px);
+  right:clamp(24px,4vw,64px);
+  bottom:clamp(24px,3vh,42px);
+  left:clamp(260px,20vw,320px);
+  width:auto !important;
+  max-width:none !important;
+  height:auto;
+  max-height:none;
+  margin:0 !important;
+  overflow:auto;
+  overscroll-behavior:contain;
+  background:#091827;
+  border:1px solid #27516a;
+  border-radius:14px;
+  box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 0 1px rgba(75,207,201,.06) inset;
+  opacity:0;
+  transform:translateY(14px) scale(.985);
+  transform-origin:50% 45%;
+  transition:opacity 180ms ease,transform 220ms cubic-bezier(.2,.8,.2,1);
+  scroll-margin-top:0;
+}
+
+.fish-page #fish-article.fish-modal-card.is-open:not([hidden]) {
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+
+.fish-page #fish-article.fish-modal-card.is-closing:not([hidden]) {
+  opacity:0;
+  transform:translateY(10px) scale(.99);
+}
+
+.fish-modal-close-x {
+  position:sticky;
+  top:12px;
+  z-index:30;
+  float:right;
+  width:38px;
+  height:38px;
+  margin:12px 12px -50px 0;
+  padding:0;
+  display:grid;
+  place-items:center;
+  border:1px solid #315a70;
+  border-radius:10px;
+  background:rgba(7,23,37,.94);
+  color:#eafaff;
+  font:700 24px/1 system-ui,sans-serif;
+  cursor:pointer;
+  box-shadow:0 8px 22px rgba(0,0,0,.28);
+  transition:transform 140ms ease,border-color 140ms ease,background 140ms ease;
+}
+
+.fish-modal-close-x:hover,
+.fish-modal-close-x:focus-visible {
+  transform:scale(1.06);
+  border-color:#55d8d1;
+  background:#0d2639;
+  outline:none;
+}
+
+.fish-page #fish-article.fish-modal-card .article-actions {
+  padding-right:58px;
+}
+
+@media (max-width:1050px) {
+  .fish-page #fish-article.fish-modal-card:not([hidden]) {
+    left:clamp(16px,3vw,30px);
+    right:clamp(16px,3vw,30px);
+    top:clamp(18px,3vh,30px);
+    bottom:clamp(16px,3vh,30px);
+  }
+}
+
+@media (max-width:640px) {
+  #fish-modal-backdrop {
+    backdrop-filter:blur(2px);
+  }
+  .fish-page #fish-article.fish-modal-card:not([hidden]) {
+    left:8px;
+    right:8px;
+    top:8px;
+    bottom:8px;
+    border-radius:10px;
+  }
+  .fish-modal-close-x {
+    top:8px;
+    margin-top:8px;
+    margin-right:8px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  #fish-modal-backdrop,
+  .fish-page #fish-article.fish-modal-card:not([hidden]),
+  .fish-modal-close-x {
+    transition:none !important;
+  }
 }
