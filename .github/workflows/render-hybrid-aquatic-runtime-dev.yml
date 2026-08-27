@@ -122,8 +122,7 @@ jobs:
           for png in pngs:
             with Image.open(png) as im:
               assert im.mode == 'RGBA', (png.name, im.mode)
-              alpha = im.getchannel('A')
-              bounds = alpha.getbbox()
+              bounds = im.getchannel('A').getbbox()
               assert bounds is not None, png.name
               l,t,r,b = bounds
               assert l > 0 and t > 0 and r < im.width and b < im.height, (png.name, im.size, bounds)
@@ -136,13 +135,23 @@ jobs:
           set -euo pipefail
           cd ../../..
           out='tools/fish-render-export/TideFishRenderExporter/run/client/fishrender-output'
-          cp "$out"/fish/assets/renders/hybrid_aquatic__*.png fish/assets/renders/
+          mkdir -p /tmp/hybrid-renders
+          cp "$out"/fish/assets/renders/hybrid_aquatic__*.png /tmp/hybrid-renders/
+          cp "$out"/generated/render-report.json /tmp/hybrid-render-report.json
+
+          # Dev can advance while this expensive renderer is running. Rebase onto the
+          # current dev tip before publishing so visual/UI commits are never lost.
+          git fetch origin dev
+          git reset --hard origin/dev
+          cp /tmp/hybrid-renders/hybrid_aquatic__*.png fish/assets/renders/
+          cp /tmp/hybrid-render-report.json /tmp/render-report.json
+
           python - <<'PY'
           import json
           from pathlib import Path
 
           root = Path('.')
-          report = json.loads((root / 'tools/fish-render-export/TideFishRenderExporter/run/client/fishrender-output/generated/render-report.json').read_text())
+          report = json.loads(Path('/tmp/render-report.json').read_text())
           manifest_path = root / 'assets/fish-render-manifest.json'
           manifest = json.loads(manifest_path.read_text())
           fish = manifest.setdefault('fish', {})
