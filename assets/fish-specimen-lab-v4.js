@@ -10,30 +10,16 @@ style.textContent=`
 /* v4: vertical specimen workspace + unified size/percentile control */
 .fish-lab-workspace{grid-template-columns:1fr!important;gap:14px!important}
 .fish-lab-specimen-card{width:100%!important}
-.fish-lab-render-stage{height:clamp(430px,58vh,680px)!important;min-height:430px!important}
+.fish-lab-render-stage{height:clamp(430px,58vh,680px)!important;min-height:430px!important;background:radial-gradient(circle at 50% 40%,rgba(62,162,163,.20),transparent 54%),linear-gradient(180deg,#08202e,#06151f)!important}
 .fish-lab-render-shell{left:2%!important;right:2%!important;top:5%!important;bottom:17%!important}
-.fish-lab-console{width:100%!important;display:grid!important;grid-template-columns:minmax(220px,.72fr) minmax(260px,1fr) minmax(320px,1.2fr)!important;gap:12px 16px!important;align-items:start!important}
-.fish-lab-score-head{grid-row:1 / span 2!important;grid-column:1!important;height:100%!important;align-items:flex-start!important;padding:12px!important;border:1px solid #285467!important;border-radius:10px!important;background:linear-gradient(145deg,rgba(14,48,61,.7),rgba(6,25,35,.45))!important}
-.fish-lab-console>.fish-lab-control-group:nth-of-type(1){grid-column:2!important;grid-row:1!important}
-.fish-lab-console>.fish-lab-control-group:nth-of-type(2){grid-column:2!important;grid-row:2!important}
-.fish-lab-console>.fish-lab-control-group:nth-of-type(3){grid-column:3!important;grid-row:1!important}
-.fish-lab-console>.fish-lab-control-group:nth-of-type(4){grid-column:3!important;grid-row:2!important}
-.fish-lab-breakdown{grid-column:1 / -1!important;grid-row:3!important}
-.fish-lab-multiplier{grid-column:1 / -1!important;grid-row:4!important}
-.fish-lab-render-stage{background:radial-gradient(circle at 50% 40%,rgba(62,162,163,.20),transparent 54%),linear-gradient(180deg,#08202e,#06151f)!important}
 .fish-lab-render-stage::after{content:'SPECIMEN SCALE';position:absolute;right:14px;top:12px;color:#4f7f8c;font:800 7px/1 ui-monospace,monospace;letter-spacing:.14em}
+.fish-lab-console{width:100%!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px 14px!important;align-items:start!important}
+.fish-lab-score-head{grid-column:1 / -1!important;height:auto!important;align-items:center!important;padding:12px 14px!important;border:1px solid #285467!important;border-radius:10px!important;background:linear-gradient(145deg,rgba(14,48,61,.7),rgba(6,25,35,.45))!important}
+.fish-lab-console>.fish-lab-control-group{min-width:0!important}
+.fish-lab-breakdown,.fish-lab-multiplier{grid-column:1 / -1!important}
 .fish-lab-control-group[data-size-linked]::after{content:'SIZE ↔ PERCENTILE LINKED';display:block;margin-top:2px;color:#4fd7cf;font:800 6px/1 ui-monospace,monospace;letter-spacing:.08em}
-@media(max-width:1000px){
-  .fish-lab-console{grid-template-columns:1fr 1fr!important}
-  .fish-lab-score-head{grid-column:1 / -1!important;grid-row:auto!important;height:auto!important}
-  .fish-lab-console>.fish-lab-control-group:nth-of-type(1),.fish-lab-console>.fish-lab-control-group:nth-of-type(2),.fish-lab-console>.fish-lab-control-group:nth-of-type(3),.fish-lab-console>.fish-lab-control-group:nth-of-type(4){grid-column:auto!important;grid-row:auto!important}
-  .fish-lab-breakdown,.fish-lab-multiplier{grid-column:1 / -1!important;grid-row:auto!important}
-}
-@media(max-width:700px){
-  .fish-lab-render-stage{height:360px!important;min-height:360px!important}
-  .fish-lab-console{grid-template-columns:1fr!important}
-  .fish-lab-score-head,.fish-lab-breakdown,.fish-lab-multiplier{grid-column:1!important}
-}
+@media(max-width:1050px){.fish-lab-console{grid-template-columns:1fr 1fr!important}}
+@media(max-width:700px){.fish-lab-render-stage{height:360px!important;min-height:360px!important}.fish-lab-console{grid-template-columns:1fr!important}.fish-lab-score-head,.fish-lab-breakdown,.fish-lab-multiplier{grid-column:1!important}}
 `;
 document.head.append(style);
 
@@ -112,10 +98,8 @@ function syncFromLength(c,requested=Number(c.len.value)){
 }
 function initialize(){
   const c=controls();if(!c)return;
-  const pctGroup=c.pct.closest('.fish-lab-control-group');
-  const lenGroup=c.len.closest('.fish-lab-control-group');
-  pctGroup?.setAttribute('data-size-linked','');
-  lenGroup?.setAttribute('data-size-linked','');
+  c.pct.closest('.fish-lab-control-group')?.setAttribute('data-size-linked','');
+  c.len.closest('.fish-lab-control-group')?.setAttribute('data-size-linked','');
   syncFromPercent(c,Number(c.pct.value));
 }
 
