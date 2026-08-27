@@ -156,10 +156,12 @@ tasks.register('verifyHybridAquaticPin') {
     group = 'verification'
     description = 'Verifies the default renderer profile remains pinned to Hybrid Aquatic 1.5.5.'
     doLast {
-        boolean overridden = hybridAquaticVersionOverride != null \
-                || hybridAquaticModrinthOverride != null \
-                || hybridAquaticJarOverride != null \
+        boolean overridden = (
+                hybridAquaticVersionOverride != null
+                || hybridAquaticModrinthOverride != null
+                || hybridAquaticJarOverride != null
                 || hybridAquaticNamespaceOverride != null
+        )
         if (overridden) {
             println "HYBRID_AQUATIC_PROFILE_OVERRIDE version=${hybridAquaticVersion} modrinth=${hybridAquaticModrinthVersion} jar=${hybridAquaticJar ?: 'maven'} namespace_mode=${hybridAquaticNamespaceMode}"
             return
