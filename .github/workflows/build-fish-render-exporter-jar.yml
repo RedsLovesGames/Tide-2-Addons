@@ -1,0 +1,59 @@
+name: Build Tide Fish Exporter Drop-In JAR
+
+on:
+  push:
+    branches: [dev]
+    paths:
+      - '.github/workflows/build-fish-render-exporter-jar.yml'
+      - 'tools/fish-render-export/TideFishRenderExporter/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fish-exporter-drop-in-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-jar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: tools/fish-render-export/TideFishRenderExporter
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.5.0'
+          cache-read-only: false
+
+      - name: Build remapped drop-in JAR
+        run: gradle --no-daemon clean build
+
+      - name: Verify drop-in JAR
+        run: |
+          set -euo pipefail
+          JAR=$(find build/libs -maxdepth 1 -type f -name 'tide-fish-render-exporter-*.jar' ! -name '*-sources.jar' | head -1)
+          test -n "$JAR"
+          jar tf "$JAR" | grep -F 'fabric.mod.json'
+          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeEnvironment.class'
+          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeBundleAutoInitializer.class'
+          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeBundleExporter.class'
+          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeFishCatalog.class'
+          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeFishDisplayExport.class'
+          echo "DROP_IN_JAR=$JAR"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tide-fish-render-exporter-drop-in
+          path: tools/fish-render-export/TideFishRenderExporter/build/libs/tide-fish-render-exporter-*.jar
+          if-no-files-found: error
+          retention-days: 14
