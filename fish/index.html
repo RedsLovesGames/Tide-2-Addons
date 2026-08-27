@@ -42,7 +42,7 @@
       <label>Journal category<select id="filter-group"><option value="">All categories</option></select></label>
       <label>Source mod<select id="filter-mod"><option value="">All source mods</option></select></label>
       <label>Rarity<select id="filter-rarity"><option value="">All rarities</option></select></label>
-      <label>Stars<select id="filter-stars"><option value="">All star counts</option><option value="1">1 star</option><option value="2">2 stars</option><option value="3">3 stars</option><option value="4">4 stars</option><option value="5">5 stars</option></select></label>
+      <label>Stars<select id="filter-stars"><option value="">All star counts</option><option value="1">1 star</option><option value="2">2 stars</option><option value="3">3 star</option><option value="4">4 star</option><option value="5">5 star</option></select></label>
       <label>Habitat<select id="filter-habitat"><option value="">All habitats</option></select></label>
       <label>Preview<select id="filter-preview"><option value="">All preview states</option></select></label>
       <div class="wiki-links"><strong>Related docs</strong><a href="../#/traits">Body Type &amp; Condition</a><a href="../#/records">FishScore &amp; records</a><a href="../#/satchel">Angler's Satchel</a><a href="../#/tide">Tide integration</a></div>
@@ -67,6 +67,7 @@
   <article id="fish-article" class="fish-article" hidden tabindex="-1" aria-live="polite"></article>
 </main>
 <footer class="fish-footer"><a href="../#/">Tideborne documentation</a><span>FishData: Tide 2.1.1 · Tide Extra Compatibility 2.2.0</span><span>Tideborne 1.3.57</span></footer>
+<script src="../assets/fish-runtime.js"></script>
 <script src="../assets/fish-wiki.js"></script>
 <script>
 (()=>{
@@ -78,23 +79,17 @@
   toggle.addEventListener('click',()=>setFilters(!filters.classList.contains('filters-open')));close.addEventListener('click',()=>setFilters(false));scrim.addEventListener('click',()=>setFilters(false));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&filters.classList.contains('filters-open')){e.stopPropagation();setFilters(false)}});
 })();
 </script>
-<script type="module">
-import { loadFishRenderManifest } from './render-data/render-data-loader.js';
-const status = document.getElementById('render-source-status');
-try {
-  const manifest = await loadFishRenderManifest();
-  const fish = manifest?.counts?.supported_fish ?? 'unknown';
-  const groups = manifest?.counts?.render_mod_entries ?? 'unknown';
-  const rawPending = String(manifest?.import_status || '').includes('raw_source_archive_incomplete');
-  status.textContent = rawPending
-    ? `Render source metadata: ${fish} supported fish across ${groups} render groups verified. Raw source archive import is incomplete; no geometry is being guessed.`
-    : `Render source bundle: ${fish} supported fish across ${groups} render groups available.`;
-} catch (error) {
-  status.textContent = 'Render source metadata: unavailable. The Fish Wiki catalog remains usable without it.';
-}
+<script>
+(async()=>{
+  const status=document.getElementById('render-source-status');
+  try{
+    const {renderManifest:manifest}=await window.TideFishRuntime.ready;
+    const fish=manifest?.counts?.supported_fish??'unknown',groups=manifest?.counts?.render_mod_entries??'unknown';
+    const rawPending=String(manifest?.import_status||'').includes('raw_source_archive_incomplete');
+    status.textContent=rawPending?`Render source metadata: ${fish} supported fish across ${groups} render groups verified. Raw source archive import is incomplete; no geometry is being guessed.`:`Render source bundle: ${fish} supported fish across ${groups} render groups available.`;
+  }catch(error){status.textContent='Render source metadata: unavailable. The Fish Wiki catalog remains usable without it.';}
+})();
 </script>
-<script src="../assets/fish-detail-nav.js"></script>
-<script src="../assets/fish-catalog-redesign.js?v=9"></script>
-<script src="../assets/fish-specimen-lab-stable.js?v=4"></script>
+<script src="../assets/fish-specimen-lab.js"></script>
 </body>
 </html>
