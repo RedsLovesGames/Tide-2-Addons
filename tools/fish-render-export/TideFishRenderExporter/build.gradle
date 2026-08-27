@@ -25,7 +25,9 @@ dependencies {
         exclude group: 'net.fabricmc.fabric-api'
     }
     modImplementation "maven.modrinth:die1AF7i:ztNu3GtG"
-    modImplementation "maven.modrinth:HH4FjUqN:6EfLaKkB"
+    // Hybrid Aquatic 1.6.9 for Minecraft 1.21.1. This is the same source version
+    // used by the current Tideborne modpack/wiki render source bundle.
+    modImplementation "maven.modrinth:HH4FjUqN:F5POkJG0"
     modImplementation "maven.modrinth:Yd4wb5wZ:ih64rzUz"
     modImplementation "net.fabricmc:fabric-language-kotlin:1.13.13+kotlin.2.4.10"
     modImplementation "dev.isxander:yet-another-config-lib:3.8.1+1.21.1-fabric"
@@ -81,15 +83,10 @@ processResources {
         from(repoRegistry) {
             into 'fishrender'
             rename { 'fish-render-registry.json' }
-            // Tide Extra Compatibility stores Hybrid Aquatic FishData under the
-            // compatibility namespace hybrid_aquatic, while the actual Fabric mod
-            // registers its entities under hybrid-aquatic. Keep fish IDs stable for
-            // the wiki, but resolve the real in-game EntityType namespace here.
-            filter { String line ->
-                line
-                    .replace('"entity_id": "hybrid_aquatic:', '"entity_id": "hybrid-aquatic:')
-                    .replace('"entity_namespace": "hybrid_aquatic"', '"entity_namespace": "hybrid-aquatic"')
-            }
+            // Keep Tide Extra Compatibility's canonical hybrid_aquatic IDs exactly as
+            // written. Hybrid Aquatic 1.6+ standardized its Fabric mod/entity namespace
+            // to hybrid_aquatic, so rewriting these IDs to hybrid-aquatic makes the
+            // real EntityType lookup fail at runtime.
         }
     }
     from("${projectDir}/../../../fish/render-data/modpack-scope.json") {
