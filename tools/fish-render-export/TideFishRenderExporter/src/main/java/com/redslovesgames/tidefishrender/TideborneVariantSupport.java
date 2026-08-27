@@ -16,7 +16,7 @@ final class TideborneVariantSupport {
 
     static boolean isLoaded() { return FabricLoader.getInstance().isModLoaded("tideborne"); }
 
-    static VariantSpec apply(ItemStack stack, String requested, RegistryLoader.Entry entry) {
+    static VariantSpec apply(ItemStack stack, String requested, RuntimeFishCatalog.Entry entry) {
         String variant = normalize(requested);
         double baseLength = Math.max(0.01, entry.representativeLengthCm());
         double length = switch (variant) {
