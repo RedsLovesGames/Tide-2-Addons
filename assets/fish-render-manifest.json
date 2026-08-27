@@ -1,12 +1,12 @@
 {
   "schemaVersion": 2,
-  "generatedBy": "Tide Fish Render Exporter",
-  "pipelineStatus": "source_authentic_partial",
-  "policy": "Only source-authentic runtime or direct source-geometry renders are published. Missing compatibility entries remain unavailable rather than using invented artwork.",
+  "generatedBy": "Tide Fish Render Exporter + Minecraft EntityRenderDispatcher",
+  "pipelineStatus": "source_authentic_partial_runtime",
+  "policy": "Hybrid Aquatic images must come from actual Minecraft entity renderers. HA 1.5.5 runtime renders are published immediately when validated; species absent from 1.5.5 remain unavailable until their later-version runtime renderer is captured. The legacy custom geometry projector is never a publication fallback.",
   "counts": {
     "requested_fish": 156,
     "supported_fish": 155,
-    "normal": 155,
+    "normal": 152,
     "failed": 1,
     "variant_renders": 0
   },
@@ -1072,737 +1072,676 @@
       }
     },
     "hybrid_aquatic:anglerfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:anglerfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:anglerfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__anglerfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:barreleye": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:barreleye",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:barreleye",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__barreleye.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:betta": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:betta",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:betta",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__betta.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:blobfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:blobfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic later-version runtime render pending",
+      "renderer_mode": "pending_later_runtime_entity",
+      "source_mod_version": "1.5.5-missing-entity",
       "variants": {
         "normal": {
-          "file": "fish/assets/renders/hybrid_aquatic__blobfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "pending_later_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:blowfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:blowfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:blowfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__blowfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:boxfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:boxfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:boxfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__boxfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:carp": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:carp",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:carp",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__carp.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:cichlid": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:cichlid",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic later-version runtime render pending",
+      "renderer_mode": "pending_later_runtime_entity",
+      "source_mod_version": "1.5.5-missing-entity",
       "variants": {
         "normal": {
-          "file": "fish/assets/renders/hybrid_aquatic__cichlid.png",
-          "status": "source_backed_static_geometry"
+          "status": "pending_later_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:clownfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:clownfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:clownfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__clownfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:coelacanth": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:coelacanth",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:coelacanth",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__coelacanth.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:damselfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:damselfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:damselfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__damselfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:danio": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:danio",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:danio",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__danio.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:discus": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:discus",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:discus",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__discus.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:dragonfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:dragonfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:dragonfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__dragonfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:flashlight_fish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:flashlight_fish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:flashlight_fish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__flashlight_fish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:flying_fish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:flying_fish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:flying_fish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__flying_fish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:golden_dorado": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:golden_dorado",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:golden_dorado",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__golden_dorado.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:goldfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:goldfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:goldfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__goldfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:gourami": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:gourami",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:gourami",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__gourami.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:herring": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:herring",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:herring",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__herring.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:john_dory": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:john_dory",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:john_dory",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__john_dory.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:lionfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:lionfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:lionfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__lionfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:mackerel": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:mackerel",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:mackerel",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__mackerel.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:mahi": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:mahi",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:mahi",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__mahi.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:moray_eel": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:moray_eel",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:moray_eel",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__moray_eel.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:needlefish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:needlefish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:needlefish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__needlefish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:oarfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:oarfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:oarfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__oarfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:ocean_sunfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:ocean_sunfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:ocean_sunfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__ocean_sunfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:opah": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:opah",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:opah",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__opah.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:parrotfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:parrotfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:parrotfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__parrotfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:pearlfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:pearlfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:pearlfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__pearlfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:piranha": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:piranha",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:piranha",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__piranha.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:pleco": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:pleco",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:pleco",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__pleco.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:ratfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:ratfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:ratfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__ratfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:rockfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:rockfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:rockfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__rockfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:sea_bass": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:sea_bass",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:sea_bass",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__sea_bass.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:seahorse": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:seahorse",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:seahorse",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__seahorse.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:sheepshead_wrasse": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:sheepshead_wrasse",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:wrasse",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__sheepshead_wrasse.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:snailfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:snailfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:snailfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__snailfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:squirrelfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:squirrelfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:squirrelfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__squirrelfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:stingray": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:stingray",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:stingray",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__stingray.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:stonefish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:stonefish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:stonefish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__stonefish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:sunfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:sunfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:sunfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__sunfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:surgeonfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:surgeonfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:surgeonfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__surgeonfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:tetra": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:tetra",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:tetra",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__tetra.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:tiger_barb": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:tiger_barb",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:tiger_barb",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__tiger_barb.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:trevally": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:trevally",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic later-version runtime render pending",
+      "renderer_mode": "pending_later_runtime_entity",
+      "source_mod_version": "1.5.5-missing-entity",
       "variants": {
         "normal": {
-          "file": "fish/assets/renders/hybrid_aquatic__trevally.png",
-          "status": "source_backed_static_geometry"
+          "status": "pending_later_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:triggerfish": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:triggerfish",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:triggerfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__triggerfish.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     },
     "hybrid_aquatic:tuna": {
-      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
-      "entity": "hybrid_aquatic:tuna",
-      "render_provenance": {
-        "mod_version": "1.6.9",
-        "modrinth_version_id": "F5POkJG0",
-        "method": "source_geometry_static_export"
-      },
+      "source": "Hybrid Aquatic 1.5.5 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid-aquatic:tuna",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.5.5",
+      "source_modrinth_version_id": "6EfLaKkB",
+      "capture_orientation": "side_profile_matrix_y_90",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__tuna.png",
-          "status": "source_backed_static_geometry"
+          "status": "source_backed_runtime_entity"
         }
       }
     }
@@ -1813,5 +1752,15 @@
       "failure_class": "exception",
       "error": "java.lang.IllegalStateException: Tide FishData has no DisplayData for crittersandcompanions:koi_fish"
     }
-  ]
+  ],
+  "hybridAquaticRuntime": {
+    "version": "1.5.5",
+    "modrinth_version_id": "6EfLaKkB",
+    "validated": 46,
+    "pending_later_runtime": [
+      "hybrid_aquatic:blobfish",
+      "hybrid_aquatic:cichlid",
+      "hybrid_aquatic:trevally"
+    ]
+  }
 }
