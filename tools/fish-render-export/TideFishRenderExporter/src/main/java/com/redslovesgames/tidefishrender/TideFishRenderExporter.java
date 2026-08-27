@@ -53,7 +53,6 @@ public final class TideFishRenderExporter implements ClientModInitializer {
         if (autoStarted || autoReady) return;
         clientTicks++;
         if (clientTicks == 1 || clientTicks == 20 || clientTicks % 200 == 0) logClientState(client);
-
         if (client.world == null || client.player == null) {
             readyTicks = 0;
             if (!worldOpenRequested && clientTicks >= 200 && client.getServer() == null) openRenderWorld(client);
@@ -69,9 +68,13 @@ public final class TideFishRenderExporter implements ClientModInitializer {
         autoStarted = true;
         System.out.println("FISHRENDER_AUTO_START mode=" + AUTO_EXPORT + " world=" + client.world.getRegistryKey().getValue());
         try {
-            boolean modpackScope = "scope".equalsIgnoreCase(AUTO_EXPORT);
-            RenderService service = RenderService.create(modpackScope);
-            RenderReport report = switch (AUTO_EXPORT.toLowerCase()) {
+            String mode = AUTO_EXPORT.toLowerCase();
+            boolean namespaceCompat = mode.startsWith("namespace:")
+                    && !mode.equals("namespace:tide")
+                    && !mode.equals("namespace:minecraft");
+            boolean scopedRegistry = "scope".equals(mode) || namespaceCompat;
+            RenderService service = RenderService.create(scopedRegistry);
+            RenderReport report = switch (mode) {
                 case "verify" -> service.verifyAll();
                 case "all" -> service.exportAll("default");
                 case "tide" -> service.exportNamespace("tide", "default");
@@ -158,4 +161,3 @@ public final class TideFishRenderExporter implements ClientModInitializer {
         return value.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r");
     }
 }
-
