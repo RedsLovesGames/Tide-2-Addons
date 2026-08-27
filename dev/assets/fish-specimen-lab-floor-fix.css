@@ -1,0 +1,131 @@
+/* Final measurement-floor correction. CSS only: no observers or runtime loops. */
+#fish-highlight-layer .fish-lab-render-stage::after{
+  content:""!important;
+  position:absolute!important;
+  z-index:2!important;
+  left:60px!important;
+  right:60px!important;
+  bottom:0!important;
+  height:var(--block-px,64px)!important;
+  min-height:24px!important;
+  max-height:120px!important;
+  pointer-events:none!important;
+  border-top:2px solid rgba(140,230,214,.42)!important;
+  background-color:#315f5c!important;
+  background-image:url('minecraft/prismarine.png')!important;
+  background-repeat:repeat-x!important;
+  background-position:left bottom!important;
+  background-size:var(--block-px,64px) var(--block-px,64px)!important;
+  box-shadow:0 -10px 30px rgba(42,151,146,.08)!important;
+  opacity:1!important;
+  image-rendering:pixelated!important;
+}
+
+/* Reserve a clean measurement rail above the physical block row. */
+#fish-highlight-layer .fish-lab-render-shell{
+  bottom:calc(var(--block-px,64px) + 92px)!important;
+}
+#fish-highlight-layer .fish-lab-scale-reference{
+  left:18px!important;
+  bottom:calc(var(--block-px,64px) + 16px)!important;
+  z-index:6!important;
+  min-height:48px!important;
+  align-items:flex-end!important;
+}
+#fish-highlight-layer .fish-lab-render-meta{
+  left:calc(64px + var(--block-px,64px))!important;
+  right:18px!important;
+  bottom:calc(var(--block-px,64px) + 19px)!important;
+  z-index:6!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:end!important;
+  gap:18px!important;
+  min-height:30px!important;
+  padding:0!important;
+  font-size:12px!important;
+  line-height:1.35!important;
+  letter-spacing:.02em!important;
+  color:#b3cbd1!important;
+  white-space:normal!important;
+}
+#fish-highlight-layer .fish-lab-render-meta span{
+  min-width:0!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  white-space:normal!important;
+}
+#fish-highlight-layer .fish-lab-render-meta strong{
+  font-size:13px!important;
+  line-height:1.25!important;
+  color:#a5f0e8!important;
+  white-space:nowrap!important;
+}
+#fish-highlight-layer .fish-lab-ruler{
+  width:var(--block-px,64px)!important;
+  min-width:24px!important;
+}
+#fish-highlight-layer .fish-lab-ruler strong{
+  display:block!important;
+  font-size:11px!important;
+  line-height:1.25!important;
+}
+#fish-highlight-layer .fish-lab-ruler em{
+  display:block!important;
+  margin-top:2px!important;
+  font-size:10px!important;
+  line-height:1.25!important;
+  font-style:normal!important;
+}
+#fish-highlight-layer .fish-lab-block-icon{
+  background-image:url('minecraft/prismarine.png')!important;
+  background-size:100% 100%!important;
+  background-repeat:no-repeat!important;
+  background-color:#315f5c!important;
+  image-rendering:pixelated!important;
+}
+
+/* Make the specimen data comfortably readable without making the UI loud. */
+#fish-highlight-layer .fish-highlight-nav-label,
+#fish-highlight-layer .fish-highlight-eyebrow,
+#fish-highlight-layer .fish-highlight-subline span,
+#fish-highlight-layer .fish-lab-score-head span,
+#fish-highlight-layer .fish-lab-control-group>label,
+#fish-highlight-layer .fish-lab-control-label label,
+#fish-highlight-layer .fish-lab-panel-head span,
+#fish-highlight-layer .fish-lab-condition-list strong,
+#fish-highlight-layer .fish-lab-accordion summary{
+  font-size:12px!important;
+}
+#fish-highlight-layer .fish-lab-control-label output,
+#fish-highlight-layer .fish-lab-fact strong,
+#fish-highlight-layer .fish-lab-condition-list span,
+#fish-highlight-layer .fish-lab-condition-list p,
+#fish-highlight-layer .fish-lab-reference-list,
+#fish-highlight-layer .fish-lab-accordion-body dl,
+#fish-highlight-layer .fish-lab-related{
+  font-size:13px!important;
+}
+#fish-highlight-layer .fish-lab-fact span,
+#fish-highlight-layer .fish-lab-range-labels,
+#fish-highlight-layer .fish-lab-perfect-note,
+#fish-highlight-layer .fish-lab-related button span{
+  font-size:11px!important;
+}
+#fish-highlight-layer .fish-lab-control-group select,
+#fish-highlight-layer .fish-lab-segmented button,
+#fish-highlight-layer .fish-lab-related button strong{
+  font-size:13px!important;
+}
+
+@media(max-width:700px){
+  #fish-highlight-layer .fish-lab-render-stage::after{left:18px!important;right:18px!important;max-height:76px!important}
+  #fish-highlight-layer .fish-lab-render-shell{bottom:calc(min(var(--block-px,54px),76px) + 92px)!important}
+  #fish-highlight-layer .fish-lab-scale-reference{bottom:calc(min(var(--block-px,54px),76px) + 14px)!important}
+  #fish-highlight-layer .fish-lab-render-meta{
+    left:18px!important;
+    bottom:calc(min(var(--block-px,54px),76px) + 58px)!important;
+    grid-template-columns:1fr!important;
+    gap:2px!important;
+  }
+}
