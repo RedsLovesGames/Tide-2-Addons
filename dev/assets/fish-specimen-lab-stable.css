@@ -1,0 +1,31 @@
+/* Stable specimen lab layout. No JS observers or runtime style injection. */
+#fish-highlight-layer .fish-lab-workspace-stable{display:block!important}
+#fish-highlight-layer .fish-lab-specimen-card{width:100%!important;min-width:0!important;background:#081b28!important;box-shadow:none!important}
+#fish-highlight-layer .fish-lab-render-stage{height:clamp(500px,62vh,700px)!important;min-height:500px!important;margin-top:14px!important;background:#071a27!important}
+#fish-highlight-layer .fish-lab-render-shell{left:3%!important;right:3%!important;top:6%!important;bottom:16%!important}
+#fish-highlight-layer .fish-lab-water-grid{opacity:.12!important;background-size:40px 40px!important}
+#fish-highlight-layer .fish-lab-orbit{display:none!important;animation:none!important}
+#fish-highlight-layer .fish-lab-render-stage::after{display:none!important;content:none!important}
+#fish-highlight-layer .fish-lab-render-shell img{max-width:none!important;max-height:none!important;filter:none!important;transition:none!important;animation:none!important}
+#fish-highlight-layer .fish-lab-ruler{transition:none!important}
+#fish-highlight-layer .fish-lab-console-stable{display:block!important;width:100%!important;margin-top:14px!important;padding:13px!important;border:1px solid #285467!important;border-radius:12px!important;background:#081b28!important;box-shadow:none!important}
+#fish-highlight-layer .fish-lab-control-panel-head{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:18px!important;margin-bottom:12px!important;padding-bottom:10px!important;border-bottom:1px solid #234957!important}
+#fish-highlight-layer .fish-lab-control-panel-head h2{margin:0;color:#f5faf9;font:700 16px/1.1 Georgia,serif}
+#fish-highlight-layer .fish-lab-score-head{display:flex!important;align-items:center!important;gap:9px!important;margin:0!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important;min-height:0!important;height:auto!important}
+#fish-highlight-layer .fish-lab-score-head>div{display:flex!important;align-items:baseline!important;gap:8px!important;flex-direction:row!important}
+#fish-highlight-layer .fish-lab-score-head span{font-size:7px!important;color:#6f98a3!important}
+#fish-highlight-layer .fish-lab-score-head strong{font-size:clamp(21px,1.8vw,29px)!important;color:#ecf7f6!important}
+#fish-highlight-layer .fish-lab-live-dot{display:none!important}
+#fish-highlight-layer .fish-lab-control-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:0!important;border:1px solid #285165!important;border-radius:9px!important;overflow:hidden!important;background:#071923!important}
+#fish-highlight-layer .fish-lab-control-grid .fish-lab-control-group{min-width:0!important;padding:12px!important;border-right:1px solid #234957!important}
+#fish-highlight-layer .fish-lab-control-grid .fish-lab-control-group:last-child{border-right:0!important}
+#fish-highlight-layer .fish-lab-breakdown{margin-top:10px!important;border-color:#244b59!important;background:#071923!important}
+#fish-highlight-layer .fish-lab-breakdown .fish-lab-fact{background:transparent!important;padding:7px 9px!important}
+#fish-highlight-layer .fish-lab-multiplier{margin-top:8px!important}
+#fish-highlight-layer .fish-lab-panel,#fish-highlight-layer .fish-lab-accordion{background:#081b28!important;box-shadow:none!important}
+#fish-highlight-layer .fish-lab-ruler-ticks{opacity:.65!important}
+#fish-highlight-layer .fish-lab-block-icon{box-shadow:none!important}
+#fish-highlight-layer .fish-highlight-modal{background:#061722!important;box-shadow:0 24px 70px rgba(0,0,0,.46)!important}
+#fish-highlight-layer .fish-highlight-modal::before{display:none!important}
+@media(max-width:1050px){#fish-highlight-layer .fish-lab-control-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}#fish-highlight-layer .fish-lab-control-grid .fish-lab-control-group:nth-child(2){border-right:0!important}#fish-highlight-layer .fish-lab-control-grid .fish-lab-control-group:nth-child(-n+2){border-bottom:1px solid #234957!important}}
+@media(max-width:700px){#fish-highlight-layer .fish-lab-render-stage{height:400px!important;min-height:400px!important}#fish-highlight-layer .fish-lab-control-panel-head{align-items:flex-start!important;flex-direction:column!important}#fish-highlight-layer .fish-lab-control-grid{grid-template-columns:1fr!important}#fish-highlight-layer .fish-lab-control-grid .fish-lab-control-group{border-right:0!important;border-bottom:1px solid #234957!important}#fish-highlight-layer .fish-lab-control-grid .fish-lab-control-group:last-child{border-bottom:0!important}}
