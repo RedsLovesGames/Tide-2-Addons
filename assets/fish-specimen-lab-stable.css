@@ -14,3 +14,13 @@
   background-position:0 0,0 0!important;
   background-repeat:repeat-x,repeat-x!important;
 }
+
+/* The specimen stage is a visual measuring instrument, not selectable document content. Prevent accidental drag-selection from painting the render and ruler with the browser's blue selection overlay. */
+#fish-highlight-layer .fish-lab-render-stage,
+#fish-highlight-layer .fish-lab-render-stage *{
+  -webkit-user-select:none!important;
+  user-select:none!important;
+}
+#fish-highlight-layer .fish-lab-render-shell img{
+  -webkit-user-drag:none!important;
+}
