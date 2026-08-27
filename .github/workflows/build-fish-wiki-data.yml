@@ -2,25 +2,35 @@ name: Build Fish Wiki Data
 
 on:
   push:
-    branches: [fish-wiki-production]
+    branches: [dev]
     paths:
       - scripts/build-fish-wiki.py
+      - assets/fish-wiki-data-0.json.gz
+      - assets/fish-wiki-data-1.json.gz
+      - assets/fish-search-index.json
       - .github/workflows/build-fish-wiki-data.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/build-fish-wiki.py
+      - assets/fish-wiki-data-0.json.gz
+      - assets/fish-wiki-data-1.json.gz
+      - assets/fish-search-index.json
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: fish-wiki-production
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
       - name: Download authoritative sources
         shell: bash
         run: |
@@ -33,22 +43,37 @@ jobs:
           TIDE_ROOT="$(find /tmp/fishsrc/tide -type d -path '*/src/generated-1.21.1/resources' -print -quit)"
           test -n "$TIDE_ROOT"
           echo "TIDE_ROOT=$TIDE_ROOT" >> "$GITHUB_ENV"
-      - name: Generate Fish Wiki payload
-        run: python scripts/build-fish-wiki.py --tide-root "$TIDE_ROOT" --extra-root /tmp/fishsrc/extra --out assets
+
+      - name: Generate Fish Wiki payload into temporary output
+        run: |
+          mkdir -p /tmp/fish-build-out
+          python scripts/build-fish-wiki.py \
+            --tide-root "$TIDE_ROOT" \
+            --extra-root /tmp/fishsrc/extra \
+            --out /tmp/fish-build-out \
+            --report /tmp/fish-build-report.txt
+
       - name: Validate generated payload
         shell: bash
         run: |
-          python -m pip install --quiet Pillow
-          node --check assets/fish-wiki.js
-          node --check assets/fish-site-search.js
-          python scripts/validate-fish-wiki.py
-      - name: Commit generated payload
-        shell: bash
-        run: |
           set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/fish-wiki-data-0.json.gz assets/fish-wiki-data-1.json.gz assets/fish-search-index.json scripts/fish-build-report.txt
-          git diff --cached --quiet && exit 0
-          git commit -m 'Build authoritative Fish Wiki data'
-          git push origin HEAD:fish-wiki-production
+          python -m pip install --quiet Pillow
+          cp assets/fish-wiki-data-0.json.gz /tmp/committed-0.gz
+          cp assets/fish-wiki-data-1.json.gz /tmp/committed-1.gz
+          cp assets/fish-search-index.json /tmp/committed-search.json
+          cmp /tmp/fish-build-out/fish-wiki-data-0.json.gz /tmp/committed-0.gz
+          cmp /tmp/fish-build-out/fish-wiki-data-1.json.gz /tmp/committed-1.gz
+          cmp /tmp/fish-build-out/fish-search-index.json /tmp/committed-search.json
+          python scripts/validate-fish-wiki.py
+          echo 'FISH_WIKI_REPRODUCIBLE=1'
+
+      - name: Upload build evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fish-wiki-data-rebuild
+          path: |
+            /tmp/fish-build-out/
+            /tmp/fish-build-report.txt
+          if-no-files-found: warn
+          retention-days: 14
