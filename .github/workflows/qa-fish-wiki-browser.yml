@@ -3,13 +3,12 @@ name: QA Fish Wiki Browser
 on:
   push:
     branches:
-      - fish-wiki-production
-      - bugfix/fish-wiki-ux-pass
-      - fish-render-source-import
+      - dev
     paths:
       - fish/**
       - assets/**
       - scripts/qa-fish-wiki.mjs
+      - package.json
       - .github/workflows/qa-fish-wiki-browser.yml
   pull_request:
     branches:
@@ -19,18 +18,26 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: fish-browser-qa-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   browser-qa:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - name: Install Playwright
-        run: |
-          npm install --no-save playwright@1.54.2
-          npx playwright install --with-deps chromium
+          node-version: "22"
+
+      - name: Install pinned browser QA dependency
+        run: npm install --ignore-scripts
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
       - name: Serve GitHub Pages-style path
         shell: bash
         run: |
@@ -44,11 +51,13 @@ jobs:
           done
           cat /tmp/tideborne-http.log
           exit 1
+
       - name: Run browser QA
         env:
           QA_BASE_URL: http://127.0.0.1:8000/Tide-2-Addons
           QA_OUT: qa-artifacts
-        run: node scripts/qa-fish-wiki.mjs
+        run: npm run qa:fish
+
       - name: Upload QA screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -56,3 +65,4 @@ jobs:
           name: fish-wiki-browser-qa
           path: qa-artifacts/
           if-no-files-found: ignore
+          retention-days: 14
