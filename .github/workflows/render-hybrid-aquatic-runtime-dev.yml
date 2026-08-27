@@ -114,15 +114,12 @@ jobs:
           rows = report['successes']
           assert len(rows) == 49, len(rows)
           assert all(r.get('render_mode') == 'minecraft_entity_dispatcher' for r in rows), {r.get('render_mode') for r in rows}
-          # Tide Extra Compatibility FishData uses hybrid_aquatic as its compatibility
-          # namespace; the real Hybrid Aquatic Fabric mod registers EntityTypes under
-          # hybrid-aquatic. Require the actual runtime namespace and matching paths.
           for row in rows:
             fish_id = str(row.get('fish_id',''))
             resolved = str(row.get('resolved_entity_id',''))
             assert fish_id.startswith('hybrid_aquatic:'), row
-            assert resolved.startswith('hybrid-aquatic:'), row
-            assert fish_id.split(':',1)[1] == resolved.split(':',1)[1], row
+            assert resolved.startswith('hybrid_aquatic:'), row
+            assert fish_id == resolved, row
 
           renders = root / 'fish/assets/renders'
           pngs = sorted(renders.glob('hybrid_aquatic__*.png'))
@@ -135,7 +132,7 @@ jobs:
               l,t,r,b = bounds
               assert l > 0 and t > 0 and r < im.width and b < im.height, (png.name, im.size, bounds)
               assert (r-l) >= 3 and (b-t) >= 3, (png.name, bounds)
-          print('HYBRID_RUNTIME_VALID total=49 actual_entity_dispatcher=49 namespace=hybrid-aquatic')
+          print('HYBRID_RUNTIME_VALID total=49 actual_entity_dispatcher=49 namespace=hybrid_aquatic')
           PY
 
       - name: Publish only validated Hybrid Aquatic runtime renders
