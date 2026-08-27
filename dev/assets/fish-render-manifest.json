@@ -1,12 +1,12 @@
 {
   "schemaVersion": 2,
-  "generatedBy": "Tide Fish Render Exporter + Minecraft EntityRenderDispatcher",
-  "pipelineStatus": "source_authentic_partial_runtime",
+  "generatedBy": "Tide Fish Render Exporter + Minecraft EntityRenderDispatcher (Hybrid Aquatic 1.5.5 baseline + 1.6.9 late fish)",
+  "pipelineStatus": "source_authentic_runtime",
   "policy": "Hybrid Aquatic images must come from actual Minecraft entity renderers. HA 1.5.5 runtime renders are published immediately when validated; species absent from 1.5.5 remain unavailable until their later-version runtime renderer is captured. The legacy custom geometry projector is never a publication fallback.",
   "counts": {
     "requested_fish": 156,
     "supported_fish": 155,
-    "normal": 152,
+    "normal": 155,
     "failed": 1,
     "variant_renders": 0
   },
@@ -1114,12 +1114,17 @@
       }
     },
     "hybrid_aquatic:blobfish": {
-      "source": "Hybrid Aquatic later-version runtime render pending",
-      "renderer_mode": "pending_later_runtime_entity",
-      "source_mod_version": "1.5.5-missing-entity",
+      "source": "Hybrid Aquatic 1.6.9 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid_aquatic:blobfish",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.6.9",
+      "source_modrinth_version_id": "F5POkJG0",
+      "capture_orientation": "side_profile_matrix_y_90",
+      "dev_runtime_bootstrap": "Official 1.6.9 Fabric jar with only unrelated ArgonautEntity setGlowing/isGlowing symbols renamed before Loom named remap; fish classes, models, textures, renderers and resources are untouched.",
       "variants": {
         "normal": {
-          "status": "pending_later_runtime_entity"
+          "file": "fish/assets/renders/hybrid_aquatic__blobfish.png",
+          "status": "source_backed_runtime_entity"
         }
       }
     },
@@ -1166,12 +1171,17 @@
       }
     },
     "hybrid_aquatic:cichlid": {
-      "source": "Hybrid Aquatic later-version runtime render pending",
-      "renderer_mode": "pending_later_runtime_entity",
-      "source_mod_version": "1.5.5-missing-entity",
+      "source": "Hybrid Aquatic 1.6.9 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid_aquatic:cichlid",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.6.9",
+      "source_modrinth_version_id": "F5POkJG0",
+      "capture_orientation": "side_profile_matrix_y_90",
+      "dev_runtime_bootstrap": "Official 1.6.9 Fabric jar with only unrelated ArgonautEntity setGlowing/isGlowing symbols renamed before Loom named remap; fish classes, models, textures, renderers and resources are untouched.",
       "variants": {
         "normal": {
-          "status": "pending_later_runtime_entity"
+          "file": "fish/assets/renders/hybrid_aquatic__cichlid.png",
+          "status": "source_backed_runtime_entity"
         }
       }
     },
@@ -1708,12 +1718,17 @@
       }
     },
     "hybrid_aquatic:trevally": {
-      "source": "Hybrid Aquatic later-version runtime render pending",
-      "renderer_mode": "pending_later_runtime_entity",
-      "source_mod_version": "1.5.5-missing-entity",
+      "source": "Hybrid Aquatic 1.6.9 actual Minecraft EntityRenderDispatcher",
+      "entity": "hybrid_aquatic:trevally",
+      "renderer_mode": "minecraft_entity_dispatcher",
+      "source_mod_version": "1.6.9",
+      "source_modrinth_version_id": "F5POkJG0",
+      "capture_orientation": "side_profile_matrix_y_90",
+      "dev_runtime_bootstrap": "Official 1.6.9 Fabric jar with only unrelated ArgonautEntity setGlowing/isGlowing symbols renamed before Loom named remap; fish classes, models, textures, renderers and resources are untouched.",
       "variants": {
         "normal": {
-          "status": "pending_later_runtime_entity"
+          "file": "fish/assets/renders/hybrid_aquatic__trevally.png",
+          "status": "source_backed_runtime_entity"
         }
       }
     },
@@ -1757,10 +1772,9 @@
     "version": "1.5.5",
     "modrinth_version_id": "6EfLaKkB",
     "validated": 46,
-    "pending_later_runtime": [
-      "hybrid_aquatic:blobfish",
-      "hybrid_aquatic:cichlid",
-      "hybrid_aquatic:trevally"
-    ]
+    "pending_later_runtime": [],
+    "late_version": "1.6.9",
+    "late_modrinth_version_id": "F5POkJG0",
+    "late_dev_runtime_bootstrap": "ArgonautEntity-only symbol collision patch before Loom named remap; no fish render source modified."
   }
 }
