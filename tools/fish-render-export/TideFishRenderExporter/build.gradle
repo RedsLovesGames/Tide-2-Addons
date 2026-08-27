@@ -101,6 +101,20 @@ loom {
             programArg "1024"
             environmentVariable("TIDE_FISH_RENDER_AUTO", "tide:tuna")
         }
+        runtimeBundleTideTuna {
+            client()
+            configName = "Runtime Bundle Tide Tuna Smoke"
+            runDir = "run/client"
+            programArg "--quickPlaySingleplayer"
+            programArg "RenderWorld"
+            programArg "--width"
+            programArg "1024"
+            programArg "--height"
+            programArg "1024"
+            environmentVariable("TIDE_FISH_RUNTIME_AUTO", "true")
+            environmentVariable("TIDE_FISH_RUNTIME_FILTER", "tide:tuna")
+            environmentVariable("TIDE_FISH_RUNTIME_EXIT_AFTER_EXPORT", "true")
+        }
         renderHybridOarfish {
             client()
             configName = "Hybrid Aquatic Oarfish Smoke Render"
