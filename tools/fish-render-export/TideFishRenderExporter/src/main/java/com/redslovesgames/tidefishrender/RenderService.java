@@ -43,6 +43,13 @@ final class RenderService {
     private static final int PADDING = 48;
     private static final int EDGE_MARGIN = 18;
     private static final double TARGET_OCCUPANCY = 0.72;
+
+    // GeckoLib Hybrid Aquatic fish need the complete pose rotated 90 degrees while
+    // EntityRenderDispatcher yaw stays at zero. This is the validated side-profile
+    // orientation and is committed here so CI never rewrites Java source before build.
+    private static final float DIRECT_ENTITY_MATRIX_YAW = 90.0f;
+    private static final float DIRECT_ENTITY_DISPATCHER_YAW = 0.0f;
+
     private final MinecraftClient client;
     private final List<RegistryLoader.Entry> entries;
     private final Path root;
@@ -57,41 +64,73 @@ final class RenderService {
         this.generated = root.resolve("generated");
     }
 
-    static RenderService create() throws IOException { return create(false); }
+    static RenderService create() throws IOException {
+        return create(false);
+    }
 
     static RenderService create(boolean modpackScope) throws IOException {
         MinecraftClient client = MinecraftClient.getInstance();
-        if (client.world == null) throw new IOException("Open a single-player world or connected world first. Fish rendering needs a live ClientWorld.");
+        if (client.world == null) {
+            throw new IOException("Open a single-player world or connected world first. Fish rendering needs a live ClientWorld.");
+        }
         return new RenderService(client, modpackScope ? RegistryLoader.loadModpackScope() : RegistryLoader.load());
     }
 
-    RenderReport verifyAll() throws IOException { return process(entries.stream().map(e -> new Job(e, "default")).toList(), "verify", false); }
-    RenderReport exportAll(String variant) throws IOException { return process(expand(entries, variant), "export:" + variant, true); }
-    RenderReport exportModpackScope() throws IOException { return process(entries.stream().map(e -> new Job(e, "default")).toList(), "export:scope:default", true); }
-    RenderReport exportNamespace(String namespace, String variant) throws IOException { return process(expand(entries.stream().filter(e -> namespace(e.fishId()).equals(namespace)).toList(), variant), "export:" + namespace + ":" + variant, true); }
+    RenderReport verifyAll() throws IOException {
+        return process(entries.stream().map(e -> new Job(e, "default")).toList(), "verify", false);
+    }
+
+    RenderReport exportAll(String variant) throws IOException {
+        return process(expand(entries, variant), "export:" + variant, true);
+    }
+
+    RenderReport exportModpackScope() throws IOException {
+        return process(entries.stream().map(e -> new Job(e, "default")).toList(), "export:scope:default", true);
+    }
+
+    RenderReport exportNamespace(String namespace, String variant) throws IOException {
+        return process(
+                expand(entries.stream().filter(e -> namespace(e.fishId()).equals(namespace)).toList(), variant),
+                "export:" + namespace + ":" + variant,
+                true
+        );
+    }
+
     RenderReport exportFish(String id, String variant) throws IOException {
         String canonical = id.contains(":") ? id : id.replaceFirst("__", ":");
-        RegistryLoader.Entry entry = entries.stream().filter(e -> e.fishId().equals(canonical)).findFirst().orElseThrow(() -> new IOException("Fish not in registry: " + canonical));
+        RegistryLoader.Entry entry = entries.stream()
+                .filter(e -> e.fishId().equals(canonical))
+                .findFirst()
+                .orElseThrow(() -> new IOException("Fish not in registry: " + canonical));
         return process(expand(List.of(entry), variant), "export:" + canonical + ":" + variant, true);
     }
 
     private List<Job> expand(List<RegistryLoader.Entry> base, String requested) {
         if ("all_variants".equalsIgnoreCase(requested)) {
             List<Job> jobs = new ArrayList<>();
-            for (RegistryLoader.Entry entry : base) for (String variant : TideborneVariantSupport.REQUESTABLE_VARIANTS) jobs.add(new Job(entry, variant));
+            for (RegistryLoader.Entry entry : base) {
+                for (String variant : TideborneVariantSupport.REQUESTABLE_VARIANTS) {
+                    jobs.add(new Job(entry, variant));
+                }
+            }
             return jobs;
         }
         return base.stream().map(entry -> new Job(entry, requested == null ? "default" : requested)).toList();
     }
 
     private RenderReport process(List<Job> jobs, String mode, boolean writePng) throws IOException {
-        JsonArray failures = new JsonArray(), successes = new JsonArray();
-        int successful = 0, variants = 0;
+        JsonArray failures = new JsonArray();
+        JsonArray successes = new JsonArray();
+        int successful = 0;
+        int variants = 0;
+
         for (Job job : jobs) {
             JsonObject row = baseRow(job);
             try {
                 RenderResult result = renderOne(job, writePng);
-                if (result.png() != null) row.addProperty("png", root.relativize(result.png()).toString().replace('\\', '/'));
+                if (result.png() != null) {
+                    row.addProperty("png", root.relativize(result.png()).toString().replace('\\', '/'));
+                }
                 row.addProperty("length_cm", result.lengthCm());
                 row.addProperty("resolved_entity_id", result.entityId().toString());
                 row.addProperty("silhouette_width", result.bounds().width());
@@ -100,13 +139,16 @@ final class RenderService {
                 row.addProperty("render_mode", result.renderMode());
                 successes.add(row);
                 successful++;
-                if (!job.variant().equals("default")) variants++;
+                if (!job.variant().equals("default")) {
+                    variants++;
+                }
             } catch (Exception ex) {
                 row.addProperty("error", ex.getClass().getName() + ": " + String.valueOf(ex.getMessage()));
                 row.addProperty("failure_class", classify(ex));
                 failures.add(row);
             }
         }
+
         Files.createDirectories(generated);
         JsonObject report = new JsonObject();
         report.addProperty("generated_at", Instant.now().toString());
@@ -118,21 +160,40 @@ final class RenderService {
         report.addProperty("variant_renders", variants);
         report.add("successes", successes);
         report.add("exceptions", failures);
+
         Path reportPath = generated.resolve("render-report.json");
-        Files.writeString(reportPath, new GsonBuilder().setPrettyPrinting().create().toJson(report), StandardCharsets.UTF_8);
+        Files.writeString(
+                reportPath,
+                new GsonBuilder().setPrettyPrinting().create().toJson(report),
+                StandardCharsets.UTF_8
+        );
+
         JsonObject missing = new JsonObject();
         missing.addProperty("generated_at", Instant.now().toString());
         missing.addProperty("failed", failures.size());
         missing.add("missing", failures);
-        Files.writeString(generated.resolve("missing-renders.json"), new GsonBuilder().setPrettyPrinting().create().toJson(missing), StandardCharsets.UTF_8);
-        return new RenderReport(report.get("total_fish").getAsInt(), successful, jobs.size() - successful, variants, reportPath);
+        Files.writeString(
+                generated.resolve("missing-renders.json"),
+                new GsonBuilder().setPrettyPrinting().create().toJson(missing),
+                StandardCharsets.UTF_8
+        );
+
+        return new RenderReport(
+                report.get("total_fish").getAsInt(),
+                successful,
+                jobs.size() - successful,
+                variants,
+                reportPath
+        );
     }
 
     private RenderResult renderOne(Job job, boolean writePng) throws Exception {
         String ns = namespace(job.entry().fishId());
         if ("hybrid_aquatic".equals(ns) || "crittersandcompanions".equals(ns)) {
             if (!"default".equalsIgnoreCase(job.variant())) {
-                throw new IllegalStateException("Direct entity renderer only supports source-authentic default state for " + job.entry().fishId());
+                throw new IllegalStateException(
+                        "Direct entity renderer only supports source-authentic default state for " + job.entry().fishId()
+                );
             }
             return renderDirectEntity(job, writePng);
         }
@@ -141,81 +202,153 @@ final class RenderService {
 
     private RenderResult renderFishDisplay(Job job, boolean writePng) throws Exception {
         Identifier itemId = Identifier.of(job.entry().itemId());
-        if (!Registries.ITEM.containsId(itemId)) throw new IllegalStateException("Missing ItemStack item: " + itemId);
+        if (!Registries.ITEM.containsId(itemId)) {
+            throw new IllegalStateException("Missing ItemStack item: " + itemId);
+        }
         Item item = Registries.ITEM.get(itemId);
         ItemStack stack = new ItemStack(item);
         TideborneVariantSupport.VariantSpec spec = TideborneVariantSupport.apply(stack, job.variant(), job.entry());
         TideItemData.FISH_LENGTH.set(stack, spec.lengthCm());
-        FishData data = FishData.getExact(stack).orElseThrow(() -> new IllegalStateException("Tide FishData is not registered for " + itemId));
-        if (data.display().isEmpty()) throw new IllegalStateException("Tide FishData has no DisplayData for " + itemId);
+        FishData data = FishData.getExact(stack)
+                .orElseThrow(() -> new IllegalStateException("Tide FishData is not registered for " + itemId));
+        if (data.display().isEmpty()) {
+            throw new IllegalStateException("Tide FishData has no DisplayData for " + itemId);
+        }
 
         Identifier displayBlockId = Identifier.of("tide:fish_display");
-        if (!Registries.BLOCK.containsId(displayBlockId)) throw new IllegalStateException("Tide fish display block is not registered");
+        if (!Registries.BLOCK.containsId(displayBlockId)) {
+            throw new IllegalStateException("Tide fish display block is not registered");
+        }
         Block block = Registries.BLOCK.get(displayBlockId);
         BlockState state = block.getDefaultState();
         FishDisplayBlockEntity display = new FishDisplayBlockEntity(BlockPos.ORIGIN, state);
-        if (!display.setDisplayStack(stack)) throw new IllegalStateException("Fish Display rejected stack: " + itemId);
-        if (display.getDisplayData() == null) throw new IllegalStateException("No DisplayData for " + job.entry().fishId());
-        if (display.getDisplayData().entityType() == null) throw new IllegalStateException("DisplayData has no entity type for " + job.entry().fishId());
+        if (!display.setDisplayStack(stack)) {
+            throw new IllegalStateException("Fish Display rejected stack: " + itemId);
+        }
+        if (display.getDisplayData() == null) {
+            throw new IllegalStateException("No DisplayData for " + job.entry().fishId());
+        }
+        if (display.getDisplayData().entityType() == null) {
+            throw new IllegalStateException("DisplayData has no entity type for " + job.entry().fishId());
+        }
 
         NativeImage image = null;
         ImageOps.Bounds bounds = null;
         Identifier resolvedEntityId = null;
         float scale = 0.75f;
         for (int pass = 0; pass < 7; pass++) {
-            if (image != null) image.close();
+            if (image != null) {
+                image.close();
+            }
             FrameResult frame = renderDisplayFramebuffer(display, scale);
             image = frame.image();
             resolvedEntityId = frame.entityId();
             bounds = ImageOps.alphaBounds(image);
-            if (bounds == null) throw new IllegalStateException("Framebuffer produced zero alpha pixels");
-            if (bounds.touches(image.getWidth(), image.getHeight(), EDGE_MARGIN)) { scale *= 0.72f; continue; }
+            if (bounds == null) {
+                throw new IllegalStateException("Framebuffer produced zero alpha pixels");
+            }
+            if (bounds.touches(image.getWidth(), image.getHeight(), EDGE_MARGIN)) {
+                scale *= 0.72f;
+                continue;
+            }
             double occupancy = bounds.occupancy(image.getWidth(), image.getHeight());
-            if (occupancy < 0.46 && pass < 5) { scale *= (float) Math.min(1.85, TARGET_OCCUPANCY / Math.max(occupancy, 0.05)); continue; }
+            if (occupancy < 0.46 && pass < 5) {
+                scale *= (float) Math.min(1.85, TARGET_OCCUPANCY / Math.max(occupancy, 0.05));
+                continue;
+            }
             break;
         }
-        if (bounds == null || image == null || resolvedEntityId == null) throw new IllegalStateException("No rendered silhouette");
+
+        if (bounds == null || image == null || resolvedEntityId == null) {
+            throw new IllegalStateException("No rendered silhouette");
+        }
         Path output = renderPath(job);
-        if (writePng) try (NativeImage cropped = ImageOps.cropWithPadding(image, bounds, PADDING)) { ImageOps.write(cropped, output); }
+        if (writePng) {
+            try (NativeImage cropped = ImageOps.cropWithPadding(image, bounds, PADDING)) {
+                ImageOps.write(cropped, output);
+            }
+        }
         image.close();
-        return new RenderResult(writePng ? output : null, bounds, spec.lengthCm(), resolvedEntityId, "tide_fish_display");
+        return new RenderResult(
+                writePng ? output : null,
+                bounds,
+                spec.lengthCm(),
+                resolvedEntityId,
+                "tide_fish_display"
+        );
     }
 
     private RenderResult renderDirectEntity(Job job, boolean writePng) throws Exception {
         String rawEntityId = job.entry().entityId();
-        Identifier expectedId = Identifier.of(rawEntityId == null || rawEntityId.isBlank() ? job.entry().fishId() : rawEntityId);
-        if (!Registries.ENTITY_TYPE.containsId(expectedId)) throw new IllegalStateException("Missing entity type: " + expectedId);
+        Identifier expectedId = Identifier.of(
+                rawEntityId == null || rawEntityId.isBlank() ? job.entry().fishId() : rawEntityId
+        );
+        if (!Registries.ENTITY_TYPE.containsId(expectedId)) {
+            throw new IllegalStateException("Missing entity type: " + expectedId);
+        }
         EntityType<?> type = Registries.ENTITY_TYPE.get(expectedId);
         Entity entity = type.create(client.world);
-        if (entity == null) throw new IllegalStateException("Entity type could not create client entity: " + expectedId);
+        if (entity == null) {
+            throw new IllegalStateException("Entity type could not create client entity: " + expectedId);
+        }
 
         Identifier resolved = Registries.ENTITY_TYPE.getId(entity.getType());
-        if (!expectedId.equals(resolved)) throw new IllegalStateException("Entity type resolved mismatch: expected=" + expectedId + " actual=" + resolved);
+        if (!expectedId.equals(resolved)) {
+            throw new IllegalStateException(
+                    "Entity type resolved mismatch: expected=" + expectedId + " actual=" + resolved
+            );
+        }
         String rendererClass = client.getEntityRenderDispatcher().getRenderer(entity).getClass().getName();
-        System.out.println("FISHRENDER_ENTITY_DIRECT fish=" + job.entry().fishId()
-                + " entity=" + resolved
-                + " renderer=" + rendererClass
-                + " projection=ortho yaw=90 matrix_y=90");
+        System.out.println(
+                "FISHRENDER_ENTITY_DIRECT fish=" + job.entry().fishId()
+                        + " entity=" + resolved
+                        + " renderer=" + rendererClass
+                        + " projection=ortho yaw=" + DIRECT_ENTITY_DISPATCHER_YAW
+                        + " matrix_y=" + DIRECT_ENTITY_MATRIX_YAW
+        );
 
         NativeImage image = null;
         ImageOps.Bounds bounds = null;
         float scale = 0.72f;
         for (int pass = 0; pass < 8; pass++) {
-            if (image != null) image.close();
+            if (image != null) {
+                image.close();
+            }
             FrameResult frame = renderEntityFramebuffer(entity, scale);
             image = frame.image();
             bounds = ImageOps.alphaBounds(image);
-            if (bounds == null) throw new IllegalStateException("Direct entity framebuffer produced zero alpha pixels: " + expectedId);
-            if (bounds.touches(image.getWidth(), image.getHeight(), EDGE_MARGIN)) { scale *= 0.70f; continue; }
+            if (bounds == null) {
+                throw new IllegalStateException("Direct entity framebuffer produced zero alpha pixels: " + expectedId);
+            }
+            if (bounds.touches(image.getWidth(), image.getHeight(), EDGE_MARGIN)) {
+                scale *= 0.70f;
+                continue;
+            }
             double occupancy = bounds.occupancy(image.getWidth(), image.getHeight());
-            if (occupancy < 0.46 && pass < 6) { scale *= (float) Math.min(1.80, TARGET_OCCUPANCY / Math.max(occupancy, 0.05)); continue; }
+            if (occupancy < 0.46 && pass < 6) {
+                scale *= (float) Math.min(1.80, TARGET_OCCUPANCY / Math.max(occupancy, 0.05));
+                continue;
+            }
             break;
         }
-        if (bounds == null || image == null) throw new IllegalStateException("No rendered silhouette for direct entity: " + expectedId);
+
+        if (bounds == null || image == null) {
+            throw new IllegalStateException("No rendered silhouette for direct entity: " + expectedId);
+        }
         Path output = renderPath(job);
-        if (writePng) try (NativeImage cropped = ImageOps.cropWithPadding(image, bounds, PADDING)) { ImageOps.write(cropped, output); }
+        if (writePng) {
+            try (NativeImage cropped = ImageOps.cropWithPadding(image, bounds, PADDING)) {
+                ImageOps.write(cropped, output);
+            }
+        }
         image.close();
-        return new RenderResult(writePng ? output : null, bounds, job.entry().representativeLengthCm(), resolved, "minecraft_entity_dispatcher");
+        return new RenderResult(
+                writePng ? output : null,
+                bounds,
+                job.entry().representativeLengthCm(),
+                resolved,
+                "minecraft_entity_dispatcher"
+        );
     }
 
     private FrameResult renderDisplayFramebuffer(FishDisplayBlockEntity display, float scale) throws IOException {
@@ -226,15 +359,28 @@ final class RenderService {
             MatrixStack matrices = new MatrixStack();
             matrices.translate(-0.5, -0.5, -0.5);
             FishDisplayRenderer renderer = new FishDisplayRenderer(client.getEntityRenderDispatcher());
-            renderer.render(display, 0f, matrices, consumers, LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV);
+            renderer.render(
+                    display,
+                    0f,
+                    matrices,
+                    consumers,
+                    LightmapTextureManager.MAX_LIGHT_COORDINATE,
+                    OverlayTexture.DEFAULT_UV
+            );
             Entity renderedEntity = display.getRenderedEntity();
-            if (renderedEntity == null) throw new IllegalStateException("Tide Fish Display did not create a rendered entity");
+            if (renderedEntity == null) {
+                throw new IllegalStateException("Tide Fish Display did not create a rendered entity");
+            }
             Identifier entityId = Registries.ENTITY_TYPE.getId(renderedEntity.getType());
-            if (entityId == null || !RegistryLoader.isScopedNamespace(entityId.getNamespace())) throw new IllegalStateException("Tide FishData resolved an out-of-scope entity: " + entityId);
-            System.out.println("FISHRENDER_ENTITY fish=" + display.getDisplayStack().getItem()
-                    + " entity=" + renderedEntity.getType()
-                    + " renderer=" + client.getEntityRenderDispatcher().getRenderer(renderedEntity).getClass().getName()
-                    + " projection=ortho");
+            if (entityId == null || !RegistryLoader.isScopedNamespace(entityId.getNamespace())) {
+                throw new IllegalStateException("Tide FishData resolved an out-of-scope entity: " + entityId);
+            }
+            System.out.println(
+                    "FISHRENDER_ENTITY fish=" + display.getDisplayStack().getItem()
+                            + " entity=" + renderedEntity.getType()
+                            + " renderer=" + client.getEntityRenderDispatcher().getRenderer(renderedEntity).getClass().getName()
+                            + " projection=ortho"
+            );
             consumers.draw();
             return new FrameResult(readFrame(context.framebuffer()), entityId);
         } finally {
@@ -248,18 +394,16 @@ final class RenderService {
         client.getEntityRenderDispatcher().setRenderShadows(false);
         try {
             MatrixStack matrices = new MatrixStack();
-            // GeckoLib fish renderers use the entity/model transform rather than the
-            // EntityRenderDispatcher yaw argument for their meaningful facing. Rotate
-            // the complete pose 90 degrees around Y so Minecraft's default front view
-            // becomes the side profile used by Tide fish displays and the wiki.
-            matrices.multiply(net.minecraft.util.math.RotationAxis.POSITIVE_Y.rotationDegrees(90.0f));
+            matrices.multiply(
+                    net.minecraft.util.math.RotationAxis.POSITIVE_Y.rotationDegrees(DIRECT_ENTITY_MATRIX_YAW)
+            );
             double y = -Math.max(0.05, entity.getHeight()) * 0.5;
             client.getEntityRenderDispatcher().render(
                     entity,
                     0.0,
                     y,
                     0.0,
-                    90.0f,
+                    DIRECT_ENTITY_DISPATCHER_YAW,
                     0.0f,
                     matrices,
                     consumers,
@@ -279,6 +423,7 @@ final class RenderService {
         Matrix4fStack modelView = RenderSystem.getModelViewStack();
         int previousWidth = client.getFramebuffer().textureWidth;
         int previousHeight = client.getFramebuffer().textureHeight;
+
         SimpleFramebuffer framebuffer = new SimpleFramebuffer(SOURCE_SIZE, SOURCE_SIZE, true, true);
         framebuffer.setClearColor(0f, 0f, 0f, 0f);
         framebuffer.setTexFilter(GL11.GL_NEAREST);
@@ -286,14 +431,24 @@ final class RenderService {
         framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
         framebuffer.beginWrite(true);
         RenderSystem.viewport(0, 0, SOURCE_SIZE, SOURCE_SIZE);
-        RenderSystem.setProjectionMatrix(new Matrix4f().setOrtho(-1.0f, 1.0f, -1.0f, 1.0f, -1000.0f, 3000.0f), VertexSorter.BY_DISTANCE);
+        RenderSystem.setProjectionMatrix(
+                new Matrix4f().setOrtho(-1.0f, 1.0f, -1.0f, 1.0f, -1000.0f, 3000.0f),
+                VertexSorter.BY_DISTANCE
+        );
         modelView.pushMatrix();
         modelView.identity();
         modelView.scale(scale, scale, scale);
         RenderSystem.applyModelViewMatrix();
         RenderSystem.enableDepthTest();
         RenderSystem.depthMask(true);
-        return new FrameContext(framebuffer, previousProjection, previousVertexSorting, modelView, previousWidth, previousHeight);
+        return new FrameContext(
+                framebuffer,
+                previousProjection,
+                previousVertexSorting,
+                modelView,
+                previousWidth,
+                previousHeight
+        );
     }
 
     private NativeImage readFrame(SimpleFramebuffer framebuffer) {
@@ -330,10 +485,18 @@ final class RenderService {
 
     private static String classify(Exception exception) {
         String message = String.valueOf(exception.getMessage()).toLowerCase();
-        if (message.contains("item")) return "missing_item";
-        if (message.contains("entity type") || message.contains("entity")) return "missing_entity_or_renderer";
-        if (message.contains("alpha") || message.contains("silhouette")) return "empty_framebuffer";
-        if (message.contains("tideborne") || message.contains("component")) return "variant_setup";
+        if (message.contains("item")) {
+            return "missing_item";
+        }
+        if (message.contains("entity type") || message.contains("entity")) {
+            return "missing_entity_or_renderer";
+        }
+        if (message.contains("alpha") || message.contains("silhouette")) {
+            return "empty_framebuffer";
+        }
+        if (message.contains("tideborne") || message.contains("component")) {
+            return "variant_setup";
+        }
         return "exception";
     }
 
@@ -347,10 +510,29 @@ final class RenderService {
         return renders.resolve(base + suffix + ".png");
     }
 
-    private static String namespace(String id) { int i = id.indexOf(':'); return i < 0 ? "minecraft" : id.substring(0, i); }
+    private static String namespace(String id) {
+        int i = id.indexOf(':');
+        return i < 0 ? "minecraft" : id.substring(0, i);
+    }
+
     private record Job(RegistryLoader.Entry entry, String variant) {}
-    private record RenderResult(Path png, ImageOps.Bounds bounds, double lengthCm, Identifier entityId, String renderMode) {}
+
+    private record RenderResult(
+            Path png,
+            ImageOps.Bounds bounds,
+            double lengthCm,
+            Identifier entityId,
+            String renderMode
+    ) {}
+
     private record FrameResult(NativeImage image, Identifier entityId) {}
-    private record FrameContext(SimpleFramebuffer framebuffer, Matrix4f previousProjection, VertexSorter previousVertexSorting,
-                                Matrix4fStack modelView, int previousWidth, int previousHeight) {}
+
+    private record FrameContext(
+            SimpleFramebuffer framebuffer,
+            Matrix4f previousProjection,
+            VertexSorter previousVertexSorting,
+            Matrix4fStack modelView,
+            int previousWidth,
+            int previousHeight
+    ) {}
 }
