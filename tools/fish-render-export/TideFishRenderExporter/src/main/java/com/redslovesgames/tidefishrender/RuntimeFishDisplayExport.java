@@ -155,7 +155,7 @@ final class RuntimeFishDisplayExport {
 
         Item item = Registries.ITEM.get(itemId);
         ItemStack stack = new ItemStack(item);
-        TideborneVariantSupport.VariantSpec variantSpec = TideborneVariantSupport.apply(stack, variant, entry.asRegistryEntry());
+        TideborneVariantSupport.VariantSpec variantSpec = TideborneVariantSupport.apply(stack, variant, entry);
         TideItemData.FISH_LENGTH.set(stack, variantSpec.lengthCm());
 
         FishData data = FishData.getExact(stack).orElseThrow(() -> new RenderFailureException(
