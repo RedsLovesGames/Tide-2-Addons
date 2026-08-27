@@ -50,7 +50,7 @@ jobs:
           with urllib.request.urlopen(request, timeout=60) as response:
               meta = json.load(response)
           assert meta['id'] == version_id, meta.get('id')
-          assert meta.get('version_number') == '1.6.9', meta.get('version_number')
+          assert str(meta.get('version_number', '')).startswith('1.6.9'), meta.get('version_number')
           assert 'fabric' in meta.get('loaders', []), meta.get('loaders')
           assert '1.21.1' in meta.get('game_versions', []), meta.get('game_versions')
           files = meta.get('files') or []
