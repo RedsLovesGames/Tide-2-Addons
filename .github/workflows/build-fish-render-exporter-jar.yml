@@ -1,4 +1,4 @@
-name: Build Tide Fish Exporter Drop-In JAR
+name: Build Tide Fish Runtime Exporter JAR
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: fish-exporter-drop-in-${{ github.ref }}
+  group: fish-runtime-exporter-jar-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -38,22 +38,26 @@ jobs:
       - name: Build remapped drop-in JAR
         run: gradle --no-daemon clean build
 
-      - name: Verify drop-in JAR
+      - name: Verify runtime-only drop-in JAR
         run: |
           set -euo pipefail
           JAR=$(find build/libs -maxdepth 1 -type f -name 'tide-fish-render-exporter-*.jar' ! -name '*-sources.jar' | head -1)
           test -n "$JAR"
-          jar tf "$JAR" | grep -F 'fabric.mod.json'
-          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeEnvironment.class'
-          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeBundleAutoInitializer.class'
-          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeBundleExporter.class'
-          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeFishCatalog.class'
-          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeFishDisplayExport.class'
+          LIST=$(mktemp)
+          jar tf "$JAR" > "$LIST"
+          grep -F 'fabric.mod.json' "$LIST"
+          for cls in RuntimeEnvironment RuntimeBundleAutoInitializer RuntimeBundleExporter RuntimeFishCatalog RuntimeFishDisplayExport TideborneVariantSupport ImageOps RenderFailureCode RenderFailureException; do
+            grep -F "com/redslovesgames/tidefishrender/${cls}.class" "$LIST"
+          done
+          for legacy in TideFishRenderExporter RenderCommands RenderService RegistryLoader RenderReport RenderTargetOverride; do
+            ! grep -Fq "com/redslovesgames/tidefishrender/${legacy}.class" "$LIST"
+          done
+          ! grep -Fq 'fishrender/fish-render-registry.json' "$LIST"
           echo "DROP_IN_JAR=$JAR"
 
       - uses: actions/upload-artifact@v4
         with:
-          name: tide-fish-render-exporter-drop-in
+          name: tide-fish-runtime-exporter-drop-in
           path: tools/fish-render-export/TideFishRenderExporter/build/libs/tide-fish-render-exporter-*.jar
           if-no-files-found: error
           retention-days: 14
