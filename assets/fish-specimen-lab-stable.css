@@ -1,12 +1,18 @@
-/* Stable specimen lab layout. No JS observers or runtime style injection. */
+/* Stable specimen lab layout. Visual-only layer: no JS observers or runtime style injection. */
 #fish-highlight-layer .fish-lab-workspace-stable{display:block!important}
 #fish-highlight-layer .fish-lab-specimen-card{width:100%!important;min-width:0!important;background:#081b28!important;box-shadow:none!important}
-#fish-highlight-layer .fish-lab-render-stage{height:clamp(500px,62vh,700px)!important;min-height:500px!important;margin-top:14px!important;background:#071a27!important}
-#fish-highlight-layer .fish-lab-render-shell{left:3%!important;right:3%!important;top:6%!important;bottom:16%!important}
-#fish-highlight-layer .fish-lab-water-grid{opacity:.12!important;background-size:40px 40px!important}
+#fish-highlight-layer .fish-lab-render-stage{height:clamp(500px,62vh,700px)!important;min-height:500px!important;margin-top:14px!important;overflow:hidden!important;background:radial-gradient(ellipse at 50% 48%,rgba(42,133,139,.13),transparent 42%),linear-gradient(180deg,#081d2a 0%,#061823 70%,#05151f 100%)!important}
+#fish-highlight-layer .fish-lab-render-shell{left:3%!important;right:3%!important;top:6%!important;bottom:18%!important;z-index:4!important}
+#fish-highlight-layer .fish-lab-render-shell::before{content:"";position:absolute;left:50%;top:50%;width:min(44vw,720px);height:min(18vw,260px);translate:-50% -50%;border-radius:50%;pointer-events:none;background:radial-gradient(ellipse,rgba(78,222,211,.075),rgba(43,145,149,.025) 42%,transparent 72%);filter:blur(10px)}
+#fish-highlight-layer .fish-lab-water-grid{z-index:1!important;opacity:.34!important;background-image:linear-gradient(rgba(73,153,159,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(73,153,159,.055) 1px,transparent 1px)!important;background-size:40px 40px!important;mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),rgba(0,0,0,.42) 75%,transparent 98%)!important}
+#fish-highlight-layer .fish-lab-water-grid::before,#fish-highlight-layer .fish-lab-water-grid::after{content:"";position:absolute;left:50%;top:47%;translate:-50% -50%;pointer-events:none;border:1px solid rgba(91,222,214,.10);border-radius:50%}
+#fish-highlight-layer .fish-lab-water-grid::before{width:min(56vw,930px);height:min(23vw,380px);box-shadow:0 0 48px rgba(48,177,175,.025)}
+#fish-highlight-layer .fish-lab-water-grid::after{width:min(34vw,560px);height:min(34vw,560px);border-style:dashed;border-color:rgba(91,222,214,.075)}
 #fish-highlight-layer .fish-lab-orbit{display:none!important;animation:none!important}
-#fish-highlight-layer .fish-lab-render-stage::after{display:none!important;content:none!important}
-#fish-highlight-layer .fish-lab-render-shell img{max-width:none!important;max-height:none!important;filter:none!important;transition:none!important;animation:none!important}
+#fish-highlight-layer .fish-lab-render-stage::after{content:""!important;display:block!important;position:absolute;z-index:2;left:50%;bottom:0;width:calc(100% - 120px);height:74px;translate:-50% 0;pointer-events:none;border-top:1px solid rgba(113,218,203,.32);background-image:repeating-linear-gradient(90deg,transparent 0 calc(16.6666667% - 2px),rgba(3,18,24,.82) calc(16.6666667% - 2px) 16.6666667%),linear-gradient(180deg,rgba(117,194,177,.24) 0 9%,rgba(46,102,94,.12) 9% 15%,transparent 15%),repeating-linear-gradient(135deg,#356d66 0 13px,#4d887a 13px 25px,#2b5c59 25px 37px,#5b9483 37px 49px,#376e68 49px 62px);box-shadow:0 -9px 24px rgba(47,161,151,.055),inset 0 8px rgba(123,208,191,.045);opacity:.88;image-rendering:pixelated}
+#fish-highlight-layer .fish-lab-render-shell img{position:relative;z-index:2;max-width:none!important;max-height:none!important;filter:drop-shadow(0 12px 18px rgba(0,0,0,.30)) drop-shadow(0 0 12px rgba(73,199,193,.07))!important;transition:none!important;animation:none!important}
+#fish-highlight-layer .fish-lab-scale-reference{z-index:5!important;bottom:83px!important}
+#fish-highlight-layer .fish-lab-render-meta{z-index:5!important;bottom:84px!important}
 #fish-highlight-layer .fish-lab-ruler{transition:none!important}
 #fish-highlight-layer .fish-lab-console-stable{display:block!important;width:100%!important;margin-top:14px!important;padding:13px!important;border:1px solid #285467!important;border-radius:12px!important;background:#081b28!important;box-shadow:none!important}
 #fish-highlight-layer .fish-lab-control-panel-head{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:18px!important;margin-bottom:12px!important;padding-bottom:10px!important;border-bottom:1px solid #234957!important}
@@ -23,9 +29,9 @@
 #fish-highlight-layer .fish-lab-breakdown .fish-lab-fact{background:transparent!important;padding:7px 9px!important}
 #fish-highlight-layer .fish-lab-multiplier{margin-top:8px!important}
 #fish-highlight-layer .fish-lab-panel,#fish-highlight-layer .fish-lab-accordion{background:#081b28!important;box-shadow:none!important}
-#fish-highlight-layer .fish-lab-ruler-ticks{opacity:.65!important}
-#fish-highlight-layer .fish-lab-block-icon{box-shadow:none!important}
+#fish-highlight-layer .fish-lab-ruler-ticks{opacity:.74!important}
+#fish-highlight-layer .fish-lab-block-icon{box-shadow:0 0 12px rgba(72,200,190,.08)!important}
 #fish-highlight-layer .fish-highlight-modal{background:#061722!important;box-shadow:0 24px 70px rgba(0,0,0,.46)!important}
 #fish-highlight-layer .fish-highlight-modal::before{display:none!important}
 @media(max-width:1050px){#fish-highlight-layer .fish-lab-control-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}#fish-highlight-layer .fish-lab-control-grid .fish-lab-control-group:nth-child(2){border-right:0!important}#fish-highlight-layer .fish-lab-control-grid .fish-lab-control-group:nth-child(-n+2){border-bottom:1px solid #234957!important}}
-@media(max-width:700px){#fish-highlight-layer .fish-lab-render-stage{height:400px!important;min-height:400px!important}#fish-highlight-layer .fish-lab-control-panel-head{align-items:flex-start!important;flex-direction:column!important}#fish-highlight-layer .fish-lab-control-grid{grid-template-columns:1fr!important}#fish-highlight-layer .fish-lab-control-grid .fish-lab-control-group{border-right:0!important;border-bottom:1px solid #234957!important}#fish-highlight-layer .fish-lab-control-grid .fish-lab-control-group:last-child{border-bottom:0!important}}
+@media(max-width:700px){#fish-highlight-layer .fish-lab-render-stage{height:400px!important;min-height:400px!important}#fish-highlight-layer .fish-lab-render-stage::after{width:calc(100% - 36px);height:54px}#fish-highlight-layer .fish-lab-scale-reference,#fish-highlight-layer .fish-lab-render-meta{bottom:61px!important}#fish-highlight-layer .fish-lab-control-panel-head{align-items:flex-start!important;flex-direction:column!important}#fish-highlight-layer .fish-lab-control-grid{grid-template-columns:1fr!important}#fish-highlight-layer .fish-lab-control-grid .fish-lab-control-group{border-right:0!important;border-bottom:1px solid #234957!important}#fish-highlight-layer .fish-lab-control-grid .fish-lab-control-group:last-child{border-bottom:0!important}}
