@@ -5,6 +5,8 @@ on:
     branches: [dev]
     paths:
       - scripts/build-fish-wiki.py
+      - tools/fish-render-source/source-manifest.json
+      - tools/fish-render-source/download_sources.py
       - assets/fish-wiki-data-0.json.gz
       - assets/fish-wiki-data-1.json.gz
       - assets/fish-search-index.json
@@ -13,6 +15,8 @@ on:
     branches: [main]
     paths:
       - scripts/build-fish-wiki.py
+      - tools/fish-render-source/source-manifest.json
+      - tools/fish-render-source/download_sources.py
       - assets/fish-wiki-data-0.json.gz
       - assets/fish-wiki-data-1.json.gz
       - assets/fish-search-index.json
@@ -31,39 +35,48 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Download authoritative sources
-        shell: bash
+      - name: Download pinned Tide FishData sources
         run: |
           set -euo pipefail
-          mkdir -p /tmp/fishsrc/extra /tmp/fishsrc/tide
-          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/goMfyYSL/versions/Uz6Vlhjs/Tide%20Extra%20Compatibility%202.2.zip' -o /tmp/extra.zip
-          unzip -q /tmp/extra.zip -d /tmp/fishsrc/extra
-          curl --fail --location --retry 3 'https://github.com/Lightning-64/Tide-2/archive/876b95f31328f4e698d5150f7d840ab033d1b06d.zip' -o /tmp/tide.zip
-          unzip -q /tmp/tide.zip -d /tmp/fishsrc/tide
-          TIDE_ROOT="$(find /tmp/fishsrc/tide -type d -path '*/src/generated-1.21.1/resources' -print -quit)"
-          test -n "$TIDE_ROOT"
-          echo "TIDE_ROOT=$TIDE_ROOT" >> "$GITHUB_ENV"
+          rm -rf /tmp/fishsrc
+          mkdir -p /tmp/fishsrc/mods /tmp/fishsrc/tide /tmp/fishsrc/extra
+          python tools/fish-render-source/download_sources.py \
+            --manifest tools/fish-render-source/source-manifest.json \
+            --id tide \
+            --id tide_extra_compatibility \
+            --out /tmp/fishsrc/mods \
+            --resolved-manifest /tmp/fishsrc/resolved.json
+          python - <<'PY'
+          import json, pathlib, zipfile
+          root = pathlib.Path('/tmp/fishsrc')
+          resolved = json.loads((root / 'resolved.json').read_text())
+          by_id = {row['id']: row for row in resolved['sources']}
+          for source_id, dest in [('tide', 'tide'), ('tide_extra_compatibility', 'extra')]:
+              row = by_id[source_id]
+              archive = root / 'mods' / row['filename']
+              with zipfile.ZipFile(archive) as z:
+                  z.extractall(root / dest)
+          print('FISH_WIKI_SOURCE_ARCHIVES_OK', {k: by_id[k]['resolved_sha256'] for k in by_id})
+          PY
 
       - name: Generate Fish Wiki payload into temporary output
         run: |
+          rm -rf /tmp/fish-build-out
           mkdir -p /tmp/fish-build-out
           python scripts/build-fish-wiki.py \
-            --tide-root "$TIDE_ROOT" \
+            --tide-root /tmp/fishsrc/tide \
             --extra-root /tmp/fishsrc/extra \
             --out /tmp/fish-build-out \
             --report /tmp/fish-build-report.txt
 
-      - name: Validate generated payload
+      - name: Validate deterministic generated payload
         shell: bash
         run: |
           set -euo pipefail
           python -m pip install --quiet Pillow
-          cp assets/fish-wiki-data-0.json.gz /tmp/committed-0.gz
-          cp assets/fish-wiki-data-1.json.gz /tmp/committed-1.gz
-          cp assets/fish-search-index.json /tmp/committed-search.json
-          cmp /tmp/fish-build-out/fish-wiki-data-0.json.gz /tmp/committed-0.gz
-          cmp /tmp/fish-build-out/fish-wiki-data-1.json.gz /tmp/committed-1.gz
-          cmp /tmp/fish-build-out/fish-search-index.json /tmp/committed-search.json
+          cmp /tmp/fish-build-out/fish-wiki-data-0.json.gz assets/fish-wiki-data-0.json.gz
+          cmp /tmp/fish-build-out/fish-wiki-data-1.json.gz assets/fish-wiki-data-1.json.gz
+          cmp /tmp/fish-build-out/fish-search-index.json assets/fish-search-index.json
           python scripts/validate-fish-wiki.py
           echo 'FISH_WIKI_REPRODUCIBLE=1'
 
@@ -75,5 +88,6 @@ jobs:
           path: |
             /tmp/fish-build-out/
             /tmp/fish-build-report.txt
+            /tmp/fishsrc/resolved.json
           if-no-files-found: warn
           retention-days: 14
