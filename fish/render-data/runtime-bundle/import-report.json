@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "bundle": "fish/render-bundles/current-runtime-export.zip",
+  "bundleSha256": "b667605d30cdcf7ce15456969ae2e35aa912981285d17206989c11b1b616b971",
+  "fish": 157,
+  "renderFiles": 1050,
+  "successfulRenderJobs": 1050,
+  "failedRenderJobs": 49,
+  "fishWithFailures": [
+    "crittersandcompanions:clam",
+    "hybrid_aquatic:anglerfish",
+    "hybrid_aquatic:carp",
+    "hybrid_aquatic:coelacanth",
+    "hybrid_aquatic:mackerel",
+    "hybrid_aquatic:mahi",
+    "hybrid_aquatic:tuna"
+  ],
+  "fishWithoutNormalRender": [
+    "crittersandcompanions:clam",
+    "hybrid_aquatic:anglerfish",
+    "hybrid_aquatic:carp",
+    "hybrid_aquatic:coelacanth",
+    "hybrid_aquatic:mackerel",
+    "hybrid_aquatic:mahi",
+    "hybrid_aquatic:tuna"
+  ],
+  "successfulByVariant": {
+    "albino": 150,
+    "dwarf": 150,
+    "giant": 150,
+    "iridescent": 150,
+    "normal": 150,
+    "parasite_ridden": 150,
+    "scarred": 150
+  },
+  "failedByVariant": {
+    "albino": 7,
+    "dwarf": 7,
+    "giant": 7,
+    "iridescent": 7,
+    "normal": 7,
+    "parasite_ridden": 7,
+    "scarred": 7
+  },
+  "canonicalRenderer": "com.li64.tide.client.FishDisplayRenderer",
+  "directEntityFallback": false
+}

@@ -1,0 +1,5013 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-27T10:41:17.502074600Z",
+  "fingerprint": "5904c1bcdebb76f812e1eec4ac94a171943645dfb609cfdf2d417dfc72fed353",
+  "minecraft_version": "1.21.1",
+  "mods": [
+    {
+      "id": "additionaladditions",
+      "name": "Additional Additions",
+      "version": "10.0.5",
+      "origins": [
+        {
+          "file": "additionaladditions-fabric-10.0.5.jar",
+          "kind": "file",
+          "sha256": "101e0d57edc16dcaaada13c9fdec5a179fd508d506aec4380401d113c8bfc6a9"
+        }
+      ]
+    },
+    {
+      "id": "additionalentityattributes",
+      "name": "Additional Entity Attributes",
+      "version": "1.8.0+1.21",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "apoli",
+          "parent_sub_location": "META-INF/jars/additionalentityattributes-1.8.0+1.21.jar"
+        }
+      ]
+    },
+    {
+      "id": "addonslib",
+      "name": "AddonsLib",
+      "version": "1.21.1-1.14",
+      "origins": [
+        {
+          "file": "addonslib-fabric-1.21.1-1.14.jar",
+          "kind": "file",
+          "sha256": "382f03743e6f2589cf6fb94bc242ee63c6f3814a2b19e84630b0e041d819ad46"
+        }
+      ]
+    },
+    {
+      "id": "adventurez",
+      "name": "AdventureZ",
+      "version": "1.5.0",
+      "origins": [
+        {
+          "file": "adventurez-1.5.0.jar",
+          "kind": "file",
+          "sha256": "a9cca7d09e7392c8d61c6130e6a311b74eb66ba54aa48ff4c1b4bffb04ea5982"
+        }
+      ]
+    },
+    {
+      "id": "aircraft_cursor",
+      "name": "Aircraft Cursor",
+      "version": "1.0.0",
+      "origins": [
+        {
+          "file": "aircraft_cursor-1.0.0.jar",
+          "kind": "file",
+          "sha256": "1aee5720d419a200481c9cc744458fdcd7e5bbec4c48938b16a34f02ff1480fa"
+        }
+      ]
+    },
+    {
+      "id": "almanac",
+      "name": "Almanac",
+      "version": "1.5.2",
+      "origins": [
+        {
+          "file": "Almanac-1.21.1-2-fabric-1.5.2.jar",
+          "kind": "file",
+          "sha256": "fe375dc91dc9d10071090b989f7296dbddc968feb7bb24cf3b92ef2aed217d93"
+        }
+      ]
+    },
+    {
+      "id": "ambientsounds",
+      "name": "AmbientSounds",
+      "version": "6.3.8",
+      "origins": [
+        {
+          "file": "AmbientSounds_FABRIC_v6.3.8_mc1.21.1.jar",
+          "kind": "file",
+          "sha256": "5735c1923e3fe860bc074d9a6151443e9d284a7cd84622c470eadc6269bc5577"
+        }
+      ]
+    },
+    {
+      "id": "amplified_nether",
+      "name": "Amplified Nether",
+      "version": "1.2.16",
+      "origins": [
+        {
+          "file": "Amplified_Nether_26.2_v1.2.16.jar",
+          "kind": "file",
+          "sha256": "fc49dc7f0b9e4cef665e60a97f29b5589025fb9e19b13222d9767e178093eaed"
+        }
+      ]
+    },
+    {
+      "id": "animal_pen",
+      "name": "Animal Pen",
+      "version": "2.4.3",
+      "origins": [
+        {
+          "file": "animal_pen-fabric-1.21-2.4.3.jar",
+          "kind": "file",
+          "sha256": "23a9a13a60213a8c2f5253e430528f778a219cfe104584ce27e48529ef99f7e9"
+        }
+      ]
+    },
+    {
+      "id": "animalgarden_narwhal",
+      "name": "animalgarden_narwhal",
+      "version": "1.0.0",
+      "origins": [
+        {
+          "file": "animalgarden-narwhal-1.0.0-fabric-1.21.1-0.116.9.jar",
+          "kind": "file",
+          "sha256": "7b84d08aaf3b6d3d0421f875a1784136058372c371fa2d0c1c285cf7180568ad"
+        }
+      ]
+    },
+    {
+      "id": "anvianslib",
+      "name": "Anvian's Lib",
+      "version": "1.4.2",
+      "origins": [
+        {
+          "file": "anvianslib-fabric-1.21-1.4.2.jar",
+          "kind": "file",
+          "sha256": "c459435fef2e0478efb37685df68b786be83a4597b8ff60d64ee04f2bc752338"
+        }
+      ]
+    },
+    {
+      "id": "apexwaters",
+      "name": "Apex Waters",
+      "version": "1.1.1",
+      "origins": [
+        {
+          "file": "apexwaters-1.21.1-fabric-1.1.1.jar",
+          "kind": "file",
+          "sha256": "00f1c5eaf5b7c2e79a2c64cdeac1a89f2430b2c9ab5f56043f148bde170dba37"
+        }
+      ]
+    },
+    {
+      "id": "apoli",
+      "name": "Apoli",
+      "version": "2.12.0-pre.3+mc.1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "origins",
+          "parent_sub_location": "META-INF/jars/apoli-2.12.0-pre.3+mc.1.21.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "apollib",
+      "name": "Apollib",
+      "version": "1.1.4",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "deeper_oceans",
+          "parent_sub_location": "META-INF/jars/apollib-1.1.4-fabric-21.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "appleskin",
+      "name": "AppleSkin",
+      "version": "3.0.6+mc1.21",
+      "origins": [
+        {
+          "file": "appleskin-fabric-mc1.21-3.0.6.jar",
+          "kind": "file",
+          "sha256": "9a19cec1294b1bc708392a08e6926dcb85d7378ec5ad909a4b6fcb8bc3bfeaa2"
+        }
+      ]
+    },
+    {
+      "id": "aquarius_libs",
+      "name": "Aquarius Libs",
+      "version": "1.2.0",
+      "origins": [
+        {
+          "file": "aquariuslibs-1.2.0-fabric-1.21.1-0.116.7.jar",
+          "kind": "file",
+          "sha256": "bf1b1dc92cf8db88796d7c3a3369487734a076f4c510ce8e97a3c59ebefdfa41"
+        }
+      ]
+    },
+    {
+      "id": "aquatic-torches",
+      "name": "Aquatic Torches",
+      "version": "v1-1.21.1",
+      "origins": [
+        {
+          "file": "aquatic-torches-v1-1.21.1.jar",
+          "kind": "file",
+          "sha256": "a4ac75a23291cb7019ccc6ca11b0d7cd77ea0c499ee985ffeeace6bcc3cf8bf0"
+        }
+      ]
+    },
+    {
+      "id": "architectury",
+      "name": "Architectury",
+      "version": "13.0.11",
+      "origins": [
+        {
+          "file": "architectury-13.0.11-fabric.jar",
+          "kind": "file",
+          "sha256": "ab17d5c7d8d8c93cc713437ed426f0ff0d6f802a48fff0c579a9bd3aaa833efd"
+        }
+      ]
+    },
+    {
+      "id": "asynclogger",
+      "name": "Async Logger",
+      "version": "2.2.1+1.20.1-fabric",
+      "origins": [
+        {
+          "file": "asynclogger-2.2.1+1.20.1-fabric.jar",
+          "kind": "file",
+          "sha256": "b08512753f4c4006cedf7926343e2dd051545be25e2b1d36f70735f3d7dde0c0"
+        }
+      ]
+    },
+    {
+      "id": "backpacked",
+      "name": "Backpacked",
+      "version": "3.0.5",
+      "origins": [
+        {
+          "file": "backpacked-fabric-1.21.1-3.0.5.jar",
+          "kind": "file",
+          "sha256": "56f1167d15f6a7d9fb9a9abb49fd033d40a511b8a98b8746c14f1dfd2ef60871"
+        }
+      ]
+    },
+    {
+      "id": "bclib",
+      "name": "BCLib",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "file": "bclib-21.0.13.jar",
+          "kind": "file",
+          "sha256": "c1507799e31b55264197431f1b6139650303b430093c89bb0a2d9901740b5a7c"
+        }
+      ]
+    },
+    {
+      "id": "betteranimationscollection",
+      "name": "Better Animations Collection",
+      "version": "21.1.1",
+      "origins": [
+        {
+          "file": "BetterAnimationsCollection-v21.1.1-1.21.1-Fabric.jar",
+          "kind": "file",
+          "sha256": "91ae6d2445e8a83acf6c85e026b15debe7ffb8f73edf868fafdfffa9eec1af23"
+        }
+      ]
+    },
+    {
+      "id": "betterbiomeblend",
+      "name": "Better Biome ReBlend",
+      "version": "1.5.2",
+      "origins": [
+        {
+          "file": "betterbiomeblend-1.5.2.jar",
+          "kind": "file",
+          "sha256": "5f632bf837b9b3c28eeaa4182fef6b24634a492e793ca98e7ba1ec0ffbb11083"
+        }
+      ]
+    },
+    {
+      "id": "bettercaves",
+      "name": "YUNG's Better Caves",
+      "version": "1.21.1-Fabric-3.1.4",
+      "origins": [
+        {
+          "file": "YungsBetterCaves-1.21.1-Fabric-3.1.4.jar",
+          "kind": "file",
+          "sha256": "5ba3c32e8aa23083dbf9fd34997f50e03a64e31756ca745ca5257421e0d13757"
+        }
+      ]
+    },
+    {
+      "id": "bettercombat",
+      "name": "Better Combat",
+      "version": "2.4.0+1.21.1",
+      "origins": [
+        {
+          "file": "bettercombat-fabric-2.4.0+1.21.1.jar",
+          "kind": "file",
+          "sha256": "2ecd3284a4443300873bb7a7aba4643aacf91acd778b377faeffa44afe049b9b"
+        }
+      ]
+    },
+    {
+      "id": "betterdeserttemples",
+      "name": "YUNG's Better Desert Temples",
+      "version": "1.21.1-Fabric-4.1.5",
+      "origins": [
+        {
+          "file": "YungsBetterDesertTemples-1.21.1-Fabric-4.1.5.jar",
+          "kind": "file",
+          "sha256": "2bb73eef278c277657b27f72d2fa1d917a17c14052bf526a2ba175f6e9a63012"
+        }
+      ]
+    },
+    {
+      "id": "betterdungeons",
+      "name": "YUNG's Better Dungeons",
+      "version": "1.21.1-Fabric-5.1.4",
+      "origins": [
+        {
+          "file": "YungsBetterDungeons-1.21.1-Fabric-5.1.4.jar",
+          "kind": "file",
+          "sha256": "69fe7d93afa1803d7658df3f861213f8255f68d4e976d66ddce66fba08d120bc"
+        }
+      ]
+    },
+    {
+      "id": "betterendisland",
+      "name": "YUNG's Better End Island",
+      "version": "1.21.1-Fabric-3.1.2",
+      "origins": [
+        {
+          "file": "YungsBetterEndIsland-1.21.1-Fabric-3.1.2.jar",
+          "kind": "file",
+          "sha256": "9a398731319f53458abedf6295d63dc140c82d81cfa89e088526b0821375af59"
+        }
+      ]
+    },
+    {
+      "id": "betterf3",
+      "name": "BetterF3",
+      "version": "11.0.3",
+      "origins": [
+        {
+          "file": "BetterF3-11.0.3-Fabric-1.21.1.jar",
+          "kind": "file",
+          "sha256": "e0e4bb25fbe23b16b7574474ee9fde5cdc9757d05885bc43978f4ea5e8e258ad"
+        }
+      ]
+    },
+    {
+      "id": "betterfortresses",
+      "name": "YUNG's Better Nether Fortresses",
+      "version": "1.21.1-Fabric-3.1.5",
+      "origins": [
+        {
+          "file": "YungsBetterNetherFortresses-1.21.1-Fabric-3.1.5.jar",
+          "kind": "file",
+          "sha256": "77a258e499559f1190c872277f8eecf202dd4ef0681674dce941003fa4367f78"
+        }
+      ]
+    },
+    {
+      "id": "betterjungletemples",
+      "name": "YUNG's Better Jungle Temples",
+      "version": "1.21.1-Fabric-3.1.2",
+      "origins": [
+        {
+          "file": "YungsBetterJungleTemples-1.21.1-Fabric-3.1.2.jar",
+          "kind": "file",
+          "sha256": "8b6ac004345da935b5b9bcb70624f4a3197411f9420d6459a302524f8dea42dc"
+        }
+      ]
+    },
+    {
+      "id": "bettermineshafts",
+      "name": "YUNG's Better Mineshafts",
+      "version": "1.21.1-Fabric-5.1.1",
+      "origins": [
+        {
+          "file": "YungsBetterMineshafts-1.21.1-Fabric-5.1.1.jar",
+          "kind": "file",
+          "sha256": "27949f5bae0afeff457711a5b42482be301b76bc8b1136f1120f848489bb5fa6"
+        }
+      ]
+    },
+    {
+      "id": "betteroceanmonuments",
+      "name": "YUNG's Better Ocean Monuments",
+      "version": "1.21.1-Fabric-4.1.2",
+      "origins": [
+        {
+          "file": "YungsBetterOceanMonuments-1.21.1-Fabric-4.1.2.jar",
+          "kind": "file",
+          "sha256": "4cfbb226bd1db17032ac7e7306e94ed27f1a8e2f3e09fb62c47688f8a527adec"
+        }
+      ]
+    },
+    {
+      "id": "betterstrongholds",
+      "name": "YUNG's Better Strongholds",
+      "version": "1.21.1-Fabric-5.1.3",
+      "origins": [
+        {
+          "file": "YungsBetterStrongholds-1.21.1-Fabric-5.1.3.jar",
+          "kind": "file",
+          "sha256": "1cb412c83aa0e8273d29a1122c5799eb15a48acc8f0b770efe451c516647f5f8"
+        }
+      ]
+    },
+    {
+      "id": "betterthirdperson",
+      "name": "Better Third Person",
+      "version": "1.9.0",
+      "origins": [
+        {
+          "file": "BetterThirdPerson-Fabric-1.21-1.9.0.jar",
+          "kind": "file",
+          "sha256": "f9ec9dc6508b20d32a3c770ecc77641e8f87c98e298d58e2757a6ef14abbb457"
+        }
+      ]
+    },
+    {
+      "id": "betterwitchhuts",
+      "name": "YUNG's Better Witch Huts",
+      "version": "1.21.1-Fabric-4.1.1",
+      "origins": [
+        {
+          "file": "YungsBetterWitchHuts-1.21.1-Fabric-4.1.1.jar",
+          "kind": "file",
+          "sha256": "954ff004de151652d9be69e03d1b848d6fd15a0f5f2df15c4ce2e764467685e7"
+        }
+      ]
+    },
+    {
+      "id": "biolith",
+      "name": "Biolith",
+      "version": "3.0.14",
+      "origins": [
+        {
+          "file": "biolith-fabric-3.0.14.jar",
+          "kind": "file",
+          "sha256": "12987c4e1eedafa6a6e208f0b9579dd9d0f6262131ddbdd0557ed78c549deda1"
+        }
+      ]
+    },
+    {
+      "id": "biomesoplenty",
+      "name": "BiomesOPlenty",
+      "version": "21.1.0.14",
+      "origins": [
+        {
+          "file": "BiomesOPlenty-fabric-1.21.1-21.1.0.14.jar",
+          "kind": "file",
+          "sha256": "ec600b84cda4ce89d7d1cc77aa25a7e5f51455c1f8e43441d95b5d85ea48a395"
+        }
+      ]
+    },
+    {
+      "id": "biomeswevegone",
+      "name": "Oh The Biomes We've Gone",
+      "version": "2.6.0",
+      "origins": [
+        {
+          "file": "Oh-The-Biomes-Weve-Gone-Fabric-2.6.0.jar",
+          "kind": "file",
+          "sha256": "a9d30f20483107681eebc5f6550940bf318cd1bf031154e5598ab38701246984"
+        }
+      ]
+    },
+    {
+      "id": "blahaj",
+      "name": "Blåhaj",
+      "version": "2.0.0",
+      "origins": [
+        {
+          "file": "blahaj-fabric-1.21.1-2.0.0.jar",
+          "kind": "file",
+          "sha256": "5f202b796aa3dccaf012bc6cc5dac1887554a4cf3d813b7a1a4786051fa29f09"
+        }
+      ]
+    },
+    {
+      "id": "bloomingnature",
+      "name": "[Let's Do] BloomingNature",
+      "version": "1.1.10",
+      "origins": [
+        {
+          "file": "letsdo-bloomingnature-fabric-1.1.10.jar",
+          "kind": "file",
+          "sha256": "b4870dab6697a5583c903416e3940375e536ce11cc4fd5291c33229b99ee3811"
+        }
+      ]
+    },
+    {
+      "id": "blue_endless_jankson",
+      "name": "jankson",
+      "version": "1.2.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fzzy_config",
+          "parent_sub_location": "META-INF/jars/jankson-1.2.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "bney_yam",
+      "name": "Abyssal Villagers",
+      "version": "1.1.18",
+      "origins": [
+        {
+          "file": "abyssal-villagers-1.0.3.jar",
+          "kind": "file",
+          "sha256": "aeadb0048fda72b31cc30239a8a80efa509c5d02c4ed735b0a7cccc88b5ff410"
+        }
+      ]
+    },
+    {
+      "id": "bobby",
+      "name": "Bobby",
+      "version": "5.2.4.1+mc1.21",
+      "origins": [
+        {
+          "file": "bobby-5.2.4.1+mc1.21.jar",
+          "kind": "file",
+          "sha256": "06db885914f6a4153ec2351e7b5485c984b2ba39ef2e06e867263734eda3796a"
+        }
+      ]
+    },
+    {
+      "id": "bookshelf",
+      "name": "Bookshelf",
+      "version": "21.1.81",
+      "origins": [
+        {
+          "file": "bookshelf-fabric-1.21.1-21.1.81.jar",
+          "kind": "file",
+          "sha256": "df2dd3a3e75f2dbf56baf9bdb6cc0007f9c0efb0f2b2067f047ddf98ea1b49d8"
+        }
+      ]
+    },
+    {
+      "id": "botanypots",
+      "name": "BotanyPots",
+      "version": "21.1.44",
+      "origins": [
+        {
+          "file": "botanypots-fabric-1.21.1-21.1.44.jar",
+          "kind": "file",
+          "sha256": "2d96db65ef97064bc55c024e6b729d0d4249b119e9960d290795f21acaaa74c7"
+        }
+      ]
+    },
+    {
+      "id": "botanypotstiers",
+      "name": "BotanyPotsTiers",
+      "version": "7.0.11",
+      "origins": [
+        {
+          "file": "botanypotstiers-fabric-1.21.1-7.0.11.jar",
+          "kind": "file",
+          "sha256": "966bb4e0187a1fd139e8290ca9978b77d498e5336b05fff0b4b4799d7f843bdf"
+        }
+      ]
+    },
+    {
+      "id": "botanytrees",
+      "name": "BotanyTrees",
+      "version": "21.1.7",
+      "origins": [
+        {
+          "file": "botanytrees-fabric-1.21.1-21.1.7.jar",
+          "kind": "file",
+          "sha256": "49ab2c9e998e8e7cf8f8ec9ec4da9c73eae12b591ef97bc39b9389ae3ecb7c87"
+        }
+      ]
+    },
+    {
+      "id": "bottledair",
+      "name": "Bottled Air",
+      "version": "2.5",
+      "origins": [
+        {
+          "file": "bottledair-1.21.1-2.5.jar",
+          "kind": "file",
+          "sha256": "71d8a5f3e35b0d71b11ea7dd8a10dc7eeaf76a6880b3c2274c3492aa64d16c68"
+        }
+      ]
+    },
+    {
+      "id": "c2me",
+      "name": "Concurrent Chunk Management Engine",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "file": "c2me-fabric-mc1.21.1-0.4.0-alpha.0.23.jar",
+          "kind": "file",
+          "sha256": "6a77c69140f3da10e20b25ee8a75da039c5835b73f9c7a03615fbd968b574e5e"
+        }
+      ]
+    },
+    {
+      "id": "c2me-base",
+      "name": "Concurrent Chunk Management Engine (Base)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-base-mc1.21.1-0.4.0-alpha.0.23-all.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-client-uncapvd",
+      "name": "Concurrent Chunk Management Engine (Client/Uncap View Distance)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-client-uncapvd-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-fixes-chunkio-threading-issues",
+      "name": "Concurrent Chunk Management Engine (Fixes/Chunk IO/Threading Issues)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-fixes-chunkio-threading-issues-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-fixes-general-threading-issues",
+      "name": "Concurrent Chunk Management Engine (Fixes/General/Threading Issues)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-fixes-general-threading-issues-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-fixes-worldgen-threading-issues",
+      "name": "Concurrent Chunk Management Engine (Fixes/WorldGen/Threading Issues)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-fixes-worldgen-threading-issues-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-fixes-worldgen-vanilla-bugs",
+      "name": "Concurrent Chunk Management Engine (Fixes/WorldGen/Vanilla Bugs)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-fixes-worldgen-vanilla-bugs-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-notickvd",
+      "name": "Concurrent Chunk Management Engine (No Tick View Distance)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-notickvd-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-opts-allocs",
+      "name": "Concurrent Chunk Management Engine (Optimizations/Memory Allocations)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-opts-allocs-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-opts-chunkio",
+      "name": "Concurrent Chunk Management Engine (Optimizations/Chunk IO)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-opts-chunkio-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-opts-math",
+      "name": "Concurrent Chunk Management Engine (Optimizations/Math)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-opts-math-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-opts-scheduling",
+      "name": "Concurrent Chunk Management Engine (Optimizations/Scheduling)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-opts-scheduling-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-opts-worldgen-general",
+      "name": "Concurrent Chunk Management Engine (Optimizations/General WorldGen)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-opts-worldgen-general-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-opts-worldgen-vanilla",
+      "name": "Concurrent Chunk Management Engine (Optimizations/Vanilla WorldGen)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-opts-worldgen-vanilla-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-rewrites-chunk-system",
+      "name": "Concurrent Chunk Management Engine (Rewrites/Chunk System)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-rewrites-chunk-system-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-rewrites-chunkio",
+      "name": "Concurrent Chunk Management Engine (Rewrites/Chunk IO)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-rewrites-chunkio-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-server-utils",
+      "name": "Concurrent Chunk Management Engine (Server Utils)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-server-utils-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "c2me-threading-lighting",
+      "name": "Concurrent Chunk Management Engine (Threading/Lighting)",
+      "version": "0.4.0-alpha.0.23+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/c2me-fabric-threading-lighting-mc1.21.1-0.4.0-alpha.0.23.jar"
+        }
+      ]
+    },
+    {
+      "id": "calio",
+      "name": "Calio",
+      "version": "1.14.0+mc.1.21.x",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "apoli",
+          "parent_sub_location": "META-INF/jars/calio-1.14.0+mc.1.21.x.jar"
+        }
+      ]
+    },
+    {
+      "id": "cardinal-components",
+      "name": "Cardinal Components API",
+      "version": "6.1.3",
+      "origins": [
+        {
+          "file": "cardinal-components-api-6.1.3.jar",
+          "kind": "file",
+          "sha256": "302a8a4bc2e34cbffaf61af75ab5de47c06bfa159436665870ae61092b0f69a2"
+        }
+      ]
+    },
+    {
+      "id": "cardinal-components-base",
+      "name": "Cardinal Components API (base)",
+      "version": "6.1.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "cardinal-components",
+          "parent_sub_location": "META-INF/jars/cardinal-components-base-6.1.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "cardinal-components-block",
+      "name": "Cardinal Components API (blocks)",
+      "version": "6.1.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "cardinal-components",
+          "parent_sub_location": "META-INF/jars/cardinal-components-block-6.1.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "cardinal-components-chunk",
+      "name": "Cardinal Components API (chunks)",
+      "version": "6.1.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "cardinal-components",
+          "parent_sub_location": "META-INF/jars/cardinal-components-chunk-6.1.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "cardinal-components-entity",
+      "name": "Cardinal Components API (entities)",
+      "version": "6.1.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "cardinal-components",
+          "parent_sub_location": "META-INF/jars/cardinal-components-entity-6.1.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "cardinal-components-item",
+      "name": "Cardinal Components API (items)",
+      "version": "6.1.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "cardinal-components",
+          "parent_sub_location": "META-INF/jars/cardinal-components-item-6.1.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "cardinal-components-level",
+      "name": "Cardinal Components API (world saves)",
+      "version": "6.1.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "cardinal-components",
+          "parent_sub_location": "META-INF/jars/cardinal-components-level-6.1.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "cardinal-components-scoreboard",
+      "name": "Cardinal Components API (scoreboard)",
+      "version": "6.1.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "cardinal-components",
+          "parent_sub_location": "META-INF/jars/cardinal-components-scoreboard-6.1.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "cardinal-components-world",
+      "name": "Cardinal Components API (worlds)",
+      "version": "6.1.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "cardinal-components",
+          "parent_sub_location": "META-INF/jars/cardinal-components-world-6.1.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "cat_jam",
+      "name": "cat_jam",
+      "version": "1.3.1",
+      "origins": [
+        {
+          "file": "cat_jam-fabric-mc1.21-1.3.1.jar",
+          "kind": "file",
+          "sha256": "31d069b62ea74d4de66c7d8d46d5977fd26c06c71d87fcc336187307b97a6e47"
+        }
+      ]
+    },
+    {
+      "id": "cerbons_api",
+      "name": "Cerbons API",
+      "version": "1.3.0",
+      "origins": [
+        {
+          "file": "CerbonsAPI-Fabric-1.21-1.3.0.jar",
+          "kind": "file",
+          "sha256": "0587dc8b69ed66aa98f5054a7cad23ed58fc437e7da316d5fc82491969caf03d"
+        }
+      ]
+    },
+    {
+      "id": "chat_heads",
+      "name": "Chat Heads",
+      "version": "0.15.6",
+      "origins": [
+        {
+          "file": "chat_heads-0.15.6-fabric-1.21.jar",
+          "kind": "file",
+          "sha256": "9fe3851ae50934b8e44202cc0c5791d0935a2ab6f2e228c4249a3ad15bffb0d6"
+        }
+      ]
+    },
+    {
+      "id": "chimes",
+      "name": "Chimes",
+      "version": "2.1.1",
+      "origins": [
+        {
+          "file": "Chimes-v2.1.1-1.21.1-Fabric.jar",
+          "kind": "file",
+          "sha256": "a0a6dbbbba037965d7b1b33bf1fc7eba734ebfaca019db90c9a5a41ace97a16b"
+        }
+      ]
+    },
+    {
+      "id": "chunkloaders",
+      "name": "Chunk Loaders",
+      "version": "1.2.9",
+      "origins": [
+        {
+          "file": "chunkloaders-1.2.9-fabric-mc1.21.1.jar",
+          "kind": "file",
+          "sha256": "c83dc3630b62e05150017f3846ccb316495a90d91be3e3e7edb41f57c44eee94"
+        }
+      ]
+    },
+    {
+      "id": "chunky",
+      "name": "Chunky",
+      "version": "1.4.23",
+      "origins": [
+        {
+          "file": "Chunky-Fabric-1.4.23.jar",
+          "kind": "file",
+          "sha256": "3412b170247dde7351e0945d857e713bedf6fae05ab300aa74d06ffbde0ca07e"
+        }
+      ]
+    },
+    {
+      "id": "cicada",
+      "name": "CICADA",
+      "version": "0.14.3+1.21-1.21.1",
+      "origins": [
+        {
+          "file": "cicada-lib-0.14.3+1.21-1.21.1.jar",
+          "kind": "file",
+          "sha256": "8fe9f00c3af0703266ee843e9a8e6dc23972ed4c2bfc5a0f5cb1fef6ab4bd280"
+        }
+      ]
+    },
+    {
+      "id": "cleancut",
+      "name": "CleanCut",
+      "version": "8.0.2+1.21.1",
+      "origins": [
+        {
+          "file": "cleancut-fabric-1.21.1-8.0.2+1.21.1.jar",
+          "kind": "file",
+          "sha256": "41def8d4a9687776c46b1cac8158a3b8070558668e1547f59626c3c65ff49595"
+        }
+      ]
+    },
+    {
+      "id": "cloth-basic-math",
+      "name": "cloth-basic-math",
+      "version": "0.6.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "cloth-config",
+          "parent_sub_location": "META-INF/jars/basic-math-0.6.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "cloth-config",
+      "name": "Cloth Config v15",
+      "version": "15.0.140",
+      "origins": [
+        {
+          "file": "cloth-config-15.0.140-fabric.jar",
+          "kind": "file",
+          "sha256": "33894e95da3af59014b39d126586d5241e07ea39f8618763e30dab637405f95f"
+        }
+      ]
+    },
+    {
+      "id": "clumps",
+      "name": "Clumps",
+      "version": "19.0.0.1",
+      "origins": [
+        {
+          "file": "Clumps-fabric-1.21.1-19.0.0.1.jar",
+          "kind": "file",
+          "sha256": "49e406cb2872e24a2d2dbe461b93f0c8fbee1748d14c2a941e54f785e3a1e1a7"
+        }
+      ]
+    },
+    {
+      "id": "codec-config-api",
+      "name": "Codec config API",
+      "version": "3.0.0+1.21.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "grindenchantments",
+          "parent_sub_location": "META-INF/jars/codec-config-api-3.0.0+1.21.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "codecui",
+      "name": "CodecUI",
+      "version": "1.21.1-1.3.6",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "moonlight",
+          "parent_sub_location": "META-INF/jars/codecui-fabric-1.21.1-1.3.6.jar"
+        }
+      ]
+    },
+    {
+      "id": "collective",
+      "name": "Collective",
+      "version": "8.39",
+      "origins": [
+        {
+          "file": "collective-1.21.1-8.39.jar",
+          "kind": "file",
+          "sha256": "ae59b63790c3097fb01e7801c21f3e7feed13b151c2ad993895196c74381a8fe"
+        }
+      ]
+    },
+    {
+      "id": "com_electronwill_night-config_core",
+      "name": "core",
+      "version": "3.8.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "corgilib",
+          "parent_sub_location": "META-INF/jars/core-3.8.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "com_electronwill_night-config_toml",
+      "name": "toml",
+      "version": "3.8.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "corgilib",
+          "parent_sub_location": "META-INF/jars/toml-3.8.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "com_github_ben-manes_caffeine_caffeine",
+      "name": "caffeine",
+      "version": "3.2.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/caffeine-3.2.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "com_ibm_async_asyncutil",
+      "name": "asyncutil",
+      "version": "0.1.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/asyncutil-0.1.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "com_moulberry_mixinconstraints",
+      "name": "mixinconstraints",
+      "version": "1.1.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "subtle_effects",
+          "parent_sub_location": "META-INF/jars/mixinconstraints-1.1.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "com_twelvemonkeys_common_common-image",
+      "name": "common-image",
+      "version": "3.12.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "yet_another_config_lib_v3",
+          "parent_sub_location": "META-INF/jars/common-image-3.12.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "com_twelvemonkeys_common_common-io",
+      "name": "common-io",
+      "version": "3.12.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "yet_another_config_lib_v3",
+          "parent_sub_location": "META-INF/jars/common-io-3.12.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "com_twelvemonkeys_common_common-lang",
+      "name": "common-lang",
+      "version": "3.12.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "yet_another_config_lib_v3",
+          "parent_sub_location": "META-INF/jars/common-lang-3.12.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "com_twelvemonkeys_imageio_imageio-core",
+      "name": "imageio-core",
+      "version": "3.12.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "yet_another_config_lib_v3",
+          "parent_sub_location": "META-INF/jars/imageio-core-3.12.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "com_twelvemonkeys_imageio_imageio-metadata",
+      "name": "imageio-metadata",
+      "version": "3.12.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "yet_another_config_lib_v3",
+          "parent_sub_location": "META-INF/jars/imageio-metadata-3.12.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "com_twelvemonkeys_imageio_imageio-webp",
+      "name": "imageio-webp",
+      "version": "3.12.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "yet_another_config_lib_v3",
+          "parent_sub_location": "META-INF/jars/imageio-webp-3.12.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "com_typesafe_config",
+      "name": "config",
+      "version": "1.4.2",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "bobby",
+          "parent_sub_location": "META-INF/jars/config-1.4.2.jar"
+        }
+      ]
+    },
+    {
+      "id": "conditional-mixin",
+      "name": "conditional mixin",
+      "version": "0.6.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "moreculling",
+          "parent_sub_location": "META-INF/jars/conditional-mixin-fabric-0.6.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "configured",
+      "name": "Configured",
+      "version": "2.6.3",
+      "origins": [
+        {
+          "file": "configured-fabric-1.21.1-2.6.3.jar",
+          "kind": "file",
+          "sha256": "cab614e27b3ec9acca407eced918d956a98c9ea4c2411ae738a350d1ed11232c"
+        }
+      ]
+    },
+    {
+      "id": "continents",
+      "name": "Continents",
+      "version": "1.1.14",
+      "origins": [
+        {
+          "file": "Continents_26.2_v1.1.14.jar",
+          "kind": "file",
+          "sha256": "35a5dfe6789f37c12c966eb27c16c07e19d797088ed99d02a4e6e4f687fef1b0"
+        }
+      ]
+    },
+    {
+      "id": "continuity",
+      "name": "Continuity",
+      "version": "3.0.0+1.21",
+      "origins": [
+        {
+          "file": "continuity-3.0.0+1.21.jar",
+          "kind": "file",
+          "sha256": "99fd46b834874d167ea2349a9a72947cbfa7192f927aa99bbeb4b0637aa208d4"
+        }
+      ]
+    },
+    {
+      "id": "controlling",
+      "name": "Controlling",
+      "version": "19.0.5",
+      "origins": [
+        {
+          "file": "Controlling-fabric-1.21.1-19.0.5.jar",
+          "kind": "file",
+          "sha256": "c0150c5bfbc77f27b92f24a5a9c2edc462eba8c8f912635757c5deb3a0a93f8d"
+        }
+      ]
+    },
+    {
+      "id": "corgilib",
+      "name": "CorgiLib",
+      "version": "5.0.0.9",
+      "origins": [
+        {
+          "file": "Corgilib-Fabric-1.21.1-5.0.0.9.jar",
+          "kind": "file",
+          "sha256": "aba14ed834db4703cb7e584f7b3d8c5a5d54490b77ba7f307ef102e9a770b79e"
+        }
+      ]
+    },
+    {
+      "id": "cosmeticarmorreworkedforked",
+      "name": "CosmeticArmorReworkedForked",
+      "version": "1.21.1-0.0.4",
+      "origins": [
+        {
+          "file": "cosmeticarmorreworkedforked-fabric-1.21.1-0.0.4.jar",
+          "kind": "file",
+          "sha256": "65b4151f352f63746a9f9e19eee4ca1579dbfba0c431694dfd846c4c1559ddc0"
+        }
+      ]
+    },
+    {
+      "id": "crash_assistant",
+      "name": "Crash Assistant",
+      "version": "1.11.11",
+      "origins": [
+        {
+          "file": "CrashAssistant-fabric-1.20.2-1.21.4-1.11.11.jar",
+          "kind": "file",
+          "sha256": "6dae81228d79570e0f3c8bbfa7c8d9f8597dea3ed8b3d7398beb23e74443de3c"
+        }
+      ]
+    },
+    {
+      "id": "creativecore",
+      "name": "CreativeCore",
+      "version": "2.13.39",
+      "origins": [
+        {
+          "file": "CreativeCore_FABRIC_v2.13.39_mc1.21.1.jar",
+          "kind": "file",
+          "sha256": "a0813d3b342fae016eaad9b11a3f153efba01a2caa1221033adb865c49140f70"
+        }
+      ]
+    },
+    {
+      "id": "crittersandcompanions",
+      "name": "Critters and Companions",
+      "version": "2.6.2",
+      "origins": [
+        {
+          "file": "crittersandcompanions-fabric-1.21.1-2.6.2.jar",
+          "kind": "file",
+          "sha256": "c3d48c50e8385c3acc6bf984a83d245d76aa279fc0bc1e07b6080280cd54c180"
+        }
+      ]
+    },
+    {
+      "id": "ctov",
+      "name": "ChoiceTheorem's Overhauled Village",
+      "version": "3.6.3",
+      "origins": [
+        {
+          "file": "[Fabric]ctov-3.6.3.jar",
+          "kind": "file",
+          "sha256": "e443925d8fe4d092f1f39262fa73182e49e34dcbf9ca51eaaa53064bb92ee652"
+        }
+      ]
+    },
+    {
+      "id": "cupboard",
+      "name": "cupboard",
+      "version": "1.21.1-4.0",
+      "origins": [
+        {
+          "file": "cupboard-fabric-1.21.1-4.0.jar",
+          "kind": "file",
+          "sha256": "3c92fed4d34dadd0896f0ca4edac8b519ae89c4f23fb1384a3675ac739bff393"
+        }
+      ]
+    },
+    {
+      "id": "customportalapi",
+      "name": "Custom Portal Api",
+      "version": "0.0.1-beta67-1.21",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "deeperdarker",
+          "parent_sub_location": "META-INF/jars/customportalapi-0.0.1-beta67-1.21.jar"
+        }
+      ]
+    },
+    {
+      "id": "darkenchanting",
+      "name": "Dark Enchanting",
+      "version": "1.3.0+1.21",
+      "origins": [
+        {
+          "file": "darkenchanting-fabric-1.3.0+1.21.jar",
+          "kind": "file",
+          "sha256": "e48b6e1c776734d849f9fc83fd4e46fa6628c30f2d1e69cd2e63180f9a70ce6f"
+        }
+      ]
+    },
+    {
+      "id": "dataanchor",
+      "name": "Data Anchor",
+      "version": "2.0.0.16",
+      "origins": [
+        {
+          "file": "Data_Anchor-fabric-1.21.1-2.0.0.16.jar",
+          "kind": "file",
+          "sha256": "afe47cf9e3e112f9071cd9758d47eaced09c4ffa1d126657799c28e30c48bdbd"
+        }
+      ]
+    },
+    {
+      "id": "de_marhali_json5-java",
+      "name": "json5-java",
+      "version": "3.0.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "apollib",
+          "parent_sub_location": "META-INF/jars/json5-java-3.0.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "debugify",
+      "name": "Debugify",
+      "version": "1.21.1+1.0",
+      "origins": [
+        {
+          "file": "Debugify-1.21.1+1.0.jar",
+          "kind": "file",
+          "sha256": "e61e83875190150337a2366d9374f04865654de7bdf83e6ab29d9915899f8d7a"
+        }
+      ]
+    },
+    {
+      "id": "deeper_oceans",
+      "name": "Deeper Oceans",
+      "version": "2.0.1",
+      "origins": [
+        {
+          "file": "deeper-oceans-2.0.1-fabric-21.1.jar",
+          "kind": "file",
+          "sha256": "bf67c45cacbaab077c81ba4f612893c0daf56727f1b84216a8465ad1e219380a"
+        }
+      ]
+    },
+    {
+      "id": "deeperdarker",
+      "name": "Deeper and Darker",
+      "version": "1.3.3-plus-b",
+      "origins": [
+        {
+          "file": "deeperdarker-fabric-1.21-1.3.3-plus-b.jar",
+          "kind": "file",
+          "sha256": "d8b00ac7b28498785b46ca733687301113374c4520f1d5ad8bba0a7ae8041c1b"
+        }
+      ]
+    },
+    {
+      "id": "do_a_barrel_roll",
+      "name": "Do a Barrel Roll",
+      "version": "3.7.3",
+      "origins": [
+        {
+          "file": "do_a_barrel_roll-fabric-3.7.3+1.21.jar",
+          "kind": "file",
+          "sha256": "ce0e586ab1d4af204afd52522bb00c4585952c11c2637d30d02ca0423edca8a4"
+        }
+      ]
+    },
+    {
+      "id": "doubledoors",
+      "name": "Double Doors",
+      "version": "1.0.0",
+      "origins": [
+        {
+          "file": "double-doors-1.0.0.jar",
+          "kind": "file",
+          "sha256": "4a063985963525b23355ee9856f772fa41b2866584d95c94383d5b82b94dd3f5"
+        }
+      ]
+    },
+    {
+      "id": "dragonfight",
+      "name": "Dragonfight Mod",
+      "version": "1.21-4.8",
+      "origins": [
+        {
+          "file": "dragonfight-fabric-1.21-4.8.jar",
+          "kind": "file",
+          "sha256": "3f4153bf4a8fb6a4f306193db1cd81c4429616895301aaf1cdfaccb23538bdf5"
+        }
+      ]
+    },
+    {
+      "id": "dungeon_difficulty",
+      "name": "Dungeon Difficulty",
+      "version": "3.6.10+1.21.1",
+      "origins": [
+        {
+          "file": "dungeon_difficulty-fabric-3.6.10+1.21.1.jar",
+          "kind": "file",
+          "sha256": "1dbc3448b97e4f44e17c2fa6730b521bacbd63c5e765257d751e2da9ee553508"
+        }
+      ]
+    },
+    {
+      "id": "dungeons_arise",
+      "name": "When Dungeons Arise",
+      "version": "2.1.68",
+      "origins": [
+        {
+          "file": "DungeonsArise-1.21.1-2.1.68-fabric-release.jar",
+          "kind": "file",
+          "sha256": "914190f6f899fca0f4b67595c6f7c53f8c736f6d1049a48fef8cfba46871d865"
+        }
+      ]
+    },
+    {
+      "id": "dungeons_arise_seven_seas",
+      "name": "When Dungeons Arise: Seven Seas",
+      "version": "1.0.4",
+      "origins": [
+        {
+          "file": "DungeonsAriseSevenSeas-1.21.x-1.0.4-fabric.jar",
+          "kind": "file",
+          "sha256": "ea7ab0c46a2d7dfd51f8b08e4285583f43d5b818f98ad2ede45b63f159c96f33"
+        }
+      ]
+    },
+    {
+      "id": "dynamic_fps",
+      "name": "Dynamic FPS",
+      "version": "3.11.4",
+      "origins": [
+        {
+          "file": "dynamic-fps-3.11.4+minecraft-1.21.0-fabric.jar",
+          "kind": "file",
+          "sha256": "f66b13835282603bd6f8902faa5142e1311bb6393496b04a5df7008415b2fdf8"
+        }
+      ]
+    },
+    {
+      "id": "easyanvils",
+      "name": "Easy Anvils",
+      "version": "21.1.0",
+      "origins": [
+        {
+          "file": "EasyAnvils-v21.1.0-1.21.1-Fabric.jar",
+          "kind": "file",
+          "sha256": "14e40cafffb4bbe878a3faa59022d0fd2658b5337656cb96f4925d42d10f2f2b"
+        }
+      ]
+    },
+    {
+      "id": "eatinganimationid",
+      "name": "Eating Animation",
+      "version": "1.21+1.9.72",
+      "origins": [
+        {
+          "file": "eating-animation-1.21+1.9.72.jar",
+          "kind": "file",
+          "sha256": "0290d5c286dc10bf5d402ed7a28f17af5a06973d6a69ae73c6dcaceae79e5456"
+        }
+      ]
+    },
+    {
+      "id": "effortlessbuilding",
+      "name": "Effortless Building",
+      "version": "4.2",
+      "origins": [
+        {
+          "file": "effortlessbuilding-4.2+1.21.1.jar",
+          "kind": "file",
+          "sha256": "1fedbc3f6866541a96da24e75649ca5f9599b37e15a0b32a9c920ac3dbcf5f90"
+        }
+      ]
+    },
+    {
+      "id": "elementa",
+      "name": "Elementa",
+      "version": "745",
+      "origins": [
+        {
+          "file": "elementa-745.jar",
+          "kind": "file",
+          "sha256": "588592f7b83a3863f66e153479086252a9b7d2106a63abbfb53061b214820392"
+        }
+      ]
+    },
+    {
+      "id": "enchdesc",
+      "name": "EnchantmentDescriptions",
+      "version": "21.1.10",
+      "origins": [
+        {
+          "file": "enchdesc-fabric-1.21.1-21.1.10.jar",
+          "kind": "file",
+          "sha256": "d4a721fcb5704f4a1a7f3d136b9122e802f214c03497a54d8f3e54cabdb806a8"
+        }
+      ]
+    },
+    {
+      "id": "enderitemod",
+      "name": "Enderite Mod",
+      "version": "1.6.2",
+      "origins": [
+        {
+          "file": "enderitemod-fabric-1.6.2-1.21.1.jar",
+          "kind": "file",
+          "sha256": "05f377e39148c635b07bdda7e3bb4193f3a6e448e6db60468adeb36adcce77a2"
+        }
+      ]
+    },
+    {
+      "id": "endrem",
+      "name": "End Remastered",
+      "version": "6.0.2",
+      "origins": [
+        {
+          "file": "endrem-fabric-1.21.X-6.0.2.jar",
+          "kind": "file",
+          "sha256": "3483b465bbc00c5042aa087d74dadc66005c352a6dde5dc4c6ef225469b3cd5e"
+        }
+      ]
+    },
+    {
+      "id": "enhancedcelestials",
+      "name": "Enhanced Celestials",
+      "version": "6.0.2.6",
+      "origins": [
+        {
+          "file": "Enhanced-Celestials-Fabric-1.21.1-6.0.2.6.jar",
+          "kind": "file",
+          "sha256": "660c0a0d03bf392c18b68cdf3548fdd685639339a128ef9c1979ad30dd334449"
+        }
+      ]
+    },
+    {
+      "id": "entity_model_features",
+      "name": "Entity Model Features",
+      "version": "3.2.4",
+      "origins": [
+        {
+          "file": "entity_model_features-3.2.4-1.21-fabric.jar",
+          "kind": "file",
+          "sha256": "3c3f800b4bf911a158435c36dac0cf4176bec36d837c0696fdfae39d7ec5f976"
+        }
+      ]
+    },
+    {
+      "id": "entity_texture_features",
+      "name": "Entity Texture Features",
+      "version": "7.1",
+      "origins": [
+        {
+          "file": "entity_texture_features_1.21-fabric-7.1.jar",
+          "kind": "file",
+          "sha256": "d1b54ad6fd34eaf7187fb62556f2c5cacdc2ea3023a6217e3b2d823285aea148"
+        }
+      ]
+    },
+    {
+      "id": "error_notifier",
+      "name": "Error Notifier",
+      "version": "1.0.11",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "roughlyenoughitems",
+          "parent_sub_location": "META-INF/jars/error-notifier-fabric-1.0.11.jar"
+        }
+      ]
+    },
+    {
+      "id": "essential",
+      "name": "Essential",
+      "version": "1.4.1.1",
+      "origins": [
+        {
+          "file": "Essential (fabric_1.21.1).jar",
+          "kind": "file",
+          "sha256": "91c959e727aa9f14fa7c95ba70d64ed0975d49af4bac412ca0d27524735a83e5"
+        }
+      ]
+    },
+    {
+      "id": "essential-container",
+      "name": "essential-container",
+      "version": "1.0.0",
+      "origins": [
+        {
+          "file": "Essential_1-4-1-1_fabric_1-21-1.jar",
+          "kind": "file",
+          "sha256": "28f43ee3bf2f66ec4a416fb7104f47e6f307f02e6175eac6dceef6bbaaf01183"
+        }
+      ]
+    },
+    {
+      "id": "essential-loader",
+      "name": "essential-loader",
+      "version": "1.3.2",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "essential-container",
+          "parent_sub_location": "essential-loader.jar"
+        }
+      ]
+    },
+    {
+      "id": "everycomp",
+      "name": "Every Compat",
+      "version": "1.21-2.11.48",
+      "origins": [
+        {
+          "file": "everycomp-1.21-2.11.48-fabric.jar",
+          "kind": "file",
+          "sha256": "6778c9ccf89aed1ad2a7e8f8fb60058479de31fa71a751ca88dda3c6186cba66"
+        }
+      ]
+    },
+    {
+      "id": "evs",
+      "name": "Enchanted Vertical Slabs",
+      "version": "2.3.2",
+      "origins": [
+        {
+          "file": "enchanted-vertical-slabs-2.3.2-fabric-mc1.21.jar",
+          "kind": "file",
+          "sha256": "79783cec18c5a006960b9fefc815f7f89751fc58e956010c2c3b0017144ecf64"
+        }
+      ]
+    },
+    {
+      "id": "explorify",
+      "name": "Explorify",
+      "version": "1.6.5",
+      "origins": [
+        {
+          "file": "Explorify v1.6.5.mod.jar",
+          "kind": "file",
+          "sha256": "2dc76398b48b2aae9b4024642da098b0880125572de160cb5ecf91d102890cad"
+        }
+      ]
+    },
+    {
+      "id": "explosiveenhancement",
+      "name": "Explosive Enhancement",
+      "version": "1.3.2-1.21-1.21.1",
+      "origins": [
+        {
+          "file": "explosive-enhancement-1.3.2-1.21-1.21.1.jar",
+          "kind": "file",
+          "sha256": "65467fdb249a6c87150cdc90ffd6bda3e06ee5a68aef0bdf004ddea920207eb1"
+        }
+      ]
+    },
+    {
+      "id": "exposure",
+      "name": "Exposure",
+      "version": "1.9.18",
+      "origins": [
+        {
+          "file": "exposure-fabric-1.21.1-1.9.18.jar",
+          "kind": "file",
+          "sha256": "4f6e74ddaf1fd7fe86ff4748553c959f4c5c3a32708b7c9ab93bf0873337d51c"
+        }
+      ]
+    },
+    {
+      "id": "extraalchemy",
+      "name": "Extra Alchemy",
+      "version": "1.13.3",
+      "origins": [
+        {
+          "file": "extraalchemy-fabric-1.21.1-1.13.3.jar",
+          "kind": "file",
+          "sha256": "ab5f6d25d7ab75fc43ec0a260c48661c0cbbcc16b5adaa417f8b33499995c18c"
+        }
+      ]
+    },
+    {
+      "id": "extraorigins",
+      "name": "Extra Origins",
+      "version": "1.21.1-r3",
+      "origins": [
+        {
+          "file": "extraorigins-1.21.1-r3.jar",
+          "kind": "file",
+          "sha256": "f76662bb5c6a9959f58452a73dbc27796f36749819d46b5047897f3b117b3e8a"
+        }
+      ]
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API",
+      "version": "0.116.15+1.21.1",
+      "origins": [
+        {
+          "file": "fabric-api-0.116.15+1.21.1.jar",
+          "kind": "file",
+          "sha256": "a61a10f730ab8aa45ff42486ee65699e6e51c28a0c168deb161e7d4029473aa3"
+        }
+      ]
+    },
+    {
+      "id": "fabric-api-base",
+      "name": "Fabric API Base",
+      "version": "0.4.42+6573ed8c6a",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "bobby",
+          "parent_sub_location": "META-INF/jars/fabric-api-base-0.4.42+6573ed8c6a.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-api-lookup-api-v1",
+      "name": "Fabric API Lookup API (v1)",
+      "version": "1.6.72+7b3d111d19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-api-lookup-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-biome-api-v1",
+      "name": "Fabric Biome API (v1)",
+      "version": "13.0.31+d527f9fd19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-biome-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-block-api-v1",
+      "name": "Fabric Block API (v1)",
+      "version": "1.1.0+0bc3503219",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-block-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-block-view-api-v2",
+      "name": "Fabric BlockView API (v2)",
+      "version": "1.0.11+ebb2264e19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-block-view-api-v2-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-blockrenderlayer-v1",
+      "name": "Fabric BlockRenderLayer Registration (v1)",
+      "version": "1.1.52+0af3f5a719",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-blockrenderlayer-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-client-tags-api-v1",
+      "name": "Fabric Client Tags",
+      "version": "1.2.0+1eb36c0719",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-client-tags-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-command-api-v1",
+      "name": "Fabric Command API (v1)",
+      "version": "1.2.49+f71b366f19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-command-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-command-api-v2",
+      "name": "Fabric Command API (v2)",
+      "version": "2.2.28+6ced4dd96a",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "bobby",
+          "parent_sub_location": "META-INF/jars/fabric-command-api-v2-2.2.28+6ced4dd96a.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-commands-v0",
+      "name": "Fabric Commands (v0)",
+      "version": "0.2.66+df3654b319",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-commands-v0-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-content-registries-v0",
+      "name": "Fabric Content Registries (v0)",
+      "version": "8.0.19+b559734419",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-content-registries-v0-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-convention-tags-v1",
+      "name": "Fabric Convention Tags",
+      "version": "2.1.7+7f945d5b19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-convention-tags-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-convention-tags-v2",
+      "name": "Fabric Convention Tags (v2)",
+      "version": "2.12.0+c3656daa19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-convention-tags-v2-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-crash-report-info-v1",
+      "name": "Fabric Crash Report Info (v1)",
+      "version": "0.2.29+0af3f5a719",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-crash-report-info-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-data-attachment-api-v1",
+      "name": "Fabric Data Attachment API (v1)",
+      "version": "1.4.7+5b36e0f719",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-data-attachment-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-data-generation-api-v1",
+      "name": "Fabric Data Generation API (v1)",
+      "version": "20.3.0+1eb36c0719",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-data-generation-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-dimensions-v1",
+      "name": "Fabric Dimensions API (v1)",
+      "version": "4.0.1+65213ef819",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-dimensions-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-entity-events-v1",
+      "name": "Fabric Entity Events (v1)",
+      "version": "1.8.0+2b27e0a419",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-entity-events-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-events-interaction-v0",
+      "name": "Fabric Events Interaction (v0)",
+      "version": "0.7.14+ba9dae0619",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-events-interaction-v0-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-game-rule-api-v1",
+      "name": "Fabric Game Rule API (v1)",
+      "version": "1.0.53+6ced4dd919",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-game-rule-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-item-api-v1",
+      "name": "Fabric Item API (v1)",
+      "version": "11.3.0+467044f319",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-item-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-item-group-api-v1",
+      "name": "Fabric Item Group API (v1)",
+      "version": "4.1.7+def88e3a19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-item-group-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-key-binding-api-v1",
+      "name": "Fabric Key Binding API (v1)",
+      "version": "1.0.47+0af3f5a719",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-key-binding-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-keybindings-v0",
+      "name": "Fabric Key Bindings (v0)",
+      "version": "0.2.45+df3654b319",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-keybindings-v0-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-language-kotlin",
+      "name": "Fabric Language Kotlin",
+      "version": "1.13.13+kotlin.2.4.10",
+      "origins": [
+        {
+          "file": "fabric-language-kotlin-1.13.13+kotlin.2.4.10.jar",
+          "kind": "file",
+          "sha256": "34ccdacf13bb9351fe43ce61912c2e09b72364e43e787d36ba3d2d04dec75a52"
+        }
+      ]
+    },
+    {
+      "id": "fabric-lifecycle-events-v1",
+      "name": "Fabric Lifecycle Events (v1)",
+      "version": "2.6.0+0865547519",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-lifecycle-events-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-loot-api-v2",
+      "name": "Fabric Loot API (v2)",
+      "version": "3.0.15+3f89f5a519",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-loot-api-v2-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-loot-api-v3",
+      "name": "Fabric Loot API (v3)",
+      "version": "1.0.3+3f89f5a519",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-loot-api-v3-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-message-api-v1",
+      "name": "Fabric Message API (v1)",
+      "version": "6.0.14+8aaf3aca19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-message-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-model-loading-api-v1",
+      "name": "Fabric Model Loading API (v1)",
+      "version": "2.1.0+b4d813fc19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-model-loading-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-networking-api-v1",
+      "name": "Fabric Networking API (v1)",
+      "version": "4.3.1+d30f6a7919",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-networking-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-object-builder-api-v1",
+      "name": "Fabric Object Builder API (v1)",
+      "version": "15.2.1+40875a9319",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-object-builder-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-particles-v1",
+      "name": "Fabric Particles (v1)",
+      "version": "4.0.2+6573ed8c19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-particles-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-permissions-api-v0",
+      "name": "fabric-permissions-api",
+      "version": "0.3.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fzzy_config",
+          "parent_sub_location": "META-INF/jars/fabric-permissions-api-0.3.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-recipe-api-v1",
+      "name": "Fabric Recipe API (v1)",
+      "version": "5.0.16+2475392c19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-recipe-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-registry-sync-v0",
+      "name": "Fabric Registry Sync (v0)",
+      "version": "5.3.2+e3eddc2119",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-registry-sync-v0-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-renderer-api-v1",
+      "name": "Fabric Renderer API (v1)",
+      "version": "3.4.1+b4d813fc19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-renderer-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-renderer-indigo",
+      "name": "Fabric Renderer - Indigo",
+      "version": "1.7.1+c705a49c19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-renderer-indigo-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-renderer-registries-v1",
+      "name": "Fabric Renderer Registries (v1)",
+      "version": "3.2.69+df3654b319",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-renderer-registries-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-rendering-data-attachment-v1",
+      "name": "Fabric Rendering Data Attachment (v1)",
+      "version": "0.3.49+73761d2e19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-rendering-data-attachment-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-rendering-fluids-v1",
+      "name": "Fabric Rendering Fluids (v1)",
+      "version": "3.1.6+1daea21519",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-rendering-fluids-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-rendering-v0",
+      "name": "Fabric Rendering (v0)",
+      "version": "1.1.72+df3654b319",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-rendering-v0-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-rendering-v1",
+      "name": "Fabric Rendering (v1)",
+      "version": "5.1.0+ab4c25a019",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-rendering-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-resource-conditions-api-v1",
+      "name": "Fabric Resource Conditions API (v1)",
+      "version": "4.3.0+8dc279b119",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-resource-conditions-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-resource-loader-v0",
+      "name": "Fabric Resource Loader (v0)",
+      "version": "1.3.1+5b5275af19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-resource-loader-v0-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-screen-api-v1",
+      "name": "Fabric Screen API (v1)",
+      "version": "2.0.26+639b4c0719",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-screen-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-screen-handler-api-v1",
+      "name": "Fabric Screen Handler API (v1)",
+      "version": "1.3.91+b559734419",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-screen-handler-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-sound-api-v1",
+      "name": "Fabric Sound API (v1)",
+      "version": "1.0.23+6573ed8c19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-sound-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-tag-api-v1",
+      "name": "Fabric Tag API (v1)",
+      "version": "1.3.0+1eb36c0719",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-tag-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-transfer-api-v1",
+      "name": "Fabric Transfer API (v1)",
+      "version": "5.4.4+7b3d111d19",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-transfer-api-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabric-transitive-access-wideners-v1",
+      "name": "Fabric Transitive Access Wideners (v1)",
+      "version": "6.2.0+45b9699719",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-api",
+          "parent_sub_location": "META-INF/jars/fabric-transitive-access-wideners-v1-0.116.15.jar"
+        }
+      ]
+    },
+    {
+      "id": "fabricloader",
+      "name": "Fabric Loader",
+      "version": "0.19.3",
+      "origins": [
+        {
+          "file": "fabric-loader-0.19.3.jar",
+          "kind": "file",
+          "sha256": "73eed8c34bbad0320a2a3cba5346351e822f74f82b3f3c060574068474132958"
+        }
+      ]
+    },
+    {
+      "id": "farmersdelight",
+      "name": "Farmer's Delight",
+      "version": "1.21.1-3.3.3+refabricated",
+      "origins": [
+        {
+          "file": "FarmersDelight-1.21.1-3.3.3+refabricated.jar",
+          "kind": "file",
+          "sha256": "e32f66a8a5cafafbd6b3ff5ac90fb0d0eb3378e0e216381ab067e149c45a087e"
+        }
+      ]
+    },
+    {
+      "id": "fastboot",
+      "name": "FastBoot",
+      "version": "1.3",
+      "origins": [
+        {
+          "file": "fastboot-1.21.x-v1.3.jar",
+          "kind": "file",
+          "sha256": "3c5963545cf51f646b4ce29c575dcb08dc23c1bcb964b5171817f6e6fe1cc074"
+        }
+      ]
+    },
+    {
+      "id": "ferritecore",
+      "name": "FerriteCore",
+      "version": "7.0.3",
+      "origins": [
+        {
+          "file": "ferritecore-7.0.3-fabric.jar",
+          "kind": "file",
+          "sha256": "98c3ab1d5aab8f14b5d082d3f1a467727fd335f02d124555c94339761c4c18f2"
+        }
+      ]
+    },
+    {
+      "id": "firstperson",
+      "name": "FirstPerson",
+      "version": "2.7.2",
+      "origins": [
+        {
+          "file": "firstperson-fabric-2.7.2-mc1.21.1.jar",
+          "kind": "file",
+          "sha256": "ed17d5ddd5dc6aeb9ee45ff7c2ba69ac1f5a8ab83bf2322f8efb9aee0bc10708"
+        }
+      ]
+    },
+    {
+      "id": "flashback",
+      "name": "Flashback",
+      "version": "0.39.7",
+      "origins": [
+        {
+          "file": "Flashback-0.39.7-for-MC1.21.1.jar",
+          "kind": "file",
+          "sha256": "ff79c6de124e5174688a3e7270044814beaa35617e68772d432b67909d8334cd"
+        }
+      ]
+    },
+    {
+      "id": "forgeconfigapiport",
+      "name": "Forge Config API Port",
+      "version": "21.1.6",
+      "origins": [
+        {
+          "file": "ForgeConfigAPIPort-v21.1.6-1.21.1-Fabric.jar",
+          "kind": "file",
+          "sha256": "2e3a8f0e3bda85a7d722720e7ce879cbd9d028d9395c6fc224d329b3c982d9b1"
+        }
+      ]
+    },
+    {
+      "id": "framework",
+      "name": "Framework",
+      "version": "0.13.11",
+      "origins": [
+        {
+          "file": "framework-fabric-1.21.1-0.13.11.jar",
+          "kind": "file",
+          "sha256": "5d15360a4fffa8699562c700b5b0e97f0fd0b63006f0c1dbe2fec2b60022117d"
+        }
+      ]
+    },
+    {
+      "id": "ftblibrary",
+      "name": "FTB Library",
+      "version": "2101.1.35",
+      "origins": [
+        {
+          "file": "ftb-library-fabric-2101.1.35.jar",
+          "kind": "file",
+          "sha256": "73d0e241ac9465d9d1a1edc4c1691a9664d2f0890316df1ae6d4c9128c98c99b"
+        }
+      ]
+    },
+    {
+      "id": "ftbquests",
+      "name": "FTB Quests",
+      "version": "2101.1.30",
+      "origins": [
+        {
+          "file": "ftb-quests-fabric-2101.1.30.jar",
+          "kind": "file",
+          "sha256": "89d1ce3ffe8eb11a27e2e5920b015be0b9b6691dc3707050ec2dcc325779ec21"
+        }
+      ]
+    },
+    {
+      "id": "ftbteams",
+      "name": "FTB Teams",
+      "version": "2101.1.10",
+      "origins": [
+        {
+          "file": "ftb-teams-fabric-2101.1.10.jar",
+          "kind": "file",
+          "sha256": "bc398b9f7837447c701ed3cae2dffadb35270340d82abdb72e97265c3583386f"
+        }
+      ]
+    },
+    {
+      "id": "fzzy_config",
+      "name": "Fzzy Config",
+      "version": "0.7.6+1.21",
+      "origins": [
+        {
+          "file": "fzzy_config-0.7.6+1.21.jar",
+          "kind": "file",
+          "sha256": "323dc065cc3aaeb7f908be7e5d31070a25d4188b433ed770a79700ef8f5e8f7d"
+        }
+      ]
+    },
+    {
+      "id": "geckolib",
+      "name": "GeckoLib 4",
+      "version": "4.9.2",
+      "origins": [
+        {
+          "file": "geckolib-fabric-1.21.1-4.9.2.jar",
+          "kind": "file",
+          "sha256": "eac4cf55e1cb99b22cb91ea87c774d2a670c1711a80f4aff50e6ad56b6c58e7e"
+        }
+      ]
+    },
+    {
+      "id": "geophilic",
+      "name": "Geophilic",
+      "version": "3.6",
+      "origins": [
+        {
+          "file": "Geophilic v3.6.mod.jar",
+          "kind": "file",
+          "sha256": "5df284ed678c8f44d5f9b015736c18858d8b5706128bbe129fc35bc23208bd84"
+        }
+      ]
+    },
+    {
+      "id": "glitchcore",
+      "name": "GlitchCore",
+      "version": "2.1.0.2",
+      "origins": [
+        {
+          "file": "GlitchCore-fabric-1.21.1-2.1.0.2.jar",
+          "kind": "file",
+          "sha256": "9eb2eff5bec5e2084aa272522058001008c83e994babe4e31f9f87e92e21d986"
+        }
+      ]
+    },
+    {
+      "id": "glow_ink_plus",
+      "name": "Glow Ink Plus Mod",
+      "version": "1.3",
+      "origins": [
+        {
+          "file": "glow_ink_plus-fabric-1.3.jar",
+          "kind": "file",
+          "sha256": "7baedfb4eb7e1fc714c93763e5d186c382c51009581986253e879b8201fa9b4e"
+        }
+      ]
+    },
+    {
+      "id": "gpu_tape",
+      "name": "GPU Tape",
+      "version": "1.0.5.1",
+      "origins": [
+        {
+          "file": "GpuTape-1.18x-1.21x-1.0.5.1.jar",
+          "kind": "file",
+          "sha256": "ef2d70cb66a265c8d72a30602942a929dca3d114bfb231b3191f28d3a1fc441e"
+        }
+      ]
+    },
+    {
+      "id": "grindenchantments",
+      "name": "Grind Enchantments",
+      "version": "4.0.0+1.21.1",
+      "origins": [
+        {
+          "file": "grind-enchantments-4.0.0+1.21.1.jar",
+          "kind": "file",
+          "sha256": "61dc4e270113e4cc20af3a23ee8b8d2fe7ae8c71fcc3f2ff975f536574365c31"
+        }
+      ]
+    },
+    {
+      "id": "hopobettermineshaft",
+      "name": "Hopo Better Mineshaft",
+      "version": "1.3.0",
+      "origins": [
+        {
+          "file": "HopoBetterMineshaft-[1.21-1.21.3]-1.3.0b.jar",
+          "kind": "file",
+          "sha256": "abbb04d93e9dcb350f3415afc56f4566e47ad88e0f696bb6d11e04afdb538136"
+        }
+      ]
+    },
+    {
+      "id": "hopobetterruinedportal",
+      "name": "Hopo Better Ruined Portal",
+      "version": "1.4.4",
+      "origins": [
+        {
+          "file": "HopoBetterRuinedPortals-[1.21.1-1.21.3]-1.4.4b.jar",
+          "kind": "file",
+          "sha256": "c1e68c98ea538167ca7d4ac530c254e9d5dd400bee408b0d72574b3c7f29e14b"
+        }
+      ]
+    },
+    {
+      "id": "hopobetterunderwaterruins",
+      "name": "Hopo Better Underwater Ruins",
+      "version": "1.2.1",
+      "origins": [
+        {
+          "file": "HopoBetterUnderwaterRuins-[1.21.1-1.21.3]-1.2.1b.jar",
+          "kind": "file",
+          "sha256": "818206b8a031fa16169428681cbebafbd20270b7b34331b5b20e15af34664563"
+        }
+      ]
+    },
+    {
+      "id": "hybrid_aquatic",
+      "name": "Hybrid Aquatic",
+      "version": "1.6.9",
+      "origins": [
+        {
+          "file": "[1.21.1-Fabric] Hybrid Aquatic 1.6.9.jar",
+          "kind": "file",
+          "sha256": "cdb9cb43dc5483207ca40e166ac4bbac87e861606e49a25d5bed51a57a879efe"
+        }
+      ]
+    },
+    {
+      "id": "hybrid_birds",
+      "name": "Hybrid Birds",
+      "version": "1.2.1",
+      "origins": [
+        {
+          "file": "[1.21.1-Fabric] Hybrid Birds 1.2.1.jar",
+          "kind": "file",
+          "sha256": "ae31a388839bbb4ea6b4183d09cd5efe30843bc36b96d93b9164a9dc490e62df"
+        }
+      ]
+    },
+    {
+      "id": "hybrid_delights",
+      "name": "Hybrid Delights",
+      "version": "1.2.1",
+      "origins": [
+        {
+          "file": "[1.21.1-Fabric] Hybrid Delights 1.2.1.jar",
+          "kind": "file",
+          "sha256": "88685888a8dbbba068d8919be88c8f0c4eee05447b084f72ef8ac66844bc2c62"
+        }
+      ]
+    },
+    {
+      "id": "iac-structures",
+      "name": "Immersive Aircraft Structures",
+      "version": "1.0.0",
+      "origins": [
+        {
+          "file": "iac-structures-1.0.0.jar",
+          "kind": "file",
+          "sha256": "43c09e1aa93faef4a2db43ad75a4d9df39d21089675633dbfeeaa619c0ab78fa"
+        }
+      ]
+    },
+    {
+      "id": "idle_boost",
+      "name": "Idle Boost",
+      "version": "1.2.0+1.21.1",
+      "origins": [
+        {
+          "file": "idle_boost-fabric-1.2.0+1.21.1.jar",
+          "kind": "file",
+          "sha256": "888e766bc639e68c092584e05e87d97dad89960c879d3fa472809180a66ee137"
+        }
+      ]
+    },
+    {
+      "id": "immersive-aircraft-camera-zoom-addon",
+      "name": "Camera Zoom - Immersive Aircraft",
+      "version": "2.0.0+1.21.1",
+      "origins": [
+        {
+          "file": "[Fabric - 1.21.1] Camera Zoom - 2.0.0.jar",
+          "kind": "file",
+          "sha256": "cc79368bc7163f1b7669640f0a826073bd4d7dd03354c5b74066799fd38f666e"
+        }
+      ]
+    },
+    {
+      "id": "immersive-aircraft-realistic-landing-addon",
+      "name": "Realistic Landing - Immersive Aircraft",
+      "version": "3.0.0+1.21.1",
+      "origins": [
+        {
+          "file": "[Fabric - 1.21.1] Realistic Landing - 3.0.0.jar",
+          "kind": "file",
+          "sha256": "1d8cdfbdf9976f8b452e20e94ee4c7e2912bb67505725eeddccdfb539031dcd9"
+        }
+      ]
+    },
+    {
+      "id": "immersive-aircraft-realistic-takeoff-addon",
+      "name": "Realistic Takeoff - Immersive Aircraft",
+      "version": "2.0.2+1.21.1",
+      "origins": [
+        {
+          "file": "[Fabric - 1.21.1] Realistic Takeoff - 2.0.2.jar",
+          "kind": "file",
+          "sha256": "8de3e8a222256239482901ba2df3d3a0af70a431a1317773879fa77bdf13c2fe"
+        }
+      ]
+    },
+    {
+      "id": "immersive_aircraft",
+      "name": "Immersive Aircraft",
+      "version": "1.4.6+1.21.1",
+      "origins": [
+        {
+          "file": "immersive_aircraft-1.4.6+1.21.1-fabric.jar",
+          "kind": "file",
+          "sha256": "b4f403b358e87f769ed089e488f03f56bf9089dd320871585ca6ed9715bb09fa"
+        }
+      ]
+    },
+    {
+      "id": "immersive_furniture",
+      "name": "Immersive Furniture",
+      "version": "0.3.3+1.21.1",
+      "origins": [
+        {
+          "file": "immersive_furniture-fabric-0.3.3+1.21.1.jar",
+          "kind": "file",
+          "sha256": "ae177a8fcd8749004072170b999d6c4bb35146eebbe5b7c13f95eb43972f1b83"
+        }
+      ]
+    },
+    {
+      "id": "immersive_melodies",
+      "name": "Immersive Melodies",
+      "version": "0.7.1+1.21.1",
+      "origins": [
+        {
+          "file": "immersive_melodies-fabric-0.7.1+1.21.1.jar",
+          "kind": "file",
+          "sha256": "2b91795a12e8b7a84888d09449859c9fa93ad00a343204c4dd39d573ca055a92"
+        }
+      ]
+    },
+    {
+      "id": "inventorysorter",
+      "name": "Inventory Sorter",
+      "version": "1.9.0-1.21",
+      "origins": [
+        {
+          "file": "InventorySorter-1.9.0-1.21.jar",
+          "kind": "file",
+          "sha256": "1677d6c00ef49441dd5579cd75fb65965ad87c4594c20c0b1219bfceee4c18c7"
+        }
+      ]
+    },
+    {
+      "id": "io_github_douira_glsl-transformer",
+      "name": "glsl-transformer",
+      "version": "3.0.0-pre3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "iris",
+          "parent_sub_location": "META-INF/jars/glsl-transformer-3.0.0-pre3.jar"
+        }
+      ]
+    },
+    {
+      "id": "io_leangen_geantyref_geantyref",
+      "name": "geantyref",
+      "version": "1.3.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "bobby",
+          "parent_sub_location": "META-INF/jars/geantyref-1.3.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "io_reactivex_rxjava3_rxjava",
+      "name": "rxjava",
+      "version": "3.1.12",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/rxjava-3.1.12.jar"
+        }
+      ]
+    },
+    {
+      "id": "io_wispforest_endec",
+      "name": "endec",
+      "version": "0.1.5.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "owo",
+          "parent_sub_location": "META-INF/jars/endec-0.1.5.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "io_wispforest_endec_gson",
+      "name": "gson",
+      "version": "0.1.3.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "owo",
+          "parent_sub_location": "META-INF/jars/gson-0.1.3.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "io_wispforest_endec_jankson",
+      "name": "jankson",
+      "version": "0.1.3.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "owo",
+          "parent_sub_location": "META-INF/jars/jankson-0.1.3.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "io_wispforest_endec_netty",
+      "name": "netty",
+      "version": "0.1.2",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "owo",
+          "parent_sub_location": "META-INF/jars/netty-0.1.2.jar"
+        }
+      ]
+    },
+    {
+      "id": "iris",
+      "name": "Iris",
+      "version": "1.8.14-beta.1+mc1.21.1",
+      "origins": [
+        {
+          "file": "iris-fabric-1.8.14-beta.1+mc1.21.1.jar",
+          "kind": "file",
+          "sha256": "0ceb694040b4628bf3fa02286cfe5f0db833195669ab07f8caa4001359763eff"
+        }
+      ]
+    },
+    {
+      "id": "jade",
+      "name": "Jade",
+      "version": "15.10.6+fabric",
+      "origins": [
+        {
+          "file": "Jade-1.21.1-Fabric-15.10.6.jar",
+          "kind": "file",
+          "sha256": "fb834cc77804a6f509690c54b4af56305ce7a7f3171f8616310710f0af1f673a"
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "name": "OpenJDK 64-Bit Server VM",
+      "version": "21",
+      "origins": [
+        {
+          "file": "zulu21.42.19-ca-jre21.0.7-win_x64",
+          "kind": "directory"
+        }
+      ]
+    },
+    {
+      "id": "justhammers",
+      "name": "Just Hammers",
+      "version": "21.1.4",
+      "origins": [
+        {
+          "file": "just-hammers-fabric-21.1.4.jar",
+          "kind": "file",
+          "sha256": "5418fc6d0f8bc780c6c80a3353e5e90cad38750188d258e4f68bc21922b2c604"
+        }
+      ]
+    },
+    {
+      "id": "kyrptconfig",
+      "name": "Kyrpt Config",
+      "version": "1.6.0-1.20.4",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "inventorysorter",
+          "parent_sub_location": "META-INF/jars/kyrptconfig-1.6.0-1.21.jar"
+        }
+      ]
+    },
+    {
+      "id": "lattice",
+      "name": "Lattice",
+      "version": "1.3.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "flashback",
+          "parent_sub_location": "META-INF/jars/lattice-1.3.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "letmedespawn",
+      "name": "Let Me Despawn",
+      "version": "1.5.0",
+      "origins": [
+        {
+          "file": "letmedespawn-1.21.x-fabric-1.5.0.jar",
+          "kind": "file",
+          "sha256": "abeac43f78a915cfa0c855fa945f07601a1509064079c4c8640c7105ba6ac554"
+        }
+      ]
+    },
+    {
+      "id": "litematica",
+      "name": "Litematica",
+      "version": "0.19.61",
+      "origins": [
+        {
+          "file": "litematica-fabric-1.21-0.19.61.jar",
+          "kind": "file",
+          "sha256": "81b66009d4e0868e9e3e2e1593e0942ba0c651ddd8300586ae1ffbd227b6ba24"
+        }
+      ]
+    },
+    {
+      "id": "lithium",
+      "name": "Lithium",
+      "version": "0.15.4+mc1.21.1",
+      "origins": [
+        {
+          "file": "lithium-fabric-0.15.4+mc1.21.1.jar",
+          "kind": "file",
+          "sha256": "92329d98c57f5a22091a0adb509fdb1d60113a5602c708b799b13134bad13baa"
+        }
+      ]
+    },
+    {
+      "id": "lithostitched",
+      "name": "Lithostitched",
+      "version": "1.7.13",
+      "origins": [
+        {
+          "file": "lithostitched-1.7.13-fabric-21.1.jar",
+          "kind": "file",
+          "sha256": "206c086604bcfea5b2862e90069470352cbf4b4d7088b55cdfa8f3452bedc270"
+        }
+      ]
+    },
+    {
+      "id": "lootintegrations",
+      "name": "Loot integration Mod",
+      "version": "1.21-4.7",
+      "origins": [
+        {
+          "file": "lootintegrations-fabric-1.21-4.7.jar",
+          "kind": "file",
+          "sha256": "e3219c1c99a7c133eb6f6bf67c4bb7032015ff876dd43f81c7f2704a78a7997f"
+        }
+      ]
+    },
+    {
+      "id": "lootintegrations_hopo",
+      "name": "lootintegrations_hopo Mod",
+      "version": "1.6",
+      "origins": [
+        {
+          "file": "lootintegrations_hopo-1.6.jar",
+          "kind": "file",
+          "sha256": "887f9468aa98d2403db1af0da68b50953b78dcd5d4f9bbd40e84228fc5d9f4cf"
+        }
+      ]
+    },
+    {
+      "id": "lootr",
+      "name": "Lootr",
+      "version": "1.21.1-1.11.38.123",
+      "origins": [
+        {
+          "file": "lootr-fabric-1.21.1-1.11.38.123.jar",
+          "kind": "file",
+          "sha256": "721a2386c8d6ed2090674be890f866b807ef504cda527fb78bbfc7a4a4d8053d"
+        }
+      ]
+    },
+    {
+      "id": "malilib",
+      "name": "MaLiLib",
+      "version": "0.21.10",
+      "origins": [
+        {
+          "file": "malilib-fabric-1.21-0.21.10.jar",
+          "kind": "file",
+          "sha256": "fed24701279ed7d55ea9e1bce9d4528e3f679ef9883c1ab7fb7a8c6a3fcd2915"
+        }
+      ]
+    },
+    {
+      "id": "mcwbiomesoplenty",
+      "name": "Macaw's Biomes O' Plenty",
+      "version": "1.21.1-1.6",
+      "origins": [
+        {
+          "file": "mcwbiomesoplenty-fabric-1.21.1-1.6.jar",
+          "kind": "file",
+          "sha256": "955905dee1b33bb362f65706d189d16e29b27079f9b720286dcbb702e72a1159"
+        }
+      ]
+    },
+    {
+      "id": "mcwbridges",
+      "name": "Macaw's Bridges",
+      "version": "3.1.2",
+      "origins": [
+        {
+          "file": "mcw-bridges-3.1.2-mc1.21.1fabric.jar",
+          "kind": "file",
+          "sha256": "0ee00ccd82865e987ca4c0f1a57614c288385b93aa7daac8c81c5eb359934279"
+        }
+      ]
+    },
+    {
+      "id": "mcwbyg",
+      "name": "Macaw's Oh The Biomes We've Gone",
+      "version": "1.21.1-1.6",
+      "origins": [
+        {
+          "file": "mcwbyg-fabric-1.21.1-1.6.jar",
+          "kind": "file",
+          "sha256": "537bcc5a86e4edc037487691e144d9d014978d199749b57879c11d4b5de086ee"
+        }
+      ]
+    },
+    {
+      "id": "mcwdoors",
+      "name": "Macaw's Doors",
+      "version": "1.1.5",
+      "origins": [
+        {
+          "file": "mcw-doors-1.1.5-mc1.21.1fabric.jar",
+          "kind": "file",
+          "sha256": "36b12175ad87cefcbde35b187b9a1c5ce9e1af1471edf6c5064ebd1a8c868ef1"
+        }
+      ]
+    },
+    {
+      "id": "mcwfences",
+      "name": "Macaw's Fences and Walls",
+      "version": "1.2.1",
+      "origins": [
+        {
+          "file": "mcw-mcwfences-1.2.1-mc1.21.1fabric.jar",
+          "kind": "file",
+          "sha256": "32408564efb67ed8b02023365d19a31e80c859dbfc0e977790eb12e3a6095cba"
+        }
+      ]
+    },
+    {
+      "id": "mcwfurnitures",
+      "name": "Macaw's Furniture",
+      "version": "3.4.1",
+      "origins": [
+        {
+          "file": "mcw-furniture-3.4.1-mc1.21.1fabric.jar",
+          "kind": "file",
+          "sha256": "73d3f1f7b8a78c274919280161eefa36a3486f6b343e27f2bdd055ecf9a1da95"
+        }
+      ]
+    },
+    {
+      "id": "mcwlights",
+      "name": "Macaw's Lights and Lamps",
+      "version": "1.1.5",
+      "origins": [
+        {
+          "file": "mcw-lights-1.1.5-mc1.21.1fabric.jar",
+          "kind": "file",
+          "sha256": "a5743a24da303ec6ef259dc3d53e4f0eb2bfccbb3ecc3f223dbeb1714e457f32"
+        }
+      ]
+    },
+    {
+      "id": "mcwpaintings",
+      "name": "Macaw's Paintings",
+      "version": "1.1.0",
+      "origins": [
+        {
+          "file": "mcw-paintings-1.1.0-mc1.21.1fabric.jar",
+          "kind": "file",
+          "sha256": "8759114b136120e3298bf4cd61e281efd0e983f8d1949ff9fffe46e048f83a82"
+        }
+      ]
+    },
+    {
+      "id": "mcwpaths",
+      "name": "Macaw's Paths and Pavings",
+      "version": "1.1.2",
+      "origins": [
+        {
+          "file": "mcw-paths-1.1.2-mc1.21.1fabric.jar",
+          "kind": "file",
+          "sha256": "f382b057bc62d5ef324021cbcd372f47ee068aa4930e0e14da6863df33081455"
+        }
+      ]
+    },
+    {
+      "id": "mcwroofs",
+      "name": "Macaw's Roofs",
+      "version": "2.3.2",
+      "origins": [
+        {
+          "file": "mcw-roofs-2.3.2-mc1.21.1fabric.jar",
+          "kind": "file",
+          "sha256": "f0b181de6c35f36897ea18c92181409f0ccab604ceb4c34c9a2e126ec638bbc3"
+        }
+      ]
+    },
+    {
+      "id": "mcwstairs",
+      "name": "Macaw's Stairs and Balconies",
+      "version": "1.0.2",
+      "origins": [
+        {
+          "file": "mcw-mcwstairs-1.0.2-mc1.21.1fabric.jar",
+          "kind": "file",
+          "sha256": "a6243c53256ad7d0813ba9e1003ca8ed5480f5354efcea0c0e8e5cbcb0fa2267"
+        }
+      ]
+    },
+    {
+      "id": "mcwtrpdoors",
+      "name": "Macaw's Trapdoors",
+      "version": "1.1.5",
+      "origins": [
+        {
+          "file": "mcw-trapdoors-1.1.5-mc1.21.1fabric.jar",
+          "kind": "file",
+          "sha256": "b32ff007aa60c90a1293d52fd3f58b04e97b3c783034376ce830fd5b7359f001"
+        }
+      ]
+    },
+    {
+      "id": "mcwwindows",
+      "name": "Macaw's Windows",
+      "version": "2.4.2",
+      "origins": [
+        {
+          "file": "mcw-mcwwindows-2.4.2-mc1.21.1fabric.jar",
+          "kind": "file",
+          "sha256": "c887517505ec2568839475d625967ea2277f190f238043d1caa3f7562ff8f77d"
+        }
+      ]
+    },
+    {
+      "id": "mermod",
+      "name": "Mermod",
+      "version": "3.3.2",
+      "origins": [
+        {
+          "file": "mermod-fabric-3.3.2+1.21.1.jar",
+          "kind": "file",
+          "sha256": "a4106a65ff3dfd31322dd9053a8f91e239b9c73ca688aadb6b9630a957f11b1d"
+        }
+      ]
+    },
+    {
+      "id": "midnightlib",
+      "name": "MidnightLib",
+      "version": "1.9.3",
+      "origins": [
+        {
+          "file": "midnightlib-fabric-1.9.3+1.21.1.jar",
+          "kind": "file",
+          "sha256": "ec05a4c29789cc7fd44489eecc368bc3993b95182f2028cefbed705804a27433"
+        }
+      ]
+    },
+    {
+      "id": "minecraft",
+      "name": "Minecraft",
+      "version": "1.21.1",
+      "origins": [
+        {
+          "file": "client-intermediary.jar",
+          "kind": "file",
+          "sha256": "9032159f8eed33d8a7c0b928eb41a4b10b0b0e149dfe87b2f28fd944101788a8"
+        }
+      ]
+    },
+    {
+      "id": "mixinextras",
+      "name": "MixinExtras",
+      "version": "0.5.4",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabricloader",
+          "parent_sub_location": "META-INF/jars/mixinextras-fabric-0.5.4.jar"
+        }
+      ]
+    },
+    {
+      "id": "mixinsquared",
+      "name": "MixinSquared",
+      "version": "0.3.7-beta.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/mixinsquared-fabric-0.3.7-beta.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "modernfix",
+      "name": "ModernFix",
+      "version": "5.25.1+mc1.21.1",
+      "origins": [
+        {
+          "file": "modernfix-fabric-5.25.1+mc1.21.1.jar",
+          "kind": "file",
+          "sha256": "3ce5a9ce75066961b7fa5382692bb1387cc3536cc984b064ab7d70b97f3c674c"
+        }
+      ]
+    },
+    {
+      "id": "modmenu",
+      "name": "Mod Menu",
+      "version": "11.0.4",
+      "origins": [
+        {
+          "file": "modmenu-11.0.4.jar",
+          "kind": "file",
+          "sha256": "a88e0d67c82b0434cbf56776c482587c275ed660f635d33f53ba485dfa30dcc3"
+        }
+      ]
+    },
+    {
+      "id": "moonlight",
+      "name": "Moonlight Lib",
+      "version": "1.21.1-3.3.3",
+      "origins": [
+        {
+          "file": "moonlight-1.21.1-3.3.3-fabric.jar",
+          "kind": "file",
+          "sha256": "7877def9ad571610c2f04cf4c54bd58b2cef1a5ed984536a9baeb6847399a8d2"
+        }
+      ]
+    },
+    {
+      "id": "more_engines",
+      "name": "Immersive Aircraft: Better Engines",
+      "version": "3.0.2",
+      "origins": [
+        {
+          "file": "more_engines-fabric-3.0.2.jar",
+          "kind": "file",
+          "sha256": "2092e3f0b53be93a6dfcb8fda0f1dce1dfc83b559764c5738401b7652ef17e95"
+        }
+      ]
+    },
+    {
+      "id": "moreculling",
+      "name": "More Culling",
+      "version": "1.0.9",
+      "origins": [
+        {
+          "file": "moreculling-fabric-1.21.1-1.0.9.jar",
+          "kind": "file",
+          "sha256": "0c0d18cdb6a062c8d3b020a3a92a675ecfcd284be9317a30e045f3242c3a0b58"
+        }
+      ]
+    },
+    {
+      "id": "mousetweaks",
+      "name": "Mouse Tweaks",
+      "version": "2.26",
+      "origins": [
+        {
+          "file": "MouseTweaks-fabric-mc1.21-2.26.jar",
+          "kind": "file",
+          "sha256": "3e9fa4800fafef616fbf1545d62f5898f55c83fbd4126ce2b48b5e0077243fc0"
+        }
+      ]
+    },
+    {
+      "id": "mr_conures_graves",
+      "name": "Very Simple Gravestones",
+      "version": "1.0.2",
+      "origins": [
+        {
+          "file": "conures-graves-1.0.2.jar",
+          "kind": "file",
+          "sha256": "d86ffaae1f86f7d440707fd902f00f7ec903bcd87f3361fdac96221ae93676ce"
+        }
+      ]
+    },
+    {
+      "id": "mr_dungeons_andtaverns",
+      "name": "Dungeons and Taverns",
+      "version": "1-v4.4.4",
+      "origins": [
+        {
+          "file": "dungeons-and-taverns-v4.4.4 [Fabric].jar",
+          "kind": "file",
+          "sha256": "6ba41e48f6bfec81567e1805b43c4a8f51b4ab5f360a3c211805ebfb070642da"
+        }
+      ]
+    },
+    {
+      "id": "mr_farmers_cuttingohthebiomeswevegone",
+      "name": "Farmer's Cutting: Oh The Biomes We've Gone",
+      "version": "1.21.1-2.1-fabric",
+      "origins": [
+        {
+          "file": "farmers-cutting-oh-the-biomes-weve-gone-1.21.1-2.1-fabric.jar",
+          "kind": "file",
+          "sha256": "19ff460305ca4c0453641d8270c33b235a0c3a9dc49e532e89b97e8771a1fc5a"
+        }
+      ]
+    },
+    {
+      "id": "mr_larger_oreveinsdeluxe",
+      "name": "Larger Ore Veins: Deluxe",
+      "version": "1.3.0",
+      "origins": [
+        {
+          "file": "larger-ore-veins-deluxe-1.3.0.jar",
+          "kind": "file",
+          "sha256": "0aa6b4c4a20746015575cdafb48badd2b77df87f309bcdc12a6f65b3afd30dc0"
+        }
+      ]
+    },
+    {
+      "id": "mr_progressive_eyes",
+      "name": "Progressive Ender Eyes",
+      "version": "1.5",
+      "origins": [
+        {
+          "file": "progressive-eyes-1.5.jar",
+          "kind": "file",
+          "sha256": "e14265ecf3e41f206491e5d9aa3df0d2cd3a490bd4b0d40588fa64b0b97597cb"
+        }
+      ]
+    },
+    {
+      "id": "mr_tide_extracompatibility",
+      "name": "Tide Extra Compatibility",
+      "version": "2.2.0",
+      "origins": [
+        {
+          "file": "tide-extra-compatibility-2.2.0.jar",
+          "kind": "file",
+          "sha256": "f953f9501f47c79110df0a04c91dd0e56f285ecafb973eb6816439c417ef19a9"
+        }
+      ]
+    },
+    {
+      "id": "myths_of_the_sea",
+      "name": "MythsOfTheSea",
+      "version": "1.3.0",
+      "origins": [
+        {
+          "file": "MOTS-Fabric-1.21.1-1.3.0.jar",
+          "kind": "file",
+          "sha256": "55e0944707b91dc3ae15d8a5162184f8327521c4ace71d05f9c0985495222bab"
+        }
+      ]
+    },
+    {
+      "id": "naturalist",
+      "name": "Naturalist",
+      "version": "2.0.2",
+      "origins": [
+        {
+          "file": "naturalist-2.0.2-fabric-1.21.1.jar",
+          "kind": "file",
+          "sha256": "1852ebd1124bcd44b91beebb75921805b9dd7f6ccaae6c1c551cba92b62ee605"
+        }
+      ]
+    },
+    {
+      "id": "net_jodah_typetools",
+      "name": "typetools",
+      "version": "0.6.3",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "glitchcore",
+          "parent_sub_location": "META-INF/jars/typetools-0.6.3.jar"
+        }
+      ]
+    },
+    {
+      "id": "net_lostluma_battery",
+      "name": "battery",
+      "version": "2.0.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "dynamic_fps",
+          "parent_sub_location": "META-INF/jars/battery-2.0.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "net_neoforged_bus",
+      "name": "bus",
+      "version": "7.2.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "creativecore",
+          "parent_sub_location": "META-INF/jars/bus-7.2.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "net_objecthunter_exp4j",
+      "name": "exp4j",
+      "version": "0.4.8",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/exp4j-0.4.8.jar"
+        }
+      ]
+    },
+    {
+      "id": "net_peanuuutz_tomlkt_tomlkt-jvm",
+      "name": "tomlkt-jvm",
+      "version": "0.3.7",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fzzy_config",
+          "parent_sub_location": "META-INF/jars/tomlkt-jvm-0.3.7.jar"
+        }
+      ]
+    },
+    {
+      "id": "noisium",
+      "name": "Noisium",
+      "version": "2.7.0+mc1.21-1.21.1",
+      "origins": [
+        {
+          "file": "noisium-fabric-2.7.0+mc1.21-1.21.1.jar",
+          "kind": "file",
+          "sha256": "d7e471aae3fc221f3fc31104b996b2b6f2dd592a5a9c79da4a8ef310efbea315"
+        }
+      ]
+    },
+    {
+      "id": "notenoughanimations",
+      "name": "NotEnoughAnimations",
+      "version": "1.12.4",
+      "origins": [
+        {
+          "file": "notenoughanimations-fabric-1.12.4-mc1.21.1.jar",
+          "kind": "file",
+          "sha256": "12e3bded47f6669030edf57b615e77de8d080f38d0313dd892c6d18833fc39fd"
+        }
+      ]
+    },
+    {
+      "id": "nullscape",
+      "name": "Nullscape",
+      "version": "1.2.14",
+      "origins": [
+        {
+          "file": "Nullscape_1.21.x_v1.2.14.jar",
+          "kind": "file",
+          "sha256": "8749c6fdda659335e50116c18e012cdf8699b3789859c82559af2c6f425c93ae"
+        }
+      ]
+    },
+    {
+      "id": "oc",
+      "name": "OC",
+      "version": "1.1.2",
+      "origins": [
+        {
+          "file": "oc-1.2 (2).jar",
+          "kind": "file",
+          "sha256": "0c92884196893ed33fcd60e744ddc3e85ab7be14e247d6d41bbdc5a3a354f68a"
+        }
+      ]
+    },
+    {
+      "id": "ocean_mermaid_statue",
+      "name": "Ocean Mermaid Statue",
+      "version": "1.0.0",
+      "origins": [
+        {
+          "file": "ocean_mermaid_statue-1.0.0-fabric 1.21.1.jar",
+          "kind": "file",
+          "sha256": "c51e638b9dbfa185fd71c62b317ea4ab190ab706dc256eb2bfe5273e7ed8f6e4"
+        }
+      ]
+    },
+    {
+      "id": "oceansdelight",
+      "name": "Ocean's Delight",
+      "version": "1.0.3+fabric.1.21.1",
+      "origins": [
+        {
+          "file": "oceansdelight-fdrf-fabric-1.0.3-1.21.1.jar",
+          "kind": "file",
+          "sha256": "4d5f95fde2ceee2cb85bf587fbf443ed8ef2e8be2b6d5626b2aa713a52f528d6"
+        }
+      ]
+    },
+    {
+      "id": "ohthetreesyoullgrow",
+      "name": "Oh The Trees You'll Grow",
+      "version": "5.3.2",
+      "origins": [
+        {
+          "file": "Oh-The-Trees-Youll-Grow-fabric-1.21.1-5.3.2.jar",
+          "kind": "file",
+          "sha256": "584277ba83f9178ee123725be3156b4f51320721627216a93772ae7008620d93"
+        }
+      ]
+    },
+    {
+      "id": "omegaconfig",
+      "name": "Omega Config Architectury",
+      "version": "1.5.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "darkenchanting",
+          "parent_sub_location": "META-INF/jars/omegaconfig-fabric-1.5.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_anarres_jcpp",
+      "name": "jcpp",
+      "version": "1.4.14",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "iris",
+          "parent_sub_location": "META-INF/jars/jcpp-1.4.14.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_antlr_antlr4-runtime",
+      "name": "antlr4-runtime",
+      "version": "4.13.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "iris",
+          "parent_sub_location": "META-INF/jars/antlr4-runtime-4.13.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_javassist_javassist",
+      "name": "javassist",
+      "version": "3.29.2-GA",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "framework",
+          "parent_sub_location": "META-INF/jars/javassist-3.29.2-GA.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jctools_jctools-core",
+      "name": "jctools-core",
+      "version": "4.0.5",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/jctools-core-4.0.5.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_annotations",
+      "name": "annotations",
+      "version": "13.0",
+      "origins": [
+        {
+          "file": "annotations-13.0.jar",
+          "kind": "file",
+          "sha256": "dfc49b5c594865891ad464423037c4e85d6d4d8d1d31bf7a319c33b26fac7137"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_kotlin_kotlin-reflect",
+      "name": "kotlin-reflect",
+      "version": "2.4.10",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-language-kotlin",
+          "parent_sub_location": "META-INF/jars/kotlin-reflect-2.4.10.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_kotlin_kotlin-stdlib",
+      "name": "kotlin-stdlib",
+      "version": "2.4.10",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-language-kotlin",
+          "parent_sub_location": "META-INF/jars/kotlin-stdlib-2.4.10.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_kotlin_kotlin-stdlib-jdk7",
+      "name": "kotlin-stdlib-jdk7",
+      "version": "2.4.10",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-language-kotlin",
+          "parent_sub_location": "META-INF/jars/kotlin-stdlib-jdk7-2.4.10.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_kotlin_kotlin-stdlib-jdk8",
+      "name": "kotlin-stdlib-jdk8",
+      "version": "2.4.10",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-language-kotlin",
+          "parent_sub_location": "META-INF/jars/kotlin-stdlib-jdk8-2.4.10.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_kotlinx_atomicfu-jvm",
+      "name": "atomicfu-jvm",
+      "version": "0.33.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-language-kotlin",
+          "parent_sub_location": "META-INF/jars/atomicfu-jvm-0.33.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_kotlinx_kotlinx-coroutines-core-jvm",
+      "name": "kotlinx-coroutines-core-jvm",
+      "version": "1.11.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-language-kotlin",
+          "parent_sub_location": "META-INF/jars/kotlinx-coroutines-core-jvm-1.11.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_kotlinx_kotlinx-coroutines-jdk8",
+      "name": "kotlinx-coroutines-jdk8",
+      "version": "1.11.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-language-kotlin",
+          "parent_sub_location": "META-INF/jars/kotlinx-coroutines-jdk8-1.11.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_kotlinx_kotlinx-datetime-jvm",
+      "name": "kotlinx-datetime-jvm",
+      "version": "0.8.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-language-kotlin",
+          "parent_sub_location": "META-INF/jars/kotlinx-datetime-jvm-0.8.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_kotlinx_kotlinx-io-bytestring-jvm",
+      "name": "kotlinx-io-bytestring-jvm",
+      "version": "0.9.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-language-kotlin",
+          "parent_sub_location": "META-INF/jars/kotlinx-io-bytestring-jvm-0.9.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_kotlinx_kotlinx-io-core-jvm",
+      "name": "kotlinx-io-core-jvm",
+      "version": "0.9.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-language-kotlin",
+          "parent_sub_location": "META-INF/jars/kotlinx-io-core-jvm-0.9.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_kotlinx_kotlinx-serialization-cbor-jvm",
+      "name": "kotlinx-serialization-cbor-jvm",
+      "version": "1.11.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-language-kotlin",
+          "parent_sub_location": "META-INF/jars/kotlinx-serialization-cbor-jvm-1.11.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_kotlinx_kotlinx-serialization-core-jvm",
+      "name": "kotlinx-serialization-core-jvm",
+      "version": "1.11.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-language-kotlin",
+          "parent_sub_location": "META-INF/jars/kotlinx-serialization-core-jvm-1.11.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_jetbrains_kotlinx_kotlinx-serialization-json-jvm",
+      "name": "kotlinx-serialization-json-jvm",
+      "version": "1.11.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "fabric-language-kotlin",
+          "parent_sub_location": "META-INF/jars/kotlinx-serialization-json-jvm-1.11.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_mariuszgromada_math_mathparser_org-mxparser",
+      "name": "MathParser.org-mXparser",
+      "version": "5.2.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "immersive_aircraft",
+          "parent_sub_location": "META-INF/jars/MathParser.org-mXparser-5.2.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_quiltmc_parsers_gson",
+      "name": "gson",
+      "version": "0.2.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "yet_another_config_lib_v3",
+          "parent_sub_location": "META-INF/jars/gson-0.2.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_quiltmc_parsers_json",
+      "name": "json",
+      "version": "0.2.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "yet_another_config_lib_v3",
+          "parent_sub_location": "META-INF/jars/json-0.2.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_reactivestreams_reactive-streams",
+      "name": "reactive-streams",
+      "version": "1.0.4",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "c2me",
+          "parent_sub_location": "META-INF/jars/reactive-streams-1.0.4.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_reflections_reflections",
+      "name": "reflections",
+      "version": "0.10.2",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "framework",
+          "parent_sub_location": "META-INF/jars/reflections-0.10.2.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_spongepowered_configurate-core",
+      "name": "configurate-core",
+      "version": "4.1.2",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "bobby",
+          "parent_sub_location": "META-INF/jars/configurate-core-4.1.2.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_spongepowered_configurate-hocon",
+      "name": "configurate-hocon",
+      "version": "4.1.2",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "bobby",
+          "parent_sub_location": "META-INF/jars/configurate-hocon-4.1.2.jar"
+        }
+      ]
+    },
+    {
+      "id": "org_yaml_snakeyaml",
+      "name": "snakeyaml",
+      "version": "2.6",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "servercore",
+          "parent_sub_location": "META-INF/jars/snakeyaml-2.6.jar"
+        }
+      ]
+    },
+    {
+      "id": "origins",
+      "name": "Origins",
+      "version": "1.13.0-pre.3+mc.1.21.1",
+      "origins": [
+        {
+          "file": "Origins-1.13.0-pre.3+mc.1.21.1.jar",
+          "kind": "file",
+          "sha256": "c7e06f8fd49a279d566c3e778ff0c71bbb371f1c4358ab9b2190d1e3b6c36d33"
+        }
+      ]
+    },
+    {
+      "id": "owo",
+      "name": "oωo",
+      "version": "0.12.15.4+1.21",
+      "origins": [
+        {
+          "file": "owo-lib-0.12.15.4+1.21.jar",
+          "kind": "file",
+          "sha256": "825180ce17bc012fb450653b14df9f32479dcdd073fc3f133bb47462f5a63cec"
+        }
+      ]
+    },
+    {
+      "id": "packetfixer",
+      "name": "Packet Fixer",
+      "version": "3.3.1",
+      "origins": [
+        {
+          "file": "packetfixer-3.3.1-1.20.5-1.21.X-merged.jar",
+          "kind": "file",
+          "sha256": "2979a8a3f44e5d5df4f9f6315d18c220f3debf736bb8a2c2740acdfb13bd820f"
+        }
+      ]
+    },
+    {
+      "id": "particlerain",
+      "name": "Particle Rain",
+      "version": "4.0.0-beta.10",
+      "origins": [
+        {
+          "file": "particlerain-4.0.0-beta.10+1.21.1-fabric.jar",
+          "kind": "file",
+          "sha256": "49bf60c5b95ea954efa51c63609f0a4668230e12f870f0eb6bdb63d207a22dc8"
+        }
+      ]
+    },
+    {
+      "id": "peacefulmoon",
+      "name": "Peaceful Moon",
+      "version": "1.0.0",
+      "origins": [
+        {
+          "file": "PeacefulMoon-1.21.1-Neoforge-Fabric-1.0.4.jar",
+          "kind": "file",
+          "sha256": "2c492c06b8ed2ba7012493a21967b719d2e1cc03fdee1c2a8c9c3a9f67bdd08b"
+        }
+      ]
+    },
+    {
+      "id": "philipsruins",
+      "name": "Philip`s Ruins",
+      "version": "1.21.1",
+      "origins": [
+        {
+          "file": "Philips-Ruins1.21.1-1.9-Fabric.jar",
+          "kind": "file",
+          "sha256": "adb847969c3b003abf99ba289fcc25e1c55e0081f3f51e2f4115e59a536fb444"
+        }
+      ]
+    },
+    {
+      "id": "physicsmod",
+      "name": "Physics Mod",
+      "version": "3.0.31",
+      "origins": [
+        {
+          "file": "physics-mod-pro-v172s-fabric-mc-1.21.1.jar",
+          "kind": "file",
+          "sha256": "e44af523ad65370d3144d8710364c5ea2430434fc4a5a65e17f36a9e9830d4aa"
+        }
+      ]
+    },
+    {
+      "id": "placeholder-api",
+      "name": "Placeholder API",
+      "version": "2.4.2+1.21",
+      "origins": [
+        {
+          "file": "placeholder-api-2.4.2+1.21.jar",
+          "kind": "file",
+          "sha256": "c0187ee299527ac7a3e0b1e83601dcdc0de631e286fe41e6be1a75958ea8e443"
+        }
+      ]
+    },
+    {
+      "id": "playerabilitylib",
+      "name": "Pal",
+      "version": "1.10.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "apoli",
+          "parent_sub_location": "META-INF/jars/PlayerAbilityLib-1.10.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "playeranimator",
+      "name": "Player Animator",
+      "version": "2.0.4+1.21.1",
+      "origins": [
+        {
+          "file": "player-animation-lib-fabric-2.0.4+1.21.1.jar",
+          "kind": "file",
+          "sha256": "86ef8a23a5bc8f86d67ed37f3a93380d3946bad64123b22862ed057e7b624efd"
+        }
+      ]
+    },
+    {
+      "id": "polymorph",
+      "name": "Polymorph",
+      "version": "1.1.0+1.21.1",
+      "origins": [
+        {
+          "file": "polymorph-fabric-1.1.0+1.21.1.jar",
+          "kind": "file",
+          "sha256": "bc47b33c864b463167998680c296f513e6d06b42de6db03db0f274ae1f2ee671"
+        }
+      ]
+    },
+    {
+      "id": "porting_lib_attributes",
+      "name": "Porting Lib Attributes",
+      "version": "3.1.0-beta.85+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "crittersandcompanions",
+          "parent_sub_location": "META-INF/jars/attributes-3.1.0-beta.85+1.21.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "porting_lib_core",
+      "name": "Porting Lib Core",
+      "version": "3.1.0-beta.85+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "crittersandcompanions",
+          "parent_sub_location": "META-INF/jars/core-3.1.0-beta.85+1.21.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "porting_lib_gametest",
+      "name": "Porting Lib GameTest",
+      "version": "3.1.0-beta.85+1.21.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "crittersandcompanions",
+          "parent_sub_location": "META-INF/jars/gametest-3.1.0-beta.85+1.21.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "prickle",
+      "name": "PrickleMC",
+      "version": "21.1.11",
+      "origins": [
+        {
+          "file": "prickle-fabric-1.21.1-21.1.11.jar",
+          "kind": "file",
+          "sha256": "d6d639078aecb72770f287d8253e4634114e2536ac9a2ad6ec5f442eb27dd07f"
+        }
+      ]
+    },
+    {
+      "id": "puzzleslib",
+      "name": "Puzzles Lib",
+      "version": "21.1.52",
+      "origins": [
+        {
+          "file": "PuzzlesLib-v21.1.52-1.21.1-Fabric.jar",
+          "kind": "file",
+          "sha256": "f63f5916cea9e2daa0c36f8d420c593476b963177c91e866114ff79fe596072e"
+        }
+      ]
+    },
+    {
+      "id": "redirected",
+      "name": "Redirected",
+      "version": "1.0.0",
+      "origins": [
+        {
+          "file": "redirected-fabric-1.0.0-1.21.1.jar",
+          "kind": "file",
+          "sha256": "f66b6c58e5eb217b9473b9002577601754b8a157e37394ba892051cea9fd3453"
+        }
+      ]
+    },
+    {
+      "id": "resourcify",
+      "name": "Resourcify",
+      "version": "1.8.5",
+      "origins": [
+        {
+          "file": "Resourcify (1.21.1-fabric)-1.8.5.jar",
+          "kind": "file",
+          "sha256": "6e37e3de56174720cfab0d36c18fef85dd56a6955a0afac44e952b036b3de742"
+        }
+      ]
+    },
+    {
+      "id": "rhenium",
+      "name": "rhenium",
+      "version": "1.0-SNAPSHOT",
+      "origins": [
+        {
+          "file": "rhenium-1.1.jar",
+          "kind": "file",
+          "sha256": "af16d336fda4de7e8476b814b9d5a299825d87a20694a5b6aa05bb20954a9cca"
+        }
+      ]
+    },
+    {
+      "id": "rolling_down_in_the_deep",
+      "name": "Rolling Down in the Deep",
+      "version": "0.2.1+1.21",
+      "origins": [
+        {
+          "file": "rolling-down-in-the-deep-0.2.1+1.21.jar",
+          "kind": "file",
+          "sha256": "3afe59a7d71813332288cefad73d9ab58fccddbf73d688f05be73be109ea5309"
+        }
+      ]
+    },
+    {
+      "id": "roughlyenoughitems",
+      "name": "Roughly Enough Items",
+      "version": "16.0.799",
+      "origins": [
+        {
+          "file": "RoughlyEnoughItems-16.0.799-fabric.jar",
+          "kind": "file",
+          "sha256": "098c840780940010f2ba48cb758b77c1b991e69ab3fbec8725af099351653c9d"
+        }
+      ]
+    },
+    {
+      "id": "sablecompanion",
+      "name": "Sable Companion",
+      "version": "1.5.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "immersive_furniture",
+          "parent_sub_location": "META-INF/jars/sable-companion-fabric-1.21.1-1.5.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "scalablelux",
+      "name": "ScalableLux",
+      "version": "0.1.0.1+fabric.d0d58ab",
+      "origins": [
+        {
+          "file": "ScalableLux-0.1.0.1+fabric.d0d58ab-all.jar",
+          "kind": "file",
+          "sha256": "f32ed8d825c7af90b14ab9f7bbe1293818bcf411fea104ae20d18ecde30f8387"
+        }
+      ]
+    },
+    {
+      "id": "searchables",
+      "name": "Searchables",
+      "version": "1.0.2",
+      "origins": [
+        {
+          "file": "Searchables-fabric-1.21.1-1.0.2.jar",
+          "kind": "file",
+          "sha256": "0b58a40a41db4a4af4ef84475b0ea330be3b18fdcac2eca68ede46d9f4df3d76"
+        }
+      ]
+    },
+    {
+      "id": "seasons",
+      "name": "Fabric Seasons",
+      "version": "2.4.2-BETA+1.21",
+      "origins": [
+        {
+          "file": "fabric-seasons-2.4.2-BETA+1.21.jar",
+          "kind": "file",
+          "sha256": "5f79a94ec0e98a1e78b1effa92f1c25f62fd782d4e11c4428ba99d7ab5e77917"
+        }
+      ]
+    },
+    {
+      "id": "seasonsdelightcompat",
+      "name": "Fabric Seasons: Delight Compat",
+      "version": "1.0-1.3.9",
+      "origins": [
+        {
+          "file": "fabric-seasons-delight-1.3.9-compat-1.0.jar",
+          "kind": "file",
+          "sha256": "149a075aa3b4902754528c36be66d4d43532b896d3155870bfd0d42a09b02c13"
+        }
+      ]
+    },
+    {
+      "id": "seasonsextras",
+      "name": "Fabric Seasons: Extras",
+      "version": "1.3.2-BETA+1.21",
+      "origins": [
+        {
+          "file": "fabric-seasons-extras-1.3.2-BETA+1.21.jar",
+          "kind": "file",
+          "sha256": "99318827d592c88d8be0ede523f697bb1e09efbf8933d3a40f04d4e093ed27c7"
+        }
+      ]
+    },
+    {
+      "id": "servercore",
+      "name": "ServerCore",
+      "version": "1.5.19+1.21.1",
+      "origins": [
+        {
+          "file": "servercore-fabric-1.5.19+1.21.1.jar",
+          "kind": "file",
+          "sha256": "be4540227b296d1d9435a20cb5df9bfabf9f0b150592740d2db6e8d5f8533d8d"
+        }
+      ]
+    },
+    {
+      "id": "skinlayers3d",
+      "name": "3d-Skin-Layers",
+      "version": "1.11.2",
+      "origins": [
+        {
+          "file": "skinlayers3d-fabric-1.11.2-mc1.21.1.jar",
+          "kind": "file",
+          "sha256": "392dd2e967f2ff3c83bd5fe71e528a05dd6a5f01bf4f0027b8fbe88d5f68c95b"
+        }
+      ]
+    },
+    {
+      "id": "slimeorigin",
+      "name": "Slime Origin",
+      "version": "0.1.0-alpha+mc.1.21.1",
+      "origins": [
+        {
+          "file": "slimeorigin-0.1.0-alpha+mc.1.21.1.jar",
+          "kind": "file",
+          "sha256": "fb491e4238bd654c3fd7d608d58c586f561534e721ccd62cdd78dc0eb9fd9a6a"
+        }
+      ]
+    },
+    {
+      "id": "smallships",
+      "name": "Small Ships",
+      "version": "2.0.0-b2.1",
+      "origins": [
+        {
+          "file": "smallships-fabric-1.21.1-2.0.0-b2.1.jar",
+          "kind": "file",
+          "sha256": "6264f2cda17d8f776229af2cc4a63090d102a6efd6a7bcbe2352ba152b835fbd"
+        }
+      ]
+    },
+    {
+      "id": "sodium",
+      "name": "Sodium",
+      "version": "0.8.12+mc1.21.1",
+      "origins": [
+        {
+          "file": "sodium-fabric-0.8.12+mc1.21.1.jar",
+          "kind": "file",
+          "sha256": "9ad11a616d1ca759867de8a5bbafcde5ab50b68dbd674110c7b90aeea251b793"
+        }
+      ]
+    },
+    {
+      "id": "space_arim_dazzleconf_dazzleconf-core",
+      "name": "dazzleconf-core",
+      "version": "1.3.0-M2",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "servercore",
+          "parent_sub_location": "META-INF/jars/dazzleconf-core-1.3.0-M2.jar"
+        }
+      ]
+    },
+    {
+      "id": "space_arim_dazzleconf_dazzleconf-ext-snakeyaml",
+      "name": "dazzleconf-ext-snakeyaml",
+      "version": "1.3.0-M2",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "servercore",
+          "parent_sub_location": "META-INF/jars/dazzleconf-ext-snakeyaml-1.3.0-M2.jar"
+        }
+      ]
+    },
+    {
+      "id": "speedometer",
+      "name": "Speedometer",
+      "version": "1.1.0",
+      "origins": [
+        {
+          "file": "speedometer-1.1.0.jar",
+          "kind": "file",
+          "sha256": "16a3c2a5eaae48f5d2ae78a71b754e4542b9622aeb4132e5c47b519dbf2d9783"
+        }
+      ]
+    },
+    {
+      "id": "subtle_effects",
+      "name": "Subtle Effects",
+      "version": "1.14.3",
+      "origins": [
+        {
+          "file": "SubtleEffects-fabric-1.21.1-1.14.3.jar",
+          "kind": "file",
+          "sha256": "907adf2f5641e5221705a8a5113b63c12d4689bfb9fe41e670338eb60a966dd9"
+        }
+      ]
+    },
+    {
+      "id": "supermartijn642configlib",
+      "name": "SuperMartijn642's Config Lib",
+      "version": "1.1.8",
+      "origins": [
+        {
+          "file": "supermartijn642configlib-1.1.8-fabric-mc1.21.jar",
+          "kind": "file",
+          "sha256": "63a29f2acf4be2c5ca89a81a046c1100111ad2865d9638f638e27ca161e7211c"
+        }
+      ]
+    },
+    {
+      "id": "supermartijn642corelib",
+      "name": "SuperMartijn642's Core Lib",
+      "version": "1.1.24",
+      "origins": [
+        {
+          "file": "supermartijn642corelib-1.1.24-fabric-mc1.21.jar",
+          "kind": "file",
+          "sha256": "2fefc1e62061cad97f4239d0047a6a9103e3eac02b09f60311b58385e03ee3ec"
+        }
+      ]
+    },
+    {
+      "id": "team_reborn_energy",
+      "name": "Energy",
+      "version": "4.1.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "ftbquests",
+          "parent_sub_location": "META-INF/jars/energy-4.1.0.jar"
+        }
+      ]
+    },
+    {
+      "id": "terrablender",
+      "name": "TerraBlender",
+      "version": "4.1.0.8",
+      "origins": [
+        {
+          "file": "TerraBlender-fabric-1.21.1-4.1.0.8.jar",
+          "kind": "file",
+          "sha256": "f87e94a7fa1227711c3f8aea9ffac7a14e0c7be212fe50ddee95d2c6ba723cac"
+        }
+      ]
+    },
+    {
+      "id": "terralith",
+      "name": "Terralith",
+      "version": "2.6.2",
+      "origins": [
+        {
+          "file": "Terralith_1.21.x_v2.6.2.jar",
+          "kind": "file",
+          "sha256": "9cd4d402fde0f523e5b430ac8fd479ce05aea7a50fe0c8c26901f5f769272214"
+        }
+      ]
+    },
+    {
+      "id": "threadtweak",
+      "name": "ThreadTweak",
+      "version": "1.0.0",
+      "origins": [
+        {
+          "file": "threadtweak-1.21.1-Fabric-1.0.0.jar",
+          "kind": "file",
+          "sha256": "84f303cf321cc9a4ce2726179693e0b627482640a84ad26fcb6fbf22ea821ae3"
+        }
+      ]
+    },
+    {
+      "id": "tidal",
+      "name": "Tidal",
+      "version": "0.0.2-beta",
+      "origins": [
+        {
+          "file": "tidal-0.0.2-beta.jar",
+          "kind": "file",
+          "sha256": "eca8cfd1c7f6cda0a1923f6d75ae253eebc048d6c4bc5f22feb489159948fad7"
+        }
+      ]
+    },
+    {
+      "id": "tide",
+      "name": "Tide",
+      "version": "2.1.1",
+      "origins": [
+        {
+          "file": "tide-fabric-1.21.1-2.1.1.jar",
+          "kind": "file",
+          "sha256": "498a5e8dda940866c9b0decadf7960724ef489fb49215b30f70c18d12f07b1c8"
+        }
+      ]
+    },
+    {
+      "id": "tide_fish_render_exporter",
+      "name": "Tide Fish Runtime Exporter",
+      "version": "${version}",
+      "origins": [
+        {
+          "file": "tide-fish-render-exporter-0.2.1.jar",
+          "kind": "file",
+          "sha256": "7248bca5b2b0fae3327582019e9c549ec8e859249c81c7db664be68a5673ac98"
+        }
+      ]
+    },
+    {
+      "id": "tideborne",
+      "name": "Tideborne",
+      "version": "1.3.57",
+      "origins": [
+        {
+          "file": "Tideborne-1.3.57-perfect-catch-trait-luck.jar",
+          "kind": "file",
+          "sha256": "0c8cd9e9706c2e1cc0a6ca3708c050d5f1d501a0df63d75047188e9fb4b4c4f5"
+        }
+      ]
+    },
+    {
+      "id": "tiny_config",
+      "name": "Tiny Config",
+      "version": "3.1.0",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "bettercombat",
+          "parent_sub_location": "META-INF/jars/tiny-config-3.1.0-fabric.jar"
+        }
+      ]
+    },
+    {
+      "id": "toms_storage",
+      "name": "Tom's Simple Storage Mod",
+      "version": "2.4.1",
+      "origins": [
+        {
+          "file": "toms_storage_fabric-1.21-2.4.1.jar",
+          "kind": "file",
+          "sha256": "9065f153d02dfb2356ee82a3c860d2e22fb7281a6062c5d1f90cde0bafc9b26a"
+        }
+      ]
+    },
+    {
+      "id": "too_many_entities",
+      "name": "Too Many Entities",
+      "version": "1.2.0",
+      "origins": [
+        {
+          "file": "Too Many Entities 1.21.1 Fabric v1.2.0.jar",
+          "kind": "file",
+          "sha256": "3d3a6d57b69237492a635d006564bb0eaf33e2bebb9f6859e43bf92ba4f6d788"
+        }
+      ]
+    },
+    {
+      "id": "transition",
+      "name": "TRansition",
+      "version": "1.0.21",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "firstperson",
+          "parent_sub_location": "META-INF/jars/TRansition-1.0.21-1.21.1-fabric-SNAPSHOT.jar"
+        }
+      ]
+    },
+    {
+      "id": "trender",
+      "name": "TRender",
+      "version": "1.0.15",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "firstperson",
+          "parent_sub_location": "META-INF/jars/TRender-1.0.15-1.21.1-fabric-SNAPSHOT.jar"
+        }
+      ]
+    },
+    {
+      "id": "trinkets",
+      "name": "Trinkets",
+      "version": "3.10.0",
+      "origins": [
+        {
+          "file": "trinkets-3.10.0.jar",
+          "kind": "file",
+          "sha256": "349fd2aa8930b232050ee5304db55e4ef738b017971afe7c84acd589a95fda2f"
+        }
+      ]
+    },
+    {
+      "id": "txnilib",
+      "name": "TxniLib",
+      "version": "1.0.24",
+      "origins": [
+        {
+          "file": "txnilib-fabric-1.0.24-1.21.1.jar",
+          "kind": "file",
+          "sha256": "814ea0db4bddf0bbc7beb316490e5f709e067203bbe1b8780ef3b2dde267ccc3"
+        }
+      ]
+    },
+    {
+      "id": "u_desert",
+      "name": "Unnamed Desert",
+      "version": "2.0.3",
+      "origins": [
+        {
+          "file": "u_desert-2.0.3+mc1.21-1.21.11.jar",
+          "kind": "file",
+          "sha256": "4dad266af14834216cf71a76c19f63853db575e9ac2c39e29d378292a1970e6c"
+        }
+      ]
+    },
+    {
+      "id": "u_sea",
+      "name": "Unnamed Sea",
+      "version": "1.2.5",
+      "origins": [
+        {
+          "file": "u_sea-1.2.5+mc1.19-1.21.11.jar",
+          "kind": "file",
+          "sha256": "4388981774f844f7f42e712ae34406d90b2b2e2119e76c36dbff8a2e3a5ee923"
+        }
+      ]
+    },
+    {
+      "id": "universalcraft",
+      "name": "UniversalCraft",
+      "version": "505",
+      "origins": [
+        {
+          "file": "universalcraft-1.21-fabric-505.jar",
+          "kind": "file",
+          "sha256": "c425a5e63740065663482c969ef3ee889eccea514e52b9b9e7fb660d319ab5a5"
+        }
+      ]
+    },
+    {
+      "id": "unseaworthy",
+      "name": "Unseaworthy",
+      "version": "1.4.0",
+      "origins": [
+        {
+          "file": "unseaworthy-fabric-1.21.1-1.4.0.jar",
+          "kind": "file",
+          "sha256": "df6436adae6ee6328cccf777a0eb71d7136f92b8cbfdb3b047331e2fe4510014"
+        }
+      ]
+    },
+    {
+      "id": "vigilance",
+      "name": "Vigilance",
+      "version": "306",
+      "origins": [
+        {
+          "file": "vigilance-306.jar",
+          "kind": "file",
+          "sha256": "f85349bc99f8035c7d9e1a52671cc3b634ce7ecc9d8b9eb3806aba5c447393f2"
+        }
+      ]
+    },
+    {
+      "id": "visuality",
+      "name": "Visuality",
+      "version": "0.7.7+1.21",
+      "origins": [
+        {
+          "file": "visuality-0.7.7+1.21.jar",
+          "kind": "file",
+          "sha256": "c10fe78103b659259161330be2f6f2123dedf5f2f00cd243225a88d5ffa8c372"
+        }
+      ]
+    },
+    {
+      "id": "wover",
+      "name": "WorldWeaver",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "file": "worldweaver-21.0.13.jar",
+          "kind": "file",
+          "sha256": "2c408d36e70290b840faec12a963c4b3efb38391de3c87d73228d3ce76bf132d"
+        }
+      ]
+    },
+    {
+      "id": "wover-biome",
+      "name": "WorldWeaver - Biome API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-biome-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-block",
+      "name": "WorldWeaver - Block and Item API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-block-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-common",
+      "name": "WorldWeaver - Common API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-common-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-core",
+      "name": "WorldWeaver - Core API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-core-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-datagen",
+      "name": "WorldWeaver - Datagen API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-datagen-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-events",
+      "name": "WorldWeaver - Events API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-event-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-feature",
+      "name": "WorldWeaver - Feature API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-feature-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-generator",
+      "name": "WorldWeaver - World Generator API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-generator-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-item",
+      "name": "WorldWeaver - Item API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-item-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-math",
+      "name": "WorldWeaver - Math API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-math-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-preset",
+      "name": "WorldWeaver - World Preset API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-preset-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-recipe",
+      "name": "WorldWeaver - Recipe API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-recipe-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-structure",
+      "name": "WorldWeaver - Structure API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-structure-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-surface",
+      "name": "WorldWeaver - Surface API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-surface-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-tag",
+      "name": "WorldWeaver - Tag API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-tag-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wover-ui",
+      "name": "WorldWeaver - UI API",
+      "version": "21.0.13",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wover-ui-api-21.0.13.jar"
+        }
+      ]
+    },
+    {
+      "id": "wunderlib",
+      "name": "WunderLib",
+      "version": "21.0.8",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "wover",
+          "parent_sub_location": "META-INF/jars/wunderlib-21.0.8.jar"
+        }
+      ]
+    },
+    {
+      "id": "xaerolib",
+      "name": "XaeroLib",
+      "version": "1.7.1",
+      "origins": [
+        {
+          "kind": "nested",
+          "parent_mod_id": "xaerominimap",
+          "parent_sub_location": "META-INF/jars/xaerolib-fabric-1.21.1-1.7.1.jar"
+        }
+      ]
+    },
+    {
+      "id": "xaerominimap",
+      "name": "Xaero's Minimap",
+      "version": "26.4.2",
+      "origins": [
+        {
+          "file": "xaerominimap-fabric-1.21.1-26.4.2.jar",
+          "kind": "file",
+          "sha256": "85342f8f7c098e98f2f200fbba308a243af1204cb1afd7668360420e635aa2f8"
+        }
+      ]
+    },
+    {
+      "id": "xaeroplus",
+      "name": "XaeroPlus",
+      "version": "2.35.1",
+      "origins": [
+        {
+          "file": "XaeroPlus-2.35.1+fabric-1.21.1-WM1.44.2-MM26.4.2.jar",
+          "kind": "file",
+          "sha256": "bd1f991763c5b0e1a3302607fc98480a8159e806681b265ac0f82cc510fbee23"
+        }
+      ]
+    },
+    {
+      "id": "xaeroworldmap",
+      "name": "Xaero's World Map",
+      "version": "1.44.2",
+      "origins": [
+        {
+          "file": "xaeroworldmap-fabric-1.21.1-1.44.2.jar",
+          "kind": "file",
+          "sha256": "cd6109af335ad83af9e97cdae5c25023112349e2dc4df95a97640022f38b3856"
+        }
+      ]
+    },
+    {
+      "id": "xp_storage",
+      "name": "XP Storage",
+      "version": "1.6+1.21",
+      "origins": [
+        {
+          "file": "xp_storage-1.6+1.21.jar",
+          "kind": "file",
+          "sha256": "5f96202222f29a6fdf71d01007810ebe667f243b64d9127506362a59f93c7349"
+        }
+      ]
+    },
+    {
+      "id": "xp_storage_trinkets",
+      "name": "XP Storage - Trinkets",
+      "version": "1.0.2+1.21",
+      "origins": [
+        {
+          "file": "xpstorage_trinkets-1.0.2+1.21.jar",
+          "kind": "file",
+          "sha256": "d64345df54ba97a58a49eb28f10053ddc3c24f68db72b9e50140a26b903c8d76"
+        }
+      ]
+    },
+    {
+      "id": "yet_another_config_lib_v3",
+      "name": "YetAnotherConfigLib",
+      "version": "3.8.2+1.21.1-fabric",
+      "origins": [
+        {
+          "file": "yet_another_config_lib_v3-3.8.2+1.21.1-fabric.jar",
+          "kind": "file",
+          "sha256": "6ab420b7d1326fc9851b96a8967504bd644da421ed6438ceb9a9d9c993a408b1"
+        }
+      ]
+    },
+    {
+      "id": "yungsapi",
+      "name": "YUNG's API",
+      "version": "1.21.1-Fabric-5.1.6",
+      "origins": [
+        {
+          "file": "YungsApi-1.21.1-Fabric-5.1.6.jar",
+          "kind": "file",
+          "sha256": "36fb903a1ebcf1511745be2da9e5144f1d2465bff7a5c17beffd347399acd1ba"
+        }
+      ]
+    },
+    {
+      "id": "yungsbridges",
+      "name": "YUNG's Bridges",
+      "version": "1.21.1-Fabric-5.1.1",
+      "origins": [
+        {
+          "file": "YungsBridges-1.21.1-Fabric-5.1.1.jar",
+          "kind": "file",
+          "sha256": "37cc120aceb6263afbcedaeee1c9fe9770c7d5dabd938d00293017e781051b45"
+        }
+      ]
+    },
+    {
+      "id": "yungscavebiomes",
+      "name": "YUNG's Cave Biomes",
+      "version": "1.21.1-Fabric-3.1.1",
+      "origins": [
+        {
+          "file": "YungsCaveBiomes-1.21.1-Fabric-3.1.1.jar",
+          "kind": "file",
+          "sha256": "965d5cd4da7297c5b2c17e37ccb9060291670f742febda9a1121cd83bad3048c"
+        }
+      ]
+    },
+    {
+      "id": "yungsextras",
+      "name": "YUNG's Extras",
+      "version": "1.21.1-Fabric-5.1.1",
+      "origins": [
+        {
+          "file": "YungsExtras-1.21.1-Fabric-5.1.1.jar",
+          "kind": "file",
+          "sha256": "120023cc97cb5eb86972a7783250cbb35505d42d5d6b31da70906c85c0ffb7f5"
+        }
+      ]
+    },
+    {
+      "id": "yungsmenutweaks",
+      "name": "YUNG's Menu Tweaks",
+      "version": "1.21.1-Fabric-2.1.2",
+      "origins": [
+        {
+          "file": "YungsMenuTweaks-1.21.1-Fabric-2.1.2.jar",
+          "kind": "file",
+          "sha256": "4ca6b687feeaf050bd9183aa30574c6292e4a6f7ed4e19856bbadd5b9eab8838"
+        }
+      ]
+    },
+    {
+      "id": "zombiemoon",
+      "name": "Horde Moon",
+      "version": "1.0.0",
+      "origins": [
+        {
+          "file": "ZombieMoon-1.21.1-fabric-2.0.1.jar",
+          "kind": "file",
+          "sha256": "87d9e2c63d9f46cc87be16d219f69c711c93285efadf6e161b5b07dc4d406299"
+        }
+      ]
+    }
+  ],
+  "catalog_fingerprint": "ffad5a8dfe2b13a0e0d17b82d86822ab6ce7138e4e9404dadea912162aa265fd",
+  "cache_key": "3c9584f4b1c7bc8ce9653d0707e951f83019b740fae7c45b9f30223717cc3db1"
+}

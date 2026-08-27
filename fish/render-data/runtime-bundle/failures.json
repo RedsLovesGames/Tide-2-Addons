@@ -1,0 +1,490 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-08-27T10:41:44.561745500Z",
+  "failed": 49,
+  "failures": [
+    {
+      "data_key": "crittersandcompanions:freshwater/clam",
+      "fish_id": "crittersandcompanions:clam",
+      "item_id": "crittersandcompanions:clam",
+      "source_mod": "crittersandcompanions",
+      "variant": "default",
+      "failure_code": "fish_data_contract",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide FishData has no DisplayData for runtime stack crittersandcompanions:clam"
+    },
+    {
+      "data_key": "crittersandcompanions:freshwater/clam",
+      "fish_id": "crittersandcompanions:clam",
+      "item_id": "crittersandcompanions:clam",
+      "source_mod": "crittersandcompanions",
+      "variant": "iridescent",
+      "failure_code": "fish_data_contract",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide FishData has no DisplayData for runtime stack crittersandcompanions:clam"
+    },
+    {
+      "data_key": "crittersandcompanions:freshwater/clam",
+      "fish_id": "crittersandcompanions:clam",
+      "item_id": "crittersandcompanions:clam",
+      "source_mod": "crittersandcompanions",
+      "variant": "scarred",
+      "failure_code": "fish_data_contract",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide FishData has no DisplayData for runtime stack crittersandcompanions:clam"
+    },
+    {
+      "data_key": "crittersandcompanions:freshwater/clam",
+      "fish_id": "crittersandcompanions:clam",
+      "item_id": "crittersandcompanions:clam",
+      "source_mod": "crittersandcompanions",
+      "variant": "parasite_ridden",
+      "failure_code": "fish_data_contract",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide FishData has no DisplayData for runtime stack crittersandcompanions:clam"
+    },
+    {
+      "data_key": "crittersandcompanions:freshwater/clam",
+      "fish_id": "crittersandcompanions:clam",
+      "item_id": "crittersandcompanions:clam",
+      "source_mod": "crittersandcompanions",
+      "variant": "albino",
+      "failure_code": "fish_data_contract",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide FishData has no DisplayData for runtime stack crittersandcompanions:clam"
+    },
+    {
+      "data_key": "crittersandcompanions:freshwater/clam",
+      "fish_id": "crittersandcompanions:clam",
+      "item_id": "crittersandcompanions:clam",
+      "source_mod": "crittersandcompanions",
+      "variant": "giant",
+      "failure_code": "fish_data_contract",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide FishData has no DisplayData for runtime stack crittersandcompanions:clam"
+    },
+    {
+      "data_key": "crittersandcompanions:freshwater/clam",
+      "fish_id": "crittersandcompanions:clam",
+      "item_id": "crittersandcompanions:clam",
+      "source_mod": "crittersandcompanions",
+      "variant": "dwarf",
+      "failure_code": "fish_data_contract",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide FishData has no DisplayData for runtime stack crittersandcompanions:clam"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/anglerfish",
+      "fish_id": "hybrid_aquatic:anglerfish",
+      "item_id": "hybrid_aquatic:anglerfish",
+      "declared_entity_id": "hybrid_aquatic:anglerfish",
+      "source_mod": "hybrid_aquatic",
+      "variant": "default",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/anglerfish",
+      "fish_id": "hybrid_aquatic:anglerfish",
+      "item_id": "hybrid_aquatic:anglerfish",
+      "declared_entity_id": "hybrid_aquatic:anglerfish",
+      "source_mod": "hybrid_aquatic",
+      "variant": "iridescent",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/anglerfish",
+      "fish_id": "hybrid_aquatic:anglerfish",
+      "item_id": "hybrid_aquatic:anglerfish",
+      "declared_entity_id": "hybrid_aquatic:anglerfish",
+      "source_mod": "hybrid_aquatic",
+      "variant": "scarred",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/anglerfish",
+      "fish_id": "hybrid_aquatic:anglerfish",
+      "item_id": "hybrid_aquatic:anglerfish",
+      "declared_entity_id": "hybrid_aquatic:anglerfish",
+      "source_mod": "hybrid_aquatic",
+      "variant": "parasite_ridden",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/anglerfish",
+      "fish_id": "hybrid_aquatic:anglerfish",
+      "item_id": "hybrid_aquatic:anglerfish",
+      "declared_entity_id": "hybrid_aquatic:anglerfish",
+      "source_mod": "hybrid_aquatic",
+      "variant": "albino",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/anglerfish",
+      "fish_id": "hybrid_aquatic:anglerfish",
+      "item_id": "hybrid_aquatic:anglerfish",
+      "declared_entity_id": "hybrid_aquatic:anglerfish",
+      "source_mod": "hybrid_aquatic",
+      "variant": "giant",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/anglerfish",
+      "fish_id": "hybrid_aquatic:anglerfish",
+      "item_id": "hybrid_aquatic:anglerfish",
+      "declared_entity_id": "hybrid_aquatic:anglerfish",
+      "source_mod": "hybrid_aquatic",
+      "variant": "dwarf",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/carp",
+      "fish_id": "hybrid_aquatic:carp",
+      "item_id": "hybrid_aquatic:carp",
+      "declared_entity_id": "hybrid_aquatic:carp",
+      "source_mod": "hybrid_aquatic",
+      "variant": "default",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/carp",
+      "fish_id": "hybrid_aquatic:carp",
+      "item_id": "hybrid_aquatic:carp",
+      "declared_entity_id": "hybrid_aquatic:carp",
+      "source_mod": "hybrid_aquatic",
+      "variant": "iridescent",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/carp",
+      "fish_id": "hybrid_aquatic:carp",
+      "item_id": "hybrid_aquatic:carp",
+      "declared_entity_id": "hybrid_aquatic:carp",
+      "source_mod": "hybrid_aquatic",
+      "variant": "scarred",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/carp",
+      "fish_id": "hybrid_aquatic:carp",
+      "item_id": "hybrid_aquatic:carp",
+      "declared_entity_id": "hybrid_aquatic:carp",
+      "source_mod": "hybrid_aquatic",
+      "variant": "parasite_ridden",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/carp",
+      "fish_id": "hybrid_aquatic:carp",
+      "item_id": "hybrid_aquatic:carp",
+      "declared_entity_id": "hybrid_aquatic:carp",
+      "source_mod": "hybrid_aquatic",
+      "variant": "albino",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/carp",
+      "fish_id": "hybrid_aquatic:carp",
+      "item_id": "hybrid_aquatic:carp",
+      "declared_entity_id": "hybrid_aquatic:carp",
+      "source_mod": "hybrid_aquatic",
+      "variant": "giant",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/carp",
+      "fish_id": "hybrid_aquatic:carp",
+      "item_id": "hybrid_aquatic:carp",
+      "declared_entity_id": "hybrid_aquatic:carp",
+      "source_mod": "hybrid_aquatic",
+      "variant": "dwarf",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/coelacanth",
+      "fish_id": "hybrid_aquatic:coelacanth",
+      "item_id": "hybrid_aquatic:coelacanth",
+      "declared_entity_id": "hybrid_aquatic:coelacanth",
+      "source_mod": "hybrid_aquatic",
+      "variant": "default",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/coelacanth",
+      "fish_id": "hybrid_aquatic:coelacanth",
+      "item_id": "hybrid_aquatic:coelacanth",
+      "declared_entity_id": "hybrid_aquatic:coelacanth",
+      "source_mod": "hybrid_aquatic",
+      "variant": "iridescent",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/coelacanth",
+      "fish_id": "hybrid_aquatic:coelacanth",
+      "item_id": "hybrid_aquatic:coelacanth",
+      "declared_entity_id": "hybrid_aquatic:coelacanth",
+      "source_mod": "hybrid_aquatic",
+      "variant": "scarred",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/coelacanth",
+      "fish_id": "hybrid_aquatic:coelacanth",
+      "item_id": "hybrid_aquatic:coelacanth",
+      "declared_entity_id": "hybrid_aquatic:coelacanth",
+      "source_mod": "hybrid_aquatic",
+      "variant": "parasite_ridden",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/coelacanth",
+      "fish_id": "hybrid_aquatic:coelacanth",
+      "item_id": "hybrid_aquatic:coelacanth",
+      "declared_entity_id": "hybrid_aquatic:coelacanth",
+      "source_mod": "hybrid_aquatic",
+      "variant": "albino",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/coelacanth",
+      "fish_id": "hybrid_aquatic:coelacanth",
+      "item_id": "hybrid_aquatic:coelacanth",
+      "declared_entity_id": "hybrid_aquatic:coelacanth",
+      "source_mod": "hybrid_aquatic",
+      "variant": "giant",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/coelacanth",
+      "fish_id": "hybrid_aquatic:coelacanth",
+      "item_id": "hybrid_aquatic:coelacanth",
+      "declared_entity_id": "hybrid_aquatic:coelacanth",
+      "source_mod": "hybrid_aquatic",
+      "variant": "dwarf",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mackerel",
+      "fish_id": "hybrid_aquatic:mackerel",
+      "item_id": "hybrid_aquatic:mackerel",
+      "declared_entity_id": "hybrid_aquatic:mackerel",
+      "source_mod": "hybrid_aquatic",
+      "variant": "default",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mackerel",
+      "fish_id": "hybrid_aquatic:mackerel",
+      "item_id": "hybrid_aquatic:mackerel",
+      "declared_entity_id": "hybrid_aquatic:mackerel",
+      "source_mod": "hybrid_aquatic",
+      "variant": "iridescent",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mackerel",
+      "fish_id": "hybrid_aquatic:mackerel",
+      "item_id": "hybrid_aquatic:mackerel",
+      "declared_entity_id": "hybrid_aquatic:mackerel",
+      "source_mod": "hybrid_aquatic",
+      "variant": "scarred",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mackerel",
+      "fish_id": "hybrid_aquatic:mackerel",
+      "item_id": "hybrid_aquatic:mackerel",
+      "declared_entity_id": "hybrid_aquatic:mackerel",
+      "source_mod": "hybrid_aquatic",
+      "variant": "parasite_ridden",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mackerel",
+      "fish_id": "hybrid_aquatic:mackerel",
+      "item_id": "hybrid_aquatic:mackerel",
+      "declared_entity_id": "hybrid_aquatic:mackerel",
+      "source_mod": "hybrid_aquatic",
+      "variant": "albino",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mackerel",
+      "fish_id": "hybrid_aquatic:mackerel",
+      "item_id": "hybrid_aquatic:mackerel",
+      "declared_entity_id": "hybrid_aquatic:mackerel",
+      "source_mod": "hybrid_aquatic",
+      "variant": "giant",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mackerel",
+      "fish_id": "hybrid_aquatic:mackerel",
+      "item_id": "hybrid_aquatic:mackerel",
+      "declared_entity_id": "hybrid_aquatic:mackerel",
+      "source_mod": "hybrid_aquatic",
+      "variant": "dwarf",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mahi",
+      "fish_id": "hybrid_aquatic:mahi",
+      "item_id": "hybrid_aquatic:mahi",
+      "declared_entity_id": "hybrid_aquatic:mahi",
+      "source_mod": "hybrid_aquatic",
+      "variant": "default",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mahi",
+      "fish_id": "hybrid_aquatic:mahi",
+      "item_id": "hybrid_aquatic:mahi",
+      "declared_entity_id": "hybrid_aquatic:mahi",
+      "source_mod": "hybrid_aquatic",
+      "variant": "iridescent",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mahi",
+      "fish_id": "hybrid_aquatic:mahi",
+      "item_id": "hybrid_aquatic:mahi",
+      "declared_entity_id": "hybrid_aquatic:mahi",
+      "source_mod": "hybrid_aquatic",
+      "variant": "scarred",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mahi",
+      "fish_id": "hybrid_aquatic:mahi",
+      "item_id": "hybrid_aquatic:mahi",
+      "declared_entity_id": "hybrid_aquatic:mahi",
+      "source_mod": "hybrid_aquatic",
+      "variant": "parasite_ridden",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mahi",
+      "fish_id": "hybrid_aquatic:mahi",
+      "item_id": "hybrid_aquatic:mahi",
+      "declared_entity_id": "hybrid_aquatic:mahi",
+      "source_mod": "hybrid_aquatic",
+      "variant": "albino",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mahi",
+      "fish_id": "hybrid_aquatic:mahi",
+      "item_id": "hybrid_aquatic:mahi",
+      "declared_entity_id": "hybrid_aquatic:mahi",
+      "source_mod": "hybrid_aquatic",
+      "variant": "giant",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mahi",
+      "fish_id": "hybrid_aquatic:mahi",
+      "item_id": "hybrid_aquatic:mahi",
+      "declared_entity_id": "hybrid_aquatic:mahi",
+      "source_mod": "hybrid_aquatic",
+      "variant": "dwarf",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/tuna",
+      "fish_id": "hybrid_aquatic:tuna",
+      "item_id": "hybrid_aquatic:tuna",
+      "declared_entity_id": "hybrid_aquatic:tuna",
+      "source_mod": "hybrid_aquatic",
+      "variant": "default",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/tuna",
+      "fish_id": "hybrid_aquatic:tuna",
+      "item_id": "hybrid_aquatic:tuna",
+      "declared_entity_id": "hybrid_aquatic:tuna",
+      "source_mod": "hybrid_aquatic",
+      "variant": "iridescent",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/tuna",
+      "fish_id": "hybrid_aquatic:tuna",
+      "item_id": "hybrid_aquatic:tuna",
+      "declared_entity_id": "hybrid_aquatic:tuna",
+      "source_mod": "hybrid_aquatic",
+      "variant": "scarred",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/tuna",
+      "fish_id": "hybrid_aquatic:tuna",
+      "item_id": "hybrid_aquatic:tuna",
+      "declared_entity_id": "hybrid_aquatic:tuna",
+      "source_mod": "hybrid_aquatic",
+      "variant": "parasite_ridden",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/tuna",
+      "fish_id": "hybrid_aquatic:tuna",
+      "item_id": "hybrid_aquatic:tuna",
+      "declared_entity_id": "hybrid_aquatic:tuna",
+      "source_mod": "hybrid_aquatic",
+      "variant": "albino",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/tuna",
+      "fish_id": "hybrid_aquatic:tuna",
+      "item_id": "hybrid_aquatic:tuna",
+      "declared_entity_id": "hybrid_aquatic:tuna",
+      "source_mod": "hybrid_aquatic",
+      "variant": "giant",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/tuna",
+      "fish_id": "hybrid_aquatic:tuna",
+      "item_id": "hybrid_aquatic:tuna",
+      "declared_entity_id": "hybrid_aquatic:tuna",
+      "source_mod": "hybrid_aquatic",
+      "variant": "dwarf",
+      "failure_code": "empty_framebuffer",
+      "error": "com.redslovesgames.tidefishrender.RenderFailureException: Tide Fish Display produced zero alpha pixels"
+    }
+  ]
+}

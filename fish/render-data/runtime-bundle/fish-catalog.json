@@ -1,0 +1,3923 @@
+{
+  "schema_version": 1,
+  "source": "runtime:TideData.FISH",
+  "fish_count": 157,
+  "fish": [
+    {
+      "data_key": "crittersandcompanions:freshwater/clam",
+      "fish_id": "crittersandcompanions:clam",
+      "item_id": "crittersandcompanions:clam",
+      "source_mod": "crittersandcompanions",
+      "show_in_journal": false,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 0.0,
+        "typical_high_cm": 0.0,
+        "record_high_cm": 0.0
+      }
+    },
+    {
+      "data_key": "crittersandcompanions:freshwater/koi_fish",
+      "fish_id": "crittersandcompanions:koi_fish",
+      "item_id": "crittersandcompanions:koi_fish",
+      "entity_id": "crittersandcompanions:koi_fish",
+      "source_mod": "crittersandcompanions",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [
+        "crittersandcompanions"
+      ],
+      "size": {
+        "typical_low_cm": 30.0,
+        "typical_high_cm": 60.0,
+        "record_high_cm": 100.0
+      },
+      "display_data": {
+        "entity": "crittersandcompanions:koi_fish",
+        "shape": "SHAPE_1x1",
+        "x": -0.1,
+        "y": -0.2,
+        "z": 0.23,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/anglerfish",
+      "fish_id": "hybrid_aquatic:anglerfish",
+      "item_id": "hybrid_aquatic:anglerfish",
+      "entity_id": "hybrid_aquatic:anglerfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": false,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 0.0,
+        "typical_high_cm": 0.0,
+        "record_high_cm": 0.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:anglerfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.06,
+        "y": -0.2,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:underground/barreleye",
+      "fish_id": "hybrid_aquatic:barreleye",
+      "item_id": "hybrid_aquatic:barreleye",
+      "entity_id": "hybrid_aquatic:barreleye",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 10.0,
+        "typical_high_cm": 20.0,
+        "record_high_cm": 35.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:barreleye",
+        "shape": "SHAPE_1x1",
+        "x": 0.04,
+        "y": -0.1,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:freshwater/betta",
+      "fish_id": "hybrid_aquatic:betta",
+      "item_id": "hybrid_aquatic:betta",
+      "entity_id": "hybrid_aquatic:betta",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 6.0,
+        "typical_high_cm": 12.0,
+        "record_high_cm": 30.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:betta",
+        "shape": "SHAPE_1x1",
+        "x": 0.04,
+        "y": -0.1,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:underground/blobfish",
+      "fish_id": "hybrid_aquatic:blobfish",
+      "item_id": "hybrid_aquatic:blobfish",
+      "entity_id": "hybrid_aquatic:blobfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 10.0,
+        "typical_high_cm": 20.0,
+        "record_high_cm": 35.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:blobfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.04,
+        "y": -0.1,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/blowfish",
+      "fish_id": "hybrid_aquatic:blowfish",
+      "item_id": "hybrid_aquatic:blowfish",
+      "entity_id": "hybrid_aquatic:blowfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 12.0,
+        "typical_high_cm": 22.0,
+        "record_high_cm": 60.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:blowfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.1,
+        "y": -0.2,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/boxfish",
+      "fish_id": "hybrid_aquatic:boxfish",
+      "item_id": "hybrid_aquatic:boxfish",
+      "entity_id": "hybrid_aquatic:boxfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 50.0,
+        "record_high_cm": 90.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:boxfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": -0.2,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/carp",
+      "fish_id": "hybrid_aquatic:carp",
+      "item_id": "hybrid_aquatic:carp",
+      "entity_id": "hybrid_aquatic:carp",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": false,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 0.0,
+        "typical_high_cm": 0.0,
+        "record_high_cm": 0.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:carp",
+        "shape": "SHAPE_1x1",
+        "x": 0.05,
+        "y": -0.15,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:freshwater/cichlid",
+      "fish_id": "hybrid_aquatic:cichlid",
+      "item_id": "hybrid_aquatic:cichlid",
+      "entity_id": "hybrid_aquatic:cichlid",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 25.0,
+        "typical_high_cm": 35.0,
+        "record_high_cm": 70.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:cichlid",
+        "shape": "SHAPE_1x1",
+        "x": 0.04,
+        "y": -0.18,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/clownfish",
+      "fish_id": "hybrid_aquatic:clownfish",
+      "item_id": "hybrid_aquatic:clownfish",
+      "entity_id": "hybrid_aquatic:clownfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 18.0,
+        "typical_high_cm": 30.0,
+        "record_high_cm": 50.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:clownfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.1,
+        "y": -0.15,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/coelacanth",
+      "fish_id": "hybrid_aquatic:coelacanth",
+      "item_id": "hybrid_aquatic:coelacanth",
+      "entity_id": "hybrid_aquatic:coelacanth",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": false,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 0.0,
+        "typical_high_cm": 0.0,
+        "record_high_cm": 0.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:coelacanth",
+        "shape": "SHAPE_1x1",
+        "x": 0.14,
+        "y": -0.25,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/damselfish",
+      "fish_id": "hybrid_aquatic:damselfish",
+      "item_id": "hybrid_aquatic:damselfish",
+      "entity_id": "hybrid_aquatic:damselfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 10.0,
+        "typical_high_cm": 23.0,
+        "record_high_cm": 40.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:damselfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.07,
+        "y": -0.18,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:freshwater/danio",
+      "fish_id": "hybrid_aquatic:danio",
+      "item_id": "hybrid_aquatic:danio",
+      "entity_id": "hybrid_aquatic:danio",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 5.0,
+        "typical_high_cm": 8.0,
+        "record_high_cm": 16.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:danio",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": -0.15,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:freshwater/discus",
+      "fish_id": "hybrid_aquatic:discus",
+      "item_id": "hybrid_aquatic:discus",
+      "entity_id": "hybrid_aquatic:discus",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 15.0,
+        "typical_high_cm": 20.0,
+        "record_high_cm": 40.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:discus",
+        "shape": "SHAPE_1x1",
+        "x": 0.04,
+        "y": -0.18,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:underground/dragonfish",
+      "fish_id": "hybrid_aquatic:dragonfish",
+      "item_id": "hybrid_aquatic:dragonfish",
+      "entity_id": "hybrid_aquatic:dragonfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 15.0,
+        "typical_high_cm": 30.0,
+        "record_high_cm": 60.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:dragonfish",
+        "shape": "SHAPE_2x1",
+        "x": 0.3,
+        "y": -0.1,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/flashlight_fish",
+      "fish_id": "hybrid_aquatic:flashlight_fish",
+      "item_id": "hybrid_aquatic:flashlight_fish",
+      "entity_id": "hybrid_aquatic:flashlight_fish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 10.0,
+        "typical_high_cm": 23.0,
+        "record_high_cm": 40.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:flashlight_fish",
+        "shape": "SHAPE_1x1",
+        "x": 0.02,
+        "y": -0.1,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/flying_fish",
+      "fish_id": "hybrid_aquatic:flying_fish",
+      "item_id": "hybrid_aquatic:flying_fish",
+      "entity_id": "hybrid_aquatic:flying_fish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 17.0,
+        "typical_high_cm": 30.0,
+        "record_high_cm": 40.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:flying_fish",
+        "shape": "SHAPE_1x1",
+        "x": 0.02,
+        "y": -0.14,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:freshwater/golden_dorado",
+      "fish_id": "hybrid_aquatic:golden_dorado",
+      "item_id": "hybrid_aquatic:golden_dorado",
+      "entity_id": "hybrid_aquatic:golden_dorado",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 50.0,
+        "typical_high_cm": 80.0,
+        "record_high_cm": 140.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:golden_dorado",
+        "shape": "SHAPE_1x1",
+        "x": 0.06,
+        "y": -0.2,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:freshwater/goldfish",
+      "fish_id": "hybrid_aquatic:goldfish",
+      "item_id": "hybrid_aquatic:goldfish",
+      "entity_id": "hybrid_aquatic:goldfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 5.0,
+        "typical_high_cm": 8.0,
+        "record_high_cm": 20.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:goldfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": -0.25,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:freshwater/gourami",
+      "fish_id": "hybrid_aquatic:gourami",
+      "item_id": "hybrid_aquatic:gourami",
+      "entity_id": "hybrid_aquatic:gourami",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 15.0,
+        "typical_high_cm": 30.0,
+        "record_high_cm": 75.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:gourami",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": -0.15,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/herring",
+      "fish_id": "hybrid_aquatic:herring",
+      "item_id": "hybrid_aquatic:herring",
+      "entity_id": "hybrid_aquatic:herring",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 20.0,
+        "typical_high_cm": 35.0,
+        "record_high_cm": 60.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:herring",
+        "shape": "SHAPE_1x1",
+        "x": 0.02,
+        "y": -0.1,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:underground/john_dory",
+      "fish_id": "hybrid_aquatic:john_dory",
+      "item_id": "hybrid_aquatic:john_dory",
+      "entity_id": "hybrid_aquatic:john_dory",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 10.0,
+        "typical_high_cm": 20.0,
+        "record_high_cm": 40.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:john_dory",
+        "shape": "SHAPE_2x1",
+        "x": 0.1,
+        "y": -0.25,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/lionfish",
+      "fish_id": "hybrid_aquatic:lionfish",
+      "item_id": "hybrid_aquatic:lionfish",
+      "entity_id": "hybrid_aquatic:lionfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 10.0,
+        "typical_high_cm": 23.0,
+        "record_high_cm": 40.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:lionfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.1,
+        "y": -0.2,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mackerel",
+      "fish_id": "hybrid_aquatic:mackerel",
+      "item_id": "hybrid_aquatic:mackerel",
+      "entity_id": "hybrid_aquatic:mackerel",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": false,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 0.0,
+        "typical_high_cm": 0.0,
+        "record_high_cm": 0.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:mackerel",
+        "shape": "SHAPE_1x1",
+        "x": 0.02,
+        "y": -0.1,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/mahi",
+      "fish_id": "hybrid_aquatic:mahi",
+      "item_id": "hybrid_aquatic:mahi",
+      "entity_id": "hybrid_aquatic:mahi",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": false,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 0.0,
+        "typical_high_cm": 0.0,
+        "record_high_cm": 0.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:mahi",
+        "shape": "SHAPE_2x1",
+        "x": 0.14,
+        "y": -0.35,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/moray_eel",
+      "fish_id": "hybrid_aquatic:moray_eel",
+      "item_id": "hybrid_aquatic:moray_eel",
+      "entity_id": "hybrid_aquatic:moray_eel",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 110.0,
+        "typical_high_cm": 170.0,
+        "record_high_cm": 300.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:moray_eel",
+        "shape": "SHAPE_1x1",
+        "x": 0.24,
+        "y": -0.2,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/needlefish",
+      "fish_id": "hybrid_aquatic:needlefish",
+      "item_id": "hybrid_aquatic:needlefish",
+      "entity_id": "hybrid_aquatic:needlefish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 30.0,
+        "typical_high_cm": 90.0,
+        "record_high_cm": 200.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:needlefish",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": -0.15,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:underground/oarfish",
+      "fish_id": "hybrid_aquatic:oarfish",
+      "item_id": "hybrid_aquatic:oarfish",
+      "entity_id": "hybrid_aquatic:oarfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 250.0,
+        "typical_high_cm": 500.0,
+        "record_high_cm": 850.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:oarfish",
+        "shape": "SHAPE_3x1",
+        "x": 0.0,
+        "y": -0.3,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/ocean_sunfish",
+      "fish_id": "hybrid_aquatic:ocean_sunfish",
+      "item_id": "hybrid_aquatic:ocean_sunfish",
+      "entity_id": "hybrid_aquatic:ocean_sunfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 75.0,
+        "typical_high_cm": 90.0,
+        "record_high_cm": 135.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:ocean_sunfish",
+        "shape": "SHAPE_3x1",
+        "x": 0.35,
+        "y": -1.0,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/opah",
+      "fish_id": "hybrid_aquatic:opah",
+      "item_id": "hybrid_aquatic:opah",
+      "entity_id": "hybrid_aquatic:opah",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 75.0,
+        "typical_high_cm": 90.0,
+        "record_high_cm": 135.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:opah",
+        "shape": "SHAPE_1x1",
+        "x": 0.04,
+        "y": -0.48,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/parrotfish",
+      "fish_id": "hybrid_aquatic:parrotfish",
+      "item_id": "hybrid_aquatic:parrotfish",
+      "entity_id": "hybrid_aquatic:parrotfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 30.0,
+        "typical_high_cm": 50.0,
+        "record_high_cm": 90.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:parrotfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": -0.2,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/pearlfish",
+      "fish_id": "hybrid_aquatic:pearlfish",
+      "item_id": "hybrid_aquatic:pearlfish",
+      "entity_id": "hybrid_aquatic:pearlfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 60.0,
+        "record_high_cm": 100.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:pearlfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.02,
+        "y": -0.08,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:freshwater/piranha",
+      "fish_id": "hybrid_aquatic:piranha",
+      "item_id": "hybrid_aquatic:piranha",
+      "entity_id": "hybrid_aquatic:piranha",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 30.0,
+        "typical_high_cm": 45.0,
+        "record_high_cm": 65.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:piranha",
+        "shape": "SHAPE_1x1",
+        "x": 0.02,
+        "y": -0.15,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:freshwater/pleco",
+      "fish_id": "hybrid_aquatic:pleco",
+      "item_id": "hybrid_aquatic:pleco",
+      "entity_id": "hybrid_aquatic:pleco",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 8.0,
+        "typical_high_cm": 12.0,
+        "record_high_cm": 20.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:pleco",
+        "shape": "SHAPE_1x1",
+        "x": 0.1,
+        "y": -0.18,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:underground/ratfish",
+      "fish_id": "hybrid_aquatic:ratfish",
+      "item_id": "hybrid_aquatic:ratfish",
+      "entity_id": "hybrid_aquatic:ratfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 30.0,
+        "typical_high_cm": 65.0,
+        "record_high_cm": 110.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:ratfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.13,
+        "y": -0.2,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/rockfish",
+      "fish_id": "hybrid_aquatic:rockfish",
+      "item_id": "hybrid_aquatic:rockfish",
+      "entity_id": "hybrid_aquatic:rockfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 35.0,
+        "typical_high_cm": 55.0,
+        "record_high_cm": 120.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:rockfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.05,
+        "y": -0.18,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/sea_bass",
+      "fish_id": "hybrid_aquatic:sea_bass",
+      "item_id": "hybrid_aquatic:sea_bass",
+      "entity_id": "hybrid_aquatic:sea_bass",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 50.0,
+        "typical_high_cm": 80.0,
+        "record_high_cm": 150.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:sea_bass",
+        "shape": "SHAPE_1x1",
+        "x": 0.1,
+        "y": -0.18,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/seahorse",
+      "fish_id": "hybrid_aquatic:seahorse",
+      "item_id": "hybrid_aquatic:seahorse",
+      "entity_id": "hybrid_aquatic:seahorse",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 15.0,
+        "typical_high_cm": 25.0,
+        "record_high_cm": 45.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:seahorse",
+        "shape": "SHAPE_1x1",
+        "x": 0.03,
+        "y": -0.24,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/sheepshead_wrasse",
+      "fish_id": "hybrid_aquatic:sheepshead_wrasse",
+      "item_id": "hybrid_aquatic:sheepshead_wrasse",
+      "entity_id": "hybrid_aquatic:wrasse",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 60.0,
+        "typical_high_cm": 75.0,
+        "record_high_cm": 120.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:wrasse",
+        "shape": "SHAPE_2x1",
+        "x": 0.05,
+        "y": -0.2,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:underground/snailfish",
+      "fish_id": "hybrid_aquatic:snailfish",
+      "item_id": "hybrid_aquatic:snailfish",
+      "entity_id": "hybrid_aquatic:snailfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 60.0,
+        "record_high_cm": 90.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:snailfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.1,
+        "y": -0.12,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/squirrelfish",
+      "fish_id": "hybrid_aquatic:squirrelfish",
+      "item_id": "hybrid_aquatic:squirrelfish",
+      "entity_id": "hybrid_aquatic:squirrelfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 12.0,
+        "typical_high_cm": 25.0,
+        "record_high_cm": 45.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:squirrelfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": -0.18,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/stingray",
+      "fish_id": "hybrid_aquatic:stingray",
+      "item_id": "hybrid_aquatic:stingray",
+      "entity_id": "hybrid_aquatic:stingray",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 160.0,
+        "typical_high_cm": 200.0,
+        "record_high_cm": 300.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:stingray",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": 0.1,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 90.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/stonefish",
+      "fish_id": "hybrid_aquatic:stonefish",
+      "item_id": "hybrid_aquatic:stonefish",
+      "entity_id": "hybrid_aquatic:stonefish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 30.0,
+        "typical_high_cm": 40.0,
+        "record_high_cm": 90.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:stonefish",
+        "shape": "SHAPE_1x1",
+        "x": 0.07,
+        "y": -0.18,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:freshwater/sunfish",
+      "fish_id": "hybrid_aquatic:sunfish",
+      "item_id": "hybrid_aquatic:sunfish",
+      "entity_id": "hybrid_aquatic:sunfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 20.0,
+        "typical_high_cm": 35.0,
+        "record_high_cm": 60.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:sunfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.02,
+        "y": -0.1,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/surgeonfish",
+      "fish_id": "hybrid_aquatic:surgeonfish",
+      "item_id": "hybrid_aquatic:surgeonfish",
+      "entity_id": "hybrid_aquatic:surgeonfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 20.0,
+        "typical_high_cm": 35.0,
+        "record_high_cm": 55.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:surgeonfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.02,
+        "y": -0.15,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:freshwater/tetra",
+      "fish_id": "hybrid_aquatic:tetra",
+      "item_id": "hybrid_aquatic:tetra",
+      "entity_id": "hybrid_aquatic:tetra",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 4.0,
+        "typical_high_cm": 7.0,
+        "record_high_cm": 15.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:tetra",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": -0.1,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:freshwater/tiger_barb",
+      "fish_id": "hybrid_aquatic:tiger_barb",
+      "item_id": "hybrid_aquatic:tiger_barb",
+      "entity_id": "hybrid_aquatic:tiger_barb",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 8.0,
+        "typical_high_cm": 12.0,
+        "record_high_cm": 20.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:tiger_barb",
+        "shape": "SHAPE_1x1",
+        "x": 0.1,
+        "y": -0.18,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/trevally",
+      "fish_id": "hybrid_aquatic:trevally",
+      "item_id": "hybrid_aquatic:trevally",
+      "entity_id": "hybrid_aquatic:trevally",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 30.0,
+        "typical_high_cm": 90.0,
+        "record_high_cm": 200.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:trevally",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": -0.15,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:saltwater/triggerfish",
+      "fish_id": "hybrid_aquatic:triggerfish",
+      "item_id": "hybrid_aquatic:triggerfish",
+      "entity_id": "hybrid_aquatic:triggerfish",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 25.0,
+        "typical_high_cm": 45.0,
+        "record_high_cm": 100.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:triggerfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": -0.35,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "hybrid_aquatic:misc/tuna",
+      "fish_id": "hybrid_aquatic:tuna",
+      "item_id": "hybrid_aquatic:tuna",
+      "entity_id": "hybrid_aquatic:tuna",
+      "source_mod": "hybrid_aquatic",
+      "show_in_journal": true,
+      "original": false,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 0.0,
+        "typical_high_cm": 0.0,
+        "record_high_cm": 0.0
+      },
+      "display_data": {
+        "entity": "hybrid_aquatic:tuna",
+        "shape": "SHAPE_3x1",
+        "x": 0.14,
+        "y": -0.3,
+        "z": 0.08,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "minecraft:saltwater/cod",
+      "fish_id": "minecraft:cod",
+      "item_id": "minecraft:cod",
+      "entity_id": "minecraft:cod",
+      "source_mod": "minecraft",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 65.0,
+        "typical_high_cm": 115.0,
+        "record_high_cm": 200.0
+      },
+      "display_data": {
+        "entity": "minecraft:cod",
+        "shape": "SHAPE_1x1",
+        "x": 0.1,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "minecraft:saltwater/pufferfish",
+      "fish_id": "minecraft:pufferfish",
+      "item_id": "minecraft:pufferfish",
+      "entity_id": "minecraft:pufferfish",
+      "source_mod": "minecraft",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 12.0,
+        "typical_high_cm": 22.0,
+        "record_high_cm": 75.0
+      },
+      "display_data": {
+        "entity": "minecraft:pufferfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.05,
+        "y": 0.0,
+        "z": -0.1,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "minecraft:freshwater/salmon",
+      "fish_id": "minecraft:salmon",
+      "item_id": "minecraft:salmon",
+      "entity_id": "minecraft:salmon",
+      "source_mod": "minecraft",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 55.0,
+        "typical_high_cm": 95.0,
+        "record_high_cm": 145.0
+      },
+      "display_data": {
+        "entity": "minecraft:salmon",
+        "shape": "SHAPE_1x1",
+        "x": 0.1,
+        "y": -0.1,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "minecraft:saltwater/tropical_fish",
+      "fish_id": "minecraft:tropical_fish",
+      "item_id": "minecraft:tropical_fish",
+      "entity_id": "minecraft:tropical_fish",
+      "source_mod": "minecraft",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 10.0,
+        "typical_high_cm": 35.0,
+        "record_high_cm": 100.0
+      },
+      "display_data": {
+        "entity": "minecraft:tropical_fish",
+        "shape": "SHAPE_1x1",
+        "x": 0.05,
+        "y": -0.08,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/abyss_angler",
+      "fish_id": "tide:abyss_angler",
+      "item_id": "tide:abyss_angler",
+      "entity_id": "tide:abyss_angler",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 20.0,
+        "typical_high_cm": 35.0,
+        "record_high_cm": 75.0
+      },
+      "display_data": {
+        "entity": "tide:abyss_angler",
+        "shape": "SHAPE_1x1",
+        "x": -0.07,
+        "y": -0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/alpha_fish",
+      "fish_id": "tide:alpha_fish",
+      "item_id": "tide:alpha_fish",
+      "entity_id": "tide:alpha_fish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 60.0,
+        "record_high_cm": 100.0
+      },
+      "display_data": {
+        "entity": "tide:alpha_fish",
+        "shape": "SHAPE_1x1",
+        "x": 0.03,
+        "y": -0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/amber_rockfish",
+      "fish_id": "tide:amber_rockfish",
+      "item_id": "tide:amber_rockfish",
+      "entity_id": "tide:amber_rockfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 35.0,
+        "typical_high_cm": 60.0,
+        "record_high_cm": 95.0
+      },
+      "display_data": {
+        "entity": "tide:amber_rockfish",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.08,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/anchovy",
+      "fish_id": "tide:anchovy",
+      "item_id": "tide:anchovy",
+      "entity_id": "tide:anchovy",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 6.0,
+        "typical_high_cm": 12.0,
+        "record_high_cm": 20.0
+      },
+      "display_data": {
+        "entity": "tide:anchovy",
+        "shape": "SHAPE_1x1",
+        "x": -0.11,
+        "y": 0.06,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/angelfish",
+      "fish_id": "tide:angelfish",
+      "item_id": "tide:angelfish",
+      "entity_id": "tide:angelfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 10.0,
+        "typical_high_cm": 13.0,
+        "record_high_cm": 20.0
+      },
+      "display_data": {
+        "entity": "tide:angelfish",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.1,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/anglerfish",
+      "fish_id": "tide:anglerfish",
+      "item_id": "tide:anglerfish",
+      "entity_id": "tide:anglerfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 20.0,
+        "typical_high_cm": 35.0,
+        "record_high_cm": 75.0
+      },
+      "display_data": {
+        "entity": "tide:anglerfish",
+        "shape": "SHAPE_1x1",
+        "x": -0.1,
+        "y": -0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/aquathorn",
+      "fish_id": "tide:aquathorn",
+      "item_id": "tide:aquathorn",
+      "entity_id": "tide:aquathorn",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 32.0,
+        "typical_high_cm": 45.0,
+        "record_high_cm": 70.0
+      },
+      "display_data": {
+        "entity": "tide:aquathorn",
+        "shape": "SHAPE_1x1",
+        "x": -0.07,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/arapaima",
+      "fish_id": "tide:arapaima",
+      "item_id": "tide:arapaima",
+      "entity_id": "tide:arapaima",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 240.0,
+        "typical_high_cm": 340.0,
+        "record_high_cm": 460.0
+      },
+      "display_data": {
+        "entity": "tide:arapaima",
+        "shape": "SHAPE_3x1",
+        "x": -0.08,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:lava/ash_perch",
+      "fish_id": "tide:ash_perch",
+      "item_id": "tide:ash_perch",
+      "entity_id": "tide:ash_perch",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 15.0,
+        "typical_high_cm": 30.0,
+        "record_high_cm": 45.0
+      },
+      "display_data": {
+        "entity": "tide:ash_perch",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/bedrock_bug",
+      "fish_id": "tide:bedrock_bug",
+      "item_id": "tide:bedrock_bug",
+      "entity_id": "tide:bedrock_bug",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 3.0,
+        "typical_high_cm": 4.5,
+        "record_high_cm": 10.0
+      },
+      "display_data": {
+        "entity": "tide:bedrock_bug",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.02,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/bedrock_tetra",
+      "fish_id": "tide:bedrock_tetra",
+      "item_id": "tide:bedrock_tetra",
+      "entity_id": "tide:bedrock_tetra",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 2.8,
+        "typical_high_cm": 4.5,
+        "record_high_cm": 8.0
+      },
+      "display_data": {
+        "entity": "tide:bedrock_tetra",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.03,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/black_crappie",
+      "fish_id": "tide:black_crappie",
+      "item_id": "tide:black_crappie",
+      "entity_id": "tide:black_crappie",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 25.0,
+        "typical_high_cm": 35.0,
+        "record_high_cm": 50.0
+      },
+      "display_data": {
+        "entity": "tide:black_crappie",
+        "shape": "SHAPE_1x1",
+        "x": -0.07,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:lava/blazing_swordfish",
+      "fish_id": "tide:blazing_swordfish",
+      "item_id": "tide:blazing_swordfish",
+      "entity_id": "tide:blazing_swordfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 180.0,
+        "typical_high_cm": 290.0,
+        "record_high_cm": 455.0
+      },
+      "display_data": {
+        "entity": "tide:blazing_swordfish",
+        "shape": "SHAPE_3x1",
+        "x": -0.06,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/blossom_bass",
+      "fish_id": "tide:blossom_bass",
+      "item_id": "tide:blossom_bass",
+      "entity_id": "tide:blossom_bass",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 35.0,
+        "typical_high_cm": 65.0,
+        "record_high_cm": 100.0
+      },
+      "display_data": {
+        "entity": "tide:blossom_bass",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.1,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/blue_neonfish",
+      "fish_id": "tide:blue_neonfish",
+      "item_id": "tide:blue_neonfish",
+      "entity_id": "tide:blue_neonfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 20.0,
+        "typical_high_cm": 35.0,
+        "record_high_cm": 75.0
+      },
+      "display_data": {
+        "entity": "tide:blue_neonfish",
+        "shape": "SHAPE_1x1",
+        "x": -0.1,
+        "y": -0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/bluegill",
+      "fish_id": "tide:bluegill",
+      "item_id": "tide:bluegill",
+      "entity_id": "tide:bluegill",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 15.0,
+        "typical_high_cm": 30.0,
+        "record_high_cm": 40.0
+      },
+      "display_data": {
+        "entity": "tide:bluegill",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/brook_trout",
+      "fish_id": "tide:brook_trout",
+      "item_id": "tide:brook_trout",
+      "entity_id": "tide:brook_trout",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 30.0,
+        "typical_high_cm": 50.0,
+        "record_high_cm": 80.0
+      },
+      "display_data": {
+        "entity": "tide:brook_trout",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.08,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/bull_shark",
+      "fish_id": "tide:bull_shark",
+      "item_id": "tide:bull_shark",
+      "entity_id": "tide:bull_shark",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 210.0,
+        "typical_high_cm": 265.0,
+        "record_high_cm": 335.0
+      },
+      "display_data": {
+        "entity": "tide:bull_shark",
+        "shape": "SHAPE_3x1",
+        "x": -0.05,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/carp",
+      "fish_id": "tide:carp",
+      "item_id": "tide:carp",
+      "entity_id": "tide:carp",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 80.0,
+        "record_high_cm": 120.0
+      },
+      "display_data": {
+        "entity": "tide:carp",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/catfish",
+      "fish_id": "tide:catfish",
+      "item_id": "tide:catfish",
+      "entity_id": "tide:catfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 75.0,
+        "record_high_cm": 155.0
+      },
+      "display_data": {
+        "entity": "tide:catfish",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/cave_crawler",
+      "fish_id": "tide:cave_crawler",
+      "item_id": "tide:cave_crawler",
+      "entity_id": "tide:cave_crawler",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 45.0,
+        "typical_high_cm": 60.0,
+        "record_high_cm": 100.0
+      },
+      "display_data": {
+        "entity": "tide:cave_crawler",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.02,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/cave_eel",
+      "fish_id": "tide:cave_eel",
+      "item_id": "tide:cave_eel",
+      "entity_id": "tide:cave_eel",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 90.0,
+        "typical_high_cm": 115.0,
+        "record_high_cm": 150.0
+      },
+      "display_data": {
+        "entity": "tide:cave_eel",
+        "shape": "SHAPE_2x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/chasm_eel",
+      "fish_id": "tide:chasm_eel",
+      "item_id": "tide:chasm_eel",
+      "entity_id": "tide:chasm_eel",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 120.0,
+        "typical_high_cm": 180.0,
+        "record_high_cm": 300.0
+      },
+      "display_data": {
+        "entity": "tide:chasm_eel",
+        "shape": "SHAPE_2x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/chorus_cod",
+      "fish_id": "tide:chorus_cod",
+      "item_id": "tide:chorus_cod",
+      "entity_id": "tide:chorus_cod",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 55.0,
+        "typical_high_cm": 75.0,
+        "record_high_cm": 110.0
+      },
+      "display_data": {
+        "entity": "tide:chorus_cod",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/coelacanth",
+      "fish_id": "tide:coelacanth",
+      "item_id": "tide:coelacanth",
+      "entity_id": "tide:coelacanth",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 140.0,
+        "typical_high_cm": 190.0,
+        "record_high_cm": 270.0
+      },
+      "display_data": {
+        "entity": "tide:coelacanth",
+        "shape": "SHAPE_2x1",
+        "x": -0.12,
+        "y": -0.22,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:lava/crimson_fangjaw",
+      "fish_id": "tide:crimson_fangjaw",
+      "item_id": "tide:crimson_fangjaw",
+      "entity_id": "tide:crimson_fangjaw",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 35.0,
+        "typical_high_cm": 65.0,
+        "record_high_cm": 100.0
+      },
+      "display_data": {
+        "entity": "tide:crimson_fangjaw",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/crystal_shrimp",
+      "fish_id": "tide:crystal_shrimp",
+      "item_id": "tide:crystal_shrimp",
+      "entity_id": "tide:crystal_shrimp",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 4.0,
+        "typical_high_cm": 8.0,
+        "record_high_cm": 15.0
+      },
+      "display_data": {
+        "entity": "tide:crystal_shrimp",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/crystalline_carp",
+      "fish_id": "tide:crystalline_carp",
+      "item_id": "tide:crystalline_carp",
+      "entity_id": "tide:crystalline_carp",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 80.0,
+        "record_high_cm": 120.0
+      },
+      "display_data": {
+        "entity": "tide:crystalline_carp",
+        "shape": "SHAPE_1x1",
+        "x": -0.06,
+        "y": -0.06,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/darkness_eater",
+      "fish_id": "tide:darkness_eater",
+      "item_id": "tide:darkness_eater",
+      "entity_id": "tide:darkness_eater",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 170.0,
+        "typical_high_cm": 230.0,
+        "record_high_cm": 400.0
+      },
+      "display_data": {
+        "entity": "tide:darkness_eater",
+        "shape": "SHAPE_3x1",
+        "x": -0.05,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/deep_blue",
+      "fish_id": "tide:deep_blue",
+      "item_id": "tide:deep_blue",
+      "entity_id": "tide:deep_blue",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 38.0,
+        "typical_high_cm": 65.0,
+        "record_high_cm": 100.0
+      },
+      "display_data": {
+        "entity": "tide:deep_blue",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.03,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/deep_grouper",
+      "fish_id": "tide:deep_grouper",
+      "item_id": "tide:deep_grouper",
+      "entity_id": "tide:deep_grouper",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 55.0,
+        "typical_high_cm": 75.0,
+        "record_high_cm": 115.0
+      },
+      "display_data": {
+        "entity": "tide:deep_grouper",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.1,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/devils_hole_pupfish",
+      "fish_id": "tide:devils_hole_pupfish",
+      "item_id": "tide:devils_hole_pupfish",
+      "entity_id": "tide:devils_hole_pupfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 1.4,
+        "typical_high_cm": 2.6,
+        "record_high_cm": 4.3
+      },
+      "display_data": {
+        "entity": "tide:devils_hole_pupfish",
+        "shape": "SHAPE_1x1",
+        "x": -0.12,
+        "y": 0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/dragon_fish",
+      "fish_id": "tide:dragon_fish",
+      "item_id": "tide:dragon_fish",
+      "entity_id": "tide:dragon_fish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 550.0,
+        "typical_high_cm": 750.0,
+        "record_high_cm": 1250.0
+      },
+      "display_data": {
+        "entity": "tide:dragon_fish",
+        "shape": "SHAPE_3x1",
+        "x": 0.0,
+        "y": -0.35,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/dripstone_darter",
+      "fish_id": "tide:dripstone_darter",
+      "item_id": "tide:dripstone_darter",
+      "entity_id": "tide:dripstone_darter",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 35.0,
+        "typical_high_cm": 55.0,
+        "record_high_cm": 95.0
+      },
+      "display_data": {
+        "entity": "tide:dripstone_darter",
+        "shape": "SHAPE_1x1",
+        "x": -0.07,
+        "y": -0.02,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/dutchman_sock",
+      "fish_id": "tide:dutchman_sock",
+      "item_id": "tide:dutchman_sock",
+      "entity_id": "tide:dutchman_sock",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 4.0,
+        "typical_high_cm": 7.0,
+        "record_high_cm": 15.0
+      },
+      "display_data": {
+        "entity": "tide:dutchman_sock",
+        "shape": "SHAPE_1x1",
+        "x": -0.08,
+        "y": 0.02,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/echo_snapper",
+      "fish_id": "tide:echo_snapper",
+      "item_id": "tide:echo_snapper",
+      "entity_id": "tide:echo_snapper",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 65.0,
+        "typical_high_cm": 85.0,
+        "record_high_cm": 140.0
+      },
+      "display_data": {
+        "entity": "tide:echo_snapper",
+        "shape": "SHAPE_1x1",
+        "x": 0.05,
+        "y": 0.0,
+        "z": 0.02,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/elytrout",
+      "fish_id": "tide:elytrout",
+      "item_id": "tide:elytrout",
+      "entity_id": "tide:elytrout",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 35.0,
+        "typical_high_cm": 60.0,
+        "record_high_cm": 100.0
+      },
+      "display_data": {
+        "entity": "tide:elytrout",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:lava/ember_koi",
+      "fish_id": "tide:ember_koi",
+      "item_id": "tide:ember_koi",
+      "entity_id": "tide:ember_koi",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 50.0,
+        "record_high_cm": 80.0
+      },
+      "display_data": {
+        "entity": "tide:ember_koi",
+        "shape": "SHAPE_1x1",
+        "x": -0.07,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/ender_glider",
+      "fish_id": "tide:ender_glider",
+      "item_id": "tide:ender_glider",
+      "entity_id": "tide:ender_glider",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 48.0,
+        "typical_high_cm": 70.0,
+        "record_high_cm": 110.0
+      },
+      "display_data": {
+        "entity": "tide:ender_glider",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.05,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/enderfin",
+      "fish_id": "tide:enderfin",
+      "item_id": "tide:enderfin",
+      "entity_id": "tide:enderfin",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 35.0,
+        "typical_high_cm": 55.0,
+        "record_high_cm": 90.0
+      },
+      "display_data": {
+        "entity": "tide:enderfin",
+        "shape": "SHAPE_1x1",
+        "x": -0.07,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/endergazer",
+      "fish_id": "tide:endergazer",
+      "item_id": "tide:endergazer",
+      "entity_id": "tide:endergazer",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 25.0,
+        "typical_high_cm": 35.0,
+        "record_high_cm": 55.0
+      },
+      "display_data": {
+        "entity": "tide:endergazer",
+        "shape": "SHAPE_1x1",
+        "x": -0.08,
+        "y": -0.03,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/flounder",
+      "fish_id": "tide:flounder",
+      "item_id": "tide:flounder",
+      "entity_id": "tide:flounder",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 55.0,
+        "record_high_cm": 75.0
+      },
+      "display_data": {
+        "entity": "tide:flounder",
+        "shape": "SHAPE_1x1",
+        "x": 0.05,
+        "y": 0.0,
+        "z": 0.02,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/frostbite_flounder",
+      "fish_id": "tide:frostbite_flounder",
+      "item_id": "tide:frostbite_flounder",
+      "entity_id": "tide:frostbite_flounder",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 55.0,
+        "record_high_cm": 75.0
+      },
+      "display_data": {
+        "entity": "tide:frostbite_flounder",
+        "shape": "SHAPE_1x1",
+        "x": 0.05,
+        "y": 0.0,
+        "z": 0.02,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/gilded_minnow",
+      "fish_id": "tide:gilded_minnow",
+      "item_id": "tide:gilded_minnow",
+      "entity_id": "tide:gilded_minnow",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 8.0,
+        "typical_high_cm": 15.0,
+        "record_high_cm": 28.0
+      },
+      "display_data": {
+        "entity": "tide:gilded_minnow",
+        "shape": "SHAPE_1x1",
+        "x": -0.1,
+        "y": 0.06,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/glowfish",
+      "fish_id": "tide:glowfish",
+      "item_id": "tide:glowfish",
+      "entity_id": "tide:glowfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 55.0,
+        "typical_high_cm": 75.0,
+        "record_high_cm": 110.0
+      },
+      "display_data": {
+        "entity": "tide:glowfish",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/great_white_shark",
+      "fish_id": "tide:great_white_shark",
+      "item_id": "tide:great_white_shark",
+      "entity_id": "tide:great_white_shark",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 370.0,
+        "typical_high_cm": 490.0,
+        "record_high_cm": 610.0
+      },
+      "display_data": {
+        "entity": "tide:great_white_shark",
+        "shape": "SHAPE_3x1",
+        "x": -0.06,
+        "y": -0.25,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/guppy",
+      "fish_id": "tide:guppy",
+      "item_id": "tide:guppy",
+      "entity_id": "tide:guppy",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 4.0,
+        "typical_high_cm": 7.0,
+        "record_high_cm": 9.0
+      },
+      "display_data": {
+        "entity": "tide:guppy",
+        "shape": "SHAPE_1x1",
+        "x": -0.1,
+        "y": 0.06,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/incandescent_larva",
+      "fish_id": "tide:incandescent_larva",
+      "item_id": "tide:incandescent_larva",
+      "entity_id": "tide:incandescent_larva",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 2.0,
+        "typical_high_cm": 4.0,
+        "record_high_cm": 10.0
+      },
+      "display_data": {
+        "entity": "tide:incandescent_larva",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.02,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:lava/inferno_guppy",
+      "fish_id": "tide:inferno_guppy",
+      "item_id": "tide:inferno_guppy",
+      "entity_id": "tide:inferno_guppy",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 4.0,
+        "typical_high_cm": 7.0,
+        "record_high_cm": 9.0
+      },
+      "display_data": {
+        "entity": "tide:inferno_guppy",
+        "shape": "SHAPE_1x1",
+        "x": -0.1,
+        "y": 0.06,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/iron_tetra",
+      "fish_id": "tide:iron_tetra",
+      "item_id": "tide:iron_tetra",
+      "entity_id": "tide:iron_tetra",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 2.8,
+        "typical_high_cm": 4.5,
+        "record_high_cm": 8.0
+      },
+      "display_data": {
+        "entity": "tide:iron_tetra",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.03,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/judgment_fish",
+      "fish_id": "tide:judgment_fish",
+      "item_id": "tide:judgment_fish",
+      "entity_id": "tide:judgment_fish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 80.0,
+        "record_high_cm": 140.0
+      },
+      "display_data": {
+        "entity": "tide:judgment_fish",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/lapis_lanternfish",
+      "fish_id": "tide:lapis_lanternfish",
+      "item_id": "tide:lapis_lanternfish",
+      "entity_id": "tide:lapis_lanternfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 5.0,
+        "typical_high_cm": 15.0,
+        "record_high_cm": 40.0
+      },
+      "display_data": {
+        "entity": "tide:lapis_lanternfish",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.02,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/largemouth_bass",
+      "fish_id": "tide:largemouth_bass",
+      "item_id": "tide:largemouth_bass",
+      "entity_id": "tide:largemouth_bass",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 35.0,
+        "typical_high_cm": 65.0,
+        "record_high_cm": 100.0
+      },
+      "display_data": {
+        "entity": "tide:largemouth_bass",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.1,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/luminescent_jellyfish",
+      "fish_id": "tide:luminescent_jellyfish",
+      "item_id": "tide:luminescent_jellyfish",
+      "entity_id": "tide:luminescent_jellyfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 50.0,
+        "record_high_cm": 80.0
+      },
+      "display_data": {
+        "entity": "tide:luminescent_jellyfish",
+        "shape": "SHAPE_1x1",
+        "x": -0.1,
+        "y": -0.2,
+        "z": -0.05,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/mackerel",
+      "fish_id": "tide:mackerel",
+      "item_id": "tide:mackerel",
+      "entity_id": "tide:mackerel",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 30.0,
+        "typical_high_cm": 45.0,
+        "record_high_cm": 65.0
+      },
+      "display_data": {
+        "entity": "tide:mackerel",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:lava/magma_mackerel",
+      "fish_id": "tide:magma_mackerel",
+      "item_id": "tide:magma_mackerel",
+      "entity_id": "tide:magma_mackerel",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 30.0,
+        "typical_high_cm": 45.0,
+        "record_high_cm": 65.0
+      },
+      "display_data": {
+        "entity": "tide:magma_mackerel",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/mahi_mahi",
+      "fish_id": "tide:mahi_mahi",
+      "item_id": "tide:mahi_mahi",
+      "entity_id": "tide:mahi_mahi",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 85.0,
+        "typical_high_cm": 130.0,
+        "record_high_cm": 200.0
+      },
+      "display_data": {
+        "entity": "tide:mahi_mahi",
+        "shape": "SHAPE_2x1",
+        "x": -0.05,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/manta_ray",
+      "fish_id": "tide:manta_ray",
+      "item_id": "tide:manta_ray",
+      "entity_id": "tide:manta_ray",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 400.0,
+        "typical_high_cm": 650.0,
+        "record_high_cm": 900.0
+      },
+      "display_data": {
+        "entity": "tide:manta_ray",
+        "shape": "SHAPE_3x1",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.02,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 90.0
+      }
+    },
+    {
+      "data_key": "tide:void/mantyvern",
+      "fish_id": "tide:mantyvern",
+      "item_id": "tide:mantyvern",
+      "entity_id": "tide:mantyvern",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 280.0,
+        "typical_high_cm": 360.0,
+        "record_high_cm": 500.0
+      },
+      "display_data": {
+        "entity": "tide:mantyvern",
+        "shape": "SHAPE_3x1",
+        "x": 0.1,
+        "y": 0.0,
+        "z": -0.05,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/marstilus",
+      "fish_id": "tide:marstilus",
+      "item_id": "tide:marstilus",
+      "entity_id": "tide:marstilus",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 100.0,
+        "typical_high_cm": 124.0,
+        "record_high_cm": 185.0
+      },
+      "display_data": {
+        "entity": "tide:marstilus",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.1,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/midas_fish",
+      "fish_id": "tide:midas_fish",
+      "item_id": "tide:midas_fish",
+      "entity_id": "tide:midas_fish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 50.0,
+        "typical_high_cm": 80.0,
+        "record_high_cm": 130.0
+      },
+      "display_data": {
+        "entity": "tide:midas_fish",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.07,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/mirage_catfish",
+      "fish_id": "tide:mirage_catfish",
+      "item_id": "tide:mirage_catfish",
+      "entity_id": "tide:mirage_catfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 75.0,
+        "record_high_cm": 155.0
+      },
+      "display_data": {
+        "entity": "tide:mirage_catfish",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/mooneye",
+      "fish_id": "tide:mooneye",
+      "item_id": "tide:mooneye",
+      "entity_id": "tide:mooneye",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 23.0,
+        "typical_high_cm": 35.0,
+        "record_high_cm": 50.0
+      },
+      "display_data": {
+        "entity": "tide:mooneye",
+        "shape": "SHAPE_1x1",
+        "x": -0.07,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/nephrosilu",
+      "fish_id": "tide:nephrosilu",
+      "item_id": "tide:nephrosilu",
+      "entity_id": "tide:nephrosilu",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 55.0,
+        "typical_high_cm": 90.0,
+        "record_high_cm": 160.0
+      },
+      "display_data": {
+        "entity": "tide:nephrosilu",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.08,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/neptune_koi",
+      "fish_id": "tide:neptune_koi",
+      "item_id": "tide:neptune_koi",
+      "entity_id": "tide:neptune_koi",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 50.0,
+        "record_high_cm": 80.0
+      },
+      "display_data": {
+        "entity": "tide:neptune_koi",
+        "shape": "SHAPE_1x1",
+        "x": -0.07,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:lava/obsidian_pike",
+      "fish_id": "tide:obsidian_pike",
+      "item_id": "tide:obsidian_pike",
+      "entity_id": "tide:obsidian_pike",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 60.0,
+        "typical_high_cm": 80.0,
+        "record_high_cm": 140.0
+      },
+      "display_data": {
+        "entity": "tide:obsidian_pike",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.13,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/ocean_perch",
+      "fish_id": "tide:ocean_perch",
+      "item_id": "tide:ocean_perch",
+      "entity_id": "tide:ocean_perch",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 50.0,
+        "record_high_cm": 67.0
+      },
+      "display_data": {
+        "entity": "tide:ocean_perch",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/pale_clubfish",
+      "fish_id": "tide:pale_clubfish",
+      "item_id": "tide:pale_clubfish",
+      "entity_id": "tide:pale_clubfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 65.0,
+        "record_high_cm": 135.0
+      },
+      "display_data": {
+        "entity": "tide:pale_clubfish",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/pentapus",
+      "fish_id": "tide:pentapus",
+      "item_id": "tide:pentapus",
+      "entity_id": "tide:pentapus",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 30.0,
+        "typical_high_cm": 90.0,
+        "record_high_cm": 200.0
+      },
+      "display_data": {
+        "entity": "tide:pentapus",
+        "shape": "SHAPE_1x1",
+        "x": -0.1,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/pike",
+      "fish_id": "tide:pike",
+      "item_id": "tide:pike",
+      "entity_id": "tide:pike",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 60.0,
+        "typical_high_cm": 80.0,
+        "record_high_cm": 140.0
+      },
+      "display_data": {
+        "entity": "tide:pike",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.13,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/pluto_snail",
+      "fish_id": "tide:pluto_snail",
+      "item_id": "tide:pluto_snail",
+      "entity_id": "tide:pluto_snail",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 10.0,
+        "typical_high_cm": 20.0,
+        "record_high_cm": 35.0
+      },
+      "display_data": {
+        "entity": "tide:pluto_snail",
+        "shape": "SHAPE_1x1",
+        "x": -0.02,
+        "y": -0.2,
+        "z": 0.02,
+        "roll": -90.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/rainbow_trout",
+      "fish_id": "tide:rainbow_trout",
+      "item_id": "tide:rainbow_trout",
+      "entity_id": "tide:rainbow_trout",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 50.0,
+        "typical_high_cm": 75.0,
+        "record_high_cm": 110.0
+      },
+      "display_data": {
+        "entity": "tide:rainbow_trout",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.08,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/red_40",
+      "fish_id": "tide:red_40",
+      "item_id": "tide:red_40",
+      "entity_id": "tide:red_40",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 12.0,
+        "typical_high_cm": 25.0,
+        "record_high_cm": 45.0
+      },
+      "display_data": {
+        "entity": "tide:red_40",
+        "shape": "SHAPE_1x1",
+        "x": -0.1,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/red_snapper",
+      "fish_id": "tide:red_snapper",
+      "item_id": "tide:red_snapper",
+      "entity_id": "tide:red_snapper",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 30.0,
+        "typical_high_cm": 60.0,
+        "record_high_cm": 115.0
+      },
+      "display_data": {
+        "entity": "tide:red_snapper",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/sailfish",
+      "fish_id": "tide:sailfish",
+      "item_id": "tide:sailfish",
+      "entity_id": "tide:sailfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 180.0,
+        "typical_high_cm": 270.0,
+        "record_high_cm": 380.0
+      },
+      "display_data": {
+        "entity": "tide:sailfish",
+        "shape": "SHAPE_3x1",
+        "x": -0.06,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/sand_tiger_shark",
+      "fish_id": "tide:sand_tiger_shark",
+      "item_id": "tide:sand_tiger_shark",
+      "entity_id": "tide:sand_tiger_shark",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 215.0,
+        "typical_high_cm": 275.0,
+        "record_high_cm": 350.0
+      },
+      "display_data": {
+        "entity": "tide:sand_tiger_shark",
+        "shape": "SHAPE_3x1",
+        "x": -0.05,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/saturn_cuttlefish",
+      "fish_id": "tide:saturn_cuttlefish",
+      "item_id": "tide:saturn_cuttlefish",
+      "entity_id": "tide:saturn_cuttlefish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 90.0,
+        "typical_high_cm": 120.0,
+        "record_high_cm": 180.0
+      },
+      "display_data": {
+        "entity": "tide:saturn_cuttlefish",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.02,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/shadow_shark",
+      "fish_id": "tide:shadow_shark",
+      "item_id": "tide:shadow_shark",
+      "entity_id": "tide:shadow_shark",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 250.0,
+        "typical_high_cm": 305.0,
+        "record_high_cm": 375.0
+      },
+      "display_data": {
+        "entity": "tide:shadow_shark",
+        "shape": "SHAPE_3x1",
+        "x": -0.05,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/shadow_snapper",
+      "fish_id": "tide:shadow_snapper",
+      "item_id": "tide:shadow_snapper",
+      "entity_id": "tide:shadow_snapper",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 35.0,
+        "typical_high_cm": 65.0,
+        "record_high_cm": 120.0
+      },
+      "display_data": {
+        "entity": "tide:shadow_snapper",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/shooting_starfish",
+      "fish_id": "tide:shooting_starfish",
+      "item_id": "tide:shooting_starfish",
+      "entity_id": "tide:shooting_starfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 70.0,
+        "typical_high_cm": 85.0,
+        "record_high_cm": 120.0
+      },
+      "display_data": {
+        "entity": "tide:shooting_starfish",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.02,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 90.0
+      }
+    },
+    {
+      "data_key": "tide:void/sleepy_carp",
+      "fish_id": "tide:sleepy_carp",
+      "item_id": "tide:sleepy_carp",
+      "entity_id": "tide:sleepy_carp",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 80.0,
+        "record_high_cm": 120.0
+      },
+      "display_data": {
+        "entity": "tide:sleepy_carp",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/slimy_salmon",
+      "fish_id": "tide:slimy_salmon",
+      "item_id": "tide:slimy_salmon",
+      "entity_id": "tide:slimy_salmon",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 55.0,
+        "typical_high_cm": 95.0,
+        "record_high_cm": 145.0
+      },
+      "display_data": {
+        "entity": "tide:slimy_salmon",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": -0.1,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/smallmouth_bass",
+      "fish_id": "tide:smallmouth_bass",
+      "item_id": "tide:smallmouth_bass",
+      "entity_id": "tide:smallmouth_bass",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 35.0,
+        "typical_high_cm": 52.0,
+        "record_high_cm": 70.0
+      },
+      "display_data": {
+        "entity": "tide:smallmouth_bass",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.1,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/snatcher_squid",
+      "fish_id": "tide:snatcher_squid",
+      "item_id": "tide:snatcher_squid",
+      "entity_id": "tide:snatcher_squid",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 110.0,
+        "typical_high_cm": 170.0,
+        "record_high_cm": 260.0
+      },
+      "display_data": {
+        "entity": "tide:snatcher_squid",
+        "shape": "SHAPE_2x1",
+        "x": 0.1,
+        "y": 0.0,
+        "z": -0.05,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/snook",
+      "fish_id": "tide:snook",
+      "item_id": "tide:snook",
+      "entity_id": "tide:snook",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 38.0,
+        "typical_high_cm": 68.0,
+        "record_high_cm": 125.0
+      },
+      "display_data": {
+        "entity": "tide:snook",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:lava/soulscale",
+      "fish_id": "tide:soulscale",
+      "item_id": "tide:soulscale",
+      "entity_id": "tide:soulscale",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 35.0,
+        "typical_high_cm": 60.0,
+        "record_high_cm": 95.0
+      },
+      "display_data": {
+        "entity": "tide:soulscale",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.1,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/spore_stalker",
+      "fish_id": "tide:spore_stalker",
+      "item_id": "tide:spore_stalker",
+      "entity_id": "tide:spore_stalker",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 35.0,
+        "typical_high_cm": 55.0,
+        "record_high_cm": 90.0
+      },
+      "display_data": {
+        "entity": "tide:spore_stalker",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/sturgeon",
+      "fish_id": "tide:sturgeon",
+      "item_id": "tide:sturgeon",
+      "entity_id": "tide:sturgeon",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 140.0,
+        "typical_high_cm": 250.0,
+        "record_high_cm": 365.0
+      },
+      "display_data": {
+        "entity": "tide:sturgeon",
+        "shape": "SHAPE_3x1",
+        "x": -0.05,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/sun_emblem",
+      "fish_id": "tide:sun_emblem",
+      "item_id": "tide:sun_emblem",
+      "entity_id": "tide:sun_emblem",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 50.0,
+        "typical_high_cm": 60.0,
+        "record_high_cm": 85.0
+      },
+      "display_data": {
+        "entity": "tide:sun_emblem",
+        "shape": "SHAPE_1x1",
+        "x": -0.1,
+        "y": -0.2,
+        "z": -0.05,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/swordfish",
+      "fish_id": "tide:swordfish",
+      "item_id": "tide:swordfish",
+      "entity_id": "tide:swordfish",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 180.0,
+        "typical_high_cm": 290.0,
+        "record_high_cm": 455.0
+      },
+      "display_data": {
+        "entity": "tide:swordfish",
+        "shape": "SHAPE_3x1",
+        "x": -0.06,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/tuna",
+      "fish_id": "tide:tuna",
+      "item_id": "tide:tuna",
+      "entity_id": "tide:tuna",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 90.0,
+        "typical_high_cm": 150.0,
+        "record_high_cm": 300.0
+      },
+      "display_data": {
+        "entity": "tide:tuna",
+        "shape": "SHAPE_2x1",
+        "x": -0.05,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:saltwater/uranias_pisces",
+      "fish_id": "tide:uranias_pisces",
+      "item_id": "tide:uranias_pisces",
+      "entity_id": "tide:uranias_pisces",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 180.0,
+        "typical_high_cm": 220.0,
+        "record_high_cm": 350.0
+      },
+      "display_data": {
+        "entity": "tide:uranias_pisces",
+        "shape": "SHAPE_2x1",
+        "x": -0.06,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/vengeance",
+      "fish_id": "tide:vengeance",
+      "item_id": "tide:vengeance",
+      "entity_id": "tide:vengeance",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 50.0,
+        "typical_high_cm": 80.0,
+        "record_high_cm": 130.0
+      },
+      "display_data": {
+        "entity": "tide:vengeance",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/violet_carp",
+      "fish_id": "tide:violet_carp",
+      "item_id": "tide:violet_carp",
+      "entity_id": "tide:violet_carp",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 60.0,
+        "typical_high_cm": 85.0,
+        "record_high_cm": 125.0
+      },
+      "display_data": {
+        "entity": "tide:violet_carp",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:void/voidseeker",
+      "fish_id": "tide:voidseeker",
+      "item_id": "tide:voidseeker",
+      "entity_id": "tide:voidseeker",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 40.0,
+        "typical_high_cm": 65.0,
+        "record_high_cm": 120.0
+      },
+      "display_data": {
+        "entity": "tide:voidseeker",
+        "shape": "SHAPE_1x1",
+        "x": -0.13,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:lava/volcano_tuna",
+      "fish_id": "tide:volcano_tuna",
+      "item_id": "tide:volcano_tuna",
+      "entity_id": "tide:volcano_tuna",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 50.0,
+        "typical_high_cm": 75.0,
+        "record_high_cm": 110.0
+      },
+      "display_data": {
+        "entity": "tide:volcano_tuna",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/walleye",
+      "fish_id": "tide:walleye",
+      "item_id": "tide:walleye",
+      "entity_id": "tide:walleye",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 35.0,
+        "typical_high_cm": 75.0,
+        "record_high_cm": 105.0
+      },
+      "display_data": {
+        "entity": "tide:walleye",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:lava/warped_guppy",
+      "fish_id": "tide:warped_guppy",
+      "item_id": "tide:warped_guppy",
+      "entity_id": "tide:warped_guppy",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 4.0,
+        "typical_high_cm": 7.0,
+        "record_high_cm": 9.0
+      },
+      "display_data": {
+        "entity": "tide:warped_guppy",
+        "shape": "SHAPE_1x1",
+        "x": -0.1,
+        "y": 0.06,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/white_crappie",
+      "fish_id": "tide:white_crappie",
+      "item_id": "tide:white_crappie",
+      "entity_id": "tide:white_crappie",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 20.0,
+        "typical_high_cm": 30.0,
+        "record_high_cm": 50.0
+      },
+      "display_data": {
+        "entity": "tide:white_crappie",
+        "shape": "SHAPE_1x1",
+        "x": -0.07,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:underground/windbass",
+      "fish_id": "tide:windbass",
+      "item_id": "tide:windbass",
+      "entity_id": "tide:windbass",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 32.0,
+        "typical_high_cm": 60.0,
+        "record_high_cm": 95.0
+      },
+      "display_data": {
+        "entity": "tide:windbass",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": -0.15,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:lava/witherfin",
+      "fish_id": "tide:witherfin",
+      "item_id": "tide:witherfin",
+      "entity_id": "tide:witherfin",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 25.0,
+        "typical_high_cm": 40.0,
+        "record_high_cm": 90.0
+      },
+      "display_data": {
+        "entity": "tide:witherfin",
+        "shape": "SHAPE_1x1",
+        "x": 0.0,
+        "y": -0.05,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    },
+    {
+      "data_key": "tide:freshwater/yellow_perch",
+      "fish_id": "tide:yellow_perch",
+      "item_id": "tide:yellow_perch",
+      "entity_id": "tide:yellow_perch",
+      "source_mod": "tide",
+      "show_in_journal": true,
+      "original": true,
+      "associated_mods": [],
+      "size": {
+        "typical_low_cm": 15.0,
+        "typical_high_cm": 30.0,
+        "record_high_cm": 45.0
+      },
+      "display_data": {
+        "entity": "tide:yellow_perch",
+        "shape": "SHAPE_1x1",
+        "x": -0.05,
+        "y": 0.0,
+        "z": 0.0,
+        "roll": 0.0,
+        "pitch": 0.0,
+        "yaw": 0.0
+      }
+    }
+  ]
+}

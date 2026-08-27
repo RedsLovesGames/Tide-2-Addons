@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-27T10:41:44.563600200Z",
+  "bundle_type": "tide_fish_runtime_export",
+  "source_of_truth": "running Minecraft client + TideData.FISH + Tide FishDisplayRenderer",
+  "environment_fingerprint": "5904c1bcdebb76f812e1eec4ac94a171943645dfb609cfdf2d417dfc72fed353",
+  "catalog_fingerprint": "ffad5a8dfe2b13a0e0d17b82d86822ab6ce7138e4e9404dadea912162aa265fd",
+  "cache_key": "3c9584f4b1c7bc8ce9653d0707e951f83019b740fae7c45b9f30223717cc3db1",
+  "fish_count": 157,
+  "jobs": 1099,
+  "successful": 1050,
+  "failed": 49,
+  "cache_hits": 0,
+  "renders_directory": "renders/",
+  "render_report": "render-report.json",
+  "failures_report": "failures.json",
+  "environment": "environment.json",
+  "fish_catalog": "fish-catalog.json"
+}
