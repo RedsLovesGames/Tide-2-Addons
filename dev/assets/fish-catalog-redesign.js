@@ -1,9 +1,10 @@
 (()=>{
 'use strict';
 
-const VERSION='catalog-v3';
+const VERSION='catalog-v4';
 const conditionBonus={parasite:15,parasite_ridden:15,scarred:25,albino:175,iridescent:325,perfect_specimen:350};
 let recordsById=new Map();
+let runtimeRenders={};
 
 const esc=s=>String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));
 const title=s=>String(s||'').replaceAll('_',' ').replace(/\b\w/g,m=>m.toUpperCase());
@@ -53,6 +54,18 @@ async function loadGzipJson(path){
   return JSON.parse(await new Response(res.body.pipeThrough(new DecompressionStream('gzip'))).text());
 }
 
+function runtimeFile(id){
+  const variant=runtimeRenders?.[id]?.variants?.normal;
+  if(!variant?.file||variant.status==='unavailable')return null;
+  return `../${String(variant.file).replace(/^\.\//,'').replace(/^\//,'')}`;
+}
+
+function runtimePreview(r){
+  const file=runtimeFile(r.id);
+  if(!file)return null;
+  return `<img class="runtime-fish-render catalog-runtime-render" src="${esc(file)}" alt="${esc(r.name)} source-authentic runtime render" loading="lazy" decoding="async">`;
+}
+
 function moveSortIntoSidebar(){
   const sidebar=document.getElementById('fish-filters');
   const sort=document.querySelector('.sort-wrap');
@@ -67,7 +80,7 @@ function modernizeCard(card){
   if(!r)return;
 
   const oldWindow=card.querySelector('.specimen-window');
-  const preview=oldWindow?oldWindow.innerHTML:'';
+  const preview=runtimePreview(r)??(oldWindow?oldWindow.innerHTML:'');
   const x=ranges(r);
   const starText=stars(r.stars);
   const rarity=title(r.rarity||'');
@@ -75,7 +88,7 @@ function modernizeCard(card){
   card.dataset.catalogDesign=VERSION;
   card.innerHTML=`
     <div class="fish-card-visual">
-      <div class="specimen-window">${preview}</div>
+      <div class="specimen-window"${runtimeFile(r.id)?` data-runtime-render="${esc(r.id)}"`:''}>${preview}</div>
       <div class="catalog-stars" aria-label="${esc(r.stars||1)} star rarity" title="${esc(rarity)}">${starText}</div>
     </div>
     <div class="fish-card-content">
@@ -108,13 +121,16 @@ function install(){
   moveSortIntoSidebar();
   modernizeCards();
   document.body.dataset.fishCatalogDesign=VERSION;
+  document.body.dataset.runtimeRenderCount=String(Object.keys(runtimeRenders).length);
 }
 
 Promise.all([
   loadGzipJson('../assets/fish-wiki-data-0.json.gz'),
-  loadGzipJson('../assets/fish-wiki-data-1.json.gz')
-]).then(([a,b])=>{
+  loadGzipJson('../assets/fish-wiki-data-1.json.gz'),
+  fetch('../assets/fish-render-manifest.json').then(r=>{if(!r.ok)throw new Error(`fish-render-manifest.json: HTTP ${r.status}`);return r.json()})
+]).then(([a,b,manifest])=>{
   recordsById=new Map([...(a.records||[]),...(b.records||[])].map(r=>[r.id,r]));
+  runtimeRenders=manifest?.fish||{};
   install();
   const results=document.getElementById('fish-results');
   if(results)new MutationObserver(()=>requestAnimationFrame(modernizeCards)).observe(results,{childList:true});
