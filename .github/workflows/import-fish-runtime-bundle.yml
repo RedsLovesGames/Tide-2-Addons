@@ -1,0 +1,88 @@
+name: Import Fish Runtime Bundle
+
+on:
+  push:
+    branches: [dev]
+    paths:
+      - 'fish/render-bundles/current-runtime-export.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fish-runtime-bundle-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  import-runtime-bundle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install render validator dependencies
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Import canonical runtime bundle
+        run: python scripts/import-fish-runtime-bundle.py --bundle fish/render-bundles/current-runtime-export.zip
+
+      - name: Validate generated Fish Wiki render state
+        run: |
+          python scripts/validate-fish-render-manifest.py
+          python scripts/validate-fish-wiki.py
+          node --check assets/fish-runtime.js
+          node --check assets/fish-wiki.js
+          node --check assets/fish-specimen-lab.js
+
+      - name: Verify canonical bundle contract
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          manifest = json.loads(Path('assets/fish-render-manifest.json').read_text())
+          report = json.loads(Path('fish/render-data/runtime-bundle/import-report.json').read_text())
+          assert manifest['schemaVersion'] >= 3, manifest['schemaVersion']
+          assert manifest['pipelineStatus'] == 'canonical_runtime_bundle', manifest['pipelineStatus']
+          assert manifest['bundle']['renderContract']['renderer'] == 'com.li64.tide.client.FishDisplayRenderer'
+          assert manifest['bundle']['renderContract']['direct_entity_fallback'] is False
+          assert report['canonicalRenderer'] == 'com.li64.tide.client.FishDisplayRenderer'
+          assert report['directEntityFallback'] is False
+          assert report['renderFiles'] == report['successfulRenderJobs']
+          assert report['fish'] > 0
+          print(
+              'CANONICAL_RUNTIME_BUNDLE_OK',
+              f"fish={report['fish']}",
+              f"renders={report['renderFiles']}",
+              f"failed_jobs={report['failedRenderJobs']}",
+          )
+          PY
+
+      - name: Commit generated render state to dev
+        if: github.event_name == 'push' && github.ref_name == 'dev'
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A assets/fish-render-manifest.json fish/assets/renders fish/render-data/runtime-bundle
+          if git diff --cached --quiet; then
+            echo 'Runtime bundle already matches generated site state.'
+            exit 0
+          fi
+          git commit -m 'Import canonical runtime fish render bundle'
+          git push origin HEAD:dev
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fish-runtime-bundle-import-report
+          path: fish/render-data/runtime-bundle/
+          if-no-files-found: warn
+          retention-days: 14
