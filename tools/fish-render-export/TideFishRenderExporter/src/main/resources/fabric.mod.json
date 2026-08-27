@@ -2,12 +2,15 @@
   "schemaVersion": 1,
   "id": "tide_fish_render_exporter",
   "version": "${version}",
-  "name": "Tide Fish Render Exporter",
-  "description": "Exports source-authentic Tide Fish Display entity renders to transparent PNG files.",
+  "name": "Tide Fish Runtime Exporter",
+  "description": "Discovers Tide fish from the running modpack and exports source-authentic Tide Fish Display renders, provenance, and reports as a portable ZIP.",
   "authors": ["RedsLovesGames"],
   "environment": "client",
   "entrypoints": {
-    "client": ["com.redslovesgames.tidefishrender.TideFishRenderExporter"]
+    "client": [
+      "com.redslovesgames.tidefishrender.TideFishRenderExporter",
+      "com.redslovesgames.tidefishrender.RuntimeBundleAutoInitializer"
+    ]
   },
   "depends": {
     "fabricloader": ">=0.18.4",
