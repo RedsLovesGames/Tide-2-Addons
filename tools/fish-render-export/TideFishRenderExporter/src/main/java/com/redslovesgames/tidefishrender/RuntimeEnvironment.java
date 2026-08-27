@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.metadata.ModOrigin;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,26 +38,23 @@ final class RuntimeEnvironment {
             row.addProperty("version", version);
 
             JsonArray origins = new JsonArray();
-            List<Path> paths = new ArrayList<>(mod.getOrigin().getPaths());
-            paths.sort(Comparator.comparing(Path::toString));
-            List<String> originHashes = new ArrayList<>();
-            for (Path path : paths) {
-                JsonObject origin = new JsonObject();
-                Path fileName = path.getFileName();
-                origin.addProperty("file", fileName == null ? path.toString() : fileName.toString());
-                origin.addProperty("kind", Files.isDirectory(path) ? "directory" : "file");
-                if (Files.isRegularFile(path)) {
-                    String hash = sha256(path);
-                    origin.addProperty("sha256", hash);
-                    originHashes.add(hash);
+            List<String> originFingerprints = new ArrayList<>();
+            ModOrigin modOrigin = mod.getOrigin();
+            switch (modOrigin.getKind()) {
+                case PATH -> addPathOrigins(modOrigin, origins, originFingerprints);
+                case NESTED -> addNestedOrigin(modOrigin, origins, originFingerprints);
+                default -> {
+                    JsonObject origin = new JsonObject();
+                    origin.addProperty("kind", "unknown");
+                    origins.add(origin);
+                    originFingerprints.add("unknown");
                 }
-                origins.add(origin);
             }
             row.add("origins", origins);
             rows.add(row);
 
             fingerprintMaterial.append(id).append('\u0000').append(version).append('\u0000');
-            originHashes.forEach(hash -> fingerprintMaterial.append(hash).append('\u0000'));
+            originFingerprints.forEach(value -> fingerprintMaterial.append(value).append('\u0000'));
         }
 
         String fingerprint = sha256(fingerprintMaterial.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8));
@@ -70,6 +68,36 @@ final class RuntimeEnvironment {
                 .orElse("unknown"));
         root.add("mods", rows);
         return new Snapshot(root, fingerprint);
+    }
+
+    private static void addPathOrigins(ModOrigin modOrigin, JsonArray origins, List<String> fingerprints) throws IOException {
+        List<Path> paths = new ArrayList<>(modOrigin.getPaths());
+        paths.sort(Comparator.comparing(Path::toString));
+        for (Path path : paths) {
+            JsonObject origin = new JsonObject();
+            Path fileName = path.getFileName();
+            origin.addProperty("file", fileName == null ? path.toString() : fileName.toString());
+            origin.addProperty("kind", Files.isDirectory(path) ? "directory" : "file");
+            if (Files.isRegularFile(path)) {
+                String hash = sha256(path);
+                origin.addProperty("sha256", hash);
+                fingerprints.add("path:" + hash);
+            } else {
+                fingerprints.add("path:" + path.toAbsolutePath().normalize());
+            }
+            origins.add(origin);
+        }
+    }
+
+    private static void addNestedOrigin(ModOrigin modOrigin, JsonArray origins, List<String> fingerprints) {
+        String parentModId = modOrigin.getParentModId();
+        String subLocation = modOrigin.getParentSubLocation();
+        JsonObject origin = new JsonObject();
+        origin.addProperty("kind", "nested");
+        origin.addProperty("parent_mod_id", parentModId);
+        origin.addProperty("parent_sub_location", subLocation);
+        origins.add(origin);
+        fingerprints.add("nested:" + parentModId + ":" + subLocation);
     }
 
     static String sha256(Path path) throws IOException {
