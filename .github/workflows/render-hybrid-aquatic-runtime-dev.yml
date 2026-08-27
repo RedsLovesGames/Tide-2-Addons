@@ -46,6 +46,18 @@ jobs:
           grep -Fq "hybridAquaticModrinthVersion = '6EfLaKkB'" build.gradle
           echo 'HYBRID_DEPENDENCY_GUARD_OK version=1.5.5 modrinth=6EfLaKkB'
 
+      - name: Select Hybrid Aquatic side-profile capture orientation
+        run: |
+          set -euo pipefail
+          src='src/main/java/com/redslovesgames/tidefishrender/RenderService.java'
+          grep -Fq 'projection=ortho yaw=90' "$src"
+          grep -Fq '                    90.0f,' "$src"
+          sed -i 's/projection=ortho yaw=90/projection=ortho yaw=0/' "$src"
+          sed -i 's/                    90\.0f,/                    0.0f,/' "$src"
+          grep -Fq 'projection=ortho yaw=0' "$src"
+          grep -Fq '                    0.0f,' "$src"
+          echo 'HYBRID_SIDE_PROFILE_ORIENTATION yaw=0'
+
       - name: Build actual client renderer exporter
         run: gradle --no-daemon build
 
@@ -108,6 +120,7 @@ jobs:
           fi
           grep -Eq -- '- hybrid[-_]aquatic 1\.5\.5' run/client/logs/latest.log
           grep -q 'FISHRENDER_ENTITY_DIRECT fish=hybrid_aquatic:oarfish' run/client/logs/latest.log
+          grep -q 'projection=ortho yaw=0' run/client/logs/latest.log
           grep -q 'renderer=' run/client/logs/latest.log
 
       - name: Validate Oarfish smoke render
@@ -142,7 +155,7 @@ jobs:
               assert l > 0 and t > 0 and r < im.width and b < im.height, (im.size, bounds)
               assert width >= 40 and height >= 4, (im.size, bounds)
               assert width / max(height, 1) >= 2.0, ('Oarfish does not read as a side-on elongated fish', im.size, bounds)
-          print('HYBRID_OARFISH_SMOKE_OK actual_entity_dispatcher=1')
+          print('HYBRID_OARFISH_SMOKE_OK actual_entity_dispatcher=1 yaw=0')
           PY
           mkdir -p /tmp/hybrid-smoke
           cp run/client/fishrender-output/fish/assets/renders/hybrid_aquatic__oarfish.png /tmp/hybrid-smoke/
@@ -215,7 +228,7 @@ jobs:
           with Image.open(oarfish) as im:
               l,t,r,b = im.getchannel('A').getbbox()
               assert (r-l) / max((b-t), 1) >= 2.0, ('full-batch Oarfish aspect regression', im.size, (l,t,r,b))
-          print('HYBRID_RUNTIME_VALID total=49 actual_entity_dispatcher=49 version=1.5.5')
+          print('HYBRID_RUNTIME_VALID total=49 actual_entity_dispatcher=49 version=1.5.5 yaw=0')
           PY
 
       - name: Publish only validated Hybrid Aquatic runtime renders
@@ -251,6 +264,7 @@ jobs:
                   'renderer_mode': row.get('render_mode'),
                   'source_mod_version': '1.5.5',
                   'source_modrinth_version_id': '6EfLaKkB',
+                  'capture_orientation': 'side_profile_yaw_0',
                   'variants': {
                       'normal': {
                           'file': f'fish/assets/renders/{filename}',
