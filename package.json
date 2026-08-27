@@ -1,0 +1,13 @@
+{
+  "name": "tideborne-docs-maintenance",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Development tooling for the Tideborne documentation and Fish Wiki.",
+  "scripts": {
+    "check:js": "node --check assets/app.js && node --check assets/fish-wiki.js && node --check assets/fish-site-search.js && node --check assets/fish-detail-nav.js && node --check assets/fish-catalog-redesign.js && node --check assets/fish-specimen-lab-stable.js && node --check scripts/qa-fish-wiki.mjs",
+    "qa:fish": "node scripts/qa-fish-wiki.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.54.2"
+  }
+}
