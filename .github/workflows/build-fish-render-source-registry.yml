@@ -2,16 +2,26 @@ name: Build fish render source registry
 
 on:
   push:
-    branches: [fish-render-source-import]
+    branches: [dev]
     paths:
       - '.github/workflows/build-fish-render-source-registry.yml'
       - 'tools/fish-render-source/source-manifest.json'
       - 'tools/fish-render-source/download_sources.py'
       - 'tools/fish-render-source/extract_fish_render_sources.py'
+      - 'fish/render-data/registry/supported-fish-registry.json'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/fish-render-source/**'
+      - 'fish/render-data/registry/supported-fish-registry.json'
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: fish-source-registry-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build-registry:
@@ -81,7 +91,6 @@ jobs:
           d=json.loads(src.read_text())
           pathlib.Path('render-source-artifact/fish-render-registry.web.json').write_text(json.dumps(d,separators=(',',':'))+'\n')
           PY
-          find render-source-artifact -maxdepth 3 -type f -print
 
       - uses: actions/upload-artifact@v4
         with:
