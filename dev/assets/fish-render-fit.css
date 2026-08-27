@@ -24,3 +24,21 @@
   align-items:center;
   justify-content:center;
 }
+
+/* A selected fish is a dedicated detail view, not content appended below the catalog. */
+.fish-page:has(.fish-article:not([hidden])) .fish-hero,
+.fish-page:has(.fish-article:not([hidden])) .fish-provenance,
+.fish-page:has(.fish-article:not([hidden])) #catalog-view {
+  display:none !important;
+}
+
+.fish-page:has(.fish-article:not([hidden])) .fish-main {
+  padding-top:12px;
+}
+
+.fish-page .fish-article:not([hidden]) {
+  display:block !important;
+  width:100%;
+  margin:0;
+  scroll-margin-top:72px;
+}
