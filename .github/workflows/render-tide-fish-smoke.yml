@@ -2,7 +2,7 @@ name: Render scoped Fish Wiki catalog
 
 on:
   push:
-    branches: [fish-render-source-import]
+    branches: [dev]
     paths:
       - '.github/workflows/render-tide-fish-smoke.yml'
       - 'tools/fish-render-export/TideFishRenderExporter/build.gradle'
@@ -16,6 +16,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: scoped-fish-runtime-render
+  cancel-in-progress: true
+
 jobs:
   render-scope:
     runs-on: ubuntu-latest
@@ -25,6 +29,9 @@ jobs:
         working-directory: tools/fish-render-export/TideFishRenderExporter
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
 
       - uses: actions/setup-java@v5
         with:
@@ -66,7 +73,7 @@ jobs:
           cp -a run/server/world run/client/saves/RenderWorld
           test -f run/client/saves/RenderWorld/level.dat
 
-      - name: Render 156 source-authentic fish under Xvfb
+      - name: Render scoped source-authentic fish under Xvfb
         run: |
           set -euo pipefail
           if ! command -v xvfb-run >/dev/null 2>&1; then
@@ -98,74 +105,72 @@ jobs:
           from PIL import Image
 
           root = Path('run/client/fishrender-output')
-          status_path = root / 'generated/auto-export-status.json'
-          report_path = root / 'generated/render-report.json'
-          assert status_path.exists(), f'missing {status_path}'
-          assert report_path.exists(), f'missing {report_path}'
-          status = json.loads(status_path.read_text())
-          report = json.loads(report_path.read_text())
+          status = json.loads((root / 'generated/auto-export-status.json').read_text())
+          report = json.loads((root / 'generated/render-report.json').read_text())
           renders = root / 'fish/assets/renders'
           pngs = sorted(renders.glob('*.png'))
+          expected_total = 156
 
           assert status['status'] == 'success', status
           assert status['mode'] == 'scope', status
-          assert status['total_fish'] == 156, status
-          assert status['successful'] == 156, status
+          assert status['total_fish'] == expected_total, status
+          assert status['successful'] == expected_total, status
           assert status['failed'] == 0, status
           assert report['mode'] == 'export:scope:default', report
-          assert report['total_fish'] == 156, report
-          assert report['jobs'] == 156, report
-          assert report['successful'] == 156, report
+          assert report['total_fish'] == expected_total, report
+          assert report['jobs'] == expected_total, report
+          assert report['successful'] == expected_total, report
           assert report['failed'] == 0, report.get('exceptions')
           assert report['variant_renders'] == 0, report
+
           successes = report['successes']
-          assert len(successes) == 156, len(successes)
           ids = [row['fish_id'] for row in successes]
-          assert len(set(ids)) == 156, 'duplicate fish ids in report'
+          assert len(successes) == expected_total and len(set(ids)) == expected_total
 
           expected = {}
           for row in successes:
               fish_id = row['fish_id']
               ns, path = fish_id.split(':', 1) if ':' in fish_id else ('minecraft', fish_id)
-              name = ns + '__' + path.replace('/', '_').replace(':', '_') + '.png'
-              expected[name] = fish_id
+              expected[ns + '__' + path.replace('/', '_').replace(':', '_') + '.png'] = fish_id
           actual = {p.name for p in pngs}
           assert actual == set(expected), f'PNG set mismatch missing={sorted(set(expected)-actual)[:20]} extra={sorted(actual-set(expected))[:20]}'
 
-          for i, png in enumerate(pngs, 1):
+          for png in pngs:
               data = png.read_bytes()
-              assert len(data) > 256, (png, len(data))
-              assert data.startswith(b'\x89PNG\r\n\x1a\n'), png
+              assert len(data) > 256 and data.startswith(b'\x89PNG\r\n\x1a\n'), png
               with Image.open(png) as image:
                   assert image.mode == 'RGBA', (png, image.mode)
                   alpha = image.getchannel('A')
-                  lo, hi = alpha.getextrema()
-                  assert hi > 0, f'{png.name}: no visible alpha'
                   bounds = alpha.getbbox()
                   assert bounds is not None, f'{png.name}: empty alpha bounds'
                   left, top, right, bottom = bounds
                   assert left > 0 and top > 0 and right < image.width and bottom < image.height, (png.name, image.size, bounds)
                   visible = [rgba[:3] for rgba in image.getdata() if rgba[3] > 0]
                   assert any(rgb != (0, 0, 0) for rgb in visible), f'{png.name}: visible pixels are all black'
-              if i % 25 == 0:
-                  print(f'validated {i}/156 PNGs')
-          print('SCOPED_RENDER_VALID total=156 failed=0')
+          print(f'SCOPED_RENDER_VALID total={expected_total} failed=0')
           PY
 
-      - name: Publish renders and manifest to branch
+      - name: Publish validated scoped renders to dev
         run: |
           set -euo pipefail
           cd ../../..
           out='tools/fish-render-export/TideFishRenderExporter/run/client/fishrender-output'
+          rm -rf /tmp/scoped-renders
+          mkdir -p /tmp/scoped-renders
+          cp "$out"/fish/assets/renders/*.png /tmp/scoped-renders/
+          cp "$out"/generated/render-report.json /tmp/scoped-render-report.json
+
+          git fetch origin dev
+          git reset --hard origin/dev
           rm -rf fish/assets/renders
           mkdir -p fish/assets/renders
-          cp "$out"/fish/assets/renders/*.png fish/assets/renders/
+          cp /tmp/scoped-renders/*.png fish/assets/renders/
+
           python - <<'PY'
           import json
           from pathlib import Path
 
-          root = Path('.')
-          report = json.loads((root / 'tools/fish-render-export/TideFishRenderExporter/run/client/fishrender-output/generated/render-report.json').read_text())
+          report = json.loads(Path('/tmp/scoped-render-report.json').read_text())
           fish = {}
           for row in sorted(report['successes'], key=lambda r: r['fish_id']):
               fish_id = row['fish_id']
@@ -174,6 +179,7 @@ jobs:
               fish[fish_id] = {
                   'source': f"Runtime FishData from {row.get('source_mod') or ns}",
                   'entity': row.get('resolved_entity_id') or row.get('entity_id'),
+                  'renderer_mode': row.get('render_mode'),
                   'variants': {
                       'normal': {
                           'file': f'fish/assets/renders/{filename}',
@@ -185,24 +191,28 @@ jobs:
               'schemaVersion': 2,
               'generatedBy': 'Tide Fish Render Exporter',
               'pipelineStatus': 'source_authentic_scope_complete',
-              'policy': 'Only renders produced from live Tide FishData through the real Tide Fish Display entity renderer are listed.',
+              'policy': 'Only renders produced from live FishData through the real Tide/Minecraft entity rendering stack are listed.',
               'counts': {
+                  'requested_fish': len(fish),
                   'supported_fish': len(fish),
                   'normal': len(fish),
+                  'failed': 0,
                   'variant_renders': 0
               },
               'fish': fish
           }
-          (root / 'assets/fish-render-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+          Path('assets/fish-render-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
           PY
+
+          python scripts/validate-fish-render-manifest.py
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add fish/assets/renders assets/fish-render-manifest.json
           if git diff --cached --quiet; then
             echo 'No generated render changes to publish.'
           else
-            git commit -m 'Publish 156 source-authentic fish renders'
-            git push origin HEAD:fish-render-source-import
+            git commit -m 'Publish validated scoped fish renders'
+            git push origin HEAD:dev
           fi
 
       - name: Upload runtime evidence
