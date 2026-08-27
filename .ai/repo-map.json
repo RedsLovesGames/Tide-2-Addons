@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "site": {
+    "documentationEntry": "index.html",
+    "fishWikiEntry": "fish/index.html",
+    "sharedAssets": "assets/",
+    "publishedFishRenders": "fish/assets/renders/"
+  },
+  "fishData": {
+    "builder": "scripts/build-fish-wiki.py",
+    "validator": "scripts/validate-fish-wiki.py",
+    "searchIndex": "assets/fish-search-index.json",
+    "payloadShards": [
+      "assets/fish-wiki-data-0.json.gz",
+      "assets/fish-wiki-data-1.json.gz"
+    ]
+  },
+  "renderData": {
+    "sourceLock": "tools/fish-render-source/source-manifest.json",
+    "sourceDownloader": "tools/fish-render-source/download_sources.py",
+    "sourceExtractor": "tools/fish-render-source/extract_fish_render_sources.py",
+    "supportedRegistry": "fish/render-data/registry/supported-fish-registry.json",
+    "sourceFileIndex": "fish/render-data/registry/fish-source-file-index.json",
+    "modRegistry": "fish/render-data/registry/mod-render-registry.json",
+    "scope": "fish/render-data/modpack-scope.json",
+    "publishedManifest": "assets/fish-render-manifest.json",
+    "manifestValidator": "scripts/validate-fish-render-manifest.py"
+  },
+  "minecraftRenderer": {
+    "root": "tools/fish-render-export/TideFishRenderExporter/",
+    "main": "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/TideFishRenderExporter.java",
+    "service": "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RenderService.java",
+    "registryLoader": "tools/fish-render-export/TideFishRenderExporter/src/main/java/com/redslovesgames/tidefishrender/RegistryLoader.java",
+    "build": "tools/fish-render-export/TideFishRenderExporter/build.gradle"
+  },
+  "browserQa": {
+    "script": "scripts/qa-fish-wiki.mjs",
+    "workflow": ".github/workflows/qa-fish-wiki-browser.yml"
+  },
+  "workflows": {
+    "fastValidation": ".github/workflows/validate-fish-wiki.yml",
+    "sourceRegistry": ".github/workflows/build-fish-render-source-registry.yml",
+    "exporterBuild": ".github/workflows/build-fish-render-exporter.yml",
+    "hybridBaselineRender": ".github/workflows/render-hybrid-aquatic-runtime-dev.yml",
+    "hybridLateRender": ".github/workflows/render-hybrid-aquatic-late-runtime-dev.yml",
+    "devPreview": ".github/workflows/publish-dev-preview.yml"
+  }
+}
