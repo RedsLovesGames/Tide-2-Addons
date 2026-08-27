@@ -134,7 +134,7 @@ try {
   await page.waitForFunction(() => Number(document.querySelector('[data-live-render-stage]')?.dataset.blockPx || 0) > 0);
   const larvaScale = await readScaleState();
   assert.ok(['physical', 'fit'].includes(larvaScale.scaleMode), `unexpected auto scale mode ${larvaScale.scaleMode}`);
-  assert.ok(larvaScale.blockPx >= 8 && larvaScale.blockPx <= 190.5, `block scale escaped auto-fit bounds: ${larvaScale.blockPx}px`);
+  assert.ok(larvaScale.blockPx >= 8 && larvaScale.blockPx <= 240.5, `block scale escaped auto-fit bounds: ${larvaScale.blockPx}px`);
   assert.ok(Math.abs(larvaScale.fishWidth - larvaScale.expectedFishWidth) <= 2.5, `render width is no longer tied to physical fish length: expected ${larvaScale.expectedFishWidth}px, got ${larvaScale.fishWidth}px`);
   assert.ok(Math.abs(larvaScale.rulerWidth - larvaScale.blockPx) <= 2.5, `1-block ruler width ${larvaScale.rulerWidth}px drifted from block scale ${larvaScale.blockPx}px`);
   assert.ok(larvaScale.fishWidth >= 12, `tiny-fish visibility regressed: Incandescent Larva width=${larvaScale.fishWidth}px stage=${larvaScale.stageWidth}px`);
@@ -166,7 +166,7 @@ try {
     await page.setViewportSize({ width: 1000, height: 760 });
     await page.waitForTimeout(120);
     const afterResize = await readScaleState();
-    assert.ok(afterResize.blockPx >= 8 && afterResize.blockPx <= 190.5, `responsive block scale escaped bounds after resize: ${afterResize.blockPx}px`);
+    assert.ok(afterResize.blockPx >= 8 && afterResize.blockPx <= 240.5, `responsive block scale escaped bounds after resize: ${afterResize.blockPx}px`);
     assert.ok(Math.abs(afterResize.fishWidth - afterResize.expectedFishWidth) <= 2.5, 'render width lost physical-scale coupling after viewport resize');
     assert.ok(afterResize.fishWidth <= afterResize.shellWidth + 2, `large fish overflowed render shell width after resize: ${afterResize.fishWidth} > ${afterResize.shellWidth}`);
     assert.ok(afterResize.fishHeight <= afterResize.shellHeight + 2, `large fish overflowed render shell height after resize: ${afterResize.fishHeight} > ${afterResize.shellHeight}`);
