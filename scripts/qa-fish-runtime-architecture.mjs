@@ -28,6 +28,30 @@ page.on('response', response => {
   if (response.status() >= 400) failures.push(`HTTP ${response.status()}: ${response.url()}`);
 });
 
+async function readScaleState() {
+  return page.evaluate(() => {
+    const stage = document.querySelector('[data-live-render-stage]');
+    const shell = document.querySelector('.fish-lab-render-shell');
+    const image = document.querySelector('[data-live-render-img]');
+    const ruler = document.querySelector('.fish-lab-ruler');
+    const length = Number(document.querySelector('[data-live-length-input]')?.value || 0);
+    const blockPx = Number(stage?.dataset.blockPx || 0);
+    const blocks = Math.max(.01, length / 100);
+    return {
+      scaleMode: stage?.dataset.scaleMode || '',
+      blockPx,
+      blocks,
+      expectedFishWidth: blocks * blockPx,
+      fishWidth: image?.getBoundingClientRect().width || 0,
+      fishHeight: image?.getBoundingClientRect().height || 0,
+      stageWidth: stage?.getBoundingClientRect().width || 0,
+      shellWidth: shell?.getBoundingClientRect().width || 0,
+      shellHeight: shell?.getBoundingClientRect().height || 0,
+      rulerWidth: ruler?.getBoundingClientRect().width || 0,
+    };
+  });
+}
+
 try {
   await page.goto(`${base}/fish/`, { waitUntil: 'networkidle' });
   await page.waitForFunction(() => document.body.dataset.fishScope === 'modpack' && window.TideFishRuntime?.ready && window.TideFishApp?.records?.length > 0);
@@ -64,7 +88,7 @@ try {
   assert.equal(runtimeState.bodyScope, 'modpack');
   assert.equal(runtimeState.appDesign, 'catalog-v4');
   assert.equal(runtimeState.labOwner, 'canonical');
-  assert.equal(runtimeState.scaleMode, 'species-ceiling-blocks');
+  assert.equal(runtimeState.scaleMode, 'physical-auto-fit');
 
   const cardCount = await page.locator('.fish-card').count();
   assert.equal(cardCount, runtimeState.records, 'catalog should render the scoped record collection directly without post-render hiding');
@@ -107,24 +131,13 @@ try {
   assert.equal(await larva.count(), 1, 'Incandescent Larva card missing from canonical scoped catalog');
   await larva.click();
   await page.waitForSelector('#fish-highlight-layer:not([hidden]) [data-live-render-stage]');
-  const larvaScale = await page.evaluate(async () => {
-    const runtime = await window.TideFishRuntime.ready;
-    const record = runtime.recordMap.get('tide:incandescent_larva');
-    const stage = document.querySelector('[data-live-render-stage]');
-    const image = document.querySelector('[data-live-render-img]');
-    return {
-      expectedBlocks: runtime.speciesScaleBlocks(record),
-      maxCm: runtime.speciesScaleMaxCm(record),
-      renderedBlocks: Number(stage?.dataset.scaleBlocks || 0),
-      fishWidth: image ? image.getBoundingClientRect().width : 0,
-      stageWidth: stage?.getBoundingClientRect().width || 0,
-      viewLabel: document.querySelector('[data-live-view-scale]')?.textContent || '',
-    };
-  });
-  assert.equal(larvaScale.expectedBlocks, Math.max(1, Math.ceil(larvaScale.maxCm / 100)), 'species block scale must round the maximum specimen ceiling upward to whole blocks');
-  assert.equal(larvaScale.renderedBlocks, larvaScale.expectedBlocks, 'render stage did not use the canonical species block scale');
-  assert.ok(larvaScale.fishWidth >= 20, `tiny-fish zoom regressed: Incandescent Larva width=${larvaScale.fishWidth}px stage=${larvaScale.stageWidth}px`);
-  assert.match(larvaScale.viewLabel, new RegExp(`^${larvaScale.expectedBlocks} BLOCK`), 'viewport label does not expose the whole-block species scale');
+  await page.waitForFunction(() => Number(document.querySelector('[data-live-render-stage]')?.dataset.blockPx || 0) > 0);
+  const larvaScale = await readScaleState();
+  assert.ok(['physical', 'fit'].includes(larvaScale.scaleMode), `unexpected auto scale mode ${larvaScale.scaleMode}`);
+  assert.ok(larvaScale.blockPx >= 8 && larvaScale.blockPx <= 190.5, `block scale escaped auto-fit bounds: ${larvaScale.blockPx}px`);
+  assert.ok(Math.abs(larvaScale.fishWidth - larvaScale.expectedFishWidth) <= 2.5, `render width is no longer tied to physical fish length: expected ${larvaScale.expectedFishWidth}px, got ${larvaScale.fishWidth}px`);
+  assert.ok(Math.abs(larvaScale.rulerWidth - larvaScale.blockPx) <= 2.5, `1-block ruler width ${larvaScale.rulerWidth}px drifted from block scale ${larvaScale.blockPx}px`);
+  assert.ok(larvaScale.fishWidth >= 12, `tiny-fish visibility regressed: Incandescent Larva width=${larvaScale.fishWidth}px stage=${larvaScale.stageWidth}px`);
 
   const canonicalBundle = await page.evaluate(async () => {
     const runtime = await window.TideFishRuntime.ready;
@@ -144,16 +157,21 @@ try {
   if (await dragon.count()) {
     await dragon.click();
     await page.waitForSelector('#fish-highlight-layer:not([hidden]) [data-live-render-stage]');
-    const dragonScale = await page.evaluate(async () => {
-      const runtime = await window.TideFishRuntime.ready;
-      const record = runtime.recordMap.get('tide:dragon_fish');
-      return {
-        expected: runtime.speciesScaleBlocks(record),
-        rendered: Number(document.querySelector('[data-live-render-stage]')?.dataset.scaleBlocks || 0),
-      };
-    });
-    assert.ok(dragonScale.expected > 1, 'large-fish regression fixture should require a multi-block viewport');
-    assert.equal(dragonScale.rendered, dragonScale.expected, 'large fish did not use species-specific whole-block viewport');
+    await page.waitForFunction(() => Number(document.querySelector('[data-live-render-stage]')?.dataset.blockPx || 0) > 0);
+
+    const beforeResize = await readScaleState();
+    assert.ok(beforeResize.fishWidth <= beforeResize.shellWidth + 2, `large fish overflowed render shell width before resize: ${beforeResize.fishWidth} > ${beforeResize.shellWidth}`);
+    assert.ok(beforeResize.fishHeight <= beforeResize.shellHeight + 2, `large fish overflowed render shell height before resize: ${beforeResize.fishHeight} > ${beforeResize.shellHeight}`);
+
+    await page.setViewportSize({ width: 1000, height: 760 });
+    await page.waitForTimeout(120);
+    const afterResize = await readScaleState();
+    assert.ok(afterResize.blockPx >= 8 && afterResize.blockPx <= 190.5, `responsive block scale escaped bounds after resize: ${afterResize.blockPx}px`);
+    assert.ok(Math.abs(afterResize.fishWidth - afterResize.expectedFishWidth) <= 2.5, 'render width lost physical-scale coupling after viewport resize');
+    assert.ok(afterResize.fishWidth <= afterResize.shellWidth + 2, `large fish overflowed render shell width after resize: ${afterResize.fishWidth} > ${afterResize.shellWidth}`);
+    assert.ok(afterResize.fishHeight <= afterResize.shellHeight + 2, `large fish overflowed render shell height after resize: ${afterResize.fishHeight} > ${afterResize.shellHeight}`);
+    assert.ok(Math.abs(afterResize.rulerWidth - afterResize.blockPx) <= 2.5, '1-block ruler did not resize with the render');
+
     await page.keyboard.press('Escape');
     await page.waitForFunction(() => document.getElementById('fish-highlight-layer')?.hidden === true);
   }
@@ -162,4 +180,4 @@ try {
 }
 
 if (failures.length) throw new Error(`Runtime architecture QA found ${failures.length} runtime/network errors:\n${failures.join('\n')}`);
-console.log('Fish Wiki runtime architecture QA passed: one shared data load, canonical owners, source-authentic runtime variants, and species-ceiling whole-block scaling for tiny and large fish.');
+console.log('Fish Wiki runtime architecture QA passed: one shared data load, canonical owners, source-authentic runtime variants, and responsive physical auto-fit scaling.');
