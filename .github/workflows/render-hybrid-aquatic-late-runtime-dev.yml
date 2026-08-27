@@ -44,12 +44,12 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           p = Path('build.gradle')
-          s = p.read_text()
-          old = "filter { line -> line.replace('\\\"entity_id\\\": \\\"hybrid_aquatic:', '\\\"entity_id\\\": \\\"hybrid-aquatic:') }"
-          new = "filter { line -> line }"
-          if old not in s:
-              raise SystemExit('expected 1.5.5 namespace rewrite not found')
-          p.write_text(s.replace(old, new))
+          lines = p.read_text().splitlines()
+          matches = [i for i, line in enumerate(lines) if 'filter { line -> line.replace(' in line and 'hybrid_aquatic' in line]
+          if len(matches) != 1:
+              raise SystemExit(f'expected exactly one 1.5.5 namespace rewrite, found {len(matches)}')
+          lines[matches[0]] = '            filter { line -> line }'
+          p.write_text('\n'.join(lines) + '\n')
           PY
           grep -Fq "hybridAquaticVersion = '1.6.5'" "$build"
           grep -Fq "hybridAquaticModrinthVersion = 'zgKmZOSd'" "$build"
