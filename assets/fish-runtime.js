@@ -54,6 +54,9 @@ function bodyBounds(record,body='normal'){
   return {min,max};
 }
 
+function speciesScaleMaxCm(record){return Math.max(1,envelope(record).giantHigh);}
+function speciesScaleBlocks(record){return Math.max(1,Math.ceil(speciesScaleMaxCm(record)/100));}
+
 function lengthFromPercent(record,body='normal',condition='normal',percentile=50){
   const {min,max}=bodyBounds(record,body);
   const p=clamp(Number(percentile)||0,percentileFloor(condition),100);
@@ -102,16 +105,23 @@ function cardRanges(record){
   };
 }
 
-function variantForManifest(manifest,id,condition='normal'){
+function variantForManifest(manifest,id,condition='normal',body='normal'){
   const variants=manifest?.fish?.[id]?.variants||{};
-  const aliases=condition==='parasite_ridden'?['parasite_ridden','parasite-ridden','parasite']:
-    condition==='perfect_specimen'?['perfect_specimen','perfect-specimen','perfect']:[condition];
-  for(const key of aliases){
-    const variant=variants[key];
-    if(variant?.file&&variant.status!=='unavailable')return {key,file:`../${String(variant.file).replace(/^\.\//,'').replace(/^\//,'')}`,exact:key!=='normal'};
+  const candidates=[];
+  if(condition&&condition!=='normal'&&condition!=='perfect_specimen'){
+    if(condition==='parasite_ridden')candidates.push('parasite_ridden','parasite-ridden','parasite');
+    else candidates.push(condition);
   }
-  const normal=variants.normal;
-  if(normal?.file&&normal.status!=='unavailable')return {key:'normal',file:`../${String(normal.file).replace(/^\.\//,'').replace(/^\//,'')}`,exact:condition==='normal'};
+  if(body&&body!=='normal')candidates.push(body);
+  candidates.push('normal');
+  for(const key of candidates){
+    const variant=variants[key];
+    if(variant?.file&&variant.status!=='unavailable'){
+      const exactCondition=condition!=='normal'&&condition!=='perfect_specimen'&&key===condition;
+      const exactBody=condition==='normal'&&body!=='normal'&&key===body;
+      return {key,file:`../${String(variant.file).replace(/^\.\//,'').replace(/^\//,'')}`,exact:condition==='normal'&&body==='normal'?key==='normal':exactCondition||exactBody};
+    }
+  }
   return null;
 }
 
@@ -130,14 +140,14 @@ const ready=(async()=>{
   const allowedIds=new Set(recordMap.keys());
   const api={
     meta:first.meta||{},scope,renderManifest,allRecords,records,recordMap,allowedIds,allowedMods,
-    namespace,slug,unslug,percentileFloor,envelope,bodyBounds,lengthFromPercent,percentFromLength,scoreBreakdown,score,cardRanges,
-    variantFor:(id,condition='normal')=>variantForManifest(renderManifest,id,condition),
-    runtimeFile:id=>variantForManifest(renderManifest,id,'normal')?.file||null
+    namespace,slug,unslug,percentileFloor,envelope,bodyBounds,speciesScaleMaxCm,speciesScaleBlocks,lengthFromPercent,percentFromLength,scoreBreakdown,score,cardRanges,
+    variantFor:(id,condition='normal',body='normal')=>variantForManifest(renderManifest,id,condition,body),
+    runtimeFile:id=>variantForManifest(renderManifest,id,'normal','normal')?.file||null
   };
   window.TideFishModpackScope={scope,allowedIds,allowedMods,records};
   document.body.dataset.fishScope='modpack';
   return api;
 })();
 
-window.TideFishRuntime={ready,namespace,slug,unslug,percentileFloor,envelope,bodyBounds,lengthFromPercent,percentFromLength,scoreBreakdown,score,cardRanges};
+window.TideFishRuntime={ready,namespace,slug,unslug,percentileFloor,envelope,bodyBounds,speciesScaleMaxCm,speciesScaleBlocks,lengthFromPercent,percentFromLength,scoreBreakdown,score,cardRanges};
 })();
