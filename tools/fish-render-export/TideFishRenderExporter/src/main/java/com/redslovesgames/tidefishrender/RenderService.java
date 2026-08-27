@@ -19,6 +19,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -60,7 +61,7 @@ final class RenderService {
 
     static RenderService create(boolean modpackScope) throws IOException {
         MinecraftClient client = MinecraftClient.getInstance();
-        if (client.world == null) throw new IOException("Open a single-player world or connected world first. Tide's Fish Display renderer needs a live ClientWorld.");
+        if (client.world == null) throw new IOException("Open a single-player world or connected world first. Fish rendering needs a live ClientWorld.");
         return new RenderService(client, modpackScope ? RegistryLoader.loadModpackScope() : RegistryLoader.load());
     }
 
@@ -96,6 +97,7 @@ final class RenderService {
                 row.addProperty("silhouette_width", result.bounds().width());
                 row.addProperty("silhouette_height", result.bounds().height());
                 row.addProperty("source_resolution", SOURCE_SIZE);
+                row.addProperty("render_mode", result.renderMode());
                 successes.add(row);
                 successful++;
                 if (!job.variant().equals("default")) variants++;
@@ -127,14 +129,24 @@ final class RenderService {
     }
 
     private RenderResult renderOne(Job job, boolean writePng) throws Exception {
+        String ns = namespace(job.entry().fishId());
+        if ("hybrid_aquatic".equals(ns) || "crittersandcompanions".equals(ns)) {
+            if (!"default".equalsIgnoreCase(job.variant())) {
+                throw new IllegalStateException("Direct entity renderer only supports source-authentic default state for " + job.entry().fishId());
+            }
+            return renderDirectEntity(job, writePng);
+        }
+        return renderFishDisplay(job, writePng);
+    }
+
+    private RenderResult renderFishDisplay(Job job, boolean writePng) throws Exception {
         Identifier itemId = Identifier.of(job.entry().itemId());
         if (!Registries.ITEM.containsId(itemId)) throw new IllegalStateException("Missing ItemStack item: " + itemId);
         Item item = Registries.ITEM.get(itemId);
         ItemStack stack = new ItemStack(item);
         TideborneVariantSupport.VariantSpec spec = TideborneVariantSupport.apply(stack, job.variant(), job.entry());
         TideItemData.FISH_LENGTH.set(stack, spec.lengthCm());
-        FishData data = FishData.getExact(stack).orElseThrow(() ->
-                new IllegalStateException("Tide FishData is not registered for " + itemId));
+        FishData data = FishData.getExact(stack).orElseThrow(() -> new IllegalStateException("Tide FishData is not registered for " + itemId));
         if (data.display().isEmpty()) throw new IllegalStateException("Tide FishData has no DisplayData for " + itemId);
 
         Identifier displayBlockId = Identifier.of("tide:fish_display");
@@ -152,7 +164,7 @@ final class RenderService {
         float scale = 0.75f;
         for (int pass = 0; pass < 7; pass++) {
             if (image != null) image.close();
-            FrameResult frame = renderFramebuffer(display, scale);
+            FrameResult frame = renderDisplayFramebuffer(display, scale);
             image = frame.image();
             resolvedEntityId = frame.entityId();
             bounds = ImageOps.alphaBounds(image);
@@ -166,10 +178,97 @@ final class RenderService {
         Path output = renderPath(job);
         if (writePng) try (NativeImage cropped = ImageOps.cropWithPadding(image, bounds, PADDING)) { ImageOps.write(cropped, output); }
         image.close();
-        return new RenderResult(writePng ? output : null, bounds, spec.lengthCm(), resolvedEntityId);
+        return new RenderResult(writePng ? output : null, bounds, spec.lengthCm(), resolvedEntityId, "tide_fish_display");
     }
 
-    private FrameResult renderFramebuffer(FishDisplayBlockEntity display, float scale) throws IOException {
+    private RenderResult renderDirectEntity(Job job, boolean writePng) throws Exception {
+        String rawEntityId = job.entry().entityId();
+        Identifier expectedId = Identifier.of(rawEntityId == null || rawEntityId.isBlank() ? job.entry().fishId() : rawEntityId);
+        if (!Registries.ENTITY_TYPE.containsId(expectedId)) throw new IllegalStateException("Missing entity type: " + expectedId);
+        EntityType<?> type = Registries.ENTITY_TYPE.get(expectedId);
+        Entity entity = type.create(client.world);
+        if (entity == null) throw new IllegalStateException("Entity type could not create client entity: " + expectedId);
+
+        Identifier resolved = Registries.ENTITY_TYPE.getId(entity.getType());
+        if (!expectedId.equals(resolved)) throw new IllegalStateException("Entity type resolved mismatch: expected=" + expectedId + " actual=" + resolved);
+        String rendererClass = client.getEntityRenderDispatcher().getRenderer(entity).getClass().getName();
+        System.out.println("FISHRENDER_ENTITY_DIRECT fish=" + job.entry().fishId()
+                + " entity=" + resolved
+                + " renderer=" + rendererClass
+                + " projection=ortho yaw=90");
+
+        NativeImage image = null;
+        ImageOps.Bounds bounds = null;
+        float scale = 0.72f;
+        for (int pass = 0; pass < 8; pass++) {
+            if (image != null) image.close();
+            FrameResult frame = renderEntityFramebuffer(entity, scale);
+            image = frame.image();
+            bounds = ImageOps.alphaBounds(image);
+            if (bounds == null) throw new IllegalStateException("Direct entity framebuffer produced zero alpha pixels: " + expectedId);
+            if (bounds.touches(image.getWidth(), image.getHeight(), EDGE_MARGIN)) { scale *= 0.70f; continue; }
+            double occupancy = bounds.occupancy(image.getWidth(), image.getHeight());
+            if (occupancy < 0.46 && pass < 6) { scale *= (float) Math.min(1.80, TARGET_OCCUPANCY / Math.max(occupancy, 0.05)); continue; }
+            break;
+        }
+        if (bounds == null || image == null) throw new IllegalStateException("No rendered silhouette for direct entity: " + expectedId);
+        Path output = renderPath(job);
+        if (writePng) try (NativeImage cropped = ImageOps.cropWithPadding(image, bounds, PADDING)) { ImageOps.write(cropped, output); }
+        image.close();
+        return new RenderResult(writePng ? output : null, bounds, job.entry().representativeLengthCm(), resolved, "minecraft_entity_dispatcher");
+    }
+
+    private FrameResult renderDisplayFramebuffer(FishDisplayBlockEntity display, float scale) throws IOException {
+        FrameContext context = beginFrame(scale);
+        VertexConsumerProvider.Immediate consumers = client.getBufferBuilders().getEntityVertexConsumers();
+        client.getEntityRenderDispatcher().setRenderShadows(false);
+        try {
+            MatrixStack matrices = new MatrixStack();
+            matrices.translate(-0.5, -0.5, -0.5);
+            FishDisplayRenderer renderer = new FishDisplayRenderer(client.getEntityRenderDispatcher());
+            renderer.render(display, 0f, matrices, consumers, LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV);
+            Entity renderedEntity = display.getRenderedEntity();
+            if (renderedEntity == null) throw new IllegalStateException("Tide Fish Display did not create a rendered entity");
+            Identifier entityId = Registries.ENTITY_TYPE.getId(renderedEntity.getType());
+            if (entityId == null || !RegistryLoader.isScopedNamespace(entityId.getNamespace())) throw new IllegalStateException("Tide FishData resolved an out-of-scope entity: " + entityId);
+            System.out.println("FISHRENDER_ENTITY fish=" + display.getDisplayStack().getItem()
+                    + " entity=" + renderedEntity.getType()
+                    + " renderer=" + client.getEntityRenderDispatcher().getRenderer(renderedEntity).getClass().getName()
+                    + " projection=ortho");
+            consumers.draw();
+            return new FrameResult(readFrame(context.framebuffer()), entityId);
+        } finally {
+            endFrame(context);
+        }
+    }
+
+    private FrameResult renderEntityFramebuffer(Entity entity, float scale) throws IOException {
+        FrameContext context = beginFrame(scale);
+        VertexConsumerProvider.Immediate consumers = client.getBufferBuilders().getEntityVertexConsumers();
+        client.getEntityRenderDispatcher().setRenderShadows(false);
+        try {
+            MatrixStack matrices = new MatrixStack();
+            double y = -Math.max(0.05, entity.getHeight()) * 0.5;
+            client.getEntityRenderDispatcher().render(
+                    entity,
+                    0.0,
+                    y,
+                    0.0,
+                    90.0f,
+                    0.0f,
+                    matrices,
+                    consumers,
+                    LightmapTextureManager.MAX_LIGHT_COORDINATE
+            );
+            consumers.draw();
+            Identifier entityId = Registries.ENTITY_TYPE.getId(entity.getType());
+            return new FrameResult(readFrame(context.framebuffer()), entityId);
+        } finally {
+            endFrame(context);
+        }
+    }
+
+    private FrameContext beginFrame(float scale) {
         Matrix4f previousProjection = new Matrix4f(RenderSystem.getProjectionMatrix());
         VertexSorter previousVertexSorting = RenderSystem.getVertexSorting();
         Matrix4fStack modelView = RenderSystem.getModelViewStack();
@@ -182,53 +281,37 @@ final class RenderService {
         framebuffer.clear(MinecraftClient.IS_SYSTEM_MAC);
         framebuffer.beginWrite(true);
         RenderSystem.viewport(0, 0, SOURCE_SIZE, SOURCE_SIZE);
-        RenderSystem.setProjectionMatrix(
-                new Matrix4f().setOrtho(-1.0f, 1.0f, -1.0f, 1.0f, -1000.0f, 3000.0f),
-                VertexSorter.BY_DISTANCE
-        );
+        RenderSystem.setProjectionMatrix(new Matrix4f().setOrtho(-1.0f, 1.0f, -1.0f, 1.0f, -1000.0f, 3000.0f), VertexSorter.BY_DISTANCE);
         modelView.pushMatrix();
         modelView.identity();
         modelView.scale(scale, scale, scale);
         RenderSystem.applyModelViewMatrix();
         RenderSystem.enableDepthTest();
         RenderSystem.depthMask(true);
-        MatrixStack matrices = new MatrixStack();
-        matrices.translate(-0.5, -0.5, -0.5);
-        VertexConsumerProvider.Immediate consumers = client.getBufferBuilders().getEntityVertexConsumers();
-        client.getEntityRenderDispatcher().setRenderShadows(false);
+        return new FrameContext(framebuffer, previousProjection, previousVertexSorting, modelView, previousWidth, previousHeight);
+    }
+
+    private NativeImage readFrame(SimpleFramebuffer framebuffer) {
+        NativeImage image = new NativeImage(framebuffer.textureWidth, framebuffer.textureHeight, false);
+        framebuffer.beginRead();
         try {
-            FishDisplayRenderer renderer = new FishDisplayRenderer(client.getEntityRenderDispatcher());
-            renderer.render(display, 0f, matrices, consumers, LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV);
-            Entity renderedEntity = display.getRenderedEntity();
-            if (renderedEntity == null) throw new IllegalStateException("Tide Fish Display did not create a rendered entity");
-            Identifier entityId = Registries.ENTITY_TYPE.getId(renderedEntity.getType());
-            if (entityId == null || !RegistryLoader.isScopedNamespace(entityId.getNamespace())) {
-                throw new IllegalStateException("Tide FishData resolved an out-of-scope entity: " + entityId);
-            }
-            System.out.println("FISHRENDER_ENTITY fish=" + display.getDisplayStack().getItem()
-                    + " entity=" + renderedEntity.getType()
-                    + " renderer=" + client.getEntityRenderDispatcher().getRenderer(renderedEntity).getClass().getName()
-                    + " projection=ortho");
-            consumers.draw();
-            NativeImage image = new NativeImage(framebuffer.textureWidth, framebuffer.textureHeight, false);
-            framebuffer.beginRead();
-            try {
-                image.loadFromTextureImage(0, false);
-            } finally {
-                framebuffer.endRead();
-            }
-            image.mirrorVertically();
-            return new FrameResult(image, entityId);
+            image.loadFromTextureImage(0, false);
         } finally {
-            client.getEntityRenderDispatcher().setRenderShadows(true);
-            framebuffer.endWrite();
-            framebuffer.delete();
-            modelView.popMatrix();
-            RenderSystem.applyModelViewMatrix();
-            RenderSystem.setProjectionMatrix(previousProjection, previousVertexSorting);
-            RenderSystem.viewport(0, 0, previousWidth, previousHeight);
-            client.getFramebuffer().beginWrite(true);
+            framebuffer.endRead();
         }
+        image.mirrorVertically();
+        return image;
+    }
+
+    private void endFrame(FrameContext context) {
+        client.getEntityRenderDispatcher().setRenderShadows(true);
+        context.framebuffer().endWrite();
+        context.framebuffer().delete();
+        context.modelView().popMatrix();
+        RenderSystem.applyModelViewMatrix();
+        RenderSystem.setProjectionMatrix(context.previousProjection(), context.previousVertexSorting());
+        RenderSystem.viewport(0, 0, context.previousWidth(), context.previousHeight());
+        client.getFramebuffer().beginWrite(true);
     }
 
     private JsonObject baseRow(Job job) {
@@ -261,6 +344,8 @@ final class RenderService {
 
     private static String namespace(String id) { int i = id.indexOf(':'); return i < 0 ? "minecraft" : id.substring(0, i); }
     private record Job(RegistryLoader.Entry entry, String variant) {}
-    private record RenderResult(Path png, ImageOps.Bounds bounds, double lengthCm, Identifier entityId) {}
+    private record RenderResult(Path png, ImageOps.Bounds bounds, double lengthCm, Identifier entityId, String renderMode) {}
     private record FrameResult(NativeImage image, Identifier entityId) {}
+    private record FrameContext(SimpleFramebuffer framebuffer, Matrix4f previousProjection, VertexSorter previousVertexSorting,
+                                Matrix4fStack modelView, int previousWidth, int previousHeight) {}
 }
