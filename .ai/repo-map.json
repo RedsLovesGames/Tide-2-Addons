@@ -44,5 +44,13 @@
     "hybridBaselineRender": ".github/workflows/render-hybrid-aquatic-runtime-dev.yml",
     "hybridLateRender": ".github/workflows/render-hybrid-aquatic-late-runtime-dev.yml",
     "devPreview": ".github/workflows/publish-dev-preview.yml"
+  },
+  "aiHandoff": {
+    "operatingContract": "AGENTS.md",
+    "state": ".ai/state.json",
+    "generatedFiles": ".ai/generated-files.json",
+    "activeTask": ".ai/next-task.json",
+    "activeExecutionPrompt": ".ai/NEXT_DEVELOPMENT_PROMPT.md",
+    "broadMaintenancePrompt": ".ai/MEGA_REPO_CLEANUP_PROMPT.md"
   }
 }
