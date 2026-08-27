@@ -1,0 +1,54 @@
+name: Publish real prismarine texture for dev
+
+on:
+  push:
+    branches: [dev]
+    paths:
+      - '.github/workflows/publish-prismarine-texture-dev.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+      - name: Fetch Minecraft 1.21.1 prismarine texture
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check pillow
+          curl --fail --location --retry 3 \
+            'https://mcasset.cloud/1.21.1/assets/minecraft/textures/block/prismarine.png' \
+            -o /tmp/prismarine-strip.png
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          src = Image.open('/tmp/prismarine-strip.png').convert('RGBA')
+          assert src.width == 16, src.size
+          assert src.height >= 16 and src.height % 16 == 0, src.size
+          # Prismarine is animated. The floor needs one authentic 16x16 block face,
+          # so publish frame zero without redrawing or filtering any pixels.
+          frame = src.crop((0, 0, 16, 16))
+          out = Path('assets/minecraft/prismarine.png')
+          out.parent.mkdir(parents=True, exist_ok=True)
+          frame.save(out)
+          print('PRISMARINE_TEXTURE', src.size, '->', frame.size)
+          PY
+      - name: Commit exact prismarine frame to dev
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/minecraft/prismarine.png
+          if git diff --cached --quiet; then
+            echo 'Prismarine texture already current.'
+          else
+            git commit -m 'Add actual Minecraft prismarine texture'
+            git pull --rebase origin dev
+            git push origin HEAD:dev
+          fi
