@@ -1,10 +1,11 @@
-name: Render late Hybrid Aquatic fish with 1.6.5
+name: Render late Hybrid Aquatic fish with patched 1.6.9
 
 on:
   push:
     branches: [dev]
     paths:
       - '.github/workflows/render-hybrid-aquatic-late-runtime-dev.yml'
+      - 'tools/fish-render-export/TideFishRenderExporter/tools/patch_hybrid_aquatic_dev_jar.py'
   workflow_dispatch:
 
 permissions:
@@ -13,7 +14,7 @@ permissions:
 jobs:
   render-late-hybrid:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 40
     defaults:
       run:
         working-directory: tools/fish-render-export/TideFishRenderExporter
@@ -33,28 +34,87 @@ jobs:
           gradle-version: '9.5.0'
           cache-read-only: false
 
-      - name: Select isolated Hybrid Aquatic 1.6.5 runtime
+      - name: Download official Hybrid Aquatic 1.6.9 Fabric jar
         run: |
           set -euo pipefail
-          build='build.gradle'
-          grep -Fq "hybridAquaticVersion = '1.5.5'" "$build"
-          grep -Fq "hybridAquaticModrinthVersion = '6EfLaKkB'" "$build"
-          sed -i "s/hybridAquaticVersion = '1.5.5'/hybridAquaticVersion = '1.6.5'/" "$build"
-          sed -i "s/hybridAquaticModrinthVersion = '6EfLaKkB'/hybridAquaticModrinthVersion = 'zgKmZOSd'/" "$build"
+          mkdir -p run
+          python - <<'PY'
+          import hashlib
+          import json
+          import urllib.request
+          from pathlib import Path
+
+          version_id = 'F5POkJG0'
+          url = f'https://api.modrinth.com/v2/version/{version_id}'
+          request = urllib.request.Request(url, headers={'User-Agent': 'TideFishRenderExporter/1.0'})
+          with urllib.request.urlopen(request, timeout=60) as response:
+              meta = json.load(response)
+          assert meta['id'] == version_id, meta.get('id')
+          assert meta.get('version_number') == '1.6.9', meta.get('version_number')
+          assert 'fabric' in meta.get('loaders', []), meta.get('loaders')
+          assert '1.21.1' in meta.get('game_versions', []), meta.get('game_versions')
+          files = meta.get('files') or []
+          assert files, 'Modrinth version has no files'
+          selected = next((f for f in files if f.get('primary')), files[0])
+          target = Path('run/hybrid-aquatic-1.6.9.jar')
+          request = urllib.request.Request(selected['url'], headers={'User-Agent': 'TideFishRenderExporter/1.0'})
+          with urllib.request.urlopen(request, timeout=120) as response, target.open('wb') as out:
+              out.write(response.read())
+          assert target.stat().st_size > 100_000, target.stat().st_size
+          expected = (selected.get('hashes') or {}).get('sha512')
+          if expected:
+              actual = hashlib.sha512(target.read_bytes()).hexdigest()
+              assert actual == expected, (actual, expected)
+          evidence = {
+              'version_id': version_id,
+              'version_number': meta.get('version_number'),
+              'loaders': meta.get('loaders'),
+              'game_versions': meta.get('game_versions'),
+              'filename': selected.get('filename'),
+              'sha512': expected,
+          }
+          Path('run/hybrid-aquatic-1.6.9-modrinth.json').write_text(json.dumps(evidence, indent=2) + '\n')
+          print('HYBRID_LATE_OFFICIAL_JAR_OK version=1.6.9 modrinth=F5POkJG0')
+          PY
+
+      - name: Patch unrelated Argonaut dev-remap collision
+        run: |
+          set -euo pipefail
+          python tools/patch_hybrid_aquatic_dev_jar.py \
+            run/hybrid-aquatic-1.6.9.jar \
+            run/hybrid-aquatic-1.6.9-devpatch.jar \
+            --evidence run/hybrid-aquatic-1.6.9-devpatch.json
+          test -s run/hybrid-aquatic-1.6.9-devpatch.jar
+          grep -Fq 'ArgonautEntity.class' run/hybrid-aquatic-1.6.9-devpatch.json
+          grep -Fq 'no fish classes/resources modified' run/hybrid-aquatic-1.6.9-devpatch.json
+          echo 'HYBRID_LATE_DEV_REMAP_PATCH_OK scope=ArgonautEntity-only'
+
+      - name: Select isolated patched Hybrid Aquatic 1.6.9 runtime
+        run: |
+          set -euo pipefail
           python - <<'PY'
           from pathlib import Path
+
           p = Path('build.gradle')
-          lines = p.read_text().splitlines()
-          matches = [i for i, line in enumerate(lines) if 'filter { line -> line.replace(' in line and 'hybrid_aquatic' in line]
-          if len(matches) != 1:
-              raise SystemExit(f'expected exactly one 1.5.5 namespace rewrite, found {len(matches)}')
-          lines[matches[0]] = '            filter { line -> line }'
-          p.write_text('\n'.join(lines) + '\n')
+          text = p.read_text()
+          replacements = [
+              ("hybridAquaticVersion = '1.5.5'", "hybridAquaticVersion = '1.6.9'"),
+              ("hybridAquaticModrinthVersion = '6EfLaKkB'", "hybridAquaticModrinthVersion = 'F5POkJG0'"),
+              ('modImplementation "maven.modrinth:HH4FjUqN:${hybridAquaticModrinthVersion}"', "modImplementation files('run/hybrid-aquatic-1.6.9-devpatch.jar')"),
+              ("filter { line -> line.replace('\\\"entity_id\\\": \\\"hybrid_aquatic:', '\\\"entity_id\\\": \\\"hybrid-aquatic:') }", 'filter { line -> line }'),
+          ]
+          for old, new in replacements:
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'expected exactly one build.gradle match for {old!r}, found {count}')
+              text = text.replace(old, new, 1)
+          p.write_text(text)
           PY
-          grep -Fq "hybridAquaticVersion = '1.6.5'" "$build"
-          grep -Fq "hybridAquaticModrinthVersion = 'zgKmZOSd'" "$build"
-          grep -Fq 'filter { line -> line }' "$build"
-          echo 'HYBRID_LATE_RUNTIME_SELECTED version=1.6.5 modrinth=zgKmZOSd namespace=hybrid_aquatic'
+          grep -Fq "hybridAquaticVersion = '1.6.9'" build.gradle
+          grep -Fq "hybridAquaticModrinthVersion = 'F5POkJG0'" build.gradle
+          grep -Fq "modImplementation files('run/hybrid-aquatic-1.6.9-devpatch.jar')" build.gradle
+          grep -Fq 'filter { line -> line }' build.gradle
+          echo 'HYBRID_LATE_RUNTIME_SELECTED version=1.6.9 modrinth=F5POkJG0 namespace=hybrid_aquatic patched_dev_bootstrap=1'
 
       - name: Select committed side-profile capture orientation
         run: |
@@ -67,7 +127,7 @@ jobs:
           grep -Fq 'projection=ortho yaw=0 matrix_y=90' "$src"
           echo 'HYBRID_LATE_SIDE_PROFILE dispatcher_yaw=0 matrix_y=90'
 
-      - name: Compile exporter against Hybrid Aquatic 1.6.5
+      - name: Compile exporter against patched Hybrid Aquatic 1.6.9
         run: gradle --no-daemon classes
 
       - name: Generate disposable 1.21.1 world without Hybrid Aquatic
@@ -94,6 +154,7 @@ jobs:
           test -f run/server/world/level.dat
           mkdir -p run/client/saves
           cp -a run/server/world run/client/saves/RenderWorld
+          test -f run/client/saves/RenderWorld/level.dat
 
       - name: Install headless render dependencies
         run: |
@@ -104,27 +165,33 @@ jobs:
           fi
           python -m pip install --disable-pip-version-check pillow
 
-      - name: Render HA catalog with isolated 1.6.5 client
+      - name: Render HA catalog with patched 1.6.9 client
         run: |
           set -euo pipefail
           rm -rf run/client/fishrender-output
           set +e
-          timeout --signal=INT --kill-after=20s 16m xvfb-run -a gradle --no-daemon runRenderHybrid
+          timeout --signal=INT --kill-after=20s 18m xvfb-run -a gradle --no-daemon runRenderHybrid
           client_status=$?
           set -e
           if [ -f run/client/logs/latest.log ]; then
-            echo '--- Hybrid Aquatic 1.6.5 renderer markers ---'
+            echo '--- Hybrid Aquatic 1.6.9 renderer markers ---'
             grep -E 'FISHRENDER_(AUTO_|ENTITY_DIRECT)' run/client/logs/latest.log || true
             echo '--- Hybrid Aquatic runtime version ---'
-            grep -E -- '- hybrid_aquatic 1\.6\.5' run/client/logs/latest.log || true
-            echo '--- last 220 client log lines ---'
-            tail -n 220 run/client/logs/latest.log || true
+            grep -E -- '- hybrid_aquatic 1\.6\.9' run/client/logs/latest.log || true
+            echo '--- Argonaut dev-remap regression check ---'
+            grep -F 'overrides final method net.minecraft.entity.Entity.setGlowing' run/client/logs/latest.log || true
+            echo '--- last 240 client log lines ---'
+            tail -n 240 run/client/logs/latest.log || true
           fi
           if [ "$client_status" -ne 0 ] && [ "$client_status" -ne 124 ] && [ "$client_status" -ne 130 ]; then
-            echo "Hybrid Aquatic 1.6.5 client exited unexpectedly with $client_status"
+            echo "Hybrid Aquatic 1.6.9 client exited unexpectedly with $client_status"
             exit "$client_status"
           fi
-          grep -Eq -- '- hybrid_aquatic 1\.6\.5' run/client/logs/latest.log
+          grep -Eq -- '- hybrid_aquatic 1\.6\.9' run/client/logs/latest.log
+          if grep -Fq 'overrides final method net.minecraft.entity.Entity.setGlowing' run/client/logs/latest.log; then
+            echo 'Argonaut final-method collision survived the bootstrap patch.'
+            exit 1
+          fi
 
       - name: Validate Blobfish Cichlid and Trevally actual renderers
         run: |
@@ -149,8 +216,7 @@ jobs:
           for fish_id in sorted(wanted):
               row = successes[fish_id]
               assert row.get('render_mode') == 'minecraft_entity_dispatcher', row
-              resolved = str(row.get('resolved_entity_id',''))
-              assert resolved == fish_id, row
+              assert str(row.get('resolved_entity_id','')) == fish_id, row
               filename = fish_id.replace(':', '__') + '.png'
               png = renders / filename
               assert png.is_file(), png
@@ -161,10 +227,10 @@ jobs:
                   l,t,r,b = bounds
                   assert l > 0 and t > 0 and r < im.width and b < im.height, (filename, im.size, bounds)
                   assert (r-l) >= 3 and (b-t) >= 3, (filename, bounds)
-          print('HYBRID_LATE_RUNTIME_VALID version=1.6.5 actual_entity_dispatcher=3')
+          print('HYBRID_LATE_RUNTIME_VALID version=1.6.9 actual_entity_dispatcher=3')
           PY
 
-      - name: Publish only validated 1.6.5 late-fish renders
+      - name: Publish only validated 1.6.9 late-fish renders
         run: |
           set -euo pipefail
           cd ../../..
@@ -190,6 +256,7 @@ jobs:
           }
           report = json.loads(Path('/tmp/hybrid-late-render-report.json').read_text())
           successes = {row['fish_id']: row for row in report.get('successes', []) if row.get('fish_id') in wanted}
+          assert set(successes) == wanted, (set(successes), wanted)
           manifest_path = Path('assets/fish-render-manifest.json')
           manifest = json.loads(manifest_path.read_text())
           fish = manifest.setdefault('fish', {})
@@ -198,12 +265,13 @@ jobs:
               ns, path = fish_id.split(':', 1)
               filename = ns + '__' + path.replace('/', '_').replace(':', '_') + '.png'
               fish[fish_id] = {
-                  'source': 'Hybrid Aquatic 1.6.5 actual Minecraft EntityRenderDispatcher',
+                  'source': 'Hybrid Aquatic 1.6.9 actual Minecraft EntityRenderDispatcher',
                   'entity': row.get('resolved_entity_id') or row.get('entity_id'),
                   'renderer_mode': 'minecraft_entity_dispatcher',
-                  'source_mod_version': '1.6.5',
-                  'source_modrinth_version_id': 'zgKmZOSd',
+                  'source_mod_version': '1.6.9',
+                  'source_modrinth_version_id': 'F5POkJG0',
                   'capture_orientation': 'side_profile_matrix_y_90',
+                  'dev_runtime_bootstrap': 'Official 1.6.9 Fabric jar with only unrelated ArgonautEntity setGlowing/isGlowing symbols renamed before Loom named remap; fish classes, models, textures, renderers and resources are untouched.',
                   'variants': {
                       'normal': {
                           'file': f'fish/assets/renders/{filename}',
@@ -213,10 +281,12 @@ jobs:
               }
           runtime = manifest.setdefault('hybridAquaticRuntime', {})
           pending = set(runtime.get('pending_later_runtime', [])) - wanted
-          runtime['late_version'] = '1.6.5'
-          runtime['late_modrinth_version_id'] = 'zgKmZOSd'
+          runtime['late_version'] = '1.6.9'
+          runtime['late_modrinth_version_id'] = 'F5POkJG0'
+          runtime['late_dev_runtime_bootstrap'] = 'ArgonautEntity-only symbol collision patch before Loom named remap; no fish render source modified.'
           runtime['pending_later_runtime'] = sorted(pending)
           manifest['pipelineStatus'] = 'source_authentic_runtime'
+          manifest['generatedBy'] = 'Tide Fish Render Exporter + Minecraft EntityRenderDispatcher (Hybrid Aquatic 1.5.5 baseline + 1.6.9 late fish)'
           counts = manifest.setdefault('counts', {})
           counts['normal'] = sum(1 for v in fish.values() if v.get('variants',{}).get('normal',{}).get('file'))
           manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
@@ -228,16 +298,22 @@ jobs:
                   fish/assets/renders/hybrid_aquatic__cichlid.png \
                   fish/assets/renders/hybrid_aquatic__trevally.png \
                   assets/fish-render-manifest.json
-          git commit -m 'Publish Hybrid Aquatic 1.6.5 late-fish entity renders'
-          git push origin HEAD:dev
+          if git diff --cached --quiet; then
+            echo 'No late Hybrid Aquatic render changes to publish.'
+          else
+            git commit -m 'Publish Hybrid Aquatic 1.6.9 late-fish entity renders'
+            git push origin HEAD:dev
+          fi
 
       - name: Upload late Hybrid Aquatic runtime evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: hybrid-aquatic-1.6.5-late-runtime-renders
+          name: hybrid-aquatic-1.6.9-late-runtime-renders
           path: |
             tools/fish-render-export/TideFishRenderExporter/run/client/fishrender-output/
             tools/fish-render-export/TideFishRenderExporter/run/client/logs/
+            tools/fish-render-export/TideFishRenderExporter/run/hybrid-aquatic-1.6.9-modrinth.json
+            tools/fish-render-export/TideFishRenderExporter/run/hybrid-aquatic-1.6.9-devpatch.json
           if-no-files-found: warn
           retention-days: 14
