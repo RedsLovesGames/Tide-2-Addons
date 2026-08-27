@@ -1,63 +1,70 @@
-# Fish render export prototype
+# Fish render exporter
 
-This directory defines the source-backed render-export path for the Fish Wiki. It deliberately does not reconstruct foreign fish models in JavaScript and never substitutes invented artwork.
+This directory contains the source-backed Minecraft render path for the Fish Wiki. It deliberately does not reconstruct foreign fish models in JavaScript and never substitutes invented artwork.
 
-## Why the exporter belongs inside a Minecraft client
+The implementation lives in `TideFishRenderExporter/` as a client-only Fabric helper for Minecraft 1.21.1.
 
-Tideborne 1.3.57 already has the client rendering path needed to produce authoritative specimen visuals. Audit of the packaged 1.3.57 JAR confirms these hooks:
+## Why rendering runs inside Minecraft
 
-- `com.redslovesgames.tidetraits.entity.SpecimenEntity#tideTraits$setSpecimenTag`
-- `com.redslovesgames.tidetraits.client.render.MutationRendering#textureFor`
-- `MutationRendering#textureForForeignFish`
-- `MutationRendering#applyLengthScale`
-- `MutationTextureCache`, which generates Albino, Perfect Specimen, Iridescent, scar and parasite treatments from the real source texture
+Authentic Fish Wiki previews can depend on real entity model classes, textures, render layers, GeckoLib state, Tide `FishData`, Tide `DisplayData`, ItemStack components, and source-mod renderer behavior. A browser cannot execute that Minecraft Java rendering stack faithfully.
 
-The specimen tag uses the current Tideborne keys including `TideTraits`, `Version`, `Mutation`, `BodyType`, `MutationSeed`, `SizePercentile`, `LengthCm`, `SourceStack`, and `DisplayPreview`. The current Condition values stored through the legacy `Mutation` key are `normal`, `scarred`, `parasite_ridden`, `albino`, `iridescent`, and `perfect_specimen`. Body Type is stored separately through `BodyType`.
+The exporter therefore renders through one of two explicit source-authentic strategies:
 
-## Export loop
+1. **Tide Fish Display path**: construct the real fish `ItemStack`, apply Tide length/components, call `FishDisplayBlockEntity#setDisplayStack`, and render through `FishDisplayRenderer`.
+2. **Direct entity path**: instantiate the registered entity in a live client world and render through Minecraft's `EntityRenderDispatcher` when a source-mod renderer requires that route.
 
-A small client-only Fabric helper should run in the same 1.21.1 instance as Tide 2.1.1, Tideborne 1.3.57, Tide Extra Compatibility 2.2.0, and the source mods being rendered.
+Failures remain failures. No item-sprite, fake geometry, generated art, or guessed model fallback is permitted.
 
-For each visible FishData record:
+## Output
 
-1. Resolve its real entity ID from FishData.
-2. Verify the entity type is registered in the running client. If not, emit `source_mod_missing` and do not render a substitute.
-3. Instantiate the real entity in a controlled client level or renderer test scene.
-4. Attach a deterministic Tideborne specimen tag through `SpecimenEntity`.
-5. Render through Minecraft's normal `EntityRenderDispatcher` with a fixed side-on camera, fixed light and no name tag or shadow.
-6. Let Tideborne's normal renderer mixins call `MutationRendering` so the real model and real base texture receive the selected Condition treatment.
-7. Render to an RGBA framebuffer with a transparent clear color.
-8. Read the framebuffer, crop alpha bounds with consistent padding, and save PNG.
-9. Repeat only the Condition variants requested by the manifest. Dwarf/Giant stay a separate Body Type axis and must not be faked by swapping textures.
-10. Write provenance and failure status to `assets/fish-render-manifest.json`.
-
-Recommended fixed orientation: entity yaw 90 degrees relative to the camera, pitch 0, with automatic distance fitted to the rendered bounding box. The validator must reject frames dominated by top/bottom views during manual QA.
-
-## Output contract
+Runtime output is staged under the client run directory as:
 
 ```text
-assets/fish-renders/<namespace>/<species>/normal.png
-assets/fish-renders/<namespace>/<species>/scarred.png
-assets/fish-renders/<namespace>/<species>/parasite_ridden.png
-assets/fish-renders/<namespace>/<species>/albino.png
-assets/fish-renders/<namespace>/<species>/iridescent.png
-assets/fish-renders/<namespace>/<species>/perfect_specimen.png
+fishrender-output/
+├── fish/assets/renders/<namespace>__<fish>.png
+└── generated/
+    ├── auto-export-status.json
+    ├── render-report.json
+    └── missing-renders.json
 ```
 
-Each manifest variant records:
+Validated published PNGs are committed under repository path `fish/assets/renders/`. Publication metadata is recorded in `assets/fish-render-manifest.json` using repository-relative paths.
 
-- fish ID
-- real entity ID
-- source mod
-- Condition
-- PNG path or explicit failure reason
-- renderer status
-- provenance
+## Orientation contract
 
-## Current prototype state
+The current validated direct-entity side profile is committed in `RenderService`:
 
-The website now consumes `assets/fish-render-manifest.json`. Existing source-backed Tuna documentation renders are registered for Normal, Scarred, Parasite-Ridden, Albino and Iridescent. Perfect Specimen is deliberately unavailable because no validated source-backed PNG is packaged yet.
+- complete model/matrix Y rotation: 90 degrees
+- `EntityRenderDispatcher` yaw: 0 degrees
+- orthographic transparent framebuffer
+- alpha-bound crop with safe transparent padding
 
-The full in-game batch exporter still requires a runnable Minecraft client helper project with the complete source-mod set. This repository is a static documentation site, so no fake web-side renderer is added here.
+Workflows must not rewrite Java source to change this orientation before compilation.
 
-Run `python scripts/validate-fish-render-manifest.py` to validate every PNG currently claimed by the manifest.
+## Hybrid Aquatic runtime profiles
+
+The Gradle build has explicit profile inputs:
+
+- `hybridAquaticVersion`
+- `hybridAquaticModrinthVersion`
+- `hybridAquaticJar`
+- `hybridAquaticNamespaceMode` (`hyphenated` or `canonical`)
+
+The default profile is Hybrid Aquatic 1.5.5 using its Modrinth artifact and the `hybrid-aquatic` runtime entity namespace. Late species can be validated with the explicit 1.6.9 profile and the narrowly scoped Argonaut-only dev-remap compatibility patch. The patch must not modify fish classes, models, textures, renderers, or resources.
+
+## Validation
+
+From the repository root:
+
+```bash
+python3 scripts/validate-fish-render-manifest.py
+```
+
+For the exporter project:
+
+```bash
+cd tools/fish-render-export/TideFishRenderExporter
+gradle --no-daemon check
+```
+
+GitHub Actions provide the authoritative runtime evidence for headless Minecraft rendering. See `.ai/repo-map.json` for the current workflow paths.
