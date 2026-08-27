@@ -50,13 +50,14 @@ jobs:
         run: |
           set -euo pipefail
           src='src/main/java/com/redslovesgames/tidefishrender/RenderService.java'
-          grep -Fq 'projection=ortho yaw=90' "$src"
+          grep -Fq 'projection=ortho yaw=90 matrix_y=90' "$src"
           grep -Fq '                    90.0f,' "$src"
-          sed -i 's/projection=ortho yaw=90/projection=ortho yaw=0/' "$src"
+          sed -i 's/projection=ortho yaw=90 matrix_y=90/projection=ortho yaw=0 matrix_y=90/' "$src"
           sed -i 's/                    90\.0f,/                    0.0f,/' "$src"
-          grep -Fq 'projection=ortho yaw=0' "$src"
+          grep -Fq 'projection=ortho yaw=0 matrix_y=90' "$src"
           grep -Fq '                    0.0f,' "$src"
-          echo 'HYBRID_SIDE_PROFILE_ORIENTATION yaw=0'
+          grep -Fq 'RotationAxis.POSITIVE_Y.rotationDegrees(90.0f)' "$src"
+          echo 'HYBRID_SIDE_PROFILE_ORIENTATION dispatcher_yaw=0 matrix_y=90'
 
       - name: Build actual client renderer exporter
         run: gradle --no-daemon build
@@ -120,7 +121,7 @@ jobs:
           fi
           grep -Eq -- '- hybrid[-_]aquatic 1\.5\.5' run/client/logs/latest.log
           grep -q 'FISHRENDER_ENTITY_DIRECT fish=hybrid_aquatic:oarfish' run/client/logs/latest.log
-          grep -q 'projection=ortho yaw=0' run/client/logs/latest.log
+          grep -q 'projection=ortho yaw=0 matrix_y=90' run/client/logs/latest.log
           grep -q 'renderer=' run/client/logs/latest.log
 
       - name: Validate Oarfish smoke render
@@ -155,7 +156,7 @@ jobs:
               assert l > 0 and t > 0 and r < im.width and b < im.height, (im.size, bounds)
               assert width >= 40 and height >= 4, (im.size, bounds)
               assert width / max(height, 1) >= 2.0, ('Oarfish does not read as a side-on elongated fish', im.size, bounds)
-          print('HYBRID_OARFISH_SMOKE_OK actual_entity_dispatcher=1 yaw=0')
+          print('HYBRID_OARFISH_SMOKE_OK actual_entity_dispatcher=1 matrix_y=90')
           PY
           mkdir -p /tmp/hybrid-smoke
           cp run/client/fishrender-output/fish/assets/renders/hybrid_aquatic__oarfish.png /tmp/hybrid-smoke/
@@ -183,7 +184,7 @@ jobs:
           fi
           grep -Eq -- '- hybrid[-_]aquatic 1\.5\.5' run/client/logs/latest.log
 
-      - name: Validate 49 actual Hybrid Aquatic renders
+      - name: Validate source-authentic Hybrid Aquatic 1.5.5 renders
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -194,28 +195,43 @@ jobs:
           root = Path('run/client/fishrender-output')
           status = json.loads((root / 'generated/auto-export-status.json').read_text())
           report = json.loads((root / 'generated/render-report.json').read_text())
+          late_version_only = {
+              'hybrid_aquatic:blobfish',
+              'hybrid_aquatic:cichlid',
+              'hybrid_aquatic:trevally',
+          }
+
           assert status['status'] == 'success', status
           assert status['mode'] == 'namespace:hybrid_aquatic', status
           assert status['total_fish'] == 49, status
-          assert status['successful'] == 49, status
-          assert status['failed'] == 0, status
           assert report['mode'] == 'export:hybrid_aquatic:default', report
           assert report['total_fish'] == 49, report
-          assert report['successful'] == 49, report.get('exceptions')
-          assert report['failed'] == 0, report.get('exceptions')
+          assert report['successful'] + report['failed'] == 49, report
+          assert report['successful'] >= 46, report.get('exceptions')
+
+          failures = report.get('exceptions', [])
+          failed_ids = {str(r.get('fish_id','')) for r in failures}
+          assert failed_ids <= late_version_only, failures
+          assert report['failed'] == len(failed_ids), (report['failed'], failed_ids)
+          assert status['successful'] == report['successful'], status
+          assert status['failed'] == report['failed'], status
+
           rows = report['successes']
-          assert len(rows) == 49, len(rows)
+          assert len(rows) == report['successful'], len(rows)
           assert all(r.get('render_mode') == 'minecraft_entity_dispatcher' for r in rows), {r.get('render_mode') for r in rows}
           for row in rows:
               fish_id = str(row.get('fish_id',''))
               resolved = str(row.get('resolved_entity_id',''))
               assert fish_id.startswith('hybrid_aquatic:'), row
-              allowed = {fish_id, fish_id.replace('hybrid_aquatic:', 'hybrid-aquatic:', 1)}
-              assert resolved in allowed, (fish_id, resolved)
+              if fish_id == 'hybrid_aquatic:sheepshead_wrasse':
+                  assert resolved == 'hybrid-aquatic:wrasse', row
+              else:
+                  allowed = {fish_id, fish_id.replace('hybrid_aquatic:', 'hybrid-aquatic:', 1)}
+                  assert resolved in allowed, (fish_id, resolved)
 
           renders = root / 'fish/assets/renders'
           pngs = sorted(renders.glob('hybrid_aquatic__*.png'))
-          assert len(pngs) == 49, len(pngs)
+          assert len(pngs) == report['successful'], (len(pngs), report['successful'])
           for png in pngs:
               with Image.open(png) as im:
                   assert im.mode == 'RGBA', (png.name, im.mode)
@@ -228,10 +244,17 @@ jobs:
           with Image.open(oarfish) as im:
               l,t,r,b = im.getchannel('A').getbbox()
               assert (r-l) / max((b-t), 1) >= 2.0, ('full-batch Oarfish aspect regression', im.size, (l,t,r,b))
-          print('HYBRID_RUNTIME_VALID total=49 actual_entity_dispatcher=49 version=1.5.5 yaw=0')
+
+          summary = {
+              'total_catalog': 49,
+              'source_authentic_1_5_5': report['successful'],
+              'pending_later_runtime': sorted(failed_ids),
+          }
+          (root / 'generated/hybrid-aquatic-validation-summary.json').write_text(json.dumps(summary, indent=2) + '\n')
+          print(f"HYBRID_RUNTIME_VALID source_authentic={report['successful']} pending_later_runtime={len(failed_ids)} version=1.5.5 matrix_y=90")
           PY
 
-      - name: Publish only validated Hybrid Aquatic runtime renders
+      - name: Publish validated Hybrid Aquatic runtime renders
         run: |
           set -euo pipefail
           cd ../../..
@@ -239,21 +262,32 @@ jobs:
           mkdir -p /tmp/hybrid-renders
           cp "$out"/fish/assets/renders/hybrid_aquatic__*.png /tmp/hybrid-renders/
           cp "$out"/generated/render-report.json /tmp/hybrid-render-report.json
+          cp "$out"/generated/hybrid-aquatic-validation-summary.json /tmp/hybrid-validation-summary.json
 
           git fetch origin dev
           git reset --hard origin/dev
           cp /tmp/hybrid-renders/hybrid_aquatic__*.png fish/assets/renders/
-          cp /tmp/hybrid-render-report.json /tmp/render-report.json
 
+          # These species are not EntityTypes in HA 1.5.5. Never leave the old
+          # custom-projector PNGs masquerading as runtime-authentic renders.
+          rm -f \
+            fish/assets/renders/hybrid_aquatic__blobfish.png \
+            fish/assets/renders/hybrid_aquatic__cichlid.png \
+            fish/assets/renders/hybrid_aquatic__trevally.png
+
+          cp /tmp/hybrid-render-report.json /tmp/render-report.json
           python - <<'PY'
           import json
           from pathlib import Path
 
           root = Path('.')
           report = json.loads(Path('/tmp/render-report.json').read_text())
+          validation = json.loads(Path('/tmp/hybrid-validation-summary.json').read_text())
+          pending = set(validation['pending_later_runtime'])
           manifest_path = root / 'assets/fish-render-manifest.json'
           manifest = json.loads(manifest_path.read_text())
           fish = manifest.setdefault('fish', {})
+
           for row in report['successes']:
               fish_id = row['fish_id']
               ns, path = fish_id.split(':', 1)
@@ -264,7 +298,7 @@ jobs:
                   'renderer_mode': row.get('render_mode'),
                   'source_mod_version': '1.5.5',
                   'source_modrinth_version_id': '6EfLaKkB',
-                  'capture_orientation': 'side_profile_yaw_0',
+                  'capture_orientation': 'side_profile_matrix_y_90',
                   'variants': {
                       'normal': {
                           'file': f'fish/assets/renders/{filename}',
@@ -272,17 +306,38 @@ jobs:
                       }
                   }
               }
+
+          for fish_id in pending:
+              fish[fish_id] = {
+                  'source': 'Hybrid Aquatic later-version runtime render pending',
+                  'renderer_mode': 'pending_later_runtime_entity',
+                  'source_mod_version': '1.5.5-missing-entity',
+                  'variants': {
+                      'normal': {
+                          'status': 'pending_later_runtime_entity'
+                      }
+                  }
+              }
+
           manifest['generatedBy'] = 'Tide Fish Render Exporter + Minecraft EntityRenderDispatcher'
           manifest['pipelineStatus'] = 'source_authentic_partial_runtime'
-          manifest['policy'] = 'Published fish images are source-backed runtime renders. Hybrid Aquatic entries use Hybrid Aquatic 1.5.5 and the actual Minecraft client EntityRenderDispatcher, never the legacy custom geometry projector.'
+          manifest['policy'] = 'Hybrid Aquatic images must come from actual Minecraft entity renderers. HA 1.5.5 runtime renders are published immediately when validated; species absent from 1.5.5 remain unavailable until their later-version runtime renderer is captured. The legacy custom geometry projector is never a publication fallback.'
+          manifest['hybridAquaticRuntime'] = {
+              'version': '1.5.5',
+              'modrinth_version_id': '6EfLaKkB',
+              'validated': validation['source_authentic_1_5_5'],
+              'pending_later_runtime': validation['pending_later_runtime'],
+          }
           counts = manifest.setdefault('counts', {})
           counts['supported_fish'] = len(fish)
           counts['normal'] = sum(1 for v in fish.values() if v.get('variants',{}).get('normal',{}).get('file'))
           manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
           PY
+
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add fish/assets/renders/hybrid_aquatic__*.png assets/fish-render-manifest.json
+          git add -u fish/assets/renders/
           if git diff --cached --quiet; then
             echo 'No Hybrid Aquatic render changes to publish.'
           else
