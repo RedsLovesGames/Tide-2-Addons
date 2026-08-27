@@ -101,14 +101,19 @@ jobs:
               ("hybridAquaticVersion = '1.5.5'", "hybridAquaticVersion = '1.6.9'"),
               ("hybridAquaticModrinthVersion = '6EfLaKkB'", "hybridAquaticModrinthVersion = 'F5POkJG0'"),
               ('modImplementation "maven.modrinth:HH4FjUqN:${hybridAquaticModrinthVersion}"', "modImplementation files('run/hybrid-aquatic-1.6.9-devpatch.jar')"),
-              ("filter { line -> line.replace('\\\"entity_id\\\": \\\"hybrid_aquatic:', '\\\"entity_id\\\": \\\"hybrid-aquatic:') }", 'filter { line -> line }'),
           ]
           for old, new in replacements:
               count = text.count(old)
               if count != 1:
                   raise SystemExit(f'expected exactly one build.gradle match for {old!r}, found {count}')
               text = text.replace(old, new, 1)
-          p.write_text(text)
+
+          lines = text.splitlines()
+          matches = [i for i, line in enumerate(lines) if 'filter { line -> line.replace(' in line and 'hybrid_aquatic' in line]
+          if len(matches) != 1:
+              raise SystemExit(f'expected exactly one 1.5.5 namespace rewrite, found {len(matches)}')
+          lines[matches[0]] = '            filter { line -> line }'
+          p.write_text('\n'.join(lines) + '\n')
           PY
           grep -Fq "hybridAquaticVersion = '1.6.9'" build.gradle
           grep -Fq "hybridAquaticModrinthVersion = 'F5POkJG0'" build.gradle
