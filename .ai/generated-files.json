@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "files": {
+    "assets/fish-wiki-data-0.json.gz": {
+      "generatedBy": "scripts/build-fish-wiki.py",
+      "editDirectly": false
+    },
+    "assets/fish-wiki-data-1.json.gz": {
+      "generatedBy": "scripts/build-fish-wiki.py",
+      "editDirectly": false
+    },
+    "assets/fish-search-index.json": {
+      "generatedBy": "scripts/build-fish-wiki.py",
+      "editDirectly": false
+    },
+    "scripts/fish-build-report.txt": {
+      "generatedBy": "scripts/build-fish-wiki.py",
+      "editDirectly": false,
+      "note": "Legacy report location retained until generated reports are migrated out of scripts/."
+    },
+    "scripts/fish-source-inventory.txt": {
+      "generatedBy": ".github/workflows/audit-fish-sources.yml",
+      "editDirectly": false,
+      "note": "Legacy committed report. New workflow runs should publish this as an artifact instead of committing it."
+    },
+    "scripts/fish-schema-report.txt": {
+      "generatedBy": ".github/workflows/inspect-fish-schema.yml",
+      "editDirectly": false,
+      "note": "Legacy committed report. New workflow runs should publish this as an artifact instead of committing it."
+    },
+    "fish/render-data/registry/supported-fish-registry.json": {
+      "generatedBy": "tools/fish-render-source/extract_fish_render_sources.py",
+      "editDirectly": false
+    },
+    "fish/render-data/registry/fish-source-file-index.json": {
+      "generatedBy": "tools/fish-render-source/extract_fish_render_sources.py",
+      "editDirectly": false
+    },
+    "fish/render-data/registry/mod-render-registry.json": {
+      "generatedBy": "tools/fish-render-source/extract_fish_render_sources.py",
+      "editDirectly": false
+    },
+    "assets/fish-render-manifest.json": {
+      "generatedBy": "Minecraft runtime render workflows / TideFishRenderExporter",
+      "editDirectly": false
+    },
+    "fish/assets/renders/*.png": {
+      "generatedBy": "Minecraft runtime render workflows / TideFishRenderExporter",
+      "editDirectly": false
+    }
+  }
+}
