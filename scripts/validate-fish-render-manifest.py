@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Validate the published Fish Wiki render manifest and its claimed PNGs.
 
-The manifest uses repository-relative render paths. This validator verifies structural
-integrity and image properties, but it does not claim to prove that a PNG visually
-matches the upstream Minecraft model. Runtime/source authenticity is established by
-the renderer workflows and their evidence artifacts.
+The manifest uses repository-relative render paths. Structural/image integrity is
+validated here. Runtime authenticity is established by the canonical runtime bundle
+import contract and its preserved provenance reports.
 """
 from __future__ import annotations
 
@@ -20,6 +19,8 @@ CONDITIONS = (
     "parasite_ridden",
     "albino",
     "iridescent",
+    "giant",
+    "dwarf",
     "perfect_specimen",
 )
 FILE_BACKED_STATUSES = {
@@ -48,7 +49,6 @@ def resolve_render_path(raw: str) -> Path:
     if repo_relative.is_file():
         return repo_relative
 
-    # Backward compatibility for older manifests whose paths were relative to assets/.
     assets_relative = ROOT / "assets" / path
     if assets_relative.is_file():
         return assets_relative
@@ -86,9 +86,7 @@ def validate_png(path: Path) -> list[str]:
             else:
                 left, top, right, bottom = bbox
                 if left == 0 or top == 0 or right == rgba.width or bottom == rgba.height:
-                    errors.append(
-                        f"render touches an image edge and lacks safe transparent padding: {rel}"
-                    )
+                    errors.append(f"render touches an image edge and lacks safe transparent padding: {rel}")
     except OSError as exc:
         errors.append(f"cannot decode {rel}: {exc}")
     return errors
@@ -143,9 +141,7 @@ def main() -> None:
                     errors.append(f"{fish_id}/{condition}: file must be a string")
                     continue
                 if status not in FILE_BACKED_STATUSES:
-                    errors.append(
-                        f"{fish_id}/{condition} has a file but unsupported source-backed status {status!r}"
-                    )
+                    errors.append(f"{fish_id}/{condition} has a file but unsupported source-backed status {status!r}")
                     continue
                 try:
                     resolved = resolve_render_path(file)
@@ -155,9 +151,7 @@ def main() -> None:
                 normalized = resolved.as_posix()
                 previous = used_paths.get(normalized)
                 if previous and previous != fish_id:
-                    errors.append(
-                        f"render path collision: {fish_id} and {previous} both claim {file}"
-                    )
+                    errors.append(f"render path collision: {fish_id} and {previous} both claim {file}")
                 else:
                     used_paths[normalized] = fish_id
                 if condition in claimed:
@@ -165,9 +159,7 @@ def main() -> None:
                 errors.extend(validate_png(resolved))
             else:
                 if status not in NO_FILE_STATUSES:
-                    errors.append(
-                        f"{fish_id}/{condition} has no file and unknown non-file status {status!r}"
-                    )
+                    errors.append(f"{fish_id}/{condition} has no file and unknown non-file status {status!r}")
 
     expected = data.get("counts") or {}
     if not isinstance(expected, dict):
@@ -178,9 +170,7 @@ def main() -> None:
     if supported is not None:
         try:
             if int(supported) != len(fish):
-                errors.append(
-                    f"supported_fish count mismatch: manifest says {supported}, found {len(fish)} entries"
-                )
+                errors.append(f"supported_fish count mismatch: manifest says {supported}, found {len(fish)} entries")
         except (TypeError, ValueError):
             errors.append(f"supported_fish count is not an integer: {supported!r}")
 
@@ -193,19 +183,27 @@ def main() -> None:
             errors.append(f"count for {condition} is not an integer: {expected[condition]!r}")
             continue
         if expected_count != count:
-            errors.append(
-                f"count mismatch for {condition}: manifest says {expected_count}, found {count}"
-            )
+            errors.append(f"count mismatch for {condition}: manifest says {expected_count}, found {count}")
 
     requested = expected.get("requested_fish")
     if requested is not None:
         try:
             if int(requested) < len(fish):
-                errors.append(
-                    f"requested_fish={requested} cannot be smaller than supported entries={len(fish)}"
-                )
+                errors.append(f"requested_fish={requested} cannot be smaller than supported entries={len(fish)}")
         except (TypeError, ValueError):
             errors.append(f"requested_fish count is not an integer: {requested!r}")
+
+    if data.get("pipelineStatus") == "canonical_runtime_bundle":
+        bundle = data.get("bundle") or {}
+        contract = bundle.get("renderContract") or {}
+        if contract.get("renderer") != "com.li64.tide.client.FishDisplayRenderer":
+            errors.append("canonical runtime bundle must name Tide FishDisplayRenderer")
+        if contract.get("direct_entity_fallback") is not False:
+            errors.append("canonical runtime bundle must disable direct entity fallback")
+        if contract.get("transparent_framebuffer") is not True:
+            errors.append("canonical runtime bundle must use transparent framebuffer output")
+        if not bundle.get("sha256"):
+            errors.append("canonical runtime bundle is missing bundle SHA-256 provenance")
 
     if not data.get("generatedBy"):
         warnings.append("manifest has no generatedBy provenance string")
@@ -223,11 +221,7 @@ def main() -> None:
             print(f"  - {error}")
         raise SystemExit(1)
 
-    print(
-        "Fish render manifest OK:",
-        f"fish={len(fish)}",
-        ", ".join(f"{k}={v}" for k, v in claimed.items()),
-    )
+    print("Fish render manifest OK:", f"fish={len(fish)}", ", ".join(f"{k}={v}" for k, v in claimed.items()))
 
 
 if __name__ == "__main__":
