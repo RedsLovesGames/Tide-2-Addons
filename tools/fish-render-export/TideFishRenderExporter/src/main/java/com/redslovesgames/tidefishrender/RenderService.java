@@ -39,6 +39,7 @@ import java.util.HashSet;
 import java.util.List;
 
 final class RenderService {
+    private static final int REPORT_SCHEMA_VERSION = 2;
     private static final int SOURCE_SIZE = 1024;
     private static final int PADDING = 48;
     private static final int EDGE_MARGIN = 18;
@@ -143,21 +144,28 @@ final class RenderService {
                     variants++;
                 }
             } catch (Exception ex) {
+                String failureCode = classify(ex);
                 row.addProperty("error", ex.getClass().getName() + ": " + String.valueOf(ex.getMessage()));
-                row.addProperty("failure_class", classify(ex));
+                row.addProperty("failure_code", failureCode);
+                row.addProperty("failure_class", failureCode);
                 failures.add(row);
             }
         }
 
         Files.createDirectories(generated);
         JsonObject report = new JsonObject();
+        report.addProperty("schema_version", REPORT_SCHEMA_VERSION);
         report.addProperty("generated_at", Instant.now().toString());
+        report.addProperty("renderer", "TideFishRenderExporter");
+        report.addProperty("minecraft_version", "1.21.1");
         report.addProperty("mode", mode);
+        report.addProperty("source_resolution", SOURCE_SIZE);
         report.addProperty("total_fish", new HashSet<>(jobs.stream().map(j -> j.entry().fishId()).toList()).size());
         report.addProperty("jobs", jobs.size());
         report.addProperty("successful", successful);
         report.addProperty("failed", jobs.size() - successful);
         report.addProperty("variant_renders", variants);
+        report.add("render_contract", renderContract());
         report.add("successes", successes);
         report.add("exceptions", failures);
 
@@ -169,7 +177,10 @@ final class RenderService {
         );
 
         JsonObject missing = new JsonObject();
+        missing.addProperty("schema_version", REPORT_SCHEMA_VERSION);
         missing.addProperty("generated_at", Instant.now().toString());
+        missing.addProperty("renderer", "TideFishRenderExporter");
+        missing.addProperty("mode", mode);
         missing.addProperty("failed", failures.size());
         missing.add("missing", failures);
         Files.writeString(
@@ -187,95 +198,136 @@ final class RenderService {
         );
     }
 
+    private JsonObject renderContract() {
+        JsonObject contract = new JsonObject();
+        contract.addProperty("tide_display_renderer", "com.li64.tide.client.FishDisplayRenderer");
+        contract.addProperty("direct_entity_renderer", "net.minecraft.client.render.entity.EntityRenderDispatcher");
+        contract.addProperty("direct_entity_matrix_yaw", DIRECT_ENTITY_MATRIX_YAW);
+        contract.addProperty("direct_entity_dispatcher_yaw", DIRECT_ENTITY_DISPATCHER_YAW);
+        contract.addProperty("transparent_framebuffer", true);
+        contract.addProperty("framebuffer_reuse", false);
+        return contract;
+    }
+
     private RenderResult renderOne(Job job, boolean writePng) throws Exception {
         String ns = namespace(job.entry().fishId());
         if ("hybrid_aquatic".equals(ns) || "crittersandcompanions".equals(ns)) {
             if (!"default".equalsIgnoreCase(job.variant())) {
-                throw new IllegalStateException(
+                throw new RenderFailureException(
+                        RenderFailureCode.UNSUPPORTED_VARIANT,
                         "Direct entity renderer only supports source-authentic default state for " + job.entry().fishId()
                 );
             }
-            return renderDirectEntity(job, writePng);
+            try {
+                return renderDirectEntity(job, writePng);
+            } catch (RenderFailureException failure) {
+                throw failure;
+            } catch (Exception failure) {
+                throw new RenderFailureException(
+                        RenderFailureCode.DIRECT_ENTITY_RENDER_FAILURE,
+                        "Direct entity render failed for " + job.entry().fishId(),
+                        failure
+                );
+            }
         }
-        return renderFishDisplay(job, writePng);
+        try {
+            return renderFishDisplay(job, writePng);
+        } catch (RenderFailureException failure) {
+            throw failure;
+        } catch (Exception failure) {
+            throw new RenderFailureException(
+                    RenderFailureCode.FISH_DISPLAY_RENDER_FAILURE,
+                    "Tide Fish Display render failed for " + job.entry().fishId(),
+                    failure
+            );
+        }
     }
 
     private RenderResult renderFishDisplay(Job job, boolean writePng) throws Exception {
         Identifier itemId = Identifier.of(job.entry().itemId());
         if (!Registries.ITEM.containsId(itemId)) {
-            throw new IllegalStateException("Missing ItemStack item: " + itemId);
+            throw new RenderFailureException(RenderFailureCode.MISSING_ITEM, "Missing ItemStack item: " + itemId);
         }
         Item item = Registries.ITEM.get(itemId);
         ItemStack stack = new ItemStack(item);
         TideborneVariantSupport.VariantSpec spec = TideborneVariantSupport.apply(stack, job.variant(), job.entry());
         TideItemData.FISH_LENGTH.set(stack, spec.lengthCm());
         FishData data = FishData.getExact(stack)
-                .orElseThrow(() -> new IllegalStateException("Tide FishData is not registered for " + itemId));
+                .orElseThrow(() -> new RenderFailureException(
+                        RenderFailureCode.FISH_DATA_CONTRACT,
+                        "Tide FishData is not registered for " + itemId
+                ));
         if (data.display().isEmpty()) {
-            throw new IllegalStateException("Tide FishData has no DisplayData for " + itemId);
+            throw new RenderFailureException(RenderFailureCode.FISH_DATA_CONTRACT, "Tide FishData has no DisplayData for " + itemId);
         }
 
         Identifier displayBlockId = Identifier.of("tide:fish_display");
         if (!Registries.BLOCK.containsId(displayBlockId)) {
-            throw new IllegalStateException("Tide fish display block is not registered");
+            throw new RenderFailureException(RenderFailureCode.MISSING_DISPLAY_BLOCK, "Tide fish display block is not registered");
         }
         Block block = Registries.BLOCK.get(displayBlockId);
         BlockState state = block.getDefaultState();
         FishDisplayBlockEntity display = new FishDisplayBlockEntity(BlockPos.ORIGIN, state);
         if (!display.setDisplayStack(stack)) {
-            throw new IllegalStateException("Fish Display rejected stack: " + itemId);
+            throw new RenderFailureException(RenderFailureCode.FISH_DISPLAY_REJECTED, "Fish Display rejected stack: " + itemId);
         }
         if (display.getDisplayData() == null) {
-            throw new IllegalStateException("No DisplayData for " + job.entry().fishId());
+            throw new RenderFailureException(RenderFailureCode.FISH_DATA_CONTRACT, "No DisplayData for " + job.entry().fishId());
         }
         if (display.getDisplayData().entityType() == null) {
-            throw new IllegalStateException("DisplayData has no entity type for " + job.entry().fishId());
+            throw new RenderFailureException(RenderFailureCode.FISH_DATA_CONTRACT, "DisplayData has no entity type for " + job.entry().fishId());
         }
 
         NativeImage image = null;
-        ImageOps.Bounds bounds = null;
-        Identifier resolvedEntityId = null;
-        float scale = 0.75f;
-        for (int pass = 0; pass < 7; pass++) {
+        try {
+            ImageOps.Bounds bounds = null;
+            Identifier resolvedEntityId = null;
+            float scale = 0.75f;
+            for (int pass = 0; pass < 7; pass++) {
+                if (image != null) {
+                    image.close();
+                    image = null;
+                }
+                FrameResult frame = renderDisplayFramebuffer(display, scale);
+                image = frame.image();
+                resolvedEntityId = frame.entityId();
+                bounds = ImageOps.alphaBounds(image);
+                if (bounds == null) {
+                    throw new RenderFailureException(RenderFailureCode.EMPTY_FRAMEBUFFER, "Framebuffer produced zero alpha pixels");
+                }
+                if (bounds.touches(image.getWidth(), image.getHeight(), EDGE_MARGIN)) {
+                    scale *= 0.72f;
+                    continue;
+                }
+                double occupancy = bounds.occupancy(image.getWidth(), image.getHeight());
+                if (occupancy < 0.46 && pass < 5) {
+                    scale *= (float) Math.min(1.85, TARGET_OCCUPANCY / Math.max(occupancy, 0.05));
+                    continue;
+                }
+                break;
+            }
+
+            if (bounds == null || image == null || resolvedEntityId == null) {
+                throw new RenderFailureException(RenderFailureCode.EMPTY_FRAMEBUFFER, "No rendered silhouette");
+            }
+            Path output = renderPath(job);
+            if (writePng) {
+                try (NativeImage cropped = ImageOps.cropWithPadding(image, bounds, PADDING)) {
+                    ImageOps.write(cropped, output);
+                }
+            }
+            return new RenderResult(
+                    writePng ? output : null,
+                    bounds,
+                    spec.lengthCm(),
+                    resolvedEntityId,
+                    "tide_fish_display"
+            );
+        } finally {
             if (image != null) {
                 image.close();
             }
-            FrameResult frame = renderDisplayFramebuffer(display, scale);
-            image = frame.image();
-            resolvedEntityId = frame.entityId();
-            bounds = ImageOps.alphaBounds(image);
-            if (bounds == null) {
-                throw new IllegalStateException("Framebuffer produced zero alpha pixels");
-            }
-            if (bounds.touches(image.getWidth(), image.getHeight(), EDGE_MARGIN)) {
-                scale *= 0.72f;
-                continue;
-            }
-            double occupancy = bounds.occupancy(image.getWidth(), image.getHeight());
-            if (occupancy < 0.46 && pass < 5) {
-                scale *= (float) Math.min(1.85, TARGET_OCCUPANCY / Math.max(occupancy, 0.05));
-                continue;
-            }
-            break;
         }
-
-        if (bounds == null || image == null || resolvedEntityId == null) {
-            throw new IllegalStateException("No rendered silhouette");
-        }
-        Path output = renderPath(job);
-        if (writePng) {
-            try (NativeImage cropped = ImageOps.cropWithPadding(image, bounds, PADDING)) {
-                ImageOps.write(cropped, output);
-            }
-        }
-        image.close();
-        return new RenderResult(
-                writePng ? output : null,
-                bounds,
-                spec.lengthCm(),
-                resolvedEntityId,
-                "tide_fish_display"
-        );
     }
 
     private RenderResult renderDirectEntity(Job job, boolean writePng) throws Exception {
@@ -284,17 +336,18 @@ final class RenderService {
                 rawEntityId == null || rawEntityId.isBlank() ? job.entry().fishId() : rawEntityId
         );
         if (!Registries.ENTITY_TYPE.containsId(expectedId)) {
-            throw new IllegalStateException("Missing entity type: " + expectedId);
+            throw new RenderFailureException(RenderFailureCode.ENTITY_CONTRACT, "Missing entity type: " + expectedId);
         }
         EntityType<?> type = Registries.ENTITY_TYPE.get(expectedId);
         Entity entity = type.create(client.world);
         if (entity == null) {
-            throw new IllegalStateException("Entity type could not create client entity: " + expectedId);
+            throw new RenderFailureException(RenderFailureCode.ENTITY_CONTRACT, "Entity type could not create client entity: " + expectedId);
         }
 
         Identifier resolved = Registries.ENTITY_TYPE.getId(entity.getType());
         if (!expectedId.equals(resolved)) {
-            throw new IllegalStateException(
+            throw new RenderFailureException(
+                    RenderFailureCode.ENTITY_CONTRACT,
                     "Entity type resolved mismatch: expected=" + expectedId + " actual=" + resolved
             );
         }
@@ -308,47 +361,56 @@ final class RenderService {
         );
 
         NativeImage image = null;
-        ImageOps.Bounds bounds = null;
-        float scale = 0.72f;
-        for (int pass = 0; pass < 8; pass++) {
+        try {
+            ImageOps.Bounds bounds = null;
+            float scale = 0.72f;
+            for (int pass = 0; pass < 8; pass++) {
+                if (image != null) {
+                    image.close();
+                    image = null;
+                }
+                FrameResult frame = renderEntityFramebuffer(entity, scale);
+                image = frame.image();
+                bounds = ImageOps.alphaBounds(image);
+                if (bounds == null) {
+                    throw new RenderFailureException(
+                            RenderFailureCode.EMPTY_FRAMEBUFFER,
+                            "Direct entity framebuffer produced zero alpha pixels: " + expectedId
+                    );
+                }
+                if (bounds.touches(image.getWidth(), image.getHeight(), EDGE_MARGIN)) {
+                    scale *= 0.70f;
+                    continue;
+                }
+                double occupancy = bounds.occupancy(image.getWidth(), image.getHeight());
+                if (occupancy < 0.46 && pass < 6) {
+                    scale *= (float) Math.min(1.80, TARGET_OCCUPANCY / Math.max(occupancy, 0.05));
+                    continue;
+                }
+                break;
+            }
+
+            if (bounds == null || image == null) {
+                throw new RenderFailureException(RenderFailureCode.EMPTY_FRAMEBUFFER, "No rendered silhouette for direct entity: " + expectedId);
+            }
+            Path output = renderPath(job);
+            if (writePng) {
+                try (NativeImage cropped = ImageOps.cropWithPadding(image, bounds, PADDING)) {
+                    ImageOps.write(cropped, output);
+                }
+            }
+            return new RenderResult(
+                    writePng ? output : null,
+                    bounds,
+                    job.entry().representativeLengthCm(),
+                    resolved,
+                    "minecraft_entity_dispatcher"
+            );
+        } finally {
             if (image != null) {
                 image.close();
             }
-            FrameResult frame = renderEntityFramebuffer(entity, scale);
-            image = frame.image();
-            bounds = ImageOps.alphaBounds(image);
-            if (bounds == null) {
-                throw new IllegalStateException("Direct entity framebuffer produced zero alpha pixels: " + expectedId);
-            }
-            if (bounds.touches(image.getWidth(), image.getHeight(), EDGE_MARGIN)) {
-                scale *= 0.70f;
-                continue;
-            }
-            double occupancy = bounds.occupancy(image.getWidth(), image.getHeight());
-            if (occupancy < 0.46 && pass < 6) {
-                scale *= (float) Math.min(1.80, TARGET_OCCUPANCY / Math.max(occupancy, 0.05));
-                continue;
-            }
-            break;
         }
-
-        if (bounds == null || image == null) {
-            throw new IllegalStateException("No rendered silhouette for direct entity: " + expectedId);
-        }
-        Path output = renderPath(job);
-        if (writePng) {
-            try (NativeImage cropped = ImageOps.cropWithPadding(image, bounds, PADDING)) {
-                ImageOps.write(cropped, output);
-            }
-        }
-        image.close();
-        return new RenderResult(
-                writePng ? output : null,
-                bounds,
-                job.entry().representativeLengthCm(),
-                resolved,
-                "minecraft_entity_dispatcher"
-        );
     }
 
     private FrameResult renderDisplayFramebuffer(FishDisplayBlockEntity display, float scale) throws IOException {
@@ -369,11 +431,17 @@ final class RenderService {
             );
             Entity renderedEntity = display.getRenderedEntity();
             if (renderedEntity == null) {
-                throw new IllegalStateException("Tide Fish Display did not create a rendered entity");
+                throw new RenderFailureException(
+                        RenderFailureCode.FISH_DISPLAY_RENDER_FAILURE,
+                        "Tide Fish Display did not create a rendered entity"
+                );
             }
             Identifier entityId = Registries.ENTITY_TYPE.getId(renderedEntity.getType());
             if (entityId == null || !RegistryLoader.isScopedNamespace(entityId.getNamespace())) {
-                throw new IllegalStateException("Tide FishData resolved an out-of-scope entity: " + entityId);
+                throw new RenderFailureException(
+                        RenderFailureCode.ENTITY_CONTRACT,
+                        "Tide FishData resolved an out-of-scope entity: " + entityId
+                );
             }
             System.out.println(
                     "FISHRENDER_ENTITY fish=" + display.getDisplayStack().getItem()
@@ -456,11 +524,14 @@ final class RenderService {
         framebuffer.beginRead();
         try {
             image.loadFromTextureImage(0, false);
+            image.mirrorVertically();
+            return image;
+        } catch (RuntimeException | Error failure) {
+            image.close();
+            throw failure;
         } finally {
             framebuffer.endRead();
         }
-        image.mirrorVertically();
-        return image;
     }
 
     private void endFrame(FrameContext context) {
@@ -484,20 +555,10 @@ final class RenderService {
     }
 
     private static String classify(Exception exception) {
-        String message = String.valueOf(exception.getMessage()).toLowerCase();
-        if (message.contains("item")) {
-            return "missing_item";
+        if (exception instanceof RenderFailureException failure) {
+            return failure.code().wireName();
         }
-        if (message.contains("entity type") || message.contains("entity")) {
-            return "missing_entity_or_renderer";
-        }
-        if (message.contains("alpha") || message.contains("silhouette")) {
-            return "empty_framebuffer";
-        }
-        if (message.contains("tideborne") || message.contains("component")) {
-            return "variant_setup";
-        }
-        return "exception";
+        return RenderFailureCode.UNEXPECTED_EXCEPTION.wireName();
     }
 
     private Path renderPath(Job job) {
