@@ -1,0 +1,191 @@
+name: Render Hybrid Aquatic with Minecraft renderer
+
+on:
+  push:
+    branches: [dev]
+    paths:
+      - '.github/workflows/render-hybrid-aquatic-runtime-dev.yml'
+      - 'tools/fish-render-export/TideFishRenderExporter/build.gradle'
+      - 'tools/fish-render-export/TideFishRenderExporter/src/main/java/**'
+      - 'tools/fish-render-export/TideFishRenderExporter/src/main/resources/**'
+      - 'fish/render-data/registry/supported-fish-registry.json'
+      - 'fish/render-data/modpack-scope.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render-hybrid:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: tools/fish-render-export/TideFishRenderExporter
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.5.0'
+          cache-read-only: false
+
+      - name: Build actual client renderer exporter
+        run: gradle --no-daemon build
+
+      - name: Generate disposable 1.21.1 world
+        run: |
+          set -euo pipefail
+          rm -rf run/server run/client
+          mkdir -p run/server
+          printf 'eula=true\n' > run/server/eula.txt
+          cat > run/server/server.properties <<'EOF'
+          online-mode=false
+          level-name=world
+          spawn-protection=0
+          view-distance=2
+          simulation-distance=2
+          max-tick-time=-1
+          EOF
+          set +e
+          timeout --signal=INT --kill-after=15s 75s gradle --no-daemon runServer
+          server_status=$?
+          set -e
+          if [ "$server_status" -ne 0 ] && [ "$server_status" -ne 124 ] && [ "$server_status" -ne 130 ]; then
+            echo "Dedicated server exited unexpectedly with $server_status"
+            exit "$server_status"
+          fi
+          test -f run/server/world/level.dat
+          mkdir -p run/client/saves
+          cp -a run/server/world run/client/saves/RenderWorld
+          test -f run/client/saves/RenderWorld/level.dat
+
+      - name: Render Hybrid Aquatic through EntityRenderDispatcher
+        run: |
+          set -euo pipefail
+          if ! command -v xvfb-run >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y xvfb
+          fi
+          set +e
+          timeout --signal=INT --kill-after=20s 20m xvfb-run -a gradle --no-daemon runRenderHybrid
+          client_status=$?
+          set -e
+          if [ -f run/client/logs/latest.log ]; then
+            echo '--- actual entity renderer markers ---'
+            grep -E 'FISHRENDER_(AUTO_|ENTITY_DIRECT)' run/client/logs/latest.log || true
+            echo '--- last 180 client log lines ---'
+            tail -n 180 run/client/logs/latest.log || true
+          fi
+          if [ "$client_status" -ne 0 ] && [ "$client_status" -ne 124 ] && [ "$client_status" -ne 130 ]; then
+            echo "Render client exited unexpectedly with $client_status"
+            exit "$client_status"
+          fi
+
+      - name: Validate 49 actual Hybrid Aquatic renders
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check pillow
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+
+          root = Path('run/client/fishrender-output')
+          status = json.loads((root / 'generated/auto-export-status.json').read_text())
+          report = json.loads((root / 'generated/render-report.json').read_text())
+          assert status['status'] == 'success', status
+          assert status['mode'] == 'namespace:hybrid_aquatic', status
+          assert status['total_fish'] == 49, status
+          assert status['successful'] == 49, status
+          assert status['failed'] == 0, status
+          assert report['mode'] == 'export:hybrid_aquatic:default', report
+          assert report['total_fish'] == 49, report
+          assert report['successful'] == 49, report.get('exceptions')
+          assert report['failed'] == 0, report.get('exceptions')
+          rows = report['successes']
+          assert len(rows) == 49, len(rows)
+          assert all(r.get('render_mode') == 'minecraft_entity_dispatcher' for r in rows), {r.get('render_mode') for r in rows}
+          assert all(str(r.get('resolved_entity_id','')).startswith('hybrid_aquatic:') for r in rows)
+
+          renders = root / 'fish/assets/renders'
+          pngs = sorted(renders.glob('hybrid_aquatic__*.png'))
+          assert len(pngs) == 49, len(pngs)
+          for png in pngs:
+            with Image.open(png) as im:
+              assert im.mode == 'RGBA', (png.name, im.mode)
+              alpha = im.getchannel('A')
+              bounds = alpha.getbbox()
+              assert bounds is not None, png.name
+              l,t,r,b = bounds
+              assert l > 0 and t > 0 and r < im.width and b < im.height, (png.name, im.size, bounds)
+              assert (r-l) >= 3 and (b-t) >= 3, (png.name, bounds)
+          print('HYBRID_RUNTIME_VALID total=49 actual_entity_dispatcher=49')
+          PY
+
+      - name: Publish only validated Hybrid Aquatic runtime renders
+        run: |
+          set -euo pipefail
+          cd ../../..
+          out='tools/fish-render-export/TideFishRenderExporter/run/client/fishrender-output'
+          cp "$out"/fish/assets/renders/hybrid_aquatic__*.png fish/assets/renders/
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path('.')
+          report = json.loads((root / 'tools/fish-render-export/TideFishRenderExporter/run/client/fishrender-output/generated/render-report.json').read_text())
+          manifest_path = root / 'assets/fish-render-manifest.json'
+          manifest = json.loads(manifest_path.read_text())
+          fish = manifest.setdefault('fish', {})
+          for row in report['successes']:
+              fish_id = row['fish_id']
+              ns, path = fish_id.split(':', 1)
+              filename = ns + '__' + path.replace('/', '_').replace(':', '_') + '.png'
+              fish[fish_id] = {
+                  'source': 'Hybrid Aquatic actual Minecraft EntityRenderDispatcher',
+                  'entity': row.get('resolved_entity_id') or row.get('entity_id'),
+                  'renderer_mode': row.get('render_mode'),
+                  'variants': {
+                      'normal': {
+                          'file': f'fish/assets/renders/{filename}',
+                          'status': 'source_backed_runtime_entity'
+                      }
+                  }
+              }
+          manifest['generatedBy'] = 'Tide Fish Render Exporter + Minecraft EntityRenderDispatcher'
+          manifest['pipelineStatus'] = 'source_authentic_partial_runtime'
+          manifest['policy'] = 'Published fish images are source-backed runtime renders. Hybrid Aquatic entries use the actual Minecraft client EntityRenderDispatcher rather than a custom geometry projector.'
+          counts = manifest.setdefault('counts', {})
+          counts['supported_fish'] = len(fish)
+          counts['normal'] = sum(1 for v in fish.values() if v.get('variants',{}).get('normal',{}).get('file'))
+          manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add fish/assets/renders/hybrid_aquatic__*.png assets/fish-render-manifest.json
+          if git diff --cached --quiet; then
+            echo 'No Hybrid Aquatic render changes to publish.'
+          else
+            git commit -m 'Publish actual Hybrid Aquatic entity renders'
+            git push origin HEAD:dev
+          fi
+
+      - name: Upload Hybrid Aquatic runtime evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hybrid-aquatic-runtime-renders
+          path: |
+            tools/fish-render-export/TideFishRenderExporter/run/client/fishrender-output/
+            tools/fish-render-export/TideFishRenderExporter/run/client/logs/
+          if-no-files-found: warn
+          retention-days: 14
