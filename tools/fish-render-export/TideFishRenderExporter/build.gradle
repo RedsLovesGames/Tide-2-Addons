@@ -7,10 +7,25 @@ version = project.mod_version
 group = project.maven_group
 base { archivesName = project.archives_base_name }
 
+// Capture external profile inputs before defining ext properties with the same names.
+def hybridAquaticVersionOverride = project.findProperty('hybridAquaticVersion')
+def hybridAquaticModrinthOverride = project.findProperty('hybridAquaticModrinthVersion')
+def hybridAquaticJarOverride = project.findProperty('hybridAquaticJar')
+def hybridAquaticNamespaceOverride = project.findProperty('hybridAquaticNamespaceMode')
+
 ext {
-    hybridAquaticVersion = '1.5.5'
-    hybridAquaticModrinthVersion = '6EfLaKkB'
+    // Baseline runtime used for the normal Hybrid Aquatic catalog.
+    hybridAquaticVersion = (hybridAquaticVersionOverride ?: '1.5.5').toString()
+    hybridAquaticModrinthVersion = (hybridAquaticModrinthOverride ?: '6EfLaKkB').toString()
+    hybridAquaticJar = (hybridAquaticJarOverride ?: '').toString()
+    // 1.5.5 registers runtime entity IDs with hybrid-aquatic. Later runtimes use
+    // the canonical hybrid_aquatic namespace. Workflows select this explicitly.
+    hybridAquaticNamespaceMode = (hybridAquaticNamespaceOverride ?: 'hyphenated').toString()
     includeHybridAquatic = !project.hasProperty('skipHybridAquatic')
+}
+
+if (!(hybridAquaticNamespaceMode in ['hyphenated', 'canonical'])) {
+    throw new GradleException("Unsupported hybridAquaticNamespaceMode=${hybridAquaticNamespaceMode}; expected hyphenated or canonical")
 }
 
 repositories {
@@ -31,12 +46,17 @@ dependencies {
         exclude group: 'net.fabricmc.fabric-api'
     }
     modImplementation "maven.modrinth:die1AF7i:ztNu3GtG"
-    // Hybrid Aquatic 1.5.5 is deliberately pinned. The 1.6.9 1.21.1 artifact
-    // crashes before world creation because ArgonautEntity overrides the now-final
-    // Entity#setGlowing(boolean), so it must not be used by this renderer.
+
+    // Hybrid Aquatic 1.5.5 is the stable baseline. A renderer workflow may provide
+    // an explicit local jar/profile for a later runtime without rewriting this file.
     if (includeHybridAquatic) {
-        modImplementation "maven.modrinth:HH4FjUqN:${hybridAquaticModrinthVersion}"
+        if (hybridAquaticJar) {
+            modImplementation files(hybridAquaticJar)
+        } else {
+            modImplementation "maven.modrinth:HH4FjUqN:${hybridAquaticModrinthVersion}"
+        }
     }
+
     modImplementation "maven.modrinth:Yd4wb5wZ:ih64rzUz"
     modImplementation "net.fabricmc:fabric-language-kotlin:1.13.13+kotlin.2.4.10"
     modImplementation "dev.isxander:yet-another-config-lib:3.8.1+1.21.1-fabric"
@@ -69,6 +89,18 @@ loom {
             programArg "1024"
             environmentVariable("TIDE_FISH_RENDER_AUTO", "scope")
         }
+        renderTideTuna {
+            client()
+            configName = "Tide Tuna Smoke Render"
+            runDir = "run/client"
+            programArg "--quickPlaySingleplayer"
+            programArg "RenderWorld"
+            programArg "--width"
+            programArg "1024"
+            programArg "--height"
+            programArg "1024"
+            environmentVariable("TIDE_FISH_RENDER_AUTO", "tide:tuna")
+        }
         renderHybridOarfish {
             client()
             configName = "Hybrid Aquatic Oarfish Smoke Render"
@@ -99,16 +131,17 @@ loom {
 processResources {
     inputs.property 'version', project.version
     inputs.property 'hybridAquaticVersion', hybridAquaticVersion
+    inputs.property 'hybridAquaticNamespaceMode', hybridAquaticNamespaceMode
     def repoRegistry = file("${projectDir}/../../../fish/render-data/registry/supported-fish-registry.json")
     if (repoRegistry.exists()) {
         from(repoRegistry) {
             into 'fishrender'
             rename { 'fish-render-registry.json' }
-            // Tide Extra Compatibility / the website use canonical hybrid_aquatic fish IDs,
-            // while Hybrid Aquatic 1.5.5 registers runtime entities under hybrid-aquatic.
-            // Rewrite only entity_id in the exporter's packaged registry. Fish IDs stay
-            // canonical so filenames, wiki IDs, and Tide data remain stable.
-            filter { line -> line.replace('"entity_id": "hybrid_aquatic:', '"entity_id": "hybrid-aquatic:') }
+            filter { line ->
+                hybridAquaticNamespaceMode == 'hyphenated'
+                        ? line.replace('"entity_id": "hybrid_aquatic:', '"entity_id": "hybrid-aquatic:')
+                        : line
+            }
         }
     }
     from("${projectDir}/../../../fish/render-data/modpack-scope.json") {
@@ -121,12 +154,20 @@ processResources {
 
 tasks.register('verifyHybridAquaticPin') {
     group = 'verification'
-    description = 'Fails if the runtime renderer is not pinned to the approved Hybrid Aquatic 1.5.5 artifact.'
+    description = 'Verifies the default renderer profile remains pinned to Hybrid Aquatic 1.5.5.'
     doLast {
-        if (hybridAquaticVersion != '1.5.5' || hybridAquaticModrinthVersion != '6EfLaKkB') {
-            throw new GradleException("Hybrid Aquatic renderer pin changed: version=${hybridAquaticVersion} modrinth=${hybridAquaticModrinthVersion}")
+        boolean overridden = hybridAquaticVersionOverride != null \
+                || hybridAquaticModrinthOverride != null \
+                || hybridAquaticJarOverride != null \
+                || hybridAquaticNamespaceOverride != null
+        if (overridden) {
+            println "HYBRID_AQUATIC_PROFILE_OVERRIDE version=${hybridAquaticVersion} modrinth=${hybridAquaticModrinthVersion} jar=${hybridAquaticJar ?: 'maven'} namespace_mode=${hybridAquaticNamespaceMode}"
+            return
         }
-        println "HYBRID_AQUATIC_PIN_OK version=${hybridAquaticVersion} modrinth=${hybridAquaticModrinthVersion}"
+        if (hybridAquaticVersion != '1.5.5' || hybridAquaticModrinthVersion != '6EfLaKkB' || hybridAquaticNamespaceMode != 'hyphenated') {
+            throw new GradleException("Hybrid Aquatic baseline pin changed: version=${hybridAquaticVersion} modrinth=${hybridAquaticModrinthVersion} namespace_mode=${hybridAquaticNamespaceMode}")
+        }
+        println "HYBRID_AQUATIC_PIN_OK version=${hybridAquaticVersion} modrinth=${hybridAquaticModrinthVersion} namespace_mode=${hybridAquaticNamespaceMode}"
     }
 }
 
