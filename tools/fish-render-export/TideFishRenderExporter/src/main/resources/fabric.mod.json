@@ -8,7 +8,6 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.redslovesgames.tidefishrender.TideFishRenderExporter",
       "com.redslovesgames.tidefishrender.RuntimeBundleAutoInitializer"
     ]
   },
