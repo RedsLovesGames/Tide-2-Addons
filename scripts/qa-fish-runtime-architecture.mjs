@@ -99,7 +99,7 @@ try {
   assert.ok(Math.abs(renderedPerfectScore - labState.expected) < 0.11, `Specimen Lab Perfect FishScore ${renderedPerfectScore} drifted from canonical runtime ${labState.expected}`);
 
   await page.keyboard.press('Escape');
-  await page.waitForSelector('#fish-highlight-layer[hidden]');
+  await page.waitForFunction(() => document.getElementById('fish-highlight-layer')?.hidden === true);
 } finally {
   await browser.close();
 }
