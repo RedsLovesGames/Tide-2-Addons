@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "purpose": "Authoritative render-source metadata for the Tideborne Fish Wiki rendering pipeline",
+  "site_base": "./",
+  "registry": {
+    "fish": "registry/supported-fish-registry.json",
+    "mods": "registry/mod-render-registry.json",
+    "source_index": "registry/fish-source-file-index.json"
+  },
+  "counts": {
+    "supported_fish": 182,
+    "render_mod_entries": 19
+  },
+  "import_status": "verified_metadata_recovered_raw_source_archive_incomplete",
+  "important_note": "The supported-fish registry and render-mod registry are source-backed and verified. The staged archive containing the large per-fish source-file index and raw render_sources tree was truncated before those members completed, so production must not claim those raw files are present. The conservative source index contains only fields proven by the supported registry and intentionally does not invent model, texture, or renderer file paths. Authentic PNG rendering remains a separate Minecraft runtime step."
+}
