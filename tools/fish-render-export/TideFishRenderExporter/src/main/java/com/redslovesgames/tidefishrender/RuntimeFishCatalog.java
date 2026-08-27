@@ -38,6 +38,10 @@ final class RuntimeFishCatalog {
             if (recordHighCm > 0) return recordHighCm * 0.65;
             return 1.0;
         }
+
+        Entry asRegistryEntry() {
+            return this;
+        }
     }
 
     private RuntimeFishCatalog() {}
