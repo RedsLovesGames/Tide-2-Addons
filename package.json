@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "Development tooling for the Tideborne documentation and Fish Wiki.",
   "scripts": {
-    "check:js": "node --check assets/app.js && node --check assets/fish-wiki.js && node --check assets/fish-site-search.js && node --check assets/fish-detail-nav.js && node --check assets/fish-catalog-redesign.js && node --check assets/fish-specimen-lab-stable.js && node --check scripts/qa-fish-wiki.mjs",
-    "qa:fish": "node scripts/qa-fish-wiki.mjs"
+    "check:js": "node --check assets/app.js && node --check assets/fish-runtime.js && node --check assets/fish-wiki.js && node --check assets/fish-site-search.js && node --check assets/fish-specimen-lab.js && node --check scripts/qa-fish-wiki.mjs && node --check scripts/qa-fish-runtime-architecture.mjs",
+    "qa:fish": "node scripts/qa-fish-wiki.mjs && node scripts/qa-fish-runtime-architecture.mjs"
   },
   "devDependencies": {
     "playwright": "1.54.2"
