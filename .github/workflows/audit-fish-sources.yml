@@ -2,21 +2,21 @@ name: Audit Fish Wiki Sources
 
 on:
   push:
-    branches: [fish-wiki-production]
+    branches: [dev]
     paths:
       - .github/workflows/audit-fish-sources.yml
+      - tools/fish-render-source/source-manifest.json
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   inventory:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: fish-wiki-production
+
       - name: Download authoritative sources
         shell: bash
         run: |
@@ -30,10 +30,12 @@ jobs:
             'https://github.com/Lightning-64/Tide-2/archive/876b95f31328f4e698d5150f7d840ab033d1b06d.zip' \
             -o /tmp/tide.zip
           unzip -q /tmp/tide.zip -d .fish-source-audit/tide
+
       - name: Record source inventory
         shell: bash
         run: |
           set -euo pipefail
+          mkdir -p audit-artifacts
           {
             echo '# Authoritative Fish Source Inventory'
             echo
@@ -44,15 +46,13 @@ jobs:
             echo
             echo '## Tide fish/profile candidate files'
             find .fish-source-audit/tide -type f \( -path '*/fishing/fish/*' -o -path '*/fishing/profile/*' -o -path '*/fish_data/*' \) -printf '%P\n' | sort
-          } > scripts/fish-source-inventory.txt
+          } > audit-artifacts/fish-source-inventory.txt
           rm -rf .fish-source-audit
-      - name: Commit inventory
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add scripts/fish-source-inventory.txt
-          git diff --cached --quiet && exit 0
-          git commit -m 'Audit authoritative Fish Wiki source layout'
-          git push origin HEAD:fish-wiki-production
+
+      - name: Upload source inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: fish-source-inventory
+          path: audit-artifacts/fish-source-inventory.txt
+          if-no-files-found: error
+          retention-days: 30
