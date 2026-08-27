@@ -122,9 +122,13 @@ final class RegistryLoader {
     }
 
     private static String runtimeEntityId(String fishId) {
-        // The wiki/Tide compatibility data uses the canonical underscore namespace.
-        // Hybrid Aquatic 1.5.5 itself registers the runtime mod and entity namespace
-        // with a hyphen. Keep fishId stable and translate only the entity lookup ID.
+        // Tide compatibility/wiki IDs use hybrid_aquatic, while HA 1.5.5 registers
+        // runtime IDs under hybrid-aquatic. California sheepshead is not a separate
+        // EntityType in HA: it is the sole/default WrasseEntity variant, so the
+        // canonical wiki entry maps to hybrid-aquatic:wrasse for authentic rendering.
+        if ("hybrid_aquatic:sheepshead_wrasse".equals(fishId)) {
+            return "hybrid-aquatic:wrasse";
+        }
         if (fishId != null && fishId.startsWith("hybrid_aquatic:")) {
             return "hybrid-aquatic:" + fishId.substring("hybrid_aquatic:".length());
         }
