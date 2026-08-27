@@ -2,21 +2,24 @@ package com.redslovesgames.tidefishrender;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import net.minecraft.client.MinecraftClient;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -35,7 +38,7 @@ final class RuntimeBundleExporter {
         }
 
         RuntimeEnvironment.Snapshot environment = RuntimeEnvironment.capture();
-        List<RuntimeFishCatalog.Entry> fish = RuntimeFishCatalog.discover();
+        List<RuntimeFishCatalog.Entry> fish = applyFilter(RuntimeFishCatalog.discover());
         String catalogFingerprint = RuntimeFishCatalog.fingerprint(fish);
         String cacheKey = RuntimeEnvironment.sha256(
                 (environment.fingerprint() + "\n" + catalogFingerprint)
@@ -50,6 +53,8 @@ final class RuntimeBundleExporter {
         JsonObject environmentJson = environment.json().deepCopy();
         environmentJson.addProperty("catalog_fingerprint", catalogFingerprint);
         environmentJson.addProperty("cache_key", cacheKey);
+        String filter = System.getenv("TIDE_FISH_RUNTIME_FILTER");
+        if (filter != null && !filter.isBlank()) environmentJson.addProperty("fish_filter", filter.trim());
         writeJson(cacheRoot.resolve("generated/environment.json"), environmentJson);
         writeJson(cacheRoot.resolve("generated/fish-catalog.json"), RuntimeFishCatalog.toJson(fish));
 
@@ -85,9 +90,44 @@ final class RuntimeBundleExporter {
         Path partialZip = exports.resolve(filename + ".part");
         Files.deleteIfExists(partialZip);
         writeZip(cacheRoot, partialZip);
-        Files.move(partialZip, finalZip, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+        moveCompletedZip(partialZip, finalZip);
 
         return new Bundle(finalZip, cacheKey, render.fishCount(), render.jobs(), render.successful(), render.failed(), render.cacheHits());
+    }
+
+    private static List<RuntimeFishCatalog.Entry> applyFilter(List<RuntimeFishCatalog.Entry> discovered) throws IOException {
+        String raw = System.getenv("TIDE_FISH_RUNTIME_FILTER");
+        if (raw == null || raw.isBlank()) return discovered;
+
+        Set<String> requested = new LinkedHashSet<>();
+        Arrays.stream(raw.split(","))
+                .map(String::trim)
+                .filter(value -> !value.isBlank())
+                .forEach(requested::add);
+        if (requested.isEmpty()) return discovered;
+
+        List<RuntimeFishCatalog.Entry> filtered = discovered.stream()
+                .filter(entry -> requested.contains(entry.fishId()))
+                .toList();
+        if (filtered.isEmpty()) {
+            throw new IOException("Runtime fish filter matched no TideData.FISH entries: " + String.join(",", requested));
+        }
+        Set<String> found = new LinkedHashSet<>();
+        filtered.forEach(entry -> found.add(entry.fishId()));
+        Set<String> missing = new LinkedHashSet<>(requested);
+        missing.removeAll(found);
+        if (!missing.isEmpty()) {
+            throw new IOException("Runtime fish filter contains IDs not present in TideData.FISH: " + String.join(",", missing));
+        }
+        return filtered;
+    }
+
+    private static void moveCompletedZip(Path partialZip, Path finalZip) throws IOException {
+        try {
+            Files.move(partialZip, finalZip, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+        } catch (AtomicMoveNotSupportedException unsupported) {
+            Files.move(partialZip, finalZip, StandardCopyOption.REPLACE_EXISTING);
+        }
     }
 
     private static void writeZip(Path cacheRoot, Path zipPath) throws IOException {
@@ -115,7 +155,7 @@ final class RuntimeBundleExporter {
                     + "========================\n\n"
                     + "This bundle was generated inside the running Minecraft client.\n"
                     + "Fish discovery comes from TideData.FISH. Images are rendered through Tide's actual FishDisplayBlockEntity and FishDisplayRenderer into a transparent framebuffer.\n"
-                    + "No item-sprite, AI-art, or reconstructed-model fallback is used. Failed renders remain listed in failures.json.\n"
+                    + "No item-sprite, AI-art, reconstructed-model, or raw-entity fallback is used. Failed renders remain listed in failures.json.\n"
                     + "Give this ZIP directly to the Tideborne Fish Wiki importer.\n";
             ZipEntry entry = new ZipEntry("README.txt");
             zip.putNextEntry(entry);
