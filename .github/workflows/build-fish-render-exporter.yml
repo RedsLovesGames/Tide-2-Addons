@@ -2,9 +2,16 @@ name: Build and smoke Tide Fish Render Exporter
 
 on:
   push:
-    branches: [fish-render-source-import]
+    branches: [dev]
     paths:
       - '.github/workflows/build-fish-render-exporter.yml'
+      - 'tools/fish-render-export/TideFishRenderExporter/**'
+      - 'fish/render-data/registry/supported-fish-registry.json'
+      - 'fish/render-data/modpack-scope.json'
+      - 'assets/fish-search-index.json'
+  pull_request:
+    branches: [main]
+    paths:
       - 'tools/fish-render-export/TideFishRenderExporter/**'
       - 'fish/render-data/registry/supported-fish-registry.json'
       - 'fish/render-data/modpack-scope.json'
@@ -13,6 +20,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: fish-render-exporter-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build-and-render:
@@ -74,7 +85,7 @@ jobs:
           cp -a run/server/world run/client/saves/RenderWorld
           test -f run/client/saves/RenderWorld/level.dat
 
-      - name: Run source-authentic Tide renderer under Xvfb
+      - name: Run source-authentic Tide tuna smoke render under Xvfb
         run: |
           set -euo pipefail
           if ! command -v xvfb-run >/dev/null 2>&1; then
@@ -82,7 +93,7 @@ jobs:
             sudo apt-get install -y xvfb
           fi
           set +e
-          timeout --signal=INT --kill-after=20s 10m xvfb-run -a gradle --no-daemon runRenderClient
+          timeout --signal=INT --kill-after=20s 10m xvfb-run -a gradle --no-daemon runRenderTideTuna
           client_status=$?
           set -e
           if [ -f run/client/logs/latest.log ]; then
@@ -145,9 +156,6 @@ jobs:
           cp build/libs/tide-fish-render-exporter-*.jar ../../../render-exporter-artifact/ 2>/dev/null || true
           cp -a run/client/fishrender-output ../../../render-exporter-artifact/ 2>/dev/null || true
           cp -a run/client/logs ../../../render-exporter-artifact/client-logs 2>/dev/null || true
-          cd ..
-          zip -qr ../../render-exporter-artifact/TideFishRenderExporter-source.zip TideFishRenderExporter \
-            -x 'TideFishRenderExporter/.gradle/*' 'TideFishRenderExporter/build/*' 'TideFishRenderExporter/run/*' || true
 
       - uses: actions/upload-artifact@v4
         if: always()
