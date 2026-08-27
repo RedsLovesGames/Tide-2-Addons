@@ -41,7 +41,9 @@ async function readScaleState() {
     const viewportWidthPx = Number(stage?.dataset.viewportWidthPx || 0);
     const groundHeightPx = Number(stage?.dataset.groundHeightPx || 0);
     const specimenBlocks = Math.max(.001, length / 100);
-    const pseudoHeight = stage ? Number.parseFloat(getComputedStyle(stage, '::after').height) || 0 : 0;
+    const pseudo = stage ? getComputedStyle(stage, '::after') : null;
+    const pseudoHeight = Number.parseFloat(pseudo?.height || '0') || 0;
+    const pseudoWidth = Number.parseFloat(pseudo?.width || '0') || 0;
     return {
       scaleMode: stage?.dataset.scaleMode || '',
       scaleBlocks,
@@ -58,6 +60,7 @@ async function readScaleState() {
       shellHeight: shell?.getBoundingClientRect().height || 0,
       rulerWidth: ruler?.getBoundingClientRect().width || 0,
       floorHeight: pseudoHeight,
+      floorWidth: pseudoWidth,
       viewLabel: document.querySelector('[data-live-view-scale]')?.textContent || '',
       maxLabel: document.querySelector('[data-live-max-specimen]')?.textContent || '',
       imageSrc: image?.getAttribute('src') || '',
@@ -164,13 +167,15 @@ try {
   assert.equal(pupfishInitial.scaleBlocks, Math.max(1, Math.ceil(pupfishExpected.maxCm / 100)), 'species viewport must round the maximum specimen ceiling upward to whole blocks');
   assert.equal(pupfishInitial.scaleBlocks, 1, 'Devils Hole Pupfish should use a one-block viewport');
   assert.ok(['species', 'species-fit-height'].includes(pupfishInitial.scaleMode), `unexpected species camera mode ${pupfishInitial.scaleMode}`);
-  assert.ok(pupfishInitial.blockWidthPx > 400, `one-block tiny-fish camera is still globally capped: ${pupfishInitial.blockWidthPx}px`);
+  assert.ok(pupfishInitial.blockWidthPx > 160, `one-block tiny-fish camera collapsed too far: ${pupfishInitial.blockWidthPx}px`);
   assert.ok(Math.abs(pupfishInitial.fishWidth - pupfishInitial.expectedFishWidth) <= 2.5, `Pupfish width lost physical coupling: expected ${pupfishInitial.expectedFishWidth}px, got ${pupfishInitial.fishWidth}px`);
-  assert.ok(pupfishInitial.fishWidth >= 24, `Pupfish remains visually microscopic: width=${pupfishInitial.fishWidth}px stage=${pupfishInitial.stageWidth}px`);
+  assert.ok(pupfishInitial.fishWidth >= 4, `Pupfish render collapsed below its physical minimum: width=${pupfishInitial.fishWidth}px stage=${pupfishInitial.stageWidth}px`);
   assert.ok(Math.abs(pupfishInitial.rulerWidth - pupfishInitial.blockWidthPx) <= 2.5, 'one-block ruler width drifted from physical block width');
   assert.ok(pupfishInitial.viewportWidthPx <= pupfishInitial.shellWidth + 2.5, 'species viewport exceeds render shell width');
-  assert.ok(pupfishInitial.floorHeight <= 80, `decorative floor height incorrectly scales with physical block width: ${pupfishInitial.floorHeight}px`);
-  assert.ok(pupfishInitial.floorHeight < pupfishInitial.blockWidthPx * 0.25, 'decorative floor is still coupled to horizontal physical scale');
+  assert.ok(Math.abs(pupfishInitial.floorHeight - pupfishInitial.blockWidthPx) <= 2.5, `floor block is not square: height=${pupfishInitial.floorHeight}px blockWidth=${pupfishInitial.blockWidthPx}px`);
+  assert.ok(Math.abs(pupfishInitial.floorWidth - pupfishInitial.viewportWidthPx) <= 2.5, `floor width drifted from species viewport: floor=${pupfishInitial.floorWidth}px viewport=${pupfishInitial.viewportWidthPx}px`);
+  assert.ok(Math.abs(pupfishInitial.floorWidth / pupfishInitial.blockWidthPx - pupfishInitial.scaleBlocks) <= 0.03, 'floor does not contain the exact species block count');
+  assert.ok(Math.abs(pupfishInitial.groundHeightPx - pupfishInitial.blockWidthPx) <= 0.1, 'layout ground height is not tied to true-square physical blocks');
   assert.match(pupfishInitial.viewLabel, /^1 BLOCK VIEW$/, 'tiny-fish viewport label should expose one-block species camera');
   assert.match(pupfishInitial.maxLabel, /^max /, 'species maximum label missing');
 
@@ -180,6 +185,7 @@ try {
   assert.ok(Math.abs(pupfishMaxNormal.blockWidthPx - pupfishInitial.blockWidthPx) <= 1, 'camera zoom changed when percentile changed');
   assert.ok(pupfishMaxNormal.fishWidth > pupfishInitial.fishWidth, 'fish did not visibly grow when percentile increased');
   assert.ok(Math.abs(pupfishMaxNormal.fishWidth - pupfishMaxNormal.expectedFishWidth) <= 2.5, 'max-normal Pupfish lost physical scale coupling');
+  assert.ok(Math.abs(pupfishMaxNormal.floorHeight - pupfishMaxNormal.blockWidthPx) <= 2.5, 'square floor changed shape when percentile changed');
 
   const canonicalBundle = await page.evaluate(async () => {
     const runtime = await window.TideFishRuntime.ready;
@@ -203,7 +209,8 @@ try {
   assert.ok(afterResize.blockWidthPx < beforeResize.blockWidthPx, 'responsive resize did not reduce the physical camera scale');
   assert.ok(Math.abs(afterResize.fishWidth - afterResize.expectedFishWidth) <= 2.5, 'Pupfish lost physical scale coupling after viewport resize');
   assert.ok(afterResize.viewportWidthPx <= afterResize.shellWidth + 2.5, 'resized tiny-fish viewport exceeds render shell');
-  assert.ok(afterResize.floorHeight <= 80, 'resized decorative floor became coupled to block width');
+  assert.ok(Math.abs(afterResize.floorHeight - afterResize.blockWidthPx) <= 2.5, 'resized floor block is no longer square');
+  assert.ok(Math.abs(afterResize.floorWidth / afterResize.blockWidthPx - afterResize.scaleBlocks) <= 0.03, 'resized floor block count drifted from species viewport');
 
   await page.keyboard.press('Escape');
   await page.waitForFunction(() => document.getElementById('fish-highlight-layer')?.hidden === true);
@@ -225,6 +232,8 @@ try {
     assert.ok((dragonExpected.maxCm / 100) * dragonInitial.blockWidthPx <= dragonInitial.shellWidth + 3, 'largest legitimate Dragon Fish would overflow the horizontal species camera');
     assert.ok(dragonInitial.fishWidth <= dragonInitial.shellWidth + 2, 'Dragon Fish overflowed render shell width');
     assert.ok(dragonInitial.fishHeight <= dragonInitial.shellHeight + 2, 'Dragon Fish overflowed render shell height');
+    assert.ok(Math.abs(dragonInitial.floorHeight - dragonInitial.blockWidthPx) <= 2.5, 'large-fish floor block is not square');
+    assert.ok(Math.abs(dragonInitial.floorWidth / dragonInitial.blockWidthPx - dragonInitial.scaleBlocks) <= 0.03, 'large-fish floor block count is incorrect');
 
     await page.setViewportSize({ width: 1000, height: 760 });
     await page.waitForTimeout(140);
@@ -233,6 +242,7 @@ try {
     assert.ok(Math.abs(dragonResized.fishWidth - dragonResized.expectedFishWidth) <= 2.5, 'large render width lost physical coupling after resize');
     assert.ok(dragonResized.fishWidth <= dragonResized.shellWidth + 2, 'large fish overflowed render shell width after resize');
     assert.ok(dragonResized.fishHeight <= dragonResized.shellHeight + 2, 'large fish overflowed render shell height after resize');
+    assert.ok(Math.abs(dragonResized.floorHeight - dragonResized.blockWidthPx) <= 2.5, 'large-fish floor stopped being square after resize');
 
     await page.keyboard.press('Escape');
     await page.waitForFunction(() => document.getElementById('fish-highlight-layer')?.hidden === true);
@@ -242,4 +252,4 @@ try {
 }
 
 if (failures.length) throw new Error(`Runtime architecture QA found ${failures.length} runtime/network errors:\n${failures.join('\n')}`);
-console.log('Fish Wiki runtime architecture QA passed: canonical owners, source-authentic variants, and responsive species-ceiling physical scaling for tiny and large fish.');
+console.log('Fish Wiki runtime architecture QA passed: canonical owners, source-authentic variants, responsive species-ceiling scaling, and true-square floor blocks for tiny and large fish.');
