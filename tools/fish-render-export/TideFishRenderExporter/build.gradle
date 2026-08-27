@@ -7,6 +7,12 @@ version = project.mod_version
 group = project.maven_group
 base { archivesName = project.archives_base_name }
 
+ext {
+    hybridAquaticVersion = '1.5.5'
+    hybridAquaticModrinthVersion = '6EfLaKkB'
+    includeHybridAquatic = !project.hasProperty('skipHybridAquatic')
+}
+
 repositories {
     mavenCentral()
     maven { url = 'https://maven.fabricmc.net/' }
@@ -25,9 +31,12 @@ dependencies {
         exclude group: 'net.fabricmc.fabric-api'
     }
     modImplementation "maven.modrinth:die1AF7i:ztNu3GtG"
-    // Hybrid Aquatic 1.6.9 for Minecraft 1.21.1. This is the same source version
-    // used by the current Tideborne modpack/wiki render source bundle.
-    modImplementation "maven.modrinth:HH4FjUqN:F5POkJG0"
+    // Hybrid Aquatic 1.5.5 is deliberately pinned. The 1.6.9 1.21.1 artifact
+    // crashes before world creation because ArgonautEntity overrides the now-final
+    // Entity#setGlowing(boolean), so it must not be used by this renderer.
+    if (includeHybridAquatic) {
+        modImplementation "maven.modrinth:HH4FjUqN:${hybridAquaticModrinthVersion}"
+    }
     modImplementation "maven.modrinth:Yd4wb5wZ:ih64rzUz"
     modImplementation "net.fabricmc:fabric-language-kotlin:1.13.13+kotlin.2.4.10"
     modImplementation "dev.isxander:yet-another-config-lib:3.8.1+1.21.1-fabric"
@@ -60,6 +69,18 @@ loom {
             programArg "1024"
             environmentVariable("TIDE_FISH_RENDER_AUTO", "scope")
         }
+        renderHybridOarfish {
+            client()
+            configName = "Hybrid Aquatic Oarfish Smoke Render"
+            runDir = "run/client"
+            programArg "--quickPlaySingleplayer"
+            programArg "RenderWorld"
+            programArg "--width"
+            programArg "1024"
+            programArg "--height"
+            programArg "1024"
+            environmentVariable("TIDE_FISH_RENDER_AUTO", "hybrid_aquatic:oarfish")
+        }
         renderHybrid {
             client()
             configName = "Hybrid Aquatic Render Client"
@@ -77,16 +98,17 @@ loom {
 
 processResources {
     inputs.property 'version', project.version
-    filesMatching('fabric.mod.json') { expand 'version': project.version }
+    inputs.property 'hybridAquaticVersion', hybridAquaticVersion
     def repoRegistry = file("${projectDir}/../../../fish/render-data/registry/supported-fish-registry.json")
     if (repoRegistry.exists()) {
         from(repoRegistry) {
             into 'fishrender'
             rename { 'fish-render-registry.json' }
-            // Keep Tide Extra Compatibility's canonical hybrid_aquatic IDs exactly as
-            // written. Hybrid Aquatic 1.6+ standardized its Fabric mod/entity namespace
-            // to hybrid_aquatic, so rewriting these IDs to hybrid-aquatic makes the
-            // real EntityType lookup fail at runtime.
+            // Tide Extra Compatibility / the website use canonical hybrid_aquatic fish IDs,
+            // while Hybrid Aquatic 1.5.5 registers runtime entities under hybrid-aquatic.
+            // Rewrite only entity_id in the exporter's packaged registry. Fish IDs stay
+            // canonical so filenames, wiki IDs, and Tide data remain stable.
+            filter { line -> line.replace('"entity_id": "hybrid_aquatic:', '"entity_id": "hybrid-aquatic:') }
         }
     }
     from("${projectDir}/../../../fish/render-data/modpack-scope.json") {
@@ -96,6 +118,19 @@ processResources {
         into 'fishrender'
     }
 }
+
+tasks.register('verifyHybridAquaticPin') {
+    group = 'verification'
+    description = 'Fails if the runtime renderer is not pinned to the approved Hybrid Aquatic 1.5.5 artifact.'
+    doLast {
+        if (hybridAquaticVersion != '1.5.5' || hybridAquaticModrinthVersion != '6EfLaKkB') {
+            throw new GradleException("Hybrid Aquatic renderer pin changed: version=${hybridAquaticVersion} modrinth=${hybridAquaticModrinthVersion}")
+        }
+        println "HYBRID_AQUATIC_PIN_OK version=${hybridAquaticVersion} modrinth=${hybridAquaticModrinthVersion}"
+    }
+}
+
+check.dependsOn tasks.named('verifyHybridAquaticPin')
 
 tasks.withType(JavaCompile).configureEach {
     options.release = 21
