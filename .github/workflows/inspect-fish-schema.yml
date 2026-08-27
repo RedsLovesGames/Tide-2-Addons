@@ -6,6 +6,8 @@ on:
     paths:
       - .github/workflows/inspect-fish-schema.yml
       - scripts/build-fish-wiki.py
+      - tools/fish-render-source/source-manifest.json
+      - tools/fish-render-source/download_sources.py
   workflow_dispatch:
 
 permissions:
@@ -21,27 +23,34 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Download sources
-        shell: bash
+      - name: Download and extract pinned FishData sources
         run: |
           set -euo pipefail
-          mkdir -p /tmp/fishsrc/extra /tmp/fishsrc/tide
-          curl --fail --location --retry 3 'https://cdn.modrinth.com/data/goMfyYSL/versions/Uz6Vlhjs/Tide%20Extra%20Compatibility%202.2.zip' -o /tmp/extra.zip
-          unzip -q /tmp/extra.zip -d /tmp/fishsrc/extra
-          curl --fail --location --retry 3 'https://github.com/Lightning-64/Tide-2/archive/876b95f31328f4e698d5150f7d840ab033d1b06d.zip' -o /tmp/tide.zip
-          unzip -q /tmp/tide.zip -d /tmp/fishsrc/tide
+          rm -rf /tmp/fish-schema-src
+          mkdir -p /tmp/fish-schema-src/mods /tmp/fish-schema-src/tide /tmp/fish-schema-src/extra
+          python tools/fish-render-source/download_sources.py \
+            --id tide \
+            --id tide_extra_compatibility \
+            --out /tmp/fish-schema-src/mods \
+            --resolved-manifest /tmp/fish-schema-src/resolved.json
+          python - <<'PY'
+          import json, pathlib, zipfile
+          root = pathlib.Path('/tmp/fish-schema-src')
+          resolved = json.loads((root / 'resolved.json').read_text())
+          by_id = {row['id']: row for row in resolved['sources']}
+          for source_id, dest in [('tide', 'tide'), ('tide_extra_compatibility', 'extra')]:
+              with zipfile.ZipFile(root / 'mods' / by_id[source_id]['filename']) as z:
+                  z.extractall(root / dest)
+          PY
 
       - name: Inspect schemas
         shell: python
         run: |
           import json, pathlib, collections
           out=[]
-          roots=[('extra',pathlib.Path('/tmp/fishsrc/extra')),('tide',pathlib.Path('/tmp/fishsrc/tide'))]
+          roots=[('extra',pathlib.Path('/tmp/fish-schema-src/extra')),('tide',pathlib.Path('/tmp/fish-schema-src/tide'))]
           for label,root in roots:
-              files=[]
-              for p in root.rglob('*.json'):
-                  s=p.as_posix()
-                  if '/fishing/fish/' in s and (label=='extra' or '/src/generated-1.21.1/resources/' in s): files.append(p)
+              files=[p for p in root.rglob('*.json') if '/fishing/fish/' in p.as_posix()]
               out += [f'## {label}: {len(files)} fish files']
               schemas=collections.Counter()
               for p in files:
@@ -52,25 +61,25 @@ jobs:
               out.append('')
               for p in sorted(files)[:3]:
                   out += [f'### {p.relative_to(root)}', json.dumps(json.loads(p.read_text()),indent=2,sort_keys=True), '']
-          for target in [
-              '/tmp/fishsrc/tide/Tide-2-876b95f31328f4e698d5150f7d840ab033d1b06d/src/generated-1.21.1/resources/data/tide/fishing/fish/saltwater/tuna.json',
-              '/tmp/fishsrc/extra/data/aquaculture/fishing/fish/saltwater/tuna.json',
-              '/tmp/fishsrc/extra/data/nether_additions/fishing/fish/lava/lavacanth.json',
-              '/tmp/fishsrc/extra/data/luminousworld/fishing/fish/freshwater/trout.json',
-          ]:
-              p=pathlib.Path(target)
-              if p.exists(): out += [f'### SAMPLE {p}',json.dumps(json.loads(p.read_text()),indent=2,sort_keys=True),'']
-          troot=pathlib.Path('/tmp/fishsrc/tide/Tide-2-876b95f31328f4e698d5150f7d840ab033d1b06d/src/generated-1.21.1/resources')
-          candidates=[p for p in troot.rglob('*.json') if '/fishing/' in p.as_posix() and ('profile' in p.as_posix() or 'profiles' in p.as_posix())]
+
+          for root in [pathlib.Path('/tmp/fish-schema-src/tide'), pathlib.Path('/tmp/fish-schema-src/extra')]:
+              samples=[p for p in root.rglob('*.json') if '/fishing/fish/' in p.as_posix() and p.stem in {'tuna','trout','lavacanth'}]
+              for p in sorted(samples)[:8]:
+                  out += [f'### SAMPLE {p}', json.dumps(json.loads(p.read_text()),indent=2,sort_keys=True), '']
+
+          candidates=[p for p in pathlib.Path('/tmp/fish-schema-src/tide').rglob('*.json') if '/fishing/' in p.as_posix() and ('profile' in p.as_posix() or 'profiles' in p.as_posix())]
           out += [f'## Profile candidates: {len(candidates)}']
           for p in sorted(candidates)[:30]:
-              out += [str(p.relative_to(troot)), json.dumps(json.loads(p.read_text()),indent=2,sort_keys=True)]
+              out += [str(p), json.dumps(json.loads(p.read_text()),indent=2,sort_keys=True)]
+
           pathlib.Path('fish-schema-report.txt').write_text('\n'.join(out) + '\n')
 
       - name: Upload schema report
         uses: actions/upload-artifact@v4
         with:
           name: fish-schema-report
-          path: fish-schema-report.txt
+          path: |
+            fish-schema-report.txt
+            /tmp/fish-schema-src/resolved.json
           if-no-files-found: error
           retention-days: 30
