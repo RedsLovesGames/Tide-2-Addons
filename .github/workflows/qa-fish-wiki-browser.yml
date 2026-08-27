@@ -8,6 +8,7 @@ on:
       - fish/**
       - assets/**
       - scripts/qa-fish-wiki.mjs
+      - scripts/qa-fish-runtime-architecture.mjs
       - package.json
       - .github/workflows/qa-fish-wiki-browser.yml
   pull_request:
@@ -52,7 +53,7 @@ jobs:
           cat /tmp/tideborne-http.log
           exit 1
 
-      - name: Run browser QA
+      - name: Run browser and architecture QA
         env:
           QA_BASE_URL: http://127.0.0.1:8000/Tide-2-Addons
           QA_OUT: qa-artifacts
