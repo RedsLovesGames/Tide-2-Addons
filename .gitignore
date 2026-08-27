@@ -1,0 +1,36 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node / browser QA
+node_modules/
+qa-artifacts/
+playwright-report/
+test-results/
+
+# Gradle / Minecraft runtime
+**/.gradle/
+**/build/
+**/run/
+fishrender-output/
+
+# Source import / audit scratch
+.render-source-work/
+.fish-source-audit/
+render-source-artifact/
+render-exporter-artifact/
+
+# Temporary files
+*.tmp
+*.log
+*.swp
