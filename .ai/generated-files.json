@@ -1,5 +1,13 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
+  "canonicalInputs": {
+    "fish/render-bundles/current-runtime-export.zip": {
+      "kind": "binary runtime input",
+      "generatedByRepo": false,
+      "editDirectly": false,
+      "note": "Replace this one ZIP with a fresh Tide Fish Runtime Exporter bundle. The import workflow owns publication outputs derived from it."
+    }
+  },
   "files": {
     "assets/fish-wiki-data-0.json.gz": {
       "generatedBy": "scripts/build-fish-wiki.py",
@@ -20,23 +28,31 @@
     },
     "fish/render-data/registry/supported-fish-registry.json": {
       "generatedBy": "tools/fish-render-source/extract_fish_render_sources.py",
-      "editDirectly": false
+      "editDirectly": false,
+      "note": "Source-audit inventory only. It no longer decides which fish or images the published runtime render bundle contains."
     },
     "fish/render-data/registry/fish-source-file-index.json": {
       "generatedBy": "tools/fish-render-source/extract_fish_render_sources.py",
-      "editDirectly": false
+      "editDirectly": false,
+      "note": "Source/provenance inventory, not the published render authority."
     },
     "fish/render-data/registry/mod-render-registry.json": {
       "generatedBy": "tools/fish-render-source/extract_fish_render_sources.py",
-      "editDirectly": false
+      "editDirectly": false,
+      "note": "Source/provenance inventory, not the published render authority."
     },
     "assets/fish-render-manifest.json": {
-      "generatedBy": "Minecraft runtime render workflows / TideFishRenderExporter",
+      "generatedBy": "scripts/import-fish-runtime-bundle.py from fish/render-bundles/current-runtime-export.zip",
       "editDirectly": false
     },
     "fish/assets/renders/*.png": {
-      "generatedBy": "Minecraft runtime render workflows / TideFishRenderExporter",
+      "generatedBy": "scripts/import-fish-runtime-bundle.py from fish/render-bundles/current-runtime-export.zip",
       "editDirectly": false
+    },
+    "fish/render-data/runtime-bundle/*.json": {
+      "generatedBy": "scripts/import-fish-runtime-bundle.py from fish/render-bundles/current-runtime-export.zip",
+      "editDirectly": false,
+      "note": "Preserved runtime environment, catalog, renderer report, failures, and import report."
     }
   },
   "artifactOnlyReports": {
