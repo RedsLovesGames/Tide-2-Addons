@@ -2,7 +2,7 @@
 'use strict';
 const results=document.getElementById('fish-results'),legacyArticle=document.getElementById('fish-article'),catalog=document.getElementById('catalog-view');
 if(!results||!catalog)return;
-const FIXED_MAX_CM=600,clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+const FIXED_MAX_CM=1800,clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
 const esc=s=>String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=n=>Number.isFinite(Number(n))?Number(n).toLocaleString(undefined,{maximumFractionDigits:2}):'n/a';
 const fmt1=n=>Number.isFinite(Number(n))?Number(n).toLocaleString(undefined,{maximumFractionDigits:1}):'n/a';
