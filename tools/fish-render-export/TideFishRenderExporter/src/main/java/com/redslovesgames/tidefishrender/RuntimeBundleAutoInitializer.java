@@ -12,6 +12,7 @@ import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.lit
 public final class RuntimeBundleAutoInitializer implements ClientModInitializer {
     private static final String LEGACY_AUTO_MODE = System.getenv("TIDE_FISH_RENDER_AUTO");
     private static final boolean AUTO_ENABLED = !"false".equalsIgnoreCase(System.getenv("TIDE_FISH_RUNTIME_AUTO"));
+    private static final boolean EXIT_AFTER_EXPORT = "true".equalsIgnoreCase(System.getenv("TIDE_FISH_RUNTIME_EXIT_AFTER_EXPORT"));
 
     private static int readyTicks;
     private static boolean frameReady;
@@ -33,7 +34,7 @@ public final class RuntimeBundleAutoInitializer implements ClientModInitializer 
         if (legacyAutomationActive()) {
             System.out.println("FISHBUNDLE_AUTO_DISABLED reason=legacy_renderer_automation mode=" + LEGACY_AUTO_MODE);
         } else if (AUTO_ENABLED) {
-            System.out.println("FISHBUNDLE_AUTO_ARMED trigger=first_world_join");
+            System.out.println("FISHBUNDLE_AUTO_ARMED trigger=first_world_join exit_after_export=" + EXIT_AFTER_EXPORT);
         } else {
             System.out.println("FISHBUNDLE_AUTO_DISABLED reason=TIDE_FISH_RUNTIME_AUTO=false manual_command=/fishexport");
         }
@@ -106,6 +107,10 @@ public final class RuntimeBundleAutoInitializer implements ClientModInitializer 
             message(client, "Fish export failed: " + failure.getClass().getSimpleName() + ": " + String.valueOf(failure.getMessage()));
         } finally {
             running = false;
+            if (EXIT_AFTER_EXPORT) {
+                System.out.println("FISHBUNDLE_EXIT_REQUESTED");
+                client.scheduleStop();
+            }
         }
     }
 
