@@ -1,7 +1,7 @@
 (()=>{
 'use strict';
 
-const VERSION='catalog-v4';
+const VERSION='catalog-v3';
 const conditionBonus={parasite:15,parasite_ridden:15,scarred:25,albino:175,iridescent:325,perfect_specimen:350};
 let recordsById=new Map();
 let runtimeRenders={};
@@ -63,7 +63,7 @@ function runtimeFile(id){
 function runtimePreview(r){
   const file=runtimeFile(r.id);
   if(!file)return null;
-  return `<img class="runtime-fish-render catalog-runtime-render" src="${esc(file)}" alt="${esc(r.name)} source-authentic runtime render" loading="lazy" decoding="async">`;
+  return `<img class="runtime-fish-render catalog-runtime-render" style="display:block;width:100%;height:100%;object-fit:contain" src="${esc(file)}" alt="${esc(r.name)} source-authentic runtime render" loading="lazy" decoding="async">`;
 }
 
 function moveSortIntoSidebar(){
@@ -80,7 +80,8 @@ function modernizeCard(card){
   if(!r)return;
 
   const oldWindow=card.querySelector('.specimen-window');
-  const preview=runtimePreview(r)??(oldWindow?oldWindow.innerHTML:'');
+  const runtime=runtimePreview(r);
+  const preview=runtime??(oldWindow?oldWindow.innerHTML:'');
   const x=ranges(r);
   const starText=stars(r.stars);
   const rarity=title(r.rarity||'');
@@ -88,7 +89,7 @@ function modernizeCard(card){
   card.dataset.catalogDesign=VERSION;
   card.innerHTML=`
     <div class="fish-card-visual">
-      <div class="specimen-window"${runtimeFile(r.id)?` data-runtime-render="${esc(r.id)}"`:''}>${preview}</div>
+      <div class="specimen-window"${runtime?` data-runtime-render="${esc(r.id)}"`:''}>${preview}</div>
       <div class="catalog-stars" aria-label="${esc(r.stars||1)} star rarity" title="${esc(rarity)}">${starText}</div>
     </div>
     <div class="fish-card-content">
