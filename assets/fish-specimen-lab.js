@@ -76,7 +76,7 @@ function updatePhysicalScale(){
   const apply=()=>{
     const blocks=Math.max(.01,specimenState.length/100);
     const aspect=image?.naturalWidth&&image?.naturalHeight?image.naturalHeight/image.naturalWidth:.45;
-    const preferred=clamp(stage.clientWidth*.19,125,190);
+    const preferred=clamp(stage.clientWidth*.22,140,240);
     const horizontalRoom=Math.max(120,stage.clientWidth-120);
     const fitW=horizontalRoom/blocks;
 
