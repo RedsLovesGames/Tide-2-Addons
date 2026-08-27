@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "project": "Tideborne documentation and Fish Wiki",
+  "minecraftVersion": "1.21.1",
+  "documentedTideborneVersion": "1.3.57",
+  "branches": {
+    "integration": "dev",
+    "production": "main",
+    "devPreviewMayWriteMain": false
+  },
+  "upstream": {
+    "tide": "2.1.1",
+    "tideExtraCompatibility": "2.2.0",
+    "hybridAquaticBaselineRuntime": "1.5.5",
+    "hybridAquaticLateRuntimeCandidate": "1.6.9"
+  },
+  "fish": {
+    "authoritativeSupportedRegistryCount": 182,
+    "activeRenderScopeExpected": 156,
+    "canonicalRegistry": "fish/render-data/registry/supported-fish-registry.json",
+    "renderManifest": "assets/fish-render-manifest.json",
+    "modpackScope": "fish/render-data/modpack-scope.json"
+  },
+  "renderPolicy": "Only actual source-backed Minecraft/Tide renders may be published. Missing renders remain unavailable.",
+  "workflowPolicy": {
+    "normalDevelopmentBranch": "dev",
+    "productionPullRequestBase": "main",
+    "generatedOutputPublishing": "validated artifact or dev commit only; never dev-triggered commit to main",
+    "ciSourceMutation": "prohibited for checked-in Java/Gradle source"
+  },
+  "knownArchitectureDebt": [
+    "Fish Wiki frontend still contains layered legacy/redesign scripts and CSS that should be consolidated carefully after backend contracts are stable.",
+    "Some generated registries and reports are large and should eventually move behind clearer canonical-input/generated-output boundaries.",
+    "Renderer internals can still be split into focused strategies and reusable framebuffer/reporting components after workflow stabilization."
+  ],
+  "firstFilesForNewSession": [
+    "AGENTS.md",
+    ".ai/state.json",
+    ".ai/repo-map.json",
+    ".ai/generated-files.json"
+  ]
+}
