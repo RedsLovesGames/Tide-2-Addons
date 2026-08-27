@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "status": "ready_to_execute",
+  "preparedAtUtc": "2026-08-27T09:16:39Z",
+  "preparedFromDevHead": "cde7a393162a3e851d8f7b42d5bfb9d987cb658b",
+  "promptFile": ".ai/NEXT_DEVELOPMENT_PROMPT.md",
+  "phase": "frontend_runtime_consolidation_then_renderer_hardening",
+  "priority": 1,
+  "doNotRedoWithoutRegressionEvidence": [
+    "branch/workflow control-plane cleanup",
+    "dev-preview isolation from main",
+    "source-manifest centralization",
+    "render-manifest validator alignment",
+    "CI source-mutation removal"
+  ],
+  "currentVerifiedEvidence": {
+    "fastValidationRunId": 33057485099,
+    "fastValidationConclusion": "success",
+    "validatedCommit": "cde7a393162a3e851d8f7b42d5bfb9d987cb658b"
+  },
+  "primaryFrontendDebt": [
+    "FishData is independently loaded/decompressed by multiple production scripts.",
+    "FishScore and size-envelope rules are duplicated across multiple production scripts.",
+    "fish-catalog-redesign.js rewrites cards after render through MutationObserver.",
+    "fish-detail-nav.js applies modpack scope and runtime images after the base app renders.",
+    "fish-specimen-lab-stable.js is a versioned production owner and independently duplicates runtime data/rules."
+  ],
+  "targetFrontendOwners": {
+    "sharedRuntime": "one canonical shared Fish Wiki runtime/data module",
+    "catalogAndDetail": "assets/fish-wiki.js or a clean canonical replacement",
+    "specimenLab": "assets/fish-specimen-lab.js",
+    "browserQa": "scripts/qa-fish-wiki.mjs"
+  },
+  "filesExpectedToDisappearAfterVerifiedConsolidation": [
+    "assets/fish-catalog-redesign.js",
+    "assets/fish-detail-nav.js",
+    "assets/fish-specimen-lab-stable.js"
+  ],
+  "rendererHardeningAfterFrontendGreen": [
+    "replace message-substring failure classification with stable typed failure codes",
+    "add report schema/provenance metadata",
+    "improve exception-safe framebuffer/NativeImage/render-state lifecycle",
+    "investigate safe framebuffer reuse without changing source-authentic output",
+    "avoid unsafe skip-existing resumability without provenance proof"
+  ],
+  "completionEvidenceRequired": [
+    "fast validation green on final dev head",
+    "browser QA green with expanded consolidation assertions",
+    "Tide exporter build/smoke green if renderer code changes",
+    "tide:tuna one-fish source-authentic smoke if renderer code changes",
+    "Hybrid Aquatic baseline and late-runtime smoke evidence if direct entity rendering changes",
+    "state and repo map updated after final architecture changes"
+  ],
+  "externalManualSetting": "GitHub branch protection/rulesets for dev/main remain account-level manual work unless a write-capable connector becomes available."
+}
