@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "profiles": {
+    "hybrid-aquatic-baseline": {
+      "sourceMod": "hybrid_aquatic",
+      "version": "1.5.5",
+      "modrinthVersionId": "6EfLaKkB",
+      "gradle": {
+        "hybridAquaticVersion": "1.5.5",
+        "hybridAquaticModrinthVersion": "6EfLaKkB",
+        "hybridAquaticNamespaceMode": "hyphenated"
+      },
+      "orientation": {
+        "matrixYawDegrees": 90,
+        "dispatcherYawDegrees": 0
+      },
+      "purpose": "Stable baseline runtime for the normal Hybrid Aquatic Fish Wiki catalog."
+    },
+    "hybrid-aquatic-late-1.6.9": {
+      "sourceMod": "hybrid_aquatic",
+      "version": "1.6.9",
+      "modrinthVersionId": "F5POkJG0",
+      "gradle": {
+        "hybridAquaticVersion": "1.6.9",
+        "hybridAquaticModrinthVersion": "F5POkJG0",
+        "hybridAquaticJar": "run/hybrid-aquatic-1.6.9-devpatch.jar",
+        "hybridAquaticNamespaceMode": "canonical"
+      },
+      "orientation": {
+        "matrixYawDegrees": 90,
+        "dispatcherYawDegrees": 0
+      },
+      "bootstrapPatch": "Rename only the unrelated ArgonautEntity setGlowing/isGlowing dev-remap collision before Loom named remap. Fish classes/resources must remain byte-identical to the official jar.",
+      "purpose": "Validate fish entity types absent from the 1.5.5 baseline, currently Blobfish, Cichlid, and Trevally."
+    }
+  }
+}
