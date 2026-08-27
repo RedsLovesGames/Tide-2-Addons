@@ -1,7 +1,7 @@
 (()=>{
 'use strict';
 
-const VERSION='catalog-v3';
+const VERSION='catalog-v4';
 const conditionBonus={parasite:15,parasite_ridden:15,scarred:25,albino:175,iridescent:325,perfect_specimen:350};
 let recordsById=new Map();
 let runtimeRenders={};
@@ -114,8 +114,24 @@ function modernizeCard(card){
     </div>`;
 }
 
+function enforceRuntimeImages(){
+  document.querySelectorAll('#fish-results .fish-card').forEach(card=>{
+    const r=recordsById.get(card.dataset.id);
+    if(!r)return;
+    const runtime=runtimePreview(r);
+    if(!runtime)return;
+    const holder=card.querySelector('.specimen-window');
+    if(!holder)return;
+    if(!holder.querySelector('.catalog-runtime-render')){
+      holder.innerHTML=runtime;
+      holder.dataset.runtimeRender=r.id;
+    }
+  });
+}
+
 function modernizeCards(){
   document.querySelectorAll('#fish-results .fish-card').forEach(modernizeCard);
+  enforceRuntimeImages();
 }
 
 function install(){
@@ -134,9 +150,11 @@ Promise.all([
   runtimeRenders=manifest?.fish||{};
   install();
   const results=document.getElementById('fish-results');
-  if(results)new MutationObserver(()=>requestAnimationFrame(modernizeCards)).observe(results,{childList:true});
+  if(results)new MutationObserver(()=>requestAnimationFrame(modernizeCards)).observe(results,{childList:true,subtree:true});
   for(const id of ['filter-group','filter-mod','filter-rarity','filter-stars','filter-habitat','filter-preview','sort-fish','fish-search']){
     document.getElementById(id)?.addEventListener(id==='fish-search'?'input':'change',()=>requestAnimationFrame(modernizeCards));
   }
+  setTimeout(enforceRuntimeImages,100);
+  setTimeout(enforceRuntimeImages,500);
 }).catch(err=>console.error('Fish catalog redesign data load failed',err));
 })();
