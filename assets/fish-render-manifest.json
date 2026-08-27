@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedBy": "Tide Fish Render Exporter + Minecraft EntityRenderDispatcher (Hybrid Aquatic 1.5.5 baseline + 1.6.9 late fish)",
+  "generatedBy": "Tide Fish Render Exporter + Minecraft EntityRenderDispatcher",
   "pipelineStatus": "source_authentic_runtime",
   "policy": "Hybrid Aquatic images must come from actual Minecraft entity renderers. HA 1.5.5 runtime renders are published immediately when validated; species absent from 1.5.5 remain unavailable until their later-version runtime renderer is captured. The legacy custom geometry projector is never a publication fallback.",
   "counts": {
@@ -1077,7 +1077,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__anglerfish.png",
@@ -1091,7 +1091,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__barreleye.png",
@@ -1105,7 +1105,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__betta.png",
@@ -1134,7 +1134,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__blowfish.png",
@@ -1148,7 +1148,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__boxfish.png",
@@ -1162,7 +1162,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__carp.png",
@@ -1191,7 +1191,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__clownfish.png",
@@ -1205,7 +1205,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__coelacanth.png",
@@ -1219,7 +1219,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__damselfish.png",
@@ -1233,7 +1233,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__danio.png",
@@ -1247,7 +1247,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__discus.png",
@@ -1261,7 +1261,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__dragonfish.png",
@@ -1275,7 +1275,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__flashlight_fish.png",
@@ -1289,7 +1289,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__flying_fish.png",
@@ -1303,7 +1303,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__golden_dorado.png",
@@ -1317,7 +1317,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__goldfish.png",
@@ -1331,7 +1331,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__gourami.png",
@@ -1345,7 +1345,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__herring.png",
@@ -1359,7 +1359,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__john_dory.png",
@@ -1373,7 +1373,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__lionfish.png",
@@ -1387,7 +1387,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__mackerel.png",
@@ -1401,7 +1401,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__mahi.png",
@@ -1415,7 +1415,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__moray_eel.png",
@@ -1429,7 +1429,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__needlefish.png",
@@ -1443,7 +1443,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__oarfish.png",
@@ -1457,7 +1457,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__ocean_sunfish.png",
@@ -1471,7 +1471,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__opah.png",
@@ -1485,7 +1485,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__parrotfish.png",
@@ -1499,7 +1499,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__pearlfish.png",
@@ -1513,7 +1513,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__piranha.png",
@@ -1527,7 +1527,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__pleco.png",
@@ -1541,7 +1541,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__ratfish.png",
@@ -1555,7 +1555,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__rockfish.png",
@@ -1569,7 +1569,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__sea_bass.png",
@@ -1583,7 +1583,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__seahorse.png",
@@ -1597,7 +1597,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__sheepshead_wrasse.png",
@@ -1611,7 +1611,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__snailfish.png",
@@ -1625,7 +1625,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__squirrelfish.png",
@@ -1639,7 +1639,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__stingray.png",
@@ -1653,7 +1653,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__stonefish.png",
@@ -1667,7 +1667,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__sunfish.png",
@@ -1681,7 +1681,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__surgeonfish.png",
@@ -1695,7 +1695,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__tetra.png",
@@ -1709,7 +1709,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__tiger_barb.png",
@@ -1738,7 +1738,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__triggerfish.png",
@@ -1752,7 +1752,7 @@
       "renderer_mode": "minecraft_entity_dispatcher",
       "source_mod_version": "1.5.5",
       "source_modrinth_version_id": "6EfLaKkB",
-      "capture_orientation": "side_profile_matrix_y_90",
+      "capture_orientation": "side_profile_matrix_y_90_dispatcher_yaw_0",
       "variants": {
         "normal": {
           "file": "fish/assets/renders/hybrid_aquatic__tuna.png",
@@ -1775,6 +1775,9 @@
     "pending_later_runtime": [],
     "late_version": "1.6.9",
     "late_modrinth_version_id": "F5POkJG0",
-    "late_dev_runtime_bootstrap": "ArgonautEntity-only symbol collision patch before Loom named remap; no fish render source modified."
+    "late_dev_runtime_bootstrap": "ArgonautEntity-only symbol collision patch before Loom named remap; no fish render source modified.",
+    "baseline_version": "1.5.5",
+    "baseline_modrinth_version_id": "6EfLaKkB",
+    "baseline_validated": 46
   }
 }
