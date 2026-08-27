@@ -42,7 +42,7 @@ const stageResizeObserver='ResizeObserver' in window?new ResizeObserver(schedule
 const fact=(label,value,cls='')=>`<div class="fish-lab-fact ${cls}"><span>${esc(label)}</span><strong>${esc(value)}</strong></div>`;
 const viewLabel=blocks=>`${blocks} BLOCK${blocks===1?'':'S'} VIEW`;
 function defaultState(record){const body='normal',condition='normal',percentile=50;return {body,condition,percentile,length:runtime.lengthFromPercent(record,body,condition,percentile)};}
-function relatedFor(record){return runtime.records.filter(item=>item.id!==record.id&&(item.group===record.group||item.modKey===record.modKey)).sort((a,b)=>a.name.localeCompare(b.name)).slice(0,6);}
+function relatedFor(record){return runtime.records.filter(item=>item.id!==record.id&&(item.group===record.group||item.modKey===record.modKey)).sort((a,b)=>a.name.localeCompare(b.name)||a.id.localeCompare(b.id)).slice(0,6);}
 function formatCondition(condition){const entries=Object.entries(condition||{}).filter(([key])=>key!=='type');return entries.length?entries.map(([key,value])=>`${title(key)}: ${Array.isArray(value)?value.join(', '):typeof value==='object'?JSON.stringify(value):value}`).join(' · '):'Enabled';}
 function orderedRecords(){return [...runtime.records].sort((a,b)=>a.name.localeCompare(b.name)||a.id.localeCompare(b.id));}
 function adjacentId(direction){const list=orderedRecords(),index=list.findIndex(record=>record.id===openRecord?.id);return index<0?null:list[(index+direction+list.length)%list.length]?.id||null;}
@@ -87,17 +87,18 @@ function updateSpeciesScale(){
       scaleAspect=clamp(image.naturalHeight/image.naturalWidth,.05,4);
     }
     const aspect=scaleAspect??.45;
-    const groundHeight=clamp(stage.clientWidth*.05,48,72);
-    stage.style.setProperty('--ground-height-px',`${groundHeight}px`);
 
     const horizontalRoom=Math.max(120,shell?.clientWidth||stage.clientWidth-120);
-    const shellHeight=Math.max(80,shell?.clientHeight||stage.clientHeight-groundHeight-102);
+    const stageHeight=Math.max(320,stage.clientHeight||520);
     const horizontalBlockPx=horizontalRoom/scaleBlocks;
-    const verticalBlockPx=shellHeight/Math.max(maxSpecimenBlocks*aspect,.01);
+    const verticalBudgetPx=Math.max(80,stageHeight*.93-102);
+    const verticalBlockPx=verticalBudgetPx/(1+Math.max(maxSpecimenBlocks*aspect,.01));
     const blockWidthPx=Math.max(8,Math.min(horizontalBlockPx,verticalBlockPx));
+    const groundHeight=blockWidthPx;
     const viewportWidthPx=blockWidthPx*scaleBlocks;
     const fishPx=Math.max(4,specimenBlocks*blockWidthPx);
 
+    stage.style.setProperty('--ground-height-px',`${groundHeight}px`);
     stage.style.setProperty('--block-width-px',`${blockWidthPx}px`);
     stage.style.setProperty('--viewport-width-px',`${viewportWidthPx}px`);
     stage.style.setProperty('--fish-width',`${fishPx}px`);
