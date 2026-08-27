@@ -158,14 +158,3 @@ Promise.all([
   setTimeout(enforceRuntimeImages,500);
 }).catch(err=>console.error('Fish catalog redesign data load failed',err));
 })();
-
-/* Load the modal controller without rewriting the Fish Wiki document shell. */
-(()=>{
-  const css=document.querySelector('link[href*="fish-render-fit.css"]');
-  if(css)css.href='../assets/fish-render-fit.css?v=2';
-  if(document.querySelector('script[data-fish-modal-loader]'))return;
-  const script=document.createElement('script');
-  script.src='../assets/fish-detail-modal.js?v=2';
-  script.dataset.fishModalLoader='true';
-  document.head.append(script);
-})();
