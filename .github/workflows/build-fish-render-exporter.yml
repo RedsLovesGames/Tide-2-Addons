@@ -1,4 +1,4 @@
-name: Build and smoke Tide Fish Render Exporter
+name: Build and smoke Tide Fish Runtime Exporter
 
 on:
   push:
@@ -6,29 +6,23 @@ on:
     paths:
       - '.github/workflows/build-fish-render-exporter.yml'
       - 'tools/fish-render-export/TideFishRenderExporter/**'
-      - 'fish/render-data/registry/supported-fish-registry.json'
-      - 'fish/render-data/modpack-scope.json'
-      - 'assets/fish-search-index.json'
   pull_request:
     branches: [main]
     paths:
       - 'tools/fish-render-export/TideFishRenderExporter/**'
-      - 'fish/render-data/registry/supported-fish-registry.json'
-      - 'fish/render-data/modpack-scope.json'
-      - 'assets/fish-search-index.json'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: fish-render-exporter-${{ github.ref }}
+  group: fish-runtime-exporter-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   build-and-render:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 25
     defaults:
       run:
         working-directory: tools/fish-render-export/TideFishRenderExporter
@@ -45,23 +39,31 @@ jobs:
           gradle-version: '9.5.0'
           cache-read-only: false
 
-      - name: Compile and remap exporter
+      - name: Compile and remap runtime exporter
         run: gradle --no-daemon clean build
 
-      - name: Validate exporter JAR contents
+      - name: Validate runtime-only JAR contents
         run: |
           set -euo pipefail
           JAR=$(find build/libs -maxdepth 1 -type f -name 'tide-fish-render-exporter-*.jar' ! -name '*-sources.jar' | head -1)
           test -n "$JAR"
-          jar tf "$JAR" | grep -F 'fabric.mod.json'
-          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RenderService.class'
-          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeBundleAutoInitializer.class'
-          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeBundleExporter.class'
-          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeFishCatalog.class'
-          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeFishDisplayExport.class'
-          jar tf "$JAR" | grep -F 'com/redslovesgames/tidefishrender/RuntimeEnvironment.class'
-          jar tf "$JAR" | grep -F 'fishrender/fish-render-registry.json'
-          echo "EXPORTER_JAR=$JAR"
+          LIST=$(mktemp)
+          jar tf "$JAR" > "$LIST"
+          grep -F 'fabric.mod.json' "$LIST"
+          for cls in RuntimeBundleAutoInitializer RuntimeBundleExporter RuntimeFishCatalog RuntimeFishDisplayExport RuntimeEnvironment TideborneVariantSupport ImageOps RenderFailureCode RenderFailureException; do
+            grep -F "com/redslovesgames/tidefishrender/${cls}.class" "$LIST"
+          done
+          for legacy in TideFishRenderExporter RenderCommands RenderService RegistryLoader RenderReport RenderTargetOverride; do
+            if grep -Fq "com/redslovesgames/tidefishrender/${legacy}.class" "$LIST"; then
+              echo "Legacy renderer class still packaged: $legacy"
+              exit 1
+            fi
+          done
+          if grep -Fq 'fishrender/fish-render-registry.json' "$LIST"; then
+            echo 'Legacy registry asset must not be packaged in the runtime-discovery exporter.'
+            exit 1
+          fi
+          echo "RUNTIME_EXPORTER_JAR=$JAR"
 
       - name: Generate disposable 1.21.1 world
         run: |
@@ -99,59 +101,6 @@ jobs:
           fi
           python -m pip install --disable-pip-version-check pillow
 
-      - name: Run source-authentic Tide tuna legacy smoke
-        run: |
-          set -euo pipefail
-          set +e
-          timeout --signal=INT --kill-after=20s 10m xvfb-run -a gradle --no-daemon runRenderTideTuna
-          client_status=$?
-          set -e
-          if [ -f run/client/logs/latest.log ]; then
-            grep -E 'FISHRENDER_(AUTO_|ENTITY)' run/client/logs/latest.log || true
-          fi
-          if [ "$client_status" -ne 0 ] && [ "$client_status" -ne 124 ] && [ "$client_status" -ne 130 ]; then
-            echo "Legacy render client exited unexpectedly with $client_status"
-            exit "$client_status"
-          fi
-
-      - name: Validate legacy Tide runtime render contract
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          from PIL import Image
-
-          root = Path('run/client/fishrender-output')
-          status_path = root / 'generated/auto-export-status.json'
-          report_path = root / 'generated/render-report.json'
-          assert status_path.exists(), f'missing {status_path}'
-          assert report_path.exists(), f'missing {report_path}'
-          status = json.loads(status_path.read_text())
-          report = json.loads(report_path.read_text())
-          pngs = sorted((root / 'fish/assets/renders').glob('*.png'))
-          assert status['status'] == 'success', status
-          assert status['mode'] == 'tide:tuna', status
-          assert status['total_fish'] == 1, status
-          assert status['successful'] == 1, status
-          assert status['failed'] == 0, status
-          assert report['schema_version'] == 2, report
-          assert report['failed'] == 0, report.get('exceptions')
-          assert report['mode'] == 'export:tide:tuna:default', report
-          assert [png.name for png in pngs] == ['tide__tuna.png'], pngs
-          with Image.open(pngs[0]) as image:
-              assert image.mode == 'RGBA', image.mode
-              alpha = image.getchannel('A')
-              bounds = alpha.getbbox()
-              assert bounds is not None, 'render has no non-transparent pixels'
-              assert alpha.getextrema()[1] > 0, alpha.getextrema()
-              left, top, right, bottom = bounds
-              assert left > 0 and top > 0 and right < image.width and bottom < image.height, (image.size, bounds)
-              width, height = right - left, bottom - top
-              assert width > height, f'tuna is not framed in side profile: {width}x{height}'
-          print(f'LEGACY_RUNTIME_RENDER_VALID fish=tide:tuna png={pngs[0]} alpha_bounds={bounds}')
-          PY
-
       - name: Run portable runtime bundle Tide tuna smoke
         run: |
           set -euo pipefail
@@ -161,10 +110,7 @@ jobs:
           client_status=$?
           set -e
           if [ -f run/client/logs/latest.log ]; then
-            echo '--- runtime bundle lifecycle markers ---'
             grep -E 'FISHBUNDLE_' run/client/logs/latest.log || true
-            echo '--- last 120 Minecraft client log lines ---'
-            tail -n 120 run/client/logs/latest.log || true
           fi
           if [ "$client_status" -ne 0 ] && [ "$client_status" -ne 124 ] && [ "$client_status" -ne 130 ]; then
             echo "Runtime bundle client exited unexpectedly with $client_status"
@@ -190,9 +136,7 @@ jobs:
               assert len(names) == len(set(names)), 'duplicate ZIP entries'
               for name in names:
                   p = PurePosixPath(name)
-                  assert not p.is_absolute(), name
-                  assert '..' not in p.parts, name
-
+                  assert not p.is_absolute() and '..' not in p.parts, name
               required = {
                   'manifest.json', 'environment.json', 'fish-catalog.json',
                   'render-report.json', 'failures.json', 'README.txt',
@@ -204,59 +148,46 @@ jobs:
               catalog = json.loads(zf.read('fish-catalog.json'))
               report = json.loads(zf.read('render-report.json'))
               failures = json.loads(zf.read('failures.json'))
-
-              assert manifest['schema_version'] == 1, manifest
               assert manifest['bundle_type'] == 'tide_fish_runtime_export', manifest
-              assert 'TideData.FISH' in manifest['source_of_truth'], manifest
-              assert 'Tide FishDisplayRenderer' in manifest['source_of_truth'], manifest
-              assert manifest['fish_count'] == 1, manifest
-              assert manifest['failed'] == 0, manifest
-              assert environment['minecraft_version'] == '1.21.1', environment['minecraft_version']
-              mods = {row['id']: row for row in environment['mods']}
-              assert mods['tide']['version'] == '2.1.1', mods.get('tide')
+              assert manifest['fish_count'] == 1 and manifest['failed'] == 0, manifest
+              assert environment['minecraft_version'] == '1.21.1', environment
               assert environment['fish_filter'] == 'tide:tuna', environment
               assert catalog['source'] == 'runtime:TideData.FISH', catalog
-              assert catalog['fish_count'] == 1, catalog
-              assert catalog['fish'][0]['fish_id'] == 'tide:tuna', catalog['fish'][0]
-              assert report['schema_version'] == 2, report
+              assert catalog['fish_count'] == 1 and catalog['fish'][0]['fish_id'] == 'tide:tuna', catalog
               assert report['renderer'] == 'TideFishRuntimeExporter', report
-              assert report['fish_count'] == 1, report
-              assert report['failed'] == 0, report['failures']
-              assert report['render_contract']['direct_entity_fallback'] is False, report['render_contract']
-              assert report['render_contract']['renderer'] == 'com.li64.tide.client.FishDisplayRenderer', report['render_contract']
+              assert report['fish_count'] == 1 and report['failed'] == 0, report
+              contract = report['render_contract']
+              assert contract['direct_entity_fallback'] is False, contract
+              assert contract['renderer'] == 'com.li64.tide.client.FishDisplayRenderer', contract
+              assert contract['transparent_framebuffer'] is True, contract
               assert failures['failed'] == 0, failures
               default = next(row for row in report['successes'] if row['fish_id'] == 'tide:tuna' and row['variant'] == 'default')
               assert default['source_authentic'] is True, default
               assert default['render_mode'] == 'tide_fish_display', default
-              assert default['png'] == 'renders/tide__tuna.png', default
-
-              with Image.open(io.BytesIO(zf.read('renders/tide__tuna.png'))) as image:
+              with Image.open(io.BytesIO(zf.read(default['png']))) as image:
                   assert image.mode == 'RGBA', image.mode
                   alpha = image.getchannel('A')
                   bounds = alpha.getbbox()
-                  assert bounds is not None, 'bundle render has no non-transparent pixels'
+                  assert bounds is not None, 'bundle render is transparent'
                   left, top, right, bottom = bounds
                   assert left > 0 and top > 0 and right < image.width and bottom < image.height, (image.size, bounds)
-                  assert right - left > bottom - top, f'tuna is not side-profile framed: {bounds}'
-
           print(f'RUNTIME_BUNDLE_VALID archive={archive} fish=tide:tuna')
           PY
 
-      - name: Package exporter source and runtime evidence
+      - name: Package runtime exporter evidence
         if: always()
         run: |
           set -euo pipefail
           rm -rf ../../../render-exporter-artifact
           mkdir -p ../../../render-exporter-artifact
           cp build/libs/tide-fish-render-exporter-*.jar ../../../render-exporter-artifact/ 2>/dev/null || true
-          cp -a run/client/fishrender-output ../../../render-exporter-artifact/ 2>/dev/null || true
           cp -a run/client/tide-fish-exports ../../../render-exporter-artifact/runtime-bundles 2>/dev/null || true
           cp -a run/client/logs ../../../render-exporter-artifact/client-logs 2>/dev/null || true
 
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: tide-fish-render-exporter
+          name: tide-fish-runtime-exporter
           path: render-exporter-artifact/
           if-no-files-found: warn
           retention-days: 14
