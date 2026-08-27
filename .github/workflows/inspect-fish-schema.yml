@@ -2,21 +2,25 @@ name: Inspect Fish Data Schema
 
 on:
   push:
-    branches: [fish-wiki-production]
+    branches: [dev]
     paths:
       - .github/workflows/inspect-fish-schema.yml
+      - scripts/build-fish-wiki.py
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
         with:
-          ref: fish-wiki-production
+          python-version: '3.12'
+
       - name: Download sources
         shell: bash
         run: |
@@ -26,6 +30,7 @@ jobs:
           unzip -q /tmp/extra.zip -d /tmp/fishsrc/extra
           curl --fail --location --retry 3 'https://github.com/Lightning-64/Tide-2/archive/876b95f31328f4e698d5150f7d840ab033d1b06d.zip' -o /tmp/tide.zip
           unzip -q /tmp/tide.zip -d /tmp/fishsrc/tide
+
       - name: Inspect schemas
         shell: python
         run: |
@@ -47,7 +52,6 @@ jobs:
               out.append('')
               for p in sorted(files)[:3]:
                   out += [f'### {p.relative_to(root)}', json.dumps(json.loads(p.read_text()),indent=2,sort_keys=True), '']
-          # exact useful samples
           for target in [
               '/tmp/fishsrc/tide/Tide-2-876b95f31328f4e698d5150f7d840ab033d1b06d/src/generated-1.21.1/resources/data/tide/fishing/fish/saltwater/tuna.json',
               '/tmp/fishsrc/extra/data/aquaculture/fishing/fish/saltwater/tuna.json',
@@ -56,20 +60,17 @@ jobs:
           ]:
               p=pathlib.Path(target)
               if p.exists(): out += [f'### SAMPLE {p}',json.dumps(json.loads(p.read_text()),indent=2,sort_keys=True),'']
-          # profile-like candidates from Tide 1.21.1
           troot=pathlib.Path('/tmp/fishsrc/tide/Tide-2-876b95f31328f4e698d5150f7d840ab033d1b06d/src/generated-1.21.1/resources')
           candidates=[p for p in troot.rglob('*.json') if '/fishing/' in p.as_posix() and ('profile' in p.as_posix() or 'profiles' in p.as_posix())]
           out += [f'## Profile candidates: {len(candidates)}']
           for p in sorted(candidates)[:30]:
               out += [str(p.relative_to(troot)), json.dumps(json.loads(p.read_text()),indent=2,sort_keys=True)]
-          pathlib.Path('scripts/fish-schema-report.txt').write_text('\n'.join(out))
-      - name: Commit schema report
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add scripts/fish-schema-report.txt
-          git diff --cached --quiet && exit 0
-          git commit -m 'Inspect authoritative FishData schemas'
-          git push origin HEAD:fish-wiki-production
+          pathlib.Path('fish-schema-report.txt').write_text('\n'.join(out) + '\n')
+
+      - name: Upload schema report
+        uses: actions/upload-artifact@v4
+        with:
+          name: fish-schema-report
+          path: fish-schema-report.txt
+          if-no-files-found: error
+          retention-days: 30
