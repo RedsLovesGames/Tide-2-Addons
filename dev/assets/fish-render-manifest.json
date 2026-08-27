@@ -2,12 +2,12 @@
   "schemaVersion": 2,
   "generatedBy": "Tide Fish Render Exporter",
   "pipelineStatus": "source_authentic_partial",
-  "policy": "Only successful source-authentic runtime renders are published. Missing compatibility entries remain unavailable rather than using invented artwork.",
+  "policy": "Only source-authentic runtime or direct source-geometry renders are published. Missing compatibility entries remain unavailable rather than using invented artwork.",
   "counts": {
     "requested_fish": 156,
-    "supported_fish": 106,
-    "normal": 106,
-    "failed": 50,
+    "supported_fish": 155,
+    "normal": 155,
+    "failed": 1,
     "variant_renders": 0
   },
   "fish": {
@@ -1070,6 +1070,741 @@
           "status": "source_backed_runtime"
         }
       }
+    },
+    "hybrid_aquatic:anglerfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:anglerfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__anglerfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:barreleye": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:barreleye",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__barreleye.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:betta": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:betta",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__betta.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:blobfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:blobfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__blobfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:blowfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:blowfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__blowfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:boxfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:boxfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__boxfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:carp": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:carp",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__carp.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:cichlid": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:cichlid",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__cichlid.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:clownfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:clownfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__clownfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:coelacanth": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:coelacanth",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__coelacanth.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:damselfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:damselfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__damselfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:danio": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:danio",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__danio.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:discus": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:discus",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__discus.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:dragonfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:dragonfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__dragonfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:flashlight_fish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:flashlight_fish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__flashlight_fish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:flying_fish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:flying_fish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__flying_fish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:golden_dorado": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:golden_dorado",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__golden_dorado.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:goldfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:goldfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__goldfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:gourami": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:gourami",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__gourami.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:herring": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:herring",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__herring.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:john_dory": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:john_dory",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__john_dory.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:lionfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:lionfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__lionfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:mackerel": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:mackerel",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__mackerel.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:mahi": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:mahi",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__mahi.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:moray_eel": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:moray_eel",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__moray_eel.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:needlefish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:needlefish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__needlefish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:oarfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:oarfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__oarfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:ocean_sunfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:ocean_sunfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__ocean_sunfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:opah": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:opah",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__opah.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:parrotfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:parrotfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__parrotfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:pearlfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:pearlfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__pearlfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:piranha": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:piranha",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__piranha.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:pleco": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:pleco",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__pleco.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:ratfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:ratfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__ratfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:rockfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:rockfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__rockfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:sea_bass": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:sea_bass",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__sea_bass.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:seahorse": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:seahorse",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__seahorse.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:sheepshead_wrasse": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:sheepshead_wrasse",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__sheepshead_wrasse.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:snailfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:snailfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__snailfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:squirrelfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:squirrelfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__squirrelfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:stingray": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:stingray",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__stingray.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:stonefish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:stonefish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__stonefish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:sunfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:sunfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__sunfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:surgeonfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:surgeonfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__surgeonfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:tetra": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:tetra",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__tetra.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:tiger_barb": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:tiger_barb",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__tiger_barb.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:trevally": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:trevally",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__trevally.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:triggerfish": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:triggerfish",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__triggerfish.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
+    },
+    "hybrid_aquatic:tuna": {
+      "source": "Hybrid Aquatic 1.6.9 GeckoLib source geometry + entity texture",
+      "entity": "hybrid_aquatic:tuna",
+      "render_provenance": {
+        "mod_version": "1.6.9",
+        "modrinth_version_id": "F5POkJG0",
+        "method": "source_geometry_static_export"
+      },
+      "variants": {
+        "normal": {
+          "file": "fish/assets/renders/hybrid_aquatic__tuna.png",
+          "status": "source_backed_static_geometry"
+        }
+      }
     }
   },
   "unavailable": [
@@ -1077,251 +1812,6 @@
       "fish_id": "crittersandcompanions:koi_fish",
       "failure_class": "exception",
       "error": "java.lang.IllegalStateException: Tide FishData has no DisplayData for crittersandcompanions:koi_fish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:anglerfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:anglerfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:barreleye",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:barreleye"
-    },
-    {
-      "fish_id": "hybrid_aquatic:betta",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:betta"
-    },
-    {
-      "fish_id": "hybrid_aquatic:blobfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:blobfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:blowfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:blowfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:boxfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:boxfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:carp",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:carp"
-    },
-    {
-      "fish_id": "hybrid_aquatic:cichlid",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:cichlid"
-    },
-    {
-      "fish_id": "hybrid_aquatic:clownfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:clownfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:coelacanth",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:coelacanth"
-    },
-    {
-      "fish_id": "hybrid_aquatic:damselfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:damselfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:danio",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:danio"
-    },
-    {
-      "fish_id": "hybrid_aquatic:discus",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:discus"
-    },
-    {
-      "fish_id": "hybrid_aquatic:dragonfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:dragonfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:flashlight_fish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:flashlight_fish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:flying_fish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:flying_fish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:golden_dorado",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:golden_dorado"
-    },
-    {
-      "fish_id": "hybrid_aquatic:goldfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:goldfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:gourami",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:gourami"
-    },
-    {
-      "fish_id": "hybrid_aquatic:herring",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:herring"
-    },
-    {
-      "fish_id": "hybrid_aquatic:john_dory",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:john_dory"
-    },
-    {
-      "fish_id": "hybrid_aquatic:lionfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:lionfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:mackerel",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:mackerel"
-    },
-    {
-      "fish_id": "hybrid_aquatic:mahi",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:mahi"
-    },
-    {
-      "fish_id": "hybrid_aquatic:moray_eel",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:moray_eel"
-    },
-    {
-      "fish_id": "hybrid_aquatic:needlefish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:needlefish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:oarfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:oarfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:ocean_sunfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:ocean_sunfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:opah",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:opah"
-    },
-    {
-      "fish_id": "hybrid_aquatic:parrotfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:parrotfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:pearlfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:pearlfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:piranha",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:piranha"
-    },
-    {
-      "fish_id": "hybrid_aquatic:pleco",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:pleco"
-    },
-    {
-      "fish_id": "hybrid_aquatic:ratfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:ratfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:rockfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:rockfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:sea_bass",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:sea_bass"
-    },
-    {
-      "fish_id": "hybrid_aquatic:seahorse",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:seahorse"
-    },
-    {
-      "fish_id": "hybrid_aquatic:sheepshead_wrasse",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:sheepshead_wrasse"
-    },
-    {
-      "fish_id": "hybrid_aquatic:snailfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:snailfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:squirrelfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:squirrelfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:stingray",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:stingray"
-    },
-    {
-      "fish_id": "hybrid_aquatic:stonefish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:stonefish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:sunfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:sunfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:surgeonfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:surgeonfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:tetra",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:tetra"
-    },
-    {
-      "fish_id": "hybrid_aquatic:tiger_barb",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:tiger_barb"
-    },
-    {
-      "fish_id": "hybrid_aquatic:trevally",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:trevally"
-    },
-    {
-      "fish_id": "hybrid_aquatic:triggerfish",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:triggerfish"
-    },
-    {
-      "fish_id": "hybrid_aquatic:tuna",
-      "failure_class": "missing_item",
-      "error": "java.lang.IllegalStateException: Missing ItemStack item: hybrid_aquatic:tuna"
     }
   ]
 }
