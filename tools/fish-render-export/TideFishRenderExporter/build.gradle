@@ -81,6 +81,15 @@ processResources {
         from(repoRegistry) {
             into 'fishrender'
             rename { 'fish-render-registry.json' }
+            // Tide Extra Compatibility stores Hybrid Aquatic FishData under the
+            // compatibility namespace hybrid_aquatic, while the actual Fabric mod
+            // registers its entities under hybrid-aquatic. Keep fish IDs stable for
+            // the wiki, but resolve the real in-game EntityType namespace here.
+            filter { String line ->
+                line
+                    .replace('"entity_id": "hybrid_aquatic:', '"entity_id": "hybrid-aquatic:')
+                    .replace('"entity_namespace": "hybrid_aquatic"', '"entity_namespace": "hybrid-aquatic"')
+            }
         }
     }
     from("${projectDir}/../../../fish/render-data/modpack-scope.json") {
