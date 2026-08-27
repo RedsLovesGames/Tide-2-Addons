@@ -1,0 +1,23 @@
+/* Fish Wiki readability override. Typography only, intentionally no JS/runtime behavior. */
+.fish-page[data-fish-catalog-design="catalog-v4"] .fish-filters,
+.fish-page[data-fish-catalog-design="catalog-v4"] .fish-catalog{font-size:14px}
+.fish-page[data-fish-catalog-design="catalog-v4"] .filter-title strong,
+.fish-page[data-fish-catalog-design="catalog-v4"] .wiki-links strong{font-size:12px;letter-spacing:.06em}
+.fish-page[data-fish-catalog-design="catalog-v4"] .fish-filters label,
+.fish-page[data-fish-catalog-design="catalog-v4"] .fish-filters .sort-wrap{font-size:11px;line-height:1.3}
+.fish-page[data-fish-catalog-design="catalog-v4"] .fish-filters select{font-size:13px;line-height:1.2}
+.fish-page[data-fish-catalog-design="catalog-v4"] .wiki-links a{font-size:12px;line-height:1.45}
+.fish-page[data-fish-catalog-design="catalog-v4"] .category-nav{font-size:11px;line-height:1.3}
+.fish-page[data-fish-catalog-design="catalog-v4"] .result-line{font-size:12px;line-height:1.35}
+.fish-page[data-fish-catalog-design="catalog-v4"] .fish-card-mod{font-size:11px;line-height:1.25}
+.fish-page[data-fish-catalog-design="catalog-v4"] .fish-card-heading h2{font-size:1.25rem;line-height:1.2}
+.fish-page[data-fish-catalog-design="catalog-v4"] .fish-quick-row>span{font-size:11px;line-height:1.2}
+.fish-page[data-fish-catalog-design="catalog-v4"] .fish-quick-row>span small{font-size:10px;line-height:1.1}
+.fish-page[data-fish-catalog-design="catalog-v4"] .fish-quick-row strong{font-size:13px;line-height:1.25}
+.fish-page[data-fish-catalog-design="catalog-v4"] .fish-score-row strong{font-size:14px}
+.fish-page[data-fish-catalog-design="catalog-v4"] .catalog-stars{font-size:12px}
+@media(max-width:720px){
+  .fish-page[data-fish-catalog-design="catalog-v4"] .fish-card-mod{font-size:10px}
+  .fish-page[data-fish-catalog-design="catalog-v4"] .fish-quick-row>span{font-size:10px}
+  .fish-page[data-fish-catalog-design="catalog-v4"] .fish-quick-row strong{font-size:12px}
+}
